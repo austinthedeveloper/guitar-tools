@@ -11,6 +11,7 @@ export class ChordComponent implements OnChanges {
   @Input() rows = '6';
   built: any[] = [];
   @Input() startingFret = '0';
+  @Input() presses: any[] = []
 
   constructor() {
     this.buildRows();
@@ -25,10 +26,16 @@ export class ChordComponent implements OnChanges {
 
   private buildRows() {
     const builtStrings = Array(+this.strings).fill(0).map((x,i)=>i);
-
-
     this.built = Array(+this.rows).fill(builtStrings);
-    console.log('h', this.built, builtStrings);
+  }
+
+  toggleActive(fret: number, str: number): void {
+    const isActive = this.presses.find(v => (v.fret === fret.toString() && v.string === str.toString()))
+    if(isActive) {
+      this.presses = this.presses.filter(v => !(v.fret === fret.toString() && v.string === str.toString()))
+    } else {
+      this.presses = [...this.presses, {fret: fret.toString(), string: str.toString()}]
+    }
   }
 
 

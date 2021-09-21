@@ -16,21 +16,30 @@
     width: 50px;
     flex: 1;
     position: relative;
+    transition: .2s ease-in-out all;
+    cursor: pointer;
+    &:hover {
+      background-color: rgb(224, 224, 224);
+    }
   }
   .chord-press {
     $w: 12px;
     $half: $w / 2;
     width: $w;
     height: $w;
-    background-color: yellow;
     border-radius: 50%;
     position: absolute;
     top: calc(50% - #{$half});
     left: calc(50% - #{$half});
     cursor: pointer;
     transition: .2s ease-in-out all;
+    opacity: 0;
+    &:hover {
+      opacity: 1;
+    }
     &.active {
       background-color: blue;
+      opacity: 1;
     }
   }
 }
