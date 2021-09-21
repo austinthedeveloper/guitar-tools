@@ -33,6 +33,9 @@
     "guitar-front-e2e": {
       "tags": [],
       "implicitDependencies": ["guitar-front"]
+    },
+    "guitar-tools": {
+      "tags": []
     }
   }
 }
