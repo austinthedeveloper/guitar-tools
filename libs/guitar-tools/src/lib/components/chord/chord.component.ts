@@ -7,9 +7,10 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnCha
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChordComponent implements OnChanges {
-  @Input() strings = 6;
-  @Input() rows = 6;
+  @Input() strings = '6';
+  @Input() rows = '6';
   built: any[] = [];
+  @Input() startingFret = '0';
 
   constructor() {
     this.buildRows();
@@ -23,10 +24,11 @@ export class ChordComponent implements OnChanges {
   }
 
   private buildRows() {
-    const builtStrings = Array(this.strings).fill('').map((x,i)=>i);
-    console.log('h', builtStrings);
+    const builtStrings = Array(+this.strings).fill(0).map((x,i)=>i);
 
-    this.built = Array(this.rows).fill(builtStrings);
+
+    this.built = Array(+this.rows).fill(builtStrings);
+    console.log('h', this.built, builtStrings);
   }
 
 
