@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges } from '@angular/core';
-
+import {minBy} from 'lodash-es';
 @Component({
   selector: 'guitar-chord',
   templateUrl: './chord.component.html',
@@ -10,16 +10,19 @@ export class ChordComponent implements OnChanges {
   @Input() strings = '6';
   @Input() rows = '6';
   built: any[] = [];
-  @Input() startingFret = '0';
+  @Input() startingFret = '';
   @Input() presses: any[] = []
 
   constructor() {
     this.buildRows();
   }
 
-  ngOnChanges({strings, rows}: SimpleChanges): void {
+  ngOnChanges({strings, rows, presses}: SimpleChanges): void {
     if(strings || rows) {
       this.buildRows();
+    }
+    if(presses) {
+      this.setInitialFret();
     }
 
   }
@@ -27,6 +30,10 @@ export class ChordComponent implements OnChanges {
   private buildRows() {
     const builtStrings = Array(+this.strings).fill(0).map((x,i)=>i);
     this.built = Array(+this.rows).fill(builtStrings);
+  }
+
+  private setInitialFret() {
+    this.startingFret = this.startingFret || minBy(this.presses, press => +press.fret).fret;
   }
 
   toggleActive(fret: number, str: number): void {
