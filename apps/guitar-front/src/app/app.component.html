@@ -1,1 +1,2 @@
-<guitar-chord></guitar-chord>
+<guitar-chord  [presses]="form.value.presses" (pressesChanged)="onPressChange($event)"></guitar-chord>
+<pre>{{form.value | json}}</pre>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'guitar-root',
@@ -7,4 +8,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'guitar-front';
+  presses: any[] = [
+  {
+    fret: '1',
+    string: '5',
+  }
+  ]
+  form = this.fb.group({
+    presses: this.fb.control([])
+  })
+  constructor(private fb: FormBuilder) {
+    this.form.patchValue({presses: this.presses})
+  }
+
+  onPressChange($event: any) {
+    this.form.get('presses')?.patchValue($event)
+  }
 }
