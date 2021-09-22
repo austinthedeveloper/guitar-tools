@@ -11,7 +11,7 @@ export class ChordComponent implements OnChanges {
   @Input() strings = '6';
   @Input() rows = '6';
   built: any[] = [];
-  @Input() startingFret = '';
+  @Input() startingFret = '1';
   @Input() disabled = false;
   @Input() presses: PressInterface[] = [];
   @Output() stringPressed = new EventEmitter();
@@ -26,6 +26,8 @@ export class ChordComponent implements OnChanges {
       this.buildRows();
     }
     if(presses) {
+      console.log('presses', this.presses);
+
       this.setInitialFret();
     }
 
@@ -37,7 +39,9 @@ export class ChordComponent implements OnChanges {
   }
 
   private setInitialFret() {
-    this.startingFret = this.startingFret || minBy(this.presses, press => +press.fret)?.fret || '0';
+    console.log('hit', this.startingFret, minBy(this.presses, press => +press.fret)?.fret);
+
+    this.startingFret = this.startingFret || minBy(this.presses, press => +press.fret)?.fret || '1';
   }
 
   toggleActive(fret: number, str: number): void {

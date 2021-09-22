@@ -1,2 +1,7 @@
-<guitar-chord  [presses]="form.value.presses" (pressesChanged)="onPressChange($event)"></guitar-chord>
-<pre>{{form.value | json}}</pre>
+<!-- <guitar-chord  [presses]="form.value.presses" (pressesChanged)="onPressChange($event)"></guitar-chord> -->
+<guitar-chord [presses]="formPress.value"  (pressesChanged)="onPressChange($event)"></guitar-chord>
+<select [formControl]="formId">
+  <option *ngFor="let chord of chords" [value]="chord.id">Chord {{chord.name}}</option>
+</select>
+<pre>{{form.value.presses | json}}</pre>
+<pre>{{chords | json}}</pre>

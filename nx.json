@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "data": {
+      "tags": []
+    },
     "guitar-front": {
       "tags": []
     },
