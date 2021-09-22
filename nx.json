@@ -39,6 +39,9 @@
     },
     "helpers": {
       "tags": []
+    },
+    "interfaces": {
+      "tags": []
     }
   }
 }

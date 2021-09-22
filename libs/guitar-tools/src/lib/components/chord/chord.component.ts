@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnChanges, EventEmitter, Output } from '@angular/core';
 import {minBy, orderBy} from 'lodash-es';
+import {PressInterface} from '@guitar/interfaces'
 @Component({
   selector: 'guitar-chord',
   templateUrl: './chord.component.html',
@@ -12,7 +13,7 @@ export class ChordComponent implements OnChanges {
   built: any[] = [];
   @Input() startingFret = '';
   @Input() disabled = false;
-  @Input() presses: any[] = [];
+  @Input() presses: PressInterface[] = [];
   @Output() stringPressed = new EventEmitter();
   @Output() pressesChanged = new EventEmitter();
 
@@ -36,7 +37,7 @@ export class ChordComponent implements OnChanges {
   }
 
   private setInitialFret() {
-    this.startingFret = this.startingFret || minBy(this.presses, press => +press.fret).fret;
+    this.startingFret = this.startingFret || minBy(this.presses, press => +press.fret)?.fret || '0';
   }
 
   toggleActive(fret: number, str: number): void {
