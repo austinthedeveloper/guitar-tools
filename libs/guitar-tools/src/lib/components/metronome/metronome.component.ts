@@ -28,14 +28,10 @@ export class MetronomeComponent implements OnInit, OnChanges {
   private intervalSet(int = this.bpm) {
     const test = (60 / int )* 1000;
     return interval(test).pipe(
-      tap(res => console.log('timeout', new Date())),
+      // tap(res => console.log('timeout', new Date())),
       map(res => true),
       map(res => false),
       )
-    // return setInterval(() => {
-    //   console.log('timeout', new Date());
-
-    // }, test);
   }
 
 }
