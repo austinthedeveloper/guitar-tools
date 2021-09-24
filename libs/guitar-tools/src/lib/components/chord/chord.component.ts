@@ -15,6 +15,7 @@ export class ChordComponent implements OnChanges {
   built: any[] = [];
   @Input() startingFret = '1';
   @Input() disabled = false;
+  @Input() removeDuplicate = true;
   @Input() presses: PressInterface[] = [];
   @Output() stringPressed = new EventEmitter();
   @Output() pressesChanged = new EventEmitter();
