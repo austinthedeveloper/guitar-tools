@@ -5,4 +5,5 @@
       <div class="chord-press" [title]="tuningChart[+string].scale[+startingFret + i]" [ngClass]="{'active': presses | includesString:(+startingFret + i):(6-+string)}"></div>
     </div>
   </div>
+  <div class="active-presses">{{presses | activePresses:tuningChart | json}}</div>
 </div>

@@ -13,7 +13,7 @@ export class ChordComponent implements OnChanges {
   @Input() rows = '6';
   @Input() tuning = 'standard';
   built: any[] = [];
-  @Input() startingFret = '0';
+  @Input() startingFret = '1';
   @Input() disabled = false;
   @Input() presses: PressInterface[] = [];
   @Output() stringPressed = new EventEmitter();
