@@ -1,8 +1,8 @@
 <div class="chord-chart chord-vertical">
-  <div class="chord-fret" *ngFor="let fret of built; let i = index">
+  <div class="chord-fret" *ngFor="let fret of built; let i = index;">
     <span class="chort-fret-number">{{+startingFret + i}}</span>
     <div class="chord-string" *ngFor="let string of fret" (click)="toggleActive((+startingFret + i), (6-+string))">
-      <div class="chord-press" [ngClass]="{'active': presses | includesString:(+startingFret + i):(6-+string)}"></div>
+      <div class="chord-press" [title]="tuningChart[+string].scale[+startingFret + i]" [ngClass]="{'active': presses | includesString:(+startingFret + i):(6-+string)}"></div>
     </div>
   </div>
 </div>
