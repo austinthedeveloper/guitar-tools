@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, SimpleChanges, OnCha
 import {minBy, orderBy} from 'lodash-es';
 import {PressInterface, TuningChart} from '@guitar/interfaces'
 import { GUITAR_TUNING, scaleStartWith } from '@guitar/helpers';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'guitar-chord',
   templateUrl: './chord.component.html',
@@ -13,7 +14,7 @@ export class ChordComponent implements OnChanges {
   @Input() rows = '6';
   @Input() tuning = 'standard';
   built: any[] = [];
-  @Input() startingFret = '1';
+  @Input() startingFret = '';
   @Input() disabled = false;
   @Input() removeDuplicate = true;
   @Input() presses: PressInterface[] = [];
@@ -22,9 +23,12 @@ export class ChordComponent implements OnChanges {
 
   tuningChart: TuningChart[] = [];
 
+  form: FormControl = new FormControl('')
+
   constructor() {
     this.buildRows();
     this.buildTuningChart();
+    this.setInitialFret();
   }
 
   ngOnChanges({strings, rows, presses, tuning}: SimpleChanges): void {
@@ -46,7 +50,14 @@ export class ChordComponent implements OnChanges {
   }
 
   private setInitialFret(): void {
-    this.startingFret = this.startingFret || minBy(this.presses, press => +press.fret)?.fret || '1';
+    this.form.patchValue(this.getFretValue());
+  }
+
+  private getFretValue(): string {
+    const hasStartFret: boolean = (+this.startingFret) > 0;
+    if(hasStartFret) {return this.startFret.toString();}
+    const minByFret: string = minBy(this.presses, press => +press.fret)?.fret as string;
+    return (Number(minByFret) > 0) ? minByFret : '1';
   }
 
   private buildTuningChart(): void {
@@ -76,5 +87,7 @@ export class ChordComponent implements OnChanges {
     this.pressesChanged.emit(ordered);
   }
 
-
+  get startFret(): number {
+    return +(this.form.value as string);
+  }
 }
