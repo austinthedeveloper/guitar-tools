@@ -11,7 +11,7 @@ export interface ChordInterface {
 
 export class ChordClass implements ChordInterface{
   fret = '';
-  position = '1';
+  position = '';
   name = '';
   presses: PressInterface[] = [];
   id = generateId();

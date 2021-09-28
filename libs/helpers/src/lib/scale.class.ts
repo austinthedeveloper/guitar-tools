@@ -1,4 +1,4 @@
-export const SCALE = ['A', 'A #', 'B', 'C', 'C #', 'D', 'D #', 'E', 'F', 'F #', 'G'];
+export const SCALE = ['A', 'A #', 'B', 'C', 'C #', 'D', 'D #', 'E', 'F', 'F #', 'G', 'G #'];
 
 export function scaleStartWith(key: string): string[] {
   const index: number = SCALE.indexOf(key);
