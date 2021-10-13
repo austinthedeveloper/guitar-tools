@@ -37,8 +37,12 @@
     &:hover {
       opacity: 1;
     }
-    &.active {
+    &.active, &.pressed {
       background-color: blue;
+      opacity: 1;
+    }
+    &.muted {
+      background-color: #CCC;
       opacity: 1;
     }
   }

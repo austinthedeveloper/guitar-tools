@@ -72,12 +72,28 @@ export class ChordComponent implements OnChanges {
 
   toggleActive(fret: number, str: number): void {
     if(this.disabled) return;
-    const isActive = this.presses.find(v => (v.fret === fret.toString() && v.string === str.toString()))
+    const isActive = this.presses.find(v => (v.fret === fret.toString() && v.string === str.toString()));
+    // isActive.type = 'farts';
+    console.log('isActive', isActive);
+
     this.stringPressed.emit({fret: fret.toString(), string: str.toString()});
     if(isActive) {
-      this.presses = this.presses.filter(v => !(v.fret === fret.toString() && v.string === str.toString()))
+      switch (isActive.type) {
+        case 'pressed':
+          isActive.type = 'muted';
+          break;
+
+        case 'muted': {
+          this.presses = this.presses.filter(v => !(v.fret === fret.toString() && v.string === str.toString()))
+        }
+          break;
+      }
+      // isActive.type = 'farts';
+      console.log('hit', this.presses, isActive);
+
+      // this.presses = this.presses.filter(v => !(v.fret === fret.toString() && v.string === str.toString()))
     } else {
-      this.presses = [...this.presses, {fret: fret.toString(), string: str.toString()}]
+      this.presses = [...this.presses, {fret: fret.toString(), string: str.toString(), type: 'pressed'}]
     }
     this.onPressChange();
   }

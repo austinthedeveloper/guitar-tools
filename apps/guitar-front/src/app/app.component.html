@@ -1,4 +1,3 @@
-<guitar-metronome></guitar-metronome>
 <guitar-chord [presses]="formPress.value"  (pressesChanged)="onPressChange($event)"></guitar-chord>
 <select [formControl]="formId">
   <option *ngFor="let chord of chords" [value]="chord.id">Chord {{chord.name}}{{chord.position ? ' - ' + chord.position : ''}}</option>

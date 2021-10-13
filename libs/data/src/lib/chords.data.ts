@@ -91,7 +91,6 @@ return scaleStartWith('E').map((string, index) => {
   return new ChordClass(string, undefined, chords, '3');
 });
 }
-console.log('test', CHORDS_MOCK_POSITION_3());
 
 export const CHORDS_MOCK: ChordInterface[] = [
   new ChordClass('G', undefined, [

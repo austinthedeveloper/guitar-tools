@@ -8,7 +8,7 @@
   <div class="chord-fret" *ngFor="let fret of built; let i = index;">
     <span class="chort-fret-number">{{startFret + i}}</span>
     <div class="chord-string" *ngFor="let string of fret" (click)="toggleActive((startFret + i), (6-+string))">
-      <div class="chord-press" [title]="tuningChart[+string].scale[startFret + i]" [ngClass]="{'active': presses | includesString:(startFret + i):(6-+string)}"></div>
+      <div class="chord-press" [title]="tuningChart[+string].scale[startFret + i]" [ngClass]="presses | stringType:(startFret + i):(6-+string)"></div>
     </div>
   </div>
   <div class="active-presses">{{presses | activePresses:tuningChart:removeDuplicate | json}}</div>

@@ -3,7 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ChordComponent } from './components/chord/chord.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
-import { ActivePressesPipe, IncludesStringPipe} from './pipes';
+import { IncludesStringPipe,
+    ActivePressesPipe,
+    IsMutedPipe,
+    StringTypePipe} from './pipes';
 
 @NgModule({
   imports: [CommonModule],
@@ -12,7 +15,9 @@ import { ActivePressesPipe, IncludesStringPipe} from './pipes';
     ChartComponent,
     MetronomeComponent,
     IncludesStringPipe,
-    ActivePressesPipe
+    ActivePressesPipe,
+    IsMutedPipe,
+    StringTypePipe
   ],
   exports: [
     ChordComponent,
