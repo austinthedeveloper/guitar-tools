@@ -8,7 +8,7 @@
           {{activePress.position}}
         </div>
         <ng-template #noPress>
-          <div class="badge rounded-pill bg-info text-light fret-active-press" (click)="setActiveNew(i, fi)" >
+          <div class="badge rounded-pill bg-info text-light fret-active-press fret-active-new " (click)="setActiveNew(i, fi)" >
          Add
         </div>
         </ng-template>
@@ -18,10 +18,11 @@
     </div>
   </div>
 </div>
-<form>
-  <div class="col" [formGroup]="form">
-    <label for="position" class="form-label">Position</label>
-    <input type="number" class="form-control" id="position" formControlName="position">
-  </div>
+<form [formGroup]="form">
+  <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Position" formControlName="position">
   <button class="btn btn-primary" (click)="save(form.value)" [disabled]="form.invalid || form.pristine">Save</button>
+</div>
 </form>
+<!-- <pre>{{form.value | json}}</pre>
+<pre>{{tabs | json}}</pre> -->

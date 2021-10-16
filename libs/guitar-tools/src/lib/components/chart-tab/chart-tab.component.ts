@@ -51,7 +51,8 @@ setActiveNew(order: number, string: number, ) {
 
 save(activePress: ChartTabNote) {
   activePress.position = activePress.position.toString();
-  this.tabs = [...this.tabs, activePress];
+  const filtered = this.tabs.filter(item => !(item.string === activePress.string && item.order === activePress.order));
+  this.tabs = [...filtered, activePress];
 this.tabChange.emit(this.tabs);
 }
 

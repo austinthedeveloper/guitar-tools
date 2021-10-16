@@ -49,7 +49,7 @@
 }
 
 .chart-tab {
-  height: 300px;
+  height: 250px;
   .chart-row {
     border-right: 2px solid #000;
 
@@ -57,9 +57,19 @@
   .fret {
     height: 30px;
     border-bottom: 1px solid #000;
+    &:hover {
+      .fret-active-new {
+        opacity: 1;
+      }
+    }
   }
   .fret-active-press {
     font-size: 11px;
+    cursor: pointer;
+  }
+  .fret-active-new {
+    transition: .2s all ease-in-out;
+    opacity: 0;
   }
 
 }
