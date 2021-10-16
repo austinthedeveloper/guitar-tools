@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import {TABS_DATA} from '@guitar/data';
+import {ChartTabNote} from '@guitar/interfaces'
 @Component({
   selector: 'guitar-chart-tab',
   templateUrl: './chart-tab.component.html',
@@ -9,9 +11,15 @@ import {TABS_DATA} from '@guitar/data';
 export class ChartTabComponent implements OnChanges {
 @Input() strings = '6';
 @Input() columns = 26;
-@Input() tabs = TABS_DATA;
+@Input() tabs: ChartTabNote[] = TABS_DATA;
+@Output() tabChange: EventEmitter<ChartTabNote[]> = new EventEmitter();
 built: any[] = [];
-  constructor() {
+form = this.fb.group({
+  string: this.fb.control('', [Validators.required]),
+  position: this.fb.control('', [Validators.required]),
+  order: this.fb.control('', [Validators.required]),
+})
+  constructor(private fb: FormBuilder) {
     this.mapStuff();
    }
 
@@ -23,8 +31,28 @@ ngOnChanges({strings, columns}: SimpleChanges): void {
 private mapStuff() {
   const builtStrings = Array(+this.strings).fill(0).map((x,i)=>i);
   this.built = Array(+this.columns).fill(builtStrings);
-  console.log('built', this.built);
+}
 
+get colWidth(): string {
+  return `${(100 / this.columns).toString()}%`
+}
+
+setActive(activePress: ChartTabNote) {
+  this.form.reset();
+  this.form.patchValue(activePress)
+}
+
+setActiveNew(order: number, string: number, ) {
+  this.form.reset();
+  this.form.patchValue({
+    string: string.toString(), order: order.toString()
+  })
+}
+
+save(activePress: ChartTabNote) {
+  activePress.position = activePress.position.toString();
+  this.tabs = [...this.tabs, activePress];
+this.tabChange.emit(this.tabs);
 }
 
 }

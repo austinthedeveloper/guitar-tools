@@ -9,9 +9,10 @@ import { IncludesStringPipe,
     StringTypePipe,
     TabStringTypePipe} from './pipes';
 import { ChartTabComponent } from './components/chart-tab/chart-tab.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [
     ChordComponent,
     ChartComponent,

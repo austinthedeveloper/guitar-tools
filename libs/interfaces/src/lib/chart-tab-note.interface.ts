@@ -1,5 +1,5 @@
 export interface ChartTabNote {
-  fret: string;
+  string: string;
   position: string;
   order: string;
 }
