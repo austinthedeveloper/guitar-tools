@@ -47,3 +47,19 @@
     }
   }
 }
+
+.chart-tab {
+  height: 300px;
+  .chart-row {
+    border-right: 2px solid #000;
+
+  }
+  .fret {
+    height: 30px;
+    border-bottom: 1px solid #000;
+  }
+  .fret-active-press {
+    font-size: 11px;
+  }
+
+}

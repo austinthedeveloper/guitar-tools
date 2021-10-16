@@ -47,6 +47,8 @@ export class ChordComponent implements OnChanges {
   private buildRows(): void {
     const builtStrings = Array(+this.strings).fill(0).map((x,i)=>i);
     this.built = Array(+this.rows).fill(builtStrings);
+    console.log('chord build', this.built);
+
   }
 
   private setInitialFret(): void {
@@ -73,8 +75,6 @@ export class ChordComponent implements OnChanges {
   toggleActive(fret: number, str: number): void {
     if(this.disabled) return;
     const isActive = this.presses.find(v => (v.fret === fret.toString() && v.string === str.toString()));
-    // isActive.type = 'farts';
-    console.log('isActive', isActive);
 
     this.stringPressed.emit({fret: fret.toString(), string: str.toString()});
     if(isActive) {
@@ -88,10 +88,6 @@ export class ChordComponent implements OnChanges {
         }
           break;
       }
-      // isActive.type = 'farts';
-      console.log('hit', this.presses, isActive);
-
-      // this.presses = this.presses.filter(v => !(v.fret === fret.toString() && v.string === str.toString()))
     } else {
       this.presses = [...this.presses, {fret: fret.toString(), string: str.toString(), type: 'pressed'}]
     }

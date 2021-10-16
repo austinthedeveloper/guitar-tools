@@ -6,7 +6,9 @@ import { MetronomeComponent } from './components/metronome/metronome.component';
 import { IncludesStringPipe,
     ActivePressesPipe,
     IsMutedPipe,
-    StringTypePipe} from './pipes';
+    StringTypePipe,
+    TabStringTypePipe} from './pipes';
+import { ChartTabComponent } from './components/chart-tab/chart-tab.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -14,15 +16,18 @@ import { IncludesStringPipe,
     ChordComponent,
     ChartComponent,
     MetronomeComponent,
+    ChartTabComponent,
     IncludesStringPipe,
     ActivePressesPipe,
     IsMutedPipe,
-    StringTypePipe
+    StringTypePipe,
+    TabStringTypePipe
   ],
   exports: [
     ChordComponent,
     ChartComponent,
     MetronomeComponent,
+    ChartTabComponent,
   ],
 })
 export class GuitarToolsModule {}

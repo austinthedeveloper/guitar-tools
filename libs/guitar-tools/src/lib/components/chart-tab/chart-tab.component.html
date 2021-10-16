@@ -1,0 +1,14 @@
+<div class="chart-tab container">
+  <div class="row">
+    <div class="col chart-row" *ngFor="let column of built; let i = index">
+      <div class="row fret" *ngFor="let fret of column; let fi = index">
+        <div class="col">
+          <div class="badge rounded-pill bg-primary text-light fret-active-press" *ngIf="tabs | tabStringType:(+i):fi as activePress">
+          {{activePress.position}}
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
