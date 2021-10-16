@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import {TABS_DATA} from '@guitar/data';
+import {TABS_DATA, TABS_DATA_DEMO} from '@guitar/data';
 import {ChartTabNote} from '@guitar/interfaces'
 @Component({
   selector: 'guitar-chart-tab',
@@ -11,7 +11,7 @@ import {ChartTabNote} from '@guitar/interfaces'
 export class ChartTabComponent implements OnChanges {
 @Input() strings = '6';
 @Input() columns = 26;
-@Input() tabs: ChartTabNote[] = TABS_DATA;
+@Input() tabs: ChartTabNote[] = TABS_DATA_DEMO;
 @Output() tabChange: EventEmitter<ChartTabNote[]> = new EventEmitter();
 built: any[] = [];
 form = this.fb.group({

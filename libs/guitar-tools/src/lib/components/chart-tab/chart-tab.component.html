@@ -2,7 +2,7 @@
   <div class="row">
     <div class="chart-row" *ngFor="let column of built; let i = index" [ngStyle]="{'width': colWidth}">
       <div class="row fret" *ngFor="let fret of column; let fi = index">
-        <div class="col">
+        <div class="col p-0 text-center">
           <div *ngIf="tabs | tabStringType:i:fi as activePress; else noPress" class="badge rounded-pill bg-primary text-light fret-active-press"
           (click)="setActive(activePress)" >
           {{activePress.position}}

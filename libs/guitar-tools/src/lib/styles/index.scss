@@ -51,24 +51,41 @@
 .chart-tab {
   height: 250px;
   .chart-row {
-    border-right: 2px solid #000;
+    transition: .2s all ease-in-out;
+    border-right: 2px solid transparent;
+  }
+  &:hover {
+    .chart-row {
+    border-color: #000;
 
+  }
   }
   .fret {
     height: 30px;
-    border-bottom: 1px solid #000;
+    position: relative;
+    &::before {
+      content: '';
+      height: 1px;
+      background-color: #000;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      z-index: -1;
+    }
     &:hover {
-      .fret-active-new {
+      .fret-active-press {
         opacity: 1;
+        transform: scale(1.2);
       }
     }
   }
   .fret-active-press {
     font-size: 11px;
+     transition: .2s all ease-in-out;
     cursor: pointer;
   }
   .fret-active-new {
-    transition: .2s all ease-in-out;
+
     opacity: 0;
   }
 
