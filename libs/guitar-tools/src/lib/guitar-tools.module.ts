@@ -10,6 +10,7 @@ import { IncludesStringPipe,
     TabStringTypePipe} from './pipes';
 import { ChartTabComponent } from './components/chart-tab/chart-tab.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FretboardComponent } from './components/fretboard/fretboard.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -18,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChartComponent,
     MetronomeComponent,
     ChartTabComponent,
+    FretboardComponent,
     IncludesStringPipe,
     ActivePressesPipe,
     IsMutedPipe,
@@ -29,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChartComponent,
     MetronomeComponent,
     ChartTabComponent,
+    FretboardComponent
   ],
 })
 export class GuitarToolsModule {}

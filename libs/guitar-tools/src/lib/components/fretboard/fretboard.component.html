@@ -1,0 +1,12 @@
+<div class="chart-tab container">
+  <div class="row">
+    <div class="chart-row" *ngFor="let column of built; let i = index" [ngStyle]="{'width': colWidth}">
+      <div class="row fret" *ngFor="let string of column">
+        <div class="col p-0 text-center">
+          <div class="chord-press" [ngClass]="tabs | stringType:(i):(6-+string)" (click)="toggleActive((i), (6-+string))"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pre>{{tabs | json}}</pre>

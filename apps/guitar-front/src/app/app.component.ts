@@ -8,7 +8,32 @@ import {CHORDS_MOCK_SORTED} from '@guitar/data'
 })
 export class AppComponent {
   title = 'guitar-front';
-  presses: any[] = [ ]
+  presses: any[] = [
+  {
+    "fret": "3",
+    "string": "1"
+  },
+  {
+    "fret": "3",
+    "string": "2"
+  },
+  {
+    "fret": "3",
+    "string": "6"
+  },
+  {
+    "fret": "4",
+    "string": "3"
+  },
+  {
+    "fret": "5",
+    "string": "4"
+  },
+  {
+    "fret": "5",
+    "string": "5"
+  }
+]
   form = this.fb.group({
     presses: this.fb.control([]),
     id: this.fb.control(''),

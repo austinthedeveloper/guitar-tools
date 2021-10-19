@@ -85,8 +85,32 @@
     cursor: pointer;
   }
   .fret-active-new {
-
     opacity: 0;
+  }
+
+  .chord-press {
+    $w: 12px;
+    $half: $w / 2;
+    width: $w;
+    height: $w;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - #{$half});
+    left: calc(50% - #{$half});
+    cursor: pointer;
+    transition: .2s ease-in-out all;
+    opacity: 0;
+    &:hover {
+      opacity: 1;
+    }
+    &.active, &.pressed {
+      background-color: blue;
+      opacity: 1;
+    }
+    &.muted {
+      background-color: #CCC;
+      opacity: 1;
+    }
   }
 
 }
