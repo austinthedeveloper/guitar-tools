@@ -27,10 +27,6 @@ export class FretboardComponent implements OnChanges {
   @Output() tabChange: EventEmitter<PressInterface[]> = new EventEmitter();
   built: any[] = [];
   disabled!: boolean;
-  form = this.fb.group({
-    string: this.fb.control('', [Validators.required]),
-    position: this.fb.control('', [Validators.required]),
-  });
   @Output() stringPressed = new EventEmitter();
   @Output() tabsChanged = new EventEmitter();
 
@@ -61,11 +57,6 @@ export class FretboardComponent implements OnChanges {
 
   get colWidth(): string {
     return `${(100 / this.columns).toString()}%`;
-  }
-
-  setActive(activePress: ChartTabNote) {
-    this.form.reset();
-    this.form.patchValue(activePress);
   }
 
   toggleActive(fret: number, str: number): void {
@@ -109,24 +100,9 @@ export class FretboardComponent implements OnChanges {
     this.tuningChart = TuningHelper.buildTuningChart(tune);
 
     TuningHelper.getMajorPentatonic('A');
-    const test = TuningHelper.getMajorPentatonic('C');
-    const test2 = TuningHelper.getMinorPentatonic('C');
-    TuningHelper.buildNotes(test2, this.tuningChart);
-  }
-
-  setActiveNew(string: number) {
-    this.form.reset();
-    this.form.patchValue({
-      string: string.toString(),
-    });
-  }
-
-  save(activePress: PressInterface) {
-    console.log('save', activePress);
-
-    //   activePress.position = activePress.position.toString();
-    //   const filtered = this.tabs.filter(item => !(item.string === activePress.string && item.order === activePress.order));
-    //   this.tabs = [...filtered, activePress];
-    // this.tabChange.emit(this.tabs);
+    const test = TuningHelper.getMajorPentatonic('A');
+    const test2 = TuningHelper.getMinorPentatonic('A');
+    this.tabs = TuningHelper.buildNotes(test, this.tuningChart);
+    console.log('tabs', this.tabs);
   }
 }

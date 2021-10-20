@@ -36,10 +36,22 @@ export class TuningHelper {
   }
 
   static buildNotes(scale: string[], chart: TuningChart[]): PressInterface[] {
-    return chart.reduce((prev, curr) => {
-      console.log('build notes', prev, curr, scale);
+    return chart.reverse().reduce((prev, curr, index) => {
+      const mapped: PressInterface[] = curr.scale
+        .map((s, i) => {
+          return {
+            fret: i.toString(),
+            string: (index + 1).toString(),
+            type: scale.includes(s) ? 'pressed' : undefined,
+          };
+        })
+        .filter((item) => !!item.type);
+      const secondScale: PressInterface[] = mapped.map((item) => ({
+        ...item,
+        fret: (+item.fret + 12).toString(),
+      }));
 
-      return [];
+      return [...prev, ...mapped, ...secondScale];
     }, [] as PressInterface[]);
   }
 }
