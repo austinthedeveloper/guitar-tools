@@ -3,8 +3,8 @@
   max-width: 300px;
   border-top: 2px solid #000;
   .chord-fret {
-   display: flex;
-   border-bottom: 2px solid #000;
+    display: flex;
+    border-bottom: 2px solid #000;
   }
   .chort-fret-number {
     margin-top: 15px;
@@ -16,7 +16,7 @@
     width: 50px;
     flex: 1;
     position: relative;
-    transition: .2s ease-in-out all;
+    transition: 0.2s ease-in-out all;
     cursor: pointer;
     &:hover {
       background-color: rgb(224, 224, 224);
@@ -32,17 +32,18 @@
     top: calc(50% - #{$half});
     left: calc(50% - #{$half});
     cursor: pointer;
-    transition: .2s ease-in-out all;
+    transition: 0.2s ease-in-out all;
     opacity: 0;
     &:hover {
       opacity: 1;
     }
-    &.active, &.pressed {
+    &.active,
+    &.pressed {
       background-color: blue;
       opacity: 1;
     }
     &.muted {
-      background-color: #CCC;
+      background-color: #ccc;
       opacity: 1;
     }
   }
@@ -51,14 +52,14 @@
 .chart-tab {
   height: 250px;
   .chart-row {
-    transition: .2s all ease-in-out;
+    transition: 0.2s all ease-in-out;
     border-right: 2px solid transparent;
+    position: relative;
   }
   &:hover {
     .chart-row {
-    border-color: #000;
-
-  }
+      border-color: #000;
+    }
   }
   .fret {
     height: 30px;
@@ -81,7 +82,7 @@
   }
   .fret-active-press {
     font-size: 11px;
-     transition: .2s all ease-in-out;
+    transition: 0.2s all ease-in-out;
     cursor: pointer;
   }
   .fret-active-new {
@@ -98,19 +99,46 @@
     top: calc(50% - #{$half});
     left: calc(50% - #{$half});
     cursor: pointer;
-    transition: .2s ease-in-out all;
+    transition: 0.2s ease-in-out all;
     opacity: 0;
     &:hover {
       opacity: 1;
     }
-    &.active, &.pressed {
+    &.active,
+    &.pressed {
       background-color: blue;
       opacity: 1;
     }
     &.muted {
-      background-color: #CCC;
+      background-color: #ccc;
       opacity: 1;
     }
   }
 
+  .fretboard-dot::after {
+    $w: 16px;
+    $half: $w / 2;
+    width: $w;
+    height: $w;
+    border-radius: 50%;
+    position: absolute;
+    background-color: rgb(168, 168, 168);
+    top: calc(50% - #{$half});
+    left: calc(50% - #{$half});
+    content: '';
+    z-index: -1;
+  }
+
+  .fretboard-dots::after {
+    $w: 16px;
+    $half: $w / 2;
+    position: absolute;
+    color: rgb(168, 168, 168);
+    top: calc(50% - 50px);
+    left: -5px;
+    content: '..';
+    z-index: -1;
+    font-size: 160px;
+    line-height: 0;
+  }
 }

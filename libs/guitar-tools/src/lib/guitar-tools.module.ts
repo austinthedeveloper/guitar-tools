@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ChordComponent } from './components/chord/chord.component';
 import { ChartComponent } from './components/chart/chart.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
-import { IncludesStringPipe,
-    ActivePressesPipe,
-    IsMutedPipe,
-    StringTypePipe,
-    TabStringTypePipe} from './pipes';
+import {
+  IncludesStringPipe,
+  ActivePressesPipe,
+  IsMutedPipe,
+  StringTypePipe,
+  TabStringTypePipe,
+  FretDotPipe,
+} from './pipes';
 import { ChartTabComponent } from './components/chart-tab/chart-tab.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FretboardComponent } from './components/fretboard/fretboard.component';
@@ -24,14 +27,15 @@ import { FretboardComponent } from './components/fretboard/fretboard.component';
     ActivePressesPipe,
     IsMutedPipe,
     StringTypePipe,
-    TabStringTypePipe
+    TabStringTypePipe,
+    FretDotPipe,
   ],
   exports: [
     ChordComponent,
     ChartComponent,
     MetronomeComponent,
     ChartTabComponent,
-    FretboardComponent
+    FretboardComponent,
   ],
 })
 export class GuitarToolsModule {}

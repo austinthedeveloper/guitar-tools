@@ -1,4 +1,5 @@
 export * from './active-presses.pipe';
+export * from './fret-dot.pipe';
 export * from './includes-string.pipe';
 export * from './is-muted.pipe';
 export * from './string-type.pipe';
