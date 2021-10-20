@@ -9,6 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
+import { FretDotsHelper } from '@guitar/helpers';
 import { ChartTabNote, PressInterface } from '@guitar/interfaces';
 import { orderBy } from 'lodash-es';
 
@@ -21,6 +22,7 @@ import { orderBy } from 'lodash-es';
 export class FretboardComponent implements OnChanges {
   @Input() strings = '6';
   @Input() columns = 22;
+  @Input() dots: number[] = FretDotsHelper.dots;
   @Input() tabs: PressInterface[] = [];
   @Output() tabChange: EventEmitter<PressInterface[]> = new EventEmitter();
   built: any[] = [];

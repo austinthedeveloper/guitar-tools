@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { minBy, orderBy } from 'lodash-es';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
-import { GUITAR_TUNING, scaleStartWith } from '@guitar/helpers';
+import { GUITAR_TUNING, scaleStartWith, TuningHelper } from '@guitar/helpers';
 import { FormControl } from '@angular/forms';
 @Component({
   selector: 'guitar-chord',
@@ -57,7 +57,6 @@ export class ChordComponent implements OnChanges {
       .fill(0)
       .map((x, i) => i);
     this.built = Array(+this.rows).fill(builtStrings);
-    console.log('chord build', this.built);
   }
 
   private setInitialFret(): void {
@@ -75,13 +74,8 @@ export class ChordComponent implements OnChanges {
   }
 
   private buildTuningChart(): void {
-    const tune: string[] = GUITAR_TUNING[this.tuning];
-    this.tuningChart = tune.map((t) => {
-      return {
-        key: t,
-        scale: scaleStartWith(t),
-      };
-    });
+    const tune: string[] = TuningHelper.getTuning(this.tuning);
+    this.tuningChart = TuningHelper.buildTuningChart(tune);
   }
 
   toggleActive(fret: number, str: number): void {
