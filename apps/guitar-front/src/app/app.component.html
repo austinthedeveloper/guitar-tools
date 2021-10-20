@@ -1,8 +1,13 @@
 <guitar-fretboard [tabs]="formPress.value"></guitar-fretboard>
 <guitar-chart-tab></guitar-chart-tab>
-<guitar-chord [presses]="formPress.value"  (pressesChanged)="onPressChange($event)"></guitar-chord>
+<guitar-chord
+  [presses]="formPress.value"
+  (pressesChanged)="onPressChange($event)"
+></guitar-chord>
 <select [formControl]="formId">
-  <option *ngFor="let chord of chords" [value]="chord.id">Chord {{chord.name}}{{chord.position ? ' - ' + chord.position : ''}}</option>
+  <option *ngFor="let chord of chords" [value]="chord.id">
+    Chord {{ chord.name }}{{ chord.position ? ' - ' + chord.position : '' }}
+  </option>
 </select>
 <!-- <pre>{{form.value.presses | json}}</pre>
 <pre>{{chords | json}}</pre> -->

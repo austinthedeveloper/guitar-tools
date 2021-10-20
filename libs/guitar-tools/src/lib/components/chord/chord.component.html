@@ -1,15 +1,33 @@
 <div class="chord-chart chord-vertical">
   <div class="chord-fret fret-zero" *ngIf="built[0] as fret">
     <span class="chort-fret-number">0</span>
-    <div class="chord-string" *ngFor="let string of fret" (click)="toggleActive(0, (6-+string))">
-      <div class="chord-press" [title]="tuningChart[+string].scale[0]" [ngClass]="{'active': presses | includesString:0:(6-+string)}"></div>
+    <div
+      class="chord-string"
+      *ngFor="let string of fret"
+      (click)="toggleActive(0, 6 - +string)"
+    >
+      <div
+        class="chord-press"
+        [title]="tuningChart[+string].scale[0]"
+        [ngClass]="{ active: presses | includesString: 0:6 - +string }"
+      ></div>
     </div>
   </div>
-  <div class="chord-fret" *ngFor="let fret of built; let i = index;">
-    <span class="chort-fret-number">{{startFret + i}}</span>
-    <div class="chord-string" *ngFor="let string of fret" (click)="toggleActive((startFret + i), (6-+string))">
-      <div class="chord-press" [title]="tuningChart[+string].scale[startFret + i]" [ngClass]="presses | stringType:(startFret + i):(6-+string)"></div>
+  <div class="chord-fret" *ngFor="let fret of built; let i = index">
+    <span class="chort-fret-number">{{ startFret + i }}</span>
+    <div
+      class="chord-string"
+      *ngFor="let string of fret"
+      (click)="toggleActive(startFret + i, 6 - +string)"
+    >
+      <div
+        class="chord-press"
+        [title]="tuningChart[+string].scale[startFret + i]"
+        [ngClass]="presses | stringType: startFret + i:6 - +string"
+      ></div>
     </div>
   </div>
-  <div class="active-presses">{{presses | activePresses:tuningChart:removeDuplicate | json}}</div>
+  <div class="active-presses">
+    {{ presses | activePresses: tuningChart:removeDuplicate | json }}
+  </div>
 </div>
