@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CHORDS_MOCK_SORTED } from '@guitar/data';
-import { FretDotsHelper, TuningHelper } from '@guitar/helpers';
+import { FretDotsHelper, SCALE, TuningHelper } from '@guitar/helpers';
 import { UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'guitar-root',
@@ -24,9 +24,20 @@ export class AppComponent {
   tuning$ = this.userOptions.tuning$;
   tuningChart$ = this.userOptions.tuningChart$;
   frets$ = this.userOptions.frets$;
-  exampleTab$ = this.tuningChart$.pipe(
-    map((tuningChart) => {
-      const test = TuningHelper.getMajorPentatonic('A');
+
+  exampleScaleForm = this.fb.group({
+    key: ['A', Validators.required],
+    scale: ['major', Validators.required],
+  });
+  scaleOptions = SCALE;
+  exampleTab$ = combineLatest([
+    this.tuningChart$,
+    this.exampleScaleForm.valueChanges.pipe(
+      startWith(this.exampleScaleForm.value)
+    ),
+  ]).pipe(
+    map(([tuningChart, scaleForm]) => {
+      const test = TuningHelper.getMajorPentatonic(scaleForm.key);
       return TuningHelper.buildNotes(test, tuningChart);
     })
   );

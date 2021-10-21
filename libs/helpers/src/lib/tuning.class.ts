@@ -22,6 +22,7 @@ export class TuningHelper {
   }
   static getMajorPentatonic(key: string): string[] {
     const positions = [0, 2, 4, 7, 9];
+
     return this.getScale(key, positions);
   }
   static getMinorPentatonic(key: string): string[] {

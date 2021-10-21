@@ -4,7 +4,22 @@
     (optionChanged)="optionChanged($event)"
   ></guitar-user-options>
   <div>
-    <h2>Fretboard Example (A Major Pentatonic)</h2>
+    <h2>
+      Fretboard Example ({{ exampleScaleForm.get('key')?.value }} Major
+      Pentatonic)
+    </h2>
+    <form class="container mb-1" [formGroup]="exampleScaleForm">
+      <div class="row">
+        <div class="col">
+          <label for="frets" class="form-label">Key</label>
+          <select class="form-select" formControlName="key">
+            <option *ngFor="let item of scaleOptions" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
     <guitar-fretboard
       [tuning]="(tuning$ | async)!"
       [tuningChart]="(tuningChart$ | async)!"
@@ -19,15 +34,15 @@
 
   <div>
     <h2>Chord Example</h2>
-    <guitar-chord
-      [tuning]="(tuning$ | async)!"
-      [presses]="formPress.value"
-      (pressesChanged)="onPressChange($event)"
-    ></guitar-chord>
     <select [formControl]="formId">
       <option *ngFor="let chord of chords" [value]="chord.id">
         Chord {{ chord.name }}{{ chord.position ? ' - ' + chord.position : '' }}
       </option>
     </select>
+    <guitar-chord
+      [tuning]="(tuning$ | async)!"
+      [presses]="formPress.value"
+      (pressesChanged)="onPressChange($event)"
+    ></guitar-chord>
   </div>
 </div>
