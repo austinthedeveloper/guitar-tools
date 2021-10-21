@@ -31,19 +31,20 @@ export class FretboardComponent implements OnChanges {
   @Output() tabsChanged = new EventEmitter();
 
   @Input() tuning = 'standard';
-  tuningChart: TuningChart[] = [];
+  @Input() tuningChart: TuningChart[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.mapStuff();
-    this.buildTuningChart();
   }
 
-  ngOnChanges({ strings, columns, tuning }: SimpleChanges): void {
+  ngOnChanges({ strings, columns, tuningChart }: SimpleChanges): void {
     if (strings || columns) {
       this.mapStuff();
     }
-    if (tuning) {
-      this.buildTuningChart();
+    if (tuningChart) {
+      const test = TuningHelper.getMajorPentatonic('A');
+      this.tabs = TuningHelper.buildNotes(test, this.tuningChart);
+      console.log('tabs', this.tabs);
     }
   }
 
@@ -97,15 +98,5 @@ export class FretboardComponent implements OnChanges {
   private onPressChange() {
     const ordered = orderBy(this.tabs, ['fret', 'string']);
     this.tabsChanged.emit(ordered);
-  }
-
-  private buildTuningChart(): void {
-    const tune: string[] = TuningHelper.getTuning(this.tuning);
-    this.tuningChart = TuningHelper.buildTuningChart(tune);
-
-    // TODO Remove this
-    const test = TuningHelper.getMajorPentatonic('A');
-    this.tabs = TuningHelper.buildNotes(test, this.tuningChart);
-    console.log('tabs', this.tabs);
   }
 }

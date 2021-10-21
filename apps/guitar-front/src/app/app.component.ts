@@ -21,6 +21,7 @@ export class AppComponent {
   chords = CHORDS_MOCK_SORTED;
   options$: Observable<UserOptionsInterface> = this.userOptions.options$;
   tuning$ = this.userOptions.tuning$;
+  tuningChart$ = this.userOptions.tuningChart$;
   frets$ = this.userOptions.frets$;
 
   constructor(private fb: FormBuilder, private userOptions: OptionsService) {
