@@ -5,6 +5,7 @@ import { FretDotsHelper, TuningHelper } from '@guitar/helpers';
 import { UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'guitar-root',
@@ -23,6 +24,12 @@ export class AppComponent {
   tuning$ = this.userOptions.tuning$;
   tuningChart$ = this.userOptions.tuningChart$;
   frets$ = this.userOptions.frets$;
+  exampleTab$ = this.tuningChart$.pipe(
+    map((tuningChart) => {
+      const test = TuningHelper.getMajorPentatonic('A');
+      return TuningHelper.buildNotes(test, tuningChart);
+    })
+  );
 
   constructor(private fb: FormBuilder, private userOptions: OptionsService) {
     this.form.patchValue({ presses: this.presses });

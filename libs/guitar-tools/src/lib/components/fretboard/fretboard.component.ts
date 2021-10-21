@@ -41,11 +41,6 @@ export class FretboardComponent implements OnChanges {
     if (strings || columns) {
       this.mapStuff();
     }
-    if (tuningChart) {
-      const test = TuningHelper.getMajorPentatonic('A');
-      this.tabs = TuningHelper.buildNotes(test, this.tuningChart);
-      console.log('tabs', this.tabs);
-    }
   }
 
   private mapStuff() {
