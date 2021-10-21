@@ -143,17 +143,17 @@
         }
       }
     },
-    "guitar-tools-new": {
+    "guitar-tools": {
       "projectType": "library",
-      "root": "libs/guitar-tools-new",
-      "sourceRoot": "libs/guitar-tools-new/src",
+      "root": "libs/guitar-tools",
+      "sourceRoot": "libs/guitar-tools/src",
       "prefix": "guitar",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/guitar-tools-new"],
+          "outputs": ["coverage/libs/guitar-tools"],
           "options": {
-            "jestConfig": "libs/guitar-tools-new/jest.config.js",
+            "jestConfig": "libs/guitar-tools/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -161,8 +161,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/guitar-tools-new/src/**/*.ts",
-              "libs/guitar-tools-new/src/**/*.html"
+              "libs/guitar-tools/src/**/*.ts",
+              "libs/guitar-tools/src/**/*.html"
             ]
           }
         }
