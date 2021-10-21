@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@guitar/data": ["libs/data/src/index.ts"],
-      "@guitar/guitar-tools": ["libs/guitar-tools/src/index.ts"],
+      "@guitar/guitar-tools": ["libs/guitar-tools-new/src/index.ts"],
+      "@guitar/guitar-tools-new": ["libs/guitar-tools-new/src/index.ts"],
       "@guitar/helpers": ["libs/helpers/src/index.ts"],
       "@guitar/interfaces": ["libs/interfaces/src/index.ts"],
       "@guitar/store": ["libs/store/src/index.ts"]

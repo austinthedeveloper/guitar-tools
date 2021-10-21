@@ -37,7 +37,7 @@
       "tags": [],
       "implicitDependencies": ["guitar-front"]
     },
-    "guitar-tools": {
+    "guitar-tools-new": {
       "tags": []
     },
     "helpers": {

@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'guitar-tools',
+  displayName: 'guitar-tools-new',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +8,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/guitar-tools',
+  coverageDirectory: '../../coverage/libs/guitar-tools-new',
   transform: {
     '^.+\\.(ts|js|html)$': 'jest-preset-angular',
   },

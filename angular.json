@@ -143,33 +143,17 @@
         }
       }
     },
-    "guitar-tools": {
+    "guitar-tools-new": {
       "projectType": "library",
-      "root": "libs/guitar-tools",
-      "sourceRoot": "libs/guitar-tools/src",
+      "root": "libs/guitar-tools-new",
+      "sourceRoot": "libs/guitar-tools-new/src",
       "prefix": "guitar",
       "architect": {
-        "build": {
-          "builder": "@nrwl/angular:ng-packagr-lite",
-          "outputs": ["dist/libs/guitar-tools"],
-          "options": {
-            "project": "libs/guitar-tools/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/guitar-tools/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/guitar-tools/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/guitar-tools"],
+          "outputs": ["coverage/libs/guitar-tools-new"],
           "options": {
-            "jestConfig": "libs/guitar-tools/jest.config.js",
+            "jestConfig": "libs/guitar-tools-new/jest.config.js",
             "passWithNoTests": true
           }
         },
@@ -177,8 +161,8 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
-              "libs/guitar-tools/src/**/*.ts",
-              "libs/guitar-tools/src/**/*.html"
+              "libs/guitar-tools-new/src/**/*.ts",
+              "libs/guitar-tools-new/src/**/*.html"
             ]
           }
         }
