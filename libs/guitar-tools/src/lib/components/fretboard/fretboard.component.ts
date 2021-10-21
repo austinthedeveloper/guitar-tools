@@ -103,9 +103,8 @@ export class FretboardComponent implements OnChanges {
     const tune: string[] = TuningHelper.getTuning(this.tuning);
     this.tuningChart = TuningHelper.buildTuningChart(tune);
 
-    TuningHelper.getMajorPentatonic('A');
+    // TODO Remove this
     const test = TuningHelper.getMajorPentatonic('A');
-    const test2 = TuningHelper.getMinorPentatonic('A');
     this.tabs = TuningHelper.buildNotes(test, this.tuningChart);
     console.log('tabs', this.tabs);
   }

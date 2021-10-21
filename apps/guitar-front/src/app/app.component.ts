@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { CHORDS_MOCK_SORTED } from '@guitar/data';
+import { FretDotsHelper, TuningHelper } from '@guitar/helpers';
 import { UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+
 @Component({
   selector: 'guitar-root',
   templateUrl: './app.component.html',
