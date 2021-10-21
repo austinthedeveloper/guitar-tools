@@ -1,4 +1,11 @@
-<guitar-fretboard></guitar-fretboard>
+<guitar-user-options
+  [options]="options$ | async"
+  (optionChanged)="optionChanged($event)"
+></guitar-user-options>
+<guitar-fretboard
+  [tuning]="(tuning$ | async)!"
+  [columns]="(frets$ | async)!"
+></guitar-fretboard>
 <guitar-chart-tab></guitar-chart-tab>
 <guitar-chord
   [presses]="formPress.value"

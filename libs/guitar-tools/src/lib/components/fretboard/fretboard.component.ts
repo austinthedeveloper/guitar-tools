@@ -52,11 +52,11 @@ export class FretboardComponent implements OnChanges {
       .fill(0)
       .map((x, i) => i)
       .reverse();
-    this.built = Array(+this.columns).fill(builtStrings);
+    this.built = Array(this.colCount).fill(builtStrings);
   }
 
   get colWidth(): string {
-    return `${(100 / this.columns).toString()}%`;
+    return `${(100 / this.colCount).toString()}%`;
   }
 
   toggleActive(fret: number, str: number): void {
@@ -88,6 +88,10 @@ export class FretboardComponent implements OnChanges {
       ];
     }
     this.onPressChange();
+  }
+
+  get colCount() {
+    return +this.columns + 1;
   }
 
   private onPressChange() {

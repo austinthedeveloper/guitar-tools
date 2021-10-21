@@ -45,6 +45,9 @@
     },
     "interfaces": {
       "tags": []
+    },
+    "store": {
+      "tags": []
     }
   }
 }

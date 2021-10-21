@@ -1,0 +1,21 @@
+<form class="container-fluid" [formGroup]="form">
+  <div class="row">
+    <div class="col">
+      <label for="frets" class="form-label">Tuning</label>
+      <select class="form-select" formControlName="tuning">
+        <option *ngFor="let item of tuning" [value]="item.value">
+          {{ item.key }}
+        </option>
+      </select>
+    </div>
+    <div class="col">
+      <label for="frets" class="form-label">Frets</label>
+      <input
+        type="number"
+        class="form-control"
+        id="frets"
+        formControlName="frets"
+      />
+    </div>
+  </div>
+</form>

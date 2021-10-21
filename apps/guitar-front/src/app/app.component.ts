@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { CHORDS_MOCK_SORTED } from '@guitar/data';
+import { UserOptionsInterface } from '@guitar/interfaces';
+import { OptionsService } from '@guitar/store';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 @Component({
   selector: 'guitar-root',
   templateUrl: './app.component.html',
@@ -14,7 +18,11 @@ export class AppComponent {
     id: this.fb.control(''),
   });
   chords = CHORDS_MOCK_SORTED;
-  constructor(private fb: FormBuilder) {
+  options$: Observable<UserOptionsInterface> = this.userOptions.options$;
+  tuning$ = this.userOptions.tuning$;
+  frets$ = this.userOptions.frets$;
+
+  constructor(private fb: FormBuilder, private userOptions: OptionsService) {
     this.form.patchValue({ presses: this.presses });
     this.formId.valueChanges.subscribe((id) => {
       this.formPress.patchValue(
@@ -25,6 +33,10 @@ export class AppComponent {
 
   onPressChange($event: any) {
     this.formPress.patchValue($event);
+  }
+
+  optionChanged(options: UserOptionsInterface) {
+    this.userOptions.setOption(options);
   }
 
   get formPress(): FormControl {
