@@ -22,13 +22,14 @@ export class TuningHelper {
   }
   static getMajorPentatonic(key: string): string[] {
     const positions = [0, 2, 4, 7, 9];
-    const scale = scaleStartWith(key);
-    return positions.reduce((prev, curr) => {
-      return [...prev, scale[curr]];
-    }, [] as string[]);
+    return this.getScale(key, positions);
   }
   static getMinorPentatonic(key: string): string[] {
     const positions = [0, 3, 5, 7, 10];
+    return this.getScale(key, positions);
+  }
+
+  private static getScale(key: string, positions: number[]) {
     const scale = scaleStartWith(key);
     return positions.reduce((prev, curr) => {
       return [...prev, scale[curr]];
