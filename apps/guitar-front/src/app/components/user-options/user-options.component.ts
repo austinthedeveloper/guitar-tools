@@ -34,6 +34,14 @@ export class UserOptionsComponent implements OnChanges, OnDestroy {
       key: 'Drop D',
       value: 'dropD',
     },
+    {
+      key: 'Drop C',
+      value: 'dropC',
+    },
+    {
+      key: 'Drop B',
+      value: 'dropB',
+    },
   ];
   formSub = this.form.valueChanges
     .pipe(filter(() => this.form.valid && this.form.dirty))

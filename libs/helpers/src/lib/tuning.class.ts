@@ -8,6 +8,8 @@ import { scaleStartWith } from './scale.class';
 export const GUITAR_TUNING: GuitarTuningStorage = {
   standard: ['E', 'A', 'D', 'G', 'B', 'E'],
   dropD: ['D', 'A', 'D', 'G', 'B', 'E'],
+  dropC: ['C', 'G', 'C', 'F', 'A', 'D'],
+  dropB: ['B', 'F #', 'B', 'E', 'G', 'C'],
 };
 
 export const SCALE_TYPES: { [key: string]: ScaleTypesInterface } = {
