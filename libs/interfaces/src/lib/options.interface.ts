@@ -6,7 +6,7 @@ export interface UserOptionsInterface {
 
 export class UserOptions implements UserOptionsInterface {
   tuning = 'standard';
-  frets = 22;
+  frets = 15;
   strings = '6';
   constructor() {}
 }
