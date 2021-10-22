@@ -1,7 +1,12 @@
-<div class="chart-tab container">
+<div class="chart-tab fretboard-container container">
+  <div class="row">
+    <div class="chart-row tuning-fret">
+      <div class="fret" *ngFor="let tune of tuningChart">{{ tune.key }}</div>
+    </div>
+  </div>
   <div class="row">
     <div
-      class="chart-row"
+      class="col chart-row"
       *ngFor="let column of built; let fret = index"
       [ngStyle]="{ width: colWidth }"
       [ngClass]="fret | fretDot: dots"

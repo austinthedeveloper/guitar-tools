@@ -50,13 +50,26 @@
 }
 
 .chart-tab {
-  height: 250px;
+  border: 1px solid #ccc;
+  transition: 0.1s all ease-in-out;
+  position: relative;
   .chart-row {
-    transition: 0.2s all ease-in-out;
+    transition: 0.1s all ease-in-out;
     border-right: 2px solid #ccc;
     position: relative;
+    &:last-child {
+      border-right-width: 0;
+    }
+  }
+  .tuning-fret {
+    position: absolute;
+    right: 100%;
+    top: 0;
+    height: 100%;
+    width: 40px;
   }
   &:hover {
+    border-color: #000;
     .chart-row {
       border-color: #000;
     }
@@ -114,7 +127,12 @@
       opacity: 1;
     }
   }
+}
 
+.fretboard-container {
+  .chart-row:first-child {
+    background-color: rgb(238, 238, 238);
+  }
   .fretboard-dot::after {
     $w: 16px;
     $half: $w / 2;

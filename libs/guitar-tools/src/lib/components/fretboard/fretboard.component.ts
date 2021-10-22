@@ -4,13 +4,11 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
-import { FretDotsHelper, TuningHelper } from '@guitar/helpers';
-import { ChartTabNote, PressInterface, TuningChart } from '@guitar/interfaces';
+import { FretDotsHelper } from '@guitar/helpers';
+import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { orderBy } from 'lodash-es';
 
 @Component({
@@ -32,6 +30,7 @@ export class FretboardComponent implements OnChanges {
 
   @Input() tuning = 'standard';
   @Input() tuningChart: TuningChart[] = [];
+  tuningBuilt: TuningChart[] = [];
 
   constructor() {
     this.mapStuff();
@@ -40,6 +39,9 @@ export class FretboardComponent implements OnChanges {
   ngOnChanges({ strings, columns, tuningChart }: SimpleChanges): void {
     if (strings || columns) {
       this.mapStuff();
+    }
+    if (tuningChart) {
+      this.tuningBuilt = this.tuningChart.reverse();
     }
   }
 
