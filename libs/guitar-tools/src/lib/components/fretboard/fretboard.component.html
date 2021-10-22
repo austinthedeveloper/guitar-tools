@@ -1,7 +1,7 @@
 <div class="chart-tab fretboard-container container">
   <div class="row">
     <div class="chart-row tuning-fret">
-      <div class="fret" *ngFor="let tune of tuningChart">{{ tune.key }}</div>
+      <div class="fret" *ngFor="let tune of tuningBuilt">{{ tune.key }}</div>
     </div>
   </div>
   <div class="row">
@@ -16,6 +16,7 @@
           <div
             class="chord-press"
             [ngClass]="tabs | stringType: fret:6 - +string"
+            [title]="tuningBuilt[+string].scale[fret]"
             (click)="toggleActive(fret, 6 - +string)"
           ></div>
         </div>

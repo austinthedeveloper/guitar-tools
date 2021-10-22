@@ -41,7 +41,7 @@ export class FretboardComponent implements OnChanges {
       this.mapStuff();
     }
     if (tuningChart) {
-      this.tuningBuilt = this.tuningChart.reverse();
+      this.tuningBuilt = this.tuningChart.slice().reverse();
     }
   }
 
