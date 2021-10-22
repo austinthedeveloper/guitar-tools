@@ -19,6 +19,46 @@ export const SCALE_TYPES: { [key: string]: ScaleTypesInterface } = {
     name: 'Minor Pentatonic',
     positions: [0, 3, 5, 7, 10],
   },
+  bluesPentatonic: {
+    name: 'Pentatonic Blues',
+    positions: [0, 3, 5, 6, 7, 10],
+  },
+  neutralPentatonic: {
+    name: 'Neutral Pentatonic',
+    positions: [0, 2, 5, 7, 10],
+  },
+  major: {
+    name: 'Major',
+    positions: [0, 2, 4, 5, 7, 9, 11],
+  },
+  harmonicMinor: {
+    name: 'Harmonic Minor',
+    positions: [0, 2, 3, 5, 7, 8, 11],
+  },
+  melodicMinor: {
+    name: 'Melodic Minor',
+    positions: [0, 2, 3, 5, 7, 9, 11],
+  },
+  naturalMinor: {
+    name: 'Natural Minor',
+    positions: [0, 2, 3, 5, 7, 8, 10],
+  },
+  ionian: {
+    name: 'Ionian',
+    positions: [0, 2, 4, 5, 7, 9, 11],
+  },
+  dorian: {
+    name: 'Dorian',
+    positions: [0, 2, 3, 5, 7, 9, 10],
+  },
+  phyrgian: {
+    name: 'Phyrgian',
+    positions: [0, 1, 3, 5, 7, 8, 10],
+  },
+  lydian: {
+    name: 'Lydian',
+    positions: [0, 2, 4, 6, 7, 9, 11],
+  },
 };
 export class TuningHelper {
   static buildTuningChart(tune: string[]): TuningChart[] {
