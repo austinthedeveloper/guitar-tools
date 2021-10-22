@@ -27,9 +27,10 @@ export class AppComponent {
 
   exampleScaleForm = this.fb.group({
     key: ['A', Validators.required],
-    scale: ['major', Validators.required],
+    scale: ['majorPentatonic', Validators.required],
   });
   scaleOptions = SCALE;
+  scaleTypeOptions = TuningHelper.getScaleOptions;
   exampleTab$ = combineLatest([
     this.tuningChart$,
     this.exampleScaleForm.valueChanges.pipe(
@@ -37,7 +38,10 @@ export class AppComponent {
     ),
   ]).pipe(
     map(([tuningChart, scaleForm]) => {
-      const test = TuningHelper.getMajorPentatonic(scaleForm.key);
+      const test = TuningHelper.getScaleByKeyAndType(
+        scaleForm.key,
+        scaleForm.scale
+      );
       return TuningHelper.buildNotes(test, tuningChart);
     })
   );

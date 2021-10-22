@@ -2,11 +2,23 @@ import {
   GuitarTuningStorage,
   PressInterface,
   TuningChart,
+  ScaleTypesInterface,
 } from '@guitar/interfaces';
 import { scaleStartWith } from './scale.class';
 export const GUITAR_TUNING: GuitarTuningStorage = {
   standard: ['E', 'A', 'D', 'G', 'B', 'E'],
   dropD: ['D', 'A', 'D', 'G', 'B', 'E'],
+};
+
+export const SCALE_TYPES: { [key: string]: ScaleTypesInterface } = {
+  majorPentatonic: {
+    name: 'Major Pentatonic',
+    positions: [0, 2, 4, 7, 9],
+  },
+  minorPentatonic: {
+    name: 'Minor Pentatonic',
+    positions: [0, 3, 5, 7, 10],
+  },
 };
 export class TuningHelper {
   static buildTuningChart(tune: string[]): TuningChart[] {
@@ -28,6 +40,11 @@ export class TuningHelper {
   static getMinorPentatonic(key: string): string[] {
     const positions = [0, 3, 5, 7, 10];
     return this.getScale(key, positions);
+  }
+
+  static getScaleByKeyAndType(key: string, type: string): string[] {
+    const obj: ScaleTypesInterface = SCALE_TYPES[type];
+    return obj ? this.getScale(key, obj.positions) : [];
   }
 
   private static getScale(key: string, positions: number[]) {
@@ -55,5 +72,11 @@ export class TuningHelper {
 
       return [...prev, ...mapped, ...secondScale];
     }, [] as PressInterface[]);
+  }
+
+  static get getScaleOptions() {
+    return Object.entries(SCALE_TYPES).reduce((prev, [key, curr]) => {
+      return [...prev, { key: curr.name, value: key }];
+    }, [] as any[]);
   }
 }

@@ -18,6 +18,14 @@
             </option>
           </select>
         </div>
+        <div class="col">
+          <label for="frets" class="form-label">Scale</label>
+          <select class="form-select" formControlName="scale">
+            <option *ngFor="let item of scaleTypeOptions" [value]="item.value">
+              {{ item.key }}
+            </option>
+          </select>
+        </div>
       </div>
     </form>
     <guitar-fretboard
