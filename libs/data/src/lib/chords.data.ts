@@ -11,13 +11,14 @@ export function CHORDS_MOCK_POSITION_1(): ChordInterface[] {
         fret: indexStr,
         string: '1',
       },
-      {
-        fret: indexStr,
-        string: '3',
-      },
+
       {
         fret: (index + 1).toString(),
         string: '2',
+      },
+      {
+        fret: indexStr,
+        string: '3',
       },
       {
         fret: (index + 2).toString(),
@@ -28,7 +29,8 @@ export function CHORDS_MOCK_POSITION_1(): ChordInterface[] {
         string: '5',
       },
     ];
-    return new ChordClass(string, undefined, chords, '1');
+    const name = scale[index + 3] || scale[+chords[4].fret - 12];
+    return new ChordClass(name, undefined, chords, '1');
   });
 }
 export function CHORDS_MOCK_POSITION_2(): ChordInterface[] {

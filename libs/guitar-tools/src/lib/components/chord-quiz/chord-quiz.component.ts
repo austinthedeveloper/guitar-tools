@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ChordInterface } from '@guitar/interfaces';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'guitar-chord-quiz',
@@ -24,8 +23,6 @@ export class ChordQuizComponent implements OnChanges {
     answer: [null, [Validators.required]],
     guess: [null, [Validators.required]],
   });
-  private sub: Subject<ChordInterface> = new Subject();
-  currentChord$ = this.sub.asObservable();
   chord!: ChordInterface;
 
   constructor(private fb: FormBuilder) {}
@@ -37,13 +34,16 @@ export class ChordQuizComponent implements OnChanges {
   private setAnswer() {
     const match: ChordInterface =
       this.chords[Math.floor(Math.random() * (this.chords.length - 1))];
-    this.sub.next(match);
-    this.chord = match;
-    this.form.patchValue({
-      answer: match.fullName,
-      guess: '',
-      total: this.form.value.total + 1,
-    });
+    if (match.fullName === this.form.value.answer) {
+      this.setAnswer();
+    } else {
+      this.chord = match;
+      this.form.patchValue({
+        answer: match.fullName,
+        guess: '',
+        total: this.form.value.total + 1,
+      });
+    }
   }
   submitAnswer() {
     const { answer, guess, correct, incorrect } = this.form.value;
