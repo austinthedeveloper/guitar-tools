@@ -2,8 +2,13 @@
   <guitar-user-options
     [options]="options$ | async"
     (optionChanged)="optionChanged($event)"
+    class="d-block my-2"
   ></guitar-user-options>
-  <!-- <div>
+  <div>
+    <h2>Quiz</h2>
+    <guitar-chord-quiz [chords]="chords"></guitar-chord-quiz>
+  </div>
+  <div>
     <h2>
       Fretboard Example ({{ exampleScaleForm.get('key')?.value }}
       {{ exampleScaleForm.get('scale')?.value }})
@@ -38,8 +43,8 @@
   <div>
     <h2>Tab Example</h2>
     <guitar-chart-tab></guitar-chart-tab>
-  </div> -->
-  <guitar-chord-quiz [chords]="chords"></guitar-chord-quiz>
+  </div>
+
   <div>
     <h2>Chord Example</h2>
     <select [formControl]="formId">

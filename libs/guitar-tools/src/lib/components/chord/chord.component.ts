@@ -1,17 +1,17 @@
 import {
-  Component,
-  OnInit,
   ChangeDetectionStrategy,
-  Input,
-  SimpleChanges,
-  OnChanges,
+  Component,
   EventEmitter,
+  Input,
+  OnChanges,
   Output,
+  SimpleChanges,
 } from '@angular/core';
-import { minBy, orderBy } from 'lodash-es';
-import { PressInterface, TuningChart } from '@guitar/interfaces';
-import { GUITAR_TUNING, scaleStartWith, TuningHelper } from '@guitar/helpers';
 import { FormControl } from '@angular/forms';
+import { TuningHelper } from '@guitar/helpers';
+import { PressInterface, TuningChart } from '@guitar/interfaces';
+import { minBy, orderBy } from 'lodash-es';
+
 @Component({
   selector: 'guitar-chord',
   templateUrl: './chord.component.html',

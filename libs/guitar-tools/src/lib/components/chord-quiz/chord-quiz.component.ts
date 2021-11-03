@@ -40,7 +40,7 @@ export class ChordQuizComponent implements OnChanges {
       this.chord = match;
       this.form.patchValue({
         answer: match.fullName,
-        guess: '',
+        guess: null,
         total: this.form.value.total + 1,
       });
     }
@@ -56,7 +56,7 @@ export class ChordQuizComponent implements OnChanges {
   }
 
   reset() {
-    this.form.reset();
+    this.form.reset({ correct: 0, incorrect: 0, total: 0 });
     this.setAnswer();
   }
 }
