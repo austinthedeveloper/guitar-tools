@@ -14,6 +14,7 @@ import {
 import { ChartTabComponent } from './components/chart-tab/chart-tab.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FretboardComponent } from './components/fretboard/fretboard.component';
+import { ChordQuizComponent } from './components/chord-quiz/chord-quiz.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -29,6 +30,7 @@ import { FretboardComponent } from './components/fretboard/fretboard.component';
     StringTypePipe,
     TabStringTypePipe,
     FretDotPipe,
+    ChordQuizComponent,
   ],
   exports: [
     ChordComponent,
@@ -36,6 +38,7 @@ import { FretboardComponent } from './components/fretboard/fretboard.component';
     MetronomeComponent,
     ChartTabComponent,
     FretboardComponent,
+    ChordQuizComponent,
   ],
 })
 export class GuitarToolsModule {}

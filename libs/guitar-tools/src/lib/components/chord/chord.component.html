@@ -27,7 +27,7 @@
       ></div>
     </div>
   </div>
-  <div class="active-presses">
+  <div class="active-presses" *ngIf="showActivePresses">
     {{ presses | activePresses: tuningChart:removeDuplicate | json }}
   </div>
 </div>

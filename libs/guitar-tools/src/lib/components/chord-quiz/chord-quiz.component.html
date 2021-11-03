@@ -1,0 +1,33 @@
+<guitar-chord *ngIf="chord" [presses]="chord.presses"></guitar-chord>
+<form class="container-fluid" [formGroup]="form" (ngSubmit)="submitAnswer()">
+  <div class="row">
+    <div class="col">
+      <select formControlName="guess">
+        <option *ngFor="let chord of chords" [value]="chord.fullName">
+          Chord {{ chord.fullName }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngIf="form.value as formValues">
+      <p class="text-success">Correct: {{ formValues.correct }}</p>
+      <p class="text-error">Incorrect: {{ formValues.incorrect }}</p>
+      <p class="text-primary">
+        Total: {{ formValues.correct + '/' + formValues.total }}
+      </p>
+    </div>
+    <div class="col">
+      <button
+        class="btn btn-primary"
+        type="button"
+        (click)="reset()"
+        [disabled]="form.pristine"
+      >
+        Reset
+      </button>
+      <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+    </div>
+  </div>
+</form>
+<pre>{{ chord | json }}</pre>

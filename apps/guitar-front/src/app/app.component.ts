@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CHORDS_MOCK_SORTED } from '@guitar/data';
 import { FretDotsHelper, SCALE, TuningHelper } from '@guitar/helpers';
-import { UserOptionsInterface } from '@guitar/interfaces';
+import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
 import { Observable, combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class AppComponent {
     presses: this.fb.control([]),
     id: this.fb.control(''),
   });
-  chords = CHORDS_MOCK_SORTED;
+  chords: ChordInterface[] = CHORDS_MOCK_SORTED;
   options$: Observable<UserOptionsInterface> = this.userOptions.options$;
   tuning$ = this.userOptions.tuning$;
   tuningChart$ = this.userOptions.tuningChart$;
