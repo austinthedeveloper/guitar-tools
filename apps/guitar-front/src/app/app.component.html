@@ -47,7 +47,13 @@
 
   <div>
     <h2>Chord Example</h2>
-    <select [formControl]="formId">
+    <label for="chordSelector" class="form-label">Select a Chord</label>
+    <select
+      class="form-select mb-2"
+      [formControl]="formId"
+      placeholder="Select a Chord"
+      id="chordSelector"
+    >
       <option *ngFor="let chord of chords" [value]="chord.id">
         Chord {{ chord.fullName }}
       </option>

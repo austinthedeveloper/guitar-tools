@@ -12,11 +12,12 @@
       ></guitar-chord>
     </div>
     <div class="col">
-      <label for="exampleInputEmail1" class="form-label">Select a Chord</label>
+      <label for="chordSelector" class="form-label">Select a Chord</label>
       <select
         class="form-select mb-2"
         formControlName="guess"
         placeholder="Select a Chord"
+        id="chordSelector"
       >
         <option *ngFor="let chord of chords" [value]="chord.fullName">
           {{ chord.fullName }}
