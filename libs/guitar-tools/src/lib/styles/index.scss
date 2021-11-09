@@ -39,7 +39,7 @@
     }
     &.active,
     &.pressed {
-      background-color: blue;
+      background-color: $primary;
       opacity: 1;
     }
     &.muted {
@@ -119,8 +119,12 @@
     }
     &.active,
     &.pressed {
-      background-color: blue;
+      background-color: $primary;
       opacity: 1;
+    }
+    &.pressed-root {
+      background-color: $info !important;
+      transform: scale(1.5);
     }
     &.muted {
       background-color: #ccc;

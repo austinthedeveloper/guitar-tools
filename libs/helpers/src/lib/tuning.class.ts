@@ -97,16 +97,18 @@ export class TuningHelper {
   }
 
   static buildNotes(scale: string[], chart: TuningChart[]): PressInterface[] {
+    const rootNote = scale[0];
     return chart
       .slice()
       .reverse()
       .reduce((prev, curr, index) => {
         const mapped: PressInterface[] = curr.scale
           .map((s, i) => {
+            const rootClass = rootNote === s ? 'pressed-root' : '';
             return {
               fret: i.toString(),
               string: (index + 1).toString(),
-              type: scale.includes(s) ? 'pressed' : undefined,
+              type: scale.includes(s) ? `pressed ${rootClass}` : undefined,
             };
           })
           .filter((item) => !!item.type);
