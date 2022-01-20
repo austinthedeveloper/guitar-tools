@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^12.2.0",
     "@angular/platform-browser-dynamic": "^12.2.0",
     "@angular/router": "^12.2.0",
+    "@ng-web-apis/common": "^1.12.1",
+    "@ng-web-apis/midi": "^1.2.0",
     "@nrwl/angular": "12.9.0",
     "@types/lodash-es": "^4.17.5",
     "bootstrap": "^5.1.1",
