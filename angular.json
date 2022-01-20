@@ -23,6 +23,31 @@
         }
       }
     },
+    "drums": {
+      "projectType": "library",
+      "root": "libs/drums",
+      "sourceRoot": "libs/drums/src",
+      "prefix": "guitar",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/drums"],
+          "options": {
+            "jestConfig": "libs/drums/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/drums/src/**/*.ts",
+              "libs/drums/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "guitar-front": {
       "projectType": "application",
       "root": "apps/guitar-front",
