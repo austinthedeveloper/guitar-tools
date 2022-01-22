@@ -10,16 +10,12 @@ import {
 } from '@ng-web-apis/midi';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, first } from 'rxjs/operators';
+import { DrumKeyPress } from '../../interfaces';
+import { DrumKeyService } from '../../services';
 import MIDIInput = WebMidi.MIDIInput;
 import MIDIMessageEvent = WebMidi.MIDIMessageEvent;
 import MIDIAccess = WebMidi.MIDIAccess;
 import MIDIOutput = WebMidi.MIDIOutput;
-
-interface DrumKeyPress {
-  key: number;
-  hardness: number;
-  timestamp: number;
-}
 
 @Component({
   selector: 'guitar-drum-config',
@@ -27,7 +23,7 @@ interface DrumKeyPress {
   styleUrls: ['./drum-config.component.css'],
   providers: [inputById('input-0'), outputByName('VirtualMIDISynth')],
 })
-export class DrumConfigComponent implements OnInit {
+export class DrumConfigComponent {
   config = {
     snare: 38,
     tap: 40,
@@ -38,16 +34,14 @@ export class DrumConfigComponent implements OnInit {
     ride: 51,
     crash1: 49,
   };
-  private sub: BehaviorSubject<DrumKeyPress[]> = new BehaviorSubject(
-    [] as DrumKeyPress[]
-  );
-  inputs$ = this.sub.asObservable();
+  inputs$ = this.drumKeyService.inputs$;
   constructor(
     @Inject(MIDI_SUPPORT) readonly supported: boolean,
     @Inject(MIDI_ACCESS) access: Promise<MIDIAccess>,
     @Inject(MIDI_MESSAGES) messages$: Observable<MIDIMessageEvent>,
     @Inject(MIDI_INPUT) readonly input: Promise<MIDIInput>,
-    @Inject(MIDI_OUTPUT) output: Promise<MIDIOutput>
+    @Inject(MIDI_OUTPUT) output: Promise<MIDIOutput>,
+    private drumKeyService: DrumKeyService
   ) {
     messages$
       .pipe(
@@ -57,7 +51,7 @@ export class DrumConfigComponent implements OnInit {
       .subscribe((res) => {
         const key = res.data[1];
         const hardness = res.data[2];
-        this.addInput({
+        this.drumKeyService.addInput({
           key,
           hardness,
           timestamp: res.timeStamp,
@@ -84,15 +78,5 @@ export class DrumConfigComponent implements OnInit {
     output.then((res) => {
       console.log('thoutputen', res);
     });
-  }
-
-  ngOnInit(): void {
-    // this.input.then((res) => {
-    //   console.log('hit', res);
-    // });
-  }
-
-  addInput(test: DrumKeyPress) {
-    this.sub.next([...this.sub.value, test]);
   }
 }
