@@ -1,15 +1,22 @@
-import { DrumKeyPress, DrumKeyHardness } from '../interfaces';
+import { DrumKeyPress, DrumKeyHardness, DrumType } from '../interfaces';
 
 export class DrumKeyClass implements DrumKeyPress {
   key: number;
   hardness: number;
   timestamp: number;
   hardnessType: DrumKeyHardness = 'soft';
-  constructor(key: number, hardness: number, timestamp: number) {
+  type!: DrumType;
+  constructor(
+    key: number,
+    hardness: number,
+    timestamp: number,
+    type?: DrumType
+  ) {
     this.key = key;
     this.hardness = hardness;
     this.timestamp = timestamp;
     this.setHardnessType(hardness);
+    this.type = type || 'unknown';
   }
 
   private setHardnessType(hardness: number) {
