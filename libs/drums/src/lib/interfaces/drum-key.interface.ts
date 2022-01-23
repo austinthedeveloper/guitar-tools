@@ -4,6 +4,7 @@ export type DrumKeyHardness = 'soft' | 'medium' | 'hard';
 export interface DrumKeyPress {
   key: number;
   hardness: number;
+  hardnessType?: DrumKeyHardness;
   timestamp: number;
   type?: DrumType;
 }

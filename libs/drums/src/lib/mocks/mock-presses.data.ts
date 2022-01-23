@@ -1,4 +1,6 @@
-export const MOCK_PRESS_DATA = [
+import { DrumKeyPress } from '../interfaces';
+
+export const MOCK_PRESS_DATA: DrumKeyPress[] = [
   {
     hardnessType: 'soft',
     key: 46,

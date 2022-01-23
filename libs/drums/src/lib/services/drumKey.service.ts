@@ -3,6 +3,7 @@ import { findKey } from 'lodash-es';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { DrumKeyClass } from '../classes/';
 import { DrumKeyPress, DrumType } from '../interfaces';
+import { MOCK_PRESS_DATA } from '../mocks';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,9 @@ export class DrumKeyService {
     crash1: 49,
   };
 
-  constructor() {}
+  constructor() {
+    this.sub.next(MOCK_PRESS_DATA);
+  }
 
   addInput(keyPress: DrumKeyPress) {
     const builtClass = new DrumKeyClass(
