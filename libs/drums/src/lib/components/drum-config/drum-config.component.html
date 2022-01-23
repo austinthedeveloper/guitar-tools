@@ -1,5 +1,6 @@
 <p>drum-config works!</p>
 <h1>Active</h1>
 <pre>{{ activeInput$ | async | json }}</pre>
-<h1>All</h1>
-<pre>{{ inputs$ | async | json }}</pre>
+<guitar-drum-tab [inputs]="inputs$ | async"></guitar-drum-tab>
+<!-- <h1>All</h1>
+<pre>{{ inputs$ | async | json }}</pre> -->
