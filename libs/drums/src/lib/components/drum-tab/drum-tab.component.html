@@ -1,2 +1,17 @@
 <h1>Active</h1>
+<div class="drum-tabs" *ngIf="built">
+  <!-- <div
+    *ngFor="let input of inputs"
+    [ngClass]="'drum-type-' + input.type"
+  ></div> -->
+  <div *ngFor="let line of [0, 1, 2, 3, 4, 5]" class="drum-tab-line">
+    <div
+      *ngFor="let item of getRowData(line)"
+      [ngClass]="'drum-type-' + item.type"
+    ></div>
+  </div>
+</div>
+<div>
+  <div *ngFor="let input of inputs" [ngClass]="'drum-type-' + input.type"></div>
+</div>
 <pre>{{ inputs | json }}</pre>

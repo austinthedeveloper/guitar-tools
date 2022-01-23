@@ -7,4 +7,5 @@ export interface DrumKeyPress {
   hardnessType?: DrumKeyHardness;
   timestamp: number;
   type?: DrumType;
+  row?: number;
 }

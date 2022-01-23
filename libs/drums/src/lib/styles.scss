@@ -1,0 +1,71 @@
+.drum-tabs {
+  position: relative;
+  [class*='drum-type-'] {
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+  }
+  .drum-tab-line {
+    height: 40px;
+    border-top: 2px solid black;
+    &:first-child {
+      border-top-color: transparent;
+    }
+  }
+}
+[class*='drum-type-'] {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+@mixin drumX {
+  &::before {
+    content: 'X';
+  }
+}
+@mixin drumCircle {
+  &::before {
+    content: '';
+    width: 55%;
+    height: 10px;
+    background: black;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+  }
+}
+.drum-type-hiHat {
+  @include drumX;
+}
+.drum-type-ride {
+  @include drumX;
+  top: -5px;
+}
+.drum-type-crash1 {
+  @include drumX;
+  top: -8px;
+}
+.drum-type-crash2 {
+  @include drumX;
+  top: -11px;
+}
+.drum-type-crash3 {
+  @include drumX;
+  top: -14px;
+}
+.drum-type-tom1 {
+  @include drumCircle;
+}
+.drum-type-tom2 {
+  @include drumCircle;
+  top: -20px;
+}
+.drum-type-tom3 {
+  @include drumCircle;
+}
+.drum-type-snare {
+  @include drumCircle;
+}
+.drum-type-kick {
+  @include drumCircle;
+}
