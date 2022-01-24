@@ -1,17 +1,18 @@
 <h1>Active</h1>
-<div class="drum-tabs" *ngIf="built">
+<div class="drum-tabs" *ngFor="let row of inputs; let i = index">
   <!-- <div
     *ngFor="let input of inputs"
     [ngClass]="'drum-type-' + input.type"
   ></div> -->
   <div *ngFor="let line of [0, 1, 2, 3, 4, 5]" class="drum-tab-line">
     <div
-      *ngFor="let item of getRowData(line)"
+      *ngFor="let item of getRowData(line, i)"
       [ngClass]="'drum-type-' + item.type"
       [ngStyle]="{ left: item.timePercent + '%' }"
     ></div>
   </div>
 </div>
+<!-- <pre>{{ inputs | json }}</pre> -->
 <!-- <div>
   <div *ngFor="let input of inputs" [ngClass]="'drum-type-' + input.type"></div>
 </div>

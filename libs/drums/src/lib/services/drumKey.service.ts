@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { findKey } from 'lodash-es';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { findKey, groupBy, maxBy } from 'lodash-es';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DrumKeyClass } from '../classes/';
 import { DrumKeyPress, DrumType } from '../interfaces';
@@ -10,9 +10,6 @@ import { MOCK_PRESS_DATA } from '../mocks';
   providedIn: 'root',
 })
 export class DrumKeyService {
-  // private activeSub: BehaviorSubject<DrumKeyPress> = new BehaviorSubject(
-  //   MOCK_PRESS_DATA[0]
-  // );
   private activeSub: Subject<DrumKeyPress> = new Subject();
   activeInput$ = this.activeSub.asObservable();
   private sub: BehaviorSubject<DrumKeyPress[]> = new BehaviorSubject(
@@ -23,19 +20,36 @@ export class DrumKeyService {
       if (!inputs.length) return [];
       const baseTime = inputs[0].timestamp;
       return inputs.map((input) => {
-        return { ...input, timestamp: input.timestamp - baseTime };
+        return {
+          ...input,
+          timestamp: input.timestamp - baseTime,
+          row: this.getRow(input.type),
+        };
       });
-    }),
-    map((res) => {
-      // Filter anything greater than 10 seconds
-      return res
-        .filter((input) => input.timestamp < 10000)
-        .map((input) => {
-          return {
-            ...input,
-            timePercent: (input.timestamp / 10000) * 100,
-          };
-        });
+    })
+  );
+
+  inputRows$: Observable<DrumKeyPress[][]> = this.inputs$.pipe(
+    map((inputs) => {
+      const max: number = maxBy(inputs, 'timestamp').timestamp || 10000;
+      const rows = Math.ceil(max / 10000);
+      const res = [];
+      for (let i = 0; i < rows; i++) {
+        const match = inputs.filter(
+          (input) =>
+            i * 10000 <= input.timestamp && (i + 1) * 10000 > input.timestamp
+        );
+
+        res.push(
+          match.map((asdf) => {
+            return {
+              ...asdf,
+              timePercent: (asdf.timestamp / (10000 * (i + 1))) * 100,
+            };
+          })
+        );
+      }
+      return res;
     })
   );
 
@@ -68,5 +82,28 @@ export class DrumKeyService {
 
     this.activeSub.next(builtClass);
     this.sub.next([...this.sub.value, builtClass]);
+  }
+
+  private getRow(type: DrumType) {
+    switch (type) {
+      case 'snare':
+        return 2;
+      case 'tom1':
+        return 1;
+      case 'tom2':
+        return 2;
+      case 'tom3':
+        return 3;
+      case 'hiHat':
+      case 'ride':
+      case 'crash1':
+      case 'crash2':
+      case 'crash3':
+        return 0;
+      case 'kick':
+        return 4;
+      default:
+        return 0;
+    }
   }
 }

@@ -36,6 +36,7 @@ export class DrumConfigComponent {
   };
   activeInput$: Observable<DrumKeyPress> = this.drumKeyService.activeInput$;
   inputs$: Observable<DrumKeyPress[]> = this.drumKeyService.inputs$;
+  inputRows$: Observable<DrumKeyPress[][]> = this.drumKeyService.inputRows$;
   constructor(
     @Inject(MIDI_SUPPORT) readonly supported: boolean,
     @Inject(MIDI_ACCESS) access: Promise<MIDIAccess>,
