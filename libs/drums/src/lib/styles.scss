@@ -1,13 +1,14 @@
 .drum-tabs {
   position: relative;
   [class*='drum-type-'] {
-    position: relative;
+    position: absolute;
     display: inline-block;
     margin-top: 5px;
   }
   .drum-tab-line {
     height: 40px;
     border-top: 2px solid black;
+    position: relative;
     &:first-child {
       border-top-color: transparent;
     }

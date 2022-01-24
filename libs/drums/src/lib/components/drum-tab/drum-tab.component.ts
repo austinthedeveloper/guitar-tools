@@ -14,6 +14,7 @@ import { DrumKeyPress, DrumType } from '../../interfaces';
 })
 export class DrumTabComponent implements OnChanges {
   @Input() inputs: DrumKeyPress[] = [];
+  @Input() rows: number;
   built: DrumKeyPress[] = [];
   constructor() {}
 

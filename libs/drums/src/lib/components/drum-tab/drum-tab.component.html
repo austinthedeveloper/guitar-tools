@@ -8,10 +8,11 @@
     <div
       *ngFor="let item of getRowData(line)"
       [ngClass]="'drum-type-' + item.type"
+      [ngStyle]="{ left: item.timePercent + '%' }"
     ></div>
   </div>
 </div>
-<div>
+<!-- <div>
   <div *ngFor="let input of inputs" [ngClass]="'drum-type-' + input.type"></div>
 </div>
-<pre>{{ inputs | json }}</pre>
+<pre>{{ inputs | json }}</pre> -->

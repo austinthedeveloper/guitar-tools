@@ -25,6 +25,17 @@ export class DrumKeyService {
       return inputs.map((input) => {
         return { ...input, timestamp: input.timestamp - baseTime };
       });
+    }),
+    map((res) => {
+      // Filter anything greater than 10 seconds
+      return res
+        .filter((input) => input.timestamp < 10000)
+        .map((input) => {
+          return {
+            ...input,
+            timePercent: (input.timestamp / 10000) * 100,
+          };
+        });
     })
   );
 
@@ -41,7 +52,7 @@ export class DrumKeyService {
   };
 
   constructor() {
-    // this.sub.next(MOCK_PRESS_DATA);
+    this.sub.next(MOCK_PRESS_DATA);
   }
 
   addInput(keyPress: DrumKeyPress) {

@@ -8,4 +8,5 @@ export interface DrumKeyPress {
   timestamp: number;
   type?: DrumType;
   row?: number;
+  timePercent?: number;
 }
