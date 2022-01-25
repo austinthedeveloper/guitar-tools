@@ -24,16 +24,6 @@ import MIDIOutput = WebMidi.MIDIOutput;
   providers: [inputById('input-0'), outputByName('VirtualMIDISynth')],
 })
 export class DrumConfigComponent {
-  config = {
-    snare: 38,
-    tap: 40,
-    tom1: 48,
-    tom2: 45,
-    tom3: 43,
-    hiHat: 46,
-    ride: 51,
-    crash1: 49,
-  };
   activeInput$: Observable<DrumKeyPress> = this.drumKeyService.activeInput$;
   inputs$: Observable<DrumKeyPress[]> = this.drumKeyService.inputs$;
   inputRows$: Observable<DrumKeyPress[][]> = this.drumKeyService.inputRows$;

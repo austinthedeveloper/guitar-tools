@@ -9,8 +9,12 @@
     height: 40px;
     border-top: 2px solid black;
     position: relative;
+    padding: 0 30px 0 40px;
     &:first-child {
       border-top-color: transparent;
+    }
+    .line-wrapper {
+      position: relative;
     }
   }
 }
@@ -28,7 +32,7 @@
   &::before {
     content: '';
     width: 65%;
-    height: 12px;
+    height: 15px;
     background: black;
     border-radius: 50%;
     border: 2px solid white;
@@ -39,9 +43,15 @@
 .drum-type-hiHat {
   @include drumX;
 }
+.drum-type-hiHatPedal {
+  @include drumX;
+}
+.drum-type-hiHatClosed {
+  @include drumX;
+}
 .drum-type-ride {
   @include drumX;
-  top: -5px;
+  bottom: -19px;
 }
 .drum-type-crash1 {
   @include drumX;
