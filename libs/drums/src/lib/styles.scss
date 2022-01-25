@@ -27,10 +27,11 @@
 @mixin drumCircle {
   &::before {
     content: '';
-    width: 55%;
-    height: 10px;
+    width: 65%;
+    height: 12px;
     background: black;
     border-radius: 50%;
+    border: 2px solid white;
     position: relative;
     display: inline-block;
   }

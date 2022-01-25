@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { findKey, groupBy, maxBy } from 'lodash-es';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { DrumKeyClass } from '../classes/';
 import { DrumKeyPress, DrumType } from '../interfaces';
 import { MOCK_PRESS_DATA } from '../mocks';
@@ -30,6 +30,7 @@ export class DrumKeyService {
   );
 
   inputRows$: Observable<DrumKeyPress[][]> = this.inputs$.pipe(
+    filter((inputs) => !!inputs.length),
     map((inputs) => {
       const max: number = maxBy(inputs, 'timestamp').timestamp || 10000;
       const rows = Math.ceil(max / 10000);
@@ -76,7 +77,7 @@ export class DrumKeyService {
     });
     console.log('test', test);
 
-    // this.sub.next(MOCK_PRESS_DATA);
+    this.sub.next(test);
   }
 
   addInput(keyPress: DrumKeyPress) {
