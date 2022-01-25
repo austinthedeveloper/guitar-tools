@@ -60,13 +60,23 @@ export class DrumKeyService {
     tom2: 45,
     tom3: 43,
     hiHat: 46,
+    hiHatClosed: 42,
+    hiHatPedal: 23,
     ride: 51,
     crash1: 49,
     kick: 36,
   };
 
   constructor() {
-    this.sub.next(MOCK_PRESS_DATA);
+    const test = MOCK_PRESS_DATA.map((data) => {
+      if (data.key == 42) {
+        data.type = 'hiHatClosed';
+      }
+      return data;
+    });
+    console.log('test', test);
+
+    // this.sub.next(MOCK_PRESS_DATA);
   }
 
   addInput(keyPress: DrumKeyPress) {

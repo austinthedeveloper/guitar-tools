@@ -14,7 +14,7 @@ export const MOCK_PRESS_DATA: DrumKeyPress[] = [
     key: 23,
     hardness: 127,
     timestamp: 1.1000001430511475,
-    type: 'unknown',
+    type: 'hiHatPedal',
     row: 0,
   },
   {
@@ -22,7 +22,7 @@ export const MOCK_PRESS_DATA: DrumKeyPress[] = [
     key: 42,
     hardness: 127,
     timestamp: 2.1000001430511475,
-    type: 'unknown',
+    type: 'hiHatClosed',
     row: 0,
   },
   {
@@ -54,7 +54,7 @@ export const MOCK_PRESS_DATA: DrumKeyPress[] = [
     key: 42,
     hardness: 21,
     timestamp: 1612.7999999523163,
-    type: 'unknown',
+    type: 'hiHatClosed',
     row: 0,
   },
   {
@@ -62,7 +62,7 @@ export const MOCK_PRESS_DATA: DrumKeyPress[] = [
     key: 42,
     hardness: 21,
     timestamp: 1881.9000000953674,
-    type: 'unknown',
+    type: 'hiHatClosed',
     row: 0,
   },
   {

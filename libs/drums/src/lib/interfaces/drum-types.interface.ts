@@ -5,6 +5,8 @@ export type DrumType =
   | 'tom2'
   | 'tom3'
   | 'hiHat'
+  | 'hiHatClosed'
+  | 'hiHatPedal'
   | 'ride'
   | 'kick'
   | 'crash1'
