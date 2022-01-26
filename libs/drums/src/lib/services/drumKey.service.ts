@@ -3,7 +3,7 @@ import { findKey, groupBy, maxBy } from 'lodash-es';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { DrumKeyClass } from '../classes/';
-import { DrumKeyPress, DrumType } from '../interfaces';
+import { DrumKeyPress, DrumType, DrumUserOptions } from '../interfaces';
 import { MOCK_PRESS_DATA } from '../mocks';
 
 @Injectable({
@@ -15,10 +15,23 @@ export class DrumKeyService {
   private sub: BehaviorSubject<DrumKeyPress[]> = new BehaviorSubject(
     [] as DrumKeyPress[]
   );
-  private userOptions = new BehaviorSubject({
-    timelines: 10000,
-  });
-  userOptions$ = this.userOptions.asObservable();
+  private userOptions: BehaviorSubject<DrumUserOptions> = new BehaviorSubject({
+    timelines: 10,
+    maps: {
+      snare: 38,
+      tap: 40,
+      tom1: 48,
+      tom2: 45,
+      tom3: 43,
+      hiHat: 46,
+      hiHatClosed: 42,
+      hiHatPedal: 23,
+      ride: 51,
+      crash1: 49,
+      kick: 36,
+    },
+  } as DrumUserOptions);
+  userOptions$: Observable<DrumUserOptions> = this.userOptions.asObservable();
   inputs$ = this.sub.asObservable().pipe(
     map((inputs) => {
       if (!inputs.length) return [];
@@ -39,21 +52,22 @@ export class DrumKeyService {
   ).pipe(
     filter(([inputs]) => !!inputs.length),
     map(([inputs, { timelines }]) => {
-      const max: number = maxBy(inputs, 'timestamp').timestamp || timelines;
-      const rows = Math.ceil(max / timelines);
+      const timeSeconds = timelines * 1000;
+      const max: number = maxBy(inputs, 'timestamp').timestamp || timeSeconds;
+      const rows = Math.ceil(max / timeSeconds);
       const res = [];
       for (let i = 0; i < rows; i++) {
         const match = inputs.filter(
           (input) =>
-            i * timelines <= input.timestamp &&
-            (i + 1) * timelines > input.timestamp
+            i * timeSeconds <= input.timestamp &&
+            (i + 1) * timeSeconds > input.timestamp
         );
 
         res.push(
           match.map((asdf) => {
             return {
               ...asdf,
-              timePercent: (asdf.timestamp / (timelines * (i + 1))) * 100,
+              timePercent: (asdf.timestamp / (timeSeconds * (i + 1))) * 100,
             };
           })
         );
@@ -62,20 +76,10 @@ export class DrumKeyService {
     })
   );
 
-  private configSub = new BehaviorSubject({
-    snare: 38,
-    tap: 40,
-    tom1: 48,
-    tom2: 45,
-    tom3: 43,
-    hiHat: 46,
-    hiHatClosed: 42,
-    hiHatPedal: 23,
-    ride: 51,
-    crash1: 49,
-    kick: 36,
-  });
-  config$ = this.configSub.asObservable();
+  private editSub: BehaviorSubject<boolean> = new BehaviorSubject(
+    false as boolean
+  );
+  editing$: Observable<boolean> = this.editSub.asObservable();
 
   constructor() {
     const test = MOCK_PRESS_DATA.map((data) => {
@@ -95,7 +99,7 @@ export class DrumKeyService {
       keyPress.hardness,
       keyPress.timestamp,
       findKey(
-        this.configSub.value,
+        this.userOptions.value.maps,
         (configKey) => keyPress.key === configKey
       ) as DrumType
     );
@@ -127,5 +131,12 @@ export class DrumKeyService {
       default:
         return 0;
     }
+  }
+
+  set edit(value: boolean) {
+    this.editSub.next(value);
+  }
+  get edit() {
+    return this.editSub.value;
   }
 }

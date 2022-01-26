@@ -1,0 +1,15 @@
+<div *ngIf="config$ | async">
+  <div *ngIf="form">
+    <p>drum-form-config works!</p>
+    <pre *ngIf="form">{{ form.value | json }}</pre>
+  </div>
+</div>
+
+<!-- <form class="container">
+  <div class="row">
+    <div class="col-6">
+      <label class="form-label">Email address</label>
+      <input type="number" class="form-control" />
+    </div>
+  </div>
+</form> -->

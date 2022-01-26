@@ -4,9 +4,14 @@ import { DrumConfigComponent } from './components/drum-config/drum-config.compon
 import { WebAudioModule } from '@ng-web-apis/audio/';
 import { FrequencyPipeModule } from '@ng-web-apis/midi';
 import { DrumTabComponent } from './components/drum-tab/drum-tab.component';
+import { DrumFormConfigComponent } from './components/drum-form-config/drum-form-config.component';
 @NgModule({
   imports: [CommonModule, WebAudioModule, FrequencyPipeModule],
-  declarations: [DrumConfigComponent, DrumTabComponent],
-  exports: [DrumConfigComponent, DrumTabComponent],
+  declarations: [
+    DrumConfigComponent,
+    DrumTabComponent,
+    DrumFormConfigComponent,
+  ],
+  exports: [DrumConfigComponent, DrumTabComponent, DrumFormConfigComponent],
 })
 export class DrumsModule {}
