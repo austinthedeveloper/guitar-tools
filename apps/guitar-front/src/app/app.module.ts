@@ -6,6 +6,7 @@ import { GuitarToolsModule } from '@guitar/guitar-tools';
 
 import { AppComponent } from './app.component';
 import { APP_COMPONENTS } from './components';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, ...APP_COMPONENTS],
@@ -15,6 +16,7 @@ import { APP_COMPONENTS } from './components';
     FormsModule,
     ReactiveFormsModule,
     DrumsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -68,7 +68,7 @@
               "apps/guitar-front/src/favicon.ico",
               "apps/guitar-front/src/assets"
             ],
-            "styles": ["apps/guitar-front/src/styles.scss"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/guitar-front/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
