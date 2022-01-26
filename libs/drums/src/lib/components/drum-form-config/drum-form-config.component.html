@@ -1,15 +1,20 @@
-<div *ngIf="config$ | async">
-  <div *ngIf="form">
-    <p>drum-form-config works!</p>
-    <pre *ngIf="form">{{ form.value | json }}</pre>
-  </div>
-</div>
-
-<!-- <form class="container">
-  <div class="row">
-    <div class="col-6">
-      <label class="form-label">Email address</label>
-      <input type="number" class="form-control" />
+<div class="form-config-container" *ngIf="config$ | async">
+  <form *ngIf="form" class="container">
+    <div class="row">
+      <div class="col-6">
+        <label class="form-label">Time</label>
+        <input type="number" [formControl]="timelines" class="form-control" />
+      </div>
     </div>
-  </div>
-</form> -->
+    <div class="row">
+      <div class="col-6" *ngFor="let ctrl of configArray">
+        <label class="form-label">{{ ctrl }}</label>
+        <input
+          type="number"
+          [formControl]="getMapControls(ctrl)"
+          class="form-control"
+        />
+      </div>
+    </div>
+  </form>
+</div>

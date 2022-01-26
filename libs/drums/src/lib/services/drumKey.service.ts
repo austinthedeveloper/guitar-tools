@@ -139,4 +139,8 @@ export class DrumKeyService {
   get edit() {
     return this.editSub.value;
   }
+
+  updateUserOptions(options: DrumUserOptions) {
+    this.userOptions.next(options);
+  }
 }
