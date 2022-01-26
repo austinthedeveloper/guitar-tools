@@ -30,6 +30,13 @@
     "data": {
       "tags": []
     },
+    "drum-front": {
+      "tags": []
+    },
+    "drum-front-e2e": {
+      "tags": [],
+      "implicitDependencies": ["drum-front"]
+    },
     "drums": {
       "tags": []
     },
