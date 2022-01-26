@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { debounceTime, first, tap } from 'rxjs/operators';
+import { debounceTime, filter, first, tap } from 'rxjs/operators';
 
 import { DrumUserOptions } from '../../interfaces';
 import { DrumKeyService } from '../../services';
@@ -48,7 +48,10 @@ export class DrumFormConfigComponent implements OnDestroy {
     const mappedControls = this.assignMaps(mappedKeys);
     this.configArray = mappedKeys;
     this.form = this.fb.group({
-      timelines: this.fb.control(10000, Validators.required),
+      timelines: this.fb.control(10000, [
+        Validators.required,
+        Validators.min(1),
+      ]),
       maps: this.fb.group(mappedControls),
     });
     this.form.patchValue(form);
@@ -58,6 +61,7 @@ export class DrumFormConfigComponent implements OnDestroy {
   private setFormSub() {
     this.formSub = this.form.valueChanges
       .pipe(
+        filter(() => this.form.valid),
         debounceTime(1000),
         tap((form: DrumUserOptions) =>
           this.drumKeyService.updateUserOptions(form)

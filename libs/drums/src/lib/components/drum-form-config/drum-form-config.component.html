@@ -1,19 +1,29 @@
 <div class="form-config-container" *ngIf="config$ | async">
   <form *ngIf="form" class="container">
     <div class="row">
-      <div class="col-6">
-        <label class="form-label">Time</label>
-        <input type="number" [formControl]="timelines" class="form-control" />
+      <div class="col-6 mb-3">
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            id="timeline"
+            [formControl]="timelines"
+          />
+          <label for="timeline">Timeline</label>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-6" *ngFor="let ctrl of configArray">
-        <label class="form-label">{{ ctrl }}</label>
-        <input
-          type="number"
-          [formControl]="getMapControls(ctrl)"
-          class="form-control"
-        />
+      <div class="col-2 mb-3" *ngFor="let ctrl of configArray">
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            id="{{ ctrl }}"
+            [formControl]="getMapControls(ctrl)"
+          />
+          <label for="{{ ctrl }}">{{ ctrl }}</label>
+        </div>
       </div>
     </div>
   </form>
