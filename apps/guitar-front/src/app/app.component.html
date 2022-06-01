@@ -14,39 +14,6 @@
     ></guitar-scale-quiz>
   </div>
   <div>
-    <h2>
-      OLD Fretboard Example ({{ exampleScaleForm.get('key')?.value }}
-      {{ exampleScaleForm.get('scale')?.value }})
-    </h2>
-    <form class="container mb-1" [formGroup]="exampleScaleForm">
-      <div class="row">
-        <div class="col">
-          <label for="frets" class="form-label">Key</label>
-          <select class="form-select" formControlName="key">
-            <option *ngFor="let item of scaleOptions" [value]="item">
-              {{ item }}
-            </option>
-          </select>
-        </div>
-        <div class="col">
-          <label for="frets" class="form-label">Scale</label>
-          <select class="form-select" formControlName="scale">
-            <option *ngFor="let item of scaleTypeOptions" [value]="item.value">
-              {{ item.key }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </form>
-    <guitar-fretboard
-      [tuning]="(tuning$ | async)!"
-      [tuningChart]="(tuningChart$ | async)!"
-      [columns]="(frets$ | async)!"
-      [tabs]="(exampleTab$ | async)!"
-      [disabled]="true"
-    ></guitar-fretboard>
-  </div>
-  <div>
     <h2>Tab Example</h2>
     <guitar-chart-tab></guitar-chart-tab>
   </div>

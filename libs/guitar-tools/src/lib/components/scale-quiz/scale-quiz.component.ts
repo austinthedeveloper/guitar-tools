@@ -78,7 +78,11 @@ export class ScaleQuizComponent
       scaleForm.scale
     );
 
-    this.answer.patchValue(`${scaleForm.key} - ${scaleForm.scale}`);
+    this.form.patchValue({
+      answer: `${scaleForm.key} - ${scaleForm.scale}`,
+      guess: null,
+      total: this.form.value.total + 1,
+    });
 
     return TuningHelper.buildNotes(tuning, this.tuningChart);
   }
