@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FretboardComponent } from './components/fretboard/fretboard.component';
 import { ChordQuizComponent } from './components/chord-quiz/chord-quiz.component';
 import { FretboardQuizComponent } from './components/fretboard-quiz/fretboard-quiz.component';
+import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -33,6 +34,7 @@ import { FretboardQuizComponent } from './components/fretboard-quiz/fretboard-qu
     FretDotPipe,
     ChordQuizComponent,
     FretboardQuizComponent,
+    QuizTotalsComponent,
   ],
   exports: [
     ChordComponent,

@@ -34,11 +34,7 @@
       <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
     </div>
     <div class="col" *ngIf="form.value as formValues">
-      <p class="text-success">Correct: {{ formValues.correct }}</p>
-      <p class="text-danger">Incorrect: {{ formValues.incorrect }}</p>
-      <p class="text-primary">
-        Total: {{ formValues.correct + '/' + formValues.total }}
-      </p>
+      <guitar-quiz-totals [totals]="formValues"></guitar-quiz-totals>
     </div>
   </div>
 </form>

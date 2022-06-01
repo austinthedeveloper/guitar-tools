@@ -1,0 +1,5 @@
+<div *ngIf="totals">
+  <p class="text-success">Correct: {{ totals.correct }}</p>
+  <p class="text-danger">Incorrect: {{ totals.incorrect }}</p>
+  <p class="text-primary">Total: {{ totals.correct + '/' + totals.total }}</p>
+</div>

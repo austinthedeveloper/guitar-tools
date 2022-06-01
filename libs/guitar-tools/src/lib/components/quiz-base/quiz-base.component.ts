@@ -17,6 +17,7 @@ export class ChordQuizBaseComponent {
   });
 
   constructor(public fb: FormBuilder) {}
+
   setAnswer(): void {}
   submitAnswer() {
     const { answer, guess, correct, incorrect } = this.form.value;
