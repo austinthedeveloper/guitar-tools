@@ -17,6 +17,7 @@ import { FretboardComponent } from './components/fretboard/fretboard.component';
 import { ChordQuizComponent } from './components/chord-quiz/chord-quiz.component';
 import { FretboardQuizComponent } from './components/fretboard-quiz/fretboard-quiz.component';
 import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.component';
+import { ScaleQuizComponent } from './components/scale-quiz/scale-quiz.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -35,6 +36,7 @@ import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.compon
     ChordQuizComponent,
     FretboardQuizComponent,
     QuizTotalsComponent,
+    ScaleQuizComponent,
   ],
   exports: [
     ChordComponent,
@@ -43,6 +45,7 @@ import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.compon
     ChartTabComponent,
     FretboardComponent,
     ChordQuizComponent,
+    ScaleQuizComponent,
   ],
 })
 export class GuitarToolsModule {}

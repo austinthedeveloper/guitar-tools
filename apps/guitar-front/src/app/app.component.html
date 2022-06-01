@@ -1,16 +1,21 @@
 <div class="container">
-  <guitar-user-options
+  <!-- <guitar-user-options
     [options]="options$ | async"
     (optionChanged)="optionChanged($event)"
     class="d-block my-2"
-  ></guitar-user-options>
+  ></guitar-user-options> -->
   <div>
     <h2>Quiz</h2>
     <guitar-chord-quiz [chords]="chords"></guitar-chord-quiz>
+    <guitar-scale-quiz
+      [tuning]="(tuning$ | async)!"
+      [tuningChart]="(tuningChart$ | async)!"
+      [frets]="(frets$ | async)!"
+    ></guitar-scale-quiz>
   </div>
   <div>
     <h2>
-      Fretboard Example ({{ exampleScaleForm.get('key')?.value }}
+      OLD Fretboard Example ({{ exampleScaleForm.get('key')?.value }}
       {{ exampleScaleForm.get('scale')?.value }})
     </h2>
     <form class="container mb-1" [formGroup]="exampleScaleForm">
