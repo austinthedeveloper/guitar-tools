@@ -61,8 +61,8 @@ export class ScaleQuizComponent
   }
 
   randomizeValues() {
-    const randomKey = random(this.scaleOptions.length);
-    const randomScale = random(this.scaleTypeOptions.length);
+    const randomKey = random(this.scaleOptions.length - 1);
+    const randomScale = random(this.scaleTypeOptions.length - 1);
 
     this.scaleForm.patchValue({
       key: this.scaleOptions[randomKey],
@@ -77,6 +77,7 @@ export class ScaleQuizComponent
       scaleForm.key,
       scaleForm.scale
     );
+
     this.answer.patchValue(`${scaleForm.key} - ${scaleForm.scale}`);
 
     return TuningHelper.buildNotes(tuning, this.tuningChart);
