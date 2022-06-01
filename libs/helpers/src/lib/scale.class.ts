@@ -1,4 +1,17 @@
-export const SCALE = ['A', 'A #', 'B', 'C', 'C #', 'D', 'D #', 'E', 'F', 'F #', 'G', 'G #'];
+export const SCALE = [
+  'A',
+  'A# / B♭',
+  'B',
+  'C',
+  'C# / D♭',
+  'D',
+  'D# / E♭',
+  'E',
+  'F',
+  'F# / G♭',
+  'G',
+  'G# / A♭',
+];
 
 export function scaleStartWith(key: string): string[] {
   const index: number = SCALE.indexOf(key);
