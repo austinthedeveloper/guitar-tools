@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'guitar-quiz-base',
@@ -32,5 +32,13 @@ export class ChordQuizBaseComponent {
   reset() {
     this.form.reset({ correct: 0, incorrect: 0, total: 0 });
     this.setAnswer();
+  }
+
+  get answer(): FormControl {
+    return this.form.get('answer') as FormControl;
+  }
+
+  get guess(): FormControl {
+    return this.form.get('guess') as FormControl;
   }
 }

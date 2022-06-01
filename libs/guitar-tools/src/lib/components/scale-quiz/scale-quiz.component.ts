@@ -8,6 +8,7 @@ import {
 import { FormBuilder, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
+import { random } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
@@ -25,9 +26,14 @@ export class ScaleQuizComponent
   @Input() frets: number;
   tabs: PressInterface[];
 
+  answerForm = this.fb.group({
+    key: ['', Validators.required],
+    scale: ['', Validators.required],
+  });
+
   scaleForm = this.fb.group({
-    key: ['A', Validators.required],
-    scale: ['major', Validators.required],
+    key: ['', Validators.required],
+    scale: ['', Validators.required],
   });
   scaleOptions = SCALE;
   scaleTypeOptions = TuningHelper.getScaleOptions;
@@ -38,17 +44,40 @@ export class ScaleQuizComponent
 
   ngOnChanges({ tuningChart }: SimpleChanges): void {
     if (tuningChart) {
-      this.tabs = this.buildScale();
+      this.setAnswer();
     }
   }
 
-  buildScale() {
-    if (!this.tuningChart) return null;
+  setAnswer(): void {
+    this.answerForm.reset();
+    this.randomizeValues();
+    this.tabs = this.buildScale();
+  }
+
+  submit() {
+    const answerForm = this.answerForm.value;
+    this.guess.patchValue(`${answerForm.key} - ${answerForm.scale}`);
+    this.submitAnswer();
+  }
+
+  randomizeValues() {
+    const randomKey = random(this.scaleOptions.length);
+    const randomScale = random(this.scaleTypeOptions.length);
+
+    this.scaleForm.patchValue({
+      key: this.scaleOptions[randomKey],
+      scale: this.scaleTypeOptions[randomScale].value,
+    });
+  }
+
+  buildScale(): PressInterface[] {
+    if (!this.tuningChart) return [];
     const scaleForm = this.scaleForm.value;
     const tuning = TuningHelper.getScaleByKeyAndType(
       scaleForm.key,
       scaleForm.scale
     );
+    this.answer.patchValue(`${scaleForm.key} - ${scaleForm.scale}`);
 
     return TuningHelper.buildNotes(tuning, this.tuningChart);
   }

@@ -1,9 +1,6 @@
 <div>
-  <h2>
-    Fretboard Example ({{ scaleForm.get('key')?.value }}
-    {{ scaleForm.get('scale')?.value }})
-  </h2>
-  <form class="container mb-1" [formGroup]="scaleForm">
+  <h2>Guess the Scale</h2>
+  <form class="container mb-1" [formGroup]="answerForm">
     <div class="row">
       <div class="col">
         <label for="frets" class="form-label">Key</label>
@@ -21,9 +18,22 @@
           </option>
         </select>
       </div>
+      <div class="col">
+        <button
+          class="btn btn-primary"
+          [disabled]="answerForm.invalid"
+          (click)="submit()"
+        >
+          Submit
+        </button>
+      </div>
+      <div class="col" *ngIf="form.value as formValues">
+        <guitar-quiz-totals [totals]="formValues"></guitar-quiz-totals>
+      </div>
     </div>
   </form>
   <guitar-fretboard
+    *ngIf="tabs"
     [tuning]="tuning"
     [tuningChart]="tuningChart"
     [columns]="frets"
