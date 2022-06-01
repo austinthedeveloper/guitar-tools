@@ -78,8 +78,10 @@ export class ScaleQuizComponent
       scaleForm.scale
     );
 
+    const newAnswer = `${scaleForm.key} - ${scaleForm.scale}`;
+
     this.form.patchValue({
-      answer: `${scaleForm.key} - ${scaleForm.scale}`,
+      answer: newAnswer,
       guess: null,
       total: this.form.value.total + 1,
     });
