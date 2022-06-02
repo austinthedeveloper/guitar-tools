@@ -28,10 +28,6 @@ export class ChordQuizComponent
     const match: ChordInterface =
       this.chords[Math.floor(Math.random() * (this.chords.length - 1))];
     this.chord = match;
-    this.form.patchValue({
-      answer: match.fullName,
-      guess: null,
-      total: this.form.value.total + 1,
-    });
+    this.answer.patchValue(match.fullName);
   }
 }

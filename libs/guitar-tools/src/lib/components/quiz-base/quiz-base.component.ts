@@ -20,12 +20,16 @@ export class ChordQuizBaseComponent {
 
   setAnswer(): void {}
   submitAnswer() {
-    const { answer, guess, correct, incorrect } = this.form.value;
+    const { answer, guess, correct, incorrect, total } = this.form.value;
+    const base = { total: total + 1 };
     if (guess === answer) {
-      this.form.patchValue({ guess: null, correct: correct + 1 });
+      this.form.patchValue({ ...base, guess: null, correct: correct + 1 });
       this.setAnswer();
     } else {
-      this.form.patchValue({ incorrect: incorrect + 1 });
+      this.form.patchValue({
+        ...base,
+        incorrect: incorrect + 1,
+      });
     }
   }
 

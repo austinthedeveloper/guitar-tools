@@ -18,33 +18,36 @@ import { ChordQuizComponent } from './components/chord-quiz/chord-quiz.component
 import { FretboardQuizComponent } from './components/fretboard-quiz/fretboard-quiz.component';
 import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.component';
 import { ScaleQuizComponent } from './components/scale-quiz/scale-quiz.component';
+import { ModeQuizComponent } from './components/mode-quiz/mode-quiz.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [
-    ChordComponent,
-    ChartComponent,
-    MetronomeComponent,
-    ChartTabComponent,
-    FretboardComponent,
-    IncludesStringPipe,
     ActivePressesPipe,
-    IsMutedPipe,
-    StringTypePipe,
-    TabStringTypePipe,
-    FretDotPipe,
+    ChartComponent,
+    ChartTabComponent,
+    ChordComponent,
     ChordQuizComponent,
+    FretboardComponent,
     FretboardQuizComponent,
+    FretDotPipe,
+    IncludesStringPipe,
+    IsMutedPipe,
+    MetronomeComponent,
+    ModeQuizComponent,
     QuizTotalsComponent,
     ScaleQuizComponent,
+    StringTypePipe,
+    TabStringTypePipe,
   ],
   exports: [
-    ChordComponent,
     ChartComponent,
-    MetronomeComponent,
     ChartTabComponent,
-    FretboardComponent,
+    ChordComponent,
     ChordQuizComponent,
+    FretboardComponent,
+    MetronomeComponent,
+    ModeQuizComponent,
     ScaleQuizComponent,
   ],
 })
