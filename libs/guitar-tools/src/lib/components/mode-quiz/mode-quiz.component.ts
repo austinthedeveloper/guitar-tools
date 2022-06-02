@@ -1,14 +1,9 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
-import { TuningChart, PressInterface, ModesEnum } from '@guitar/interfaces';
+import { ModesEnum } from '@guitar/interfaces';
 import { random } from 'lodash-es';
+
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
