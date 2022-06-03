@@ -19,6 +19,7 @@ import { FretboardQuizComponent } from './components/fretboard-quiz/fretboard-qu
 import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.component';
 import { ScaleQuizComponent } from './components/scale-quiz/scale-quiz.component';
 import { ModeQuizComponent } from './components/mode-quiz/mode-quiz.component';
+import { ModeNameQuizComponent } from './components/mode-name-quiz/mode-name-quiz.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -39,6 +40,7 @@ import { ModeQuizComponent } from './components/mode-quiz/mode-quiz.component';
     ScaleQuizComponent,
     StringTypePipe,
     TabStringTypePipe,
+    ModeNameQuizComponent,
   ],
   exports: [
     ChartComponent,
@@ -47,6 +49,7 @@ import { ModeQuizComponent } from './components/mode-quiz/mode-quiz.component';
     ChordQuizComponent,
     FretboardComponent,
     MetronomeComponent,
+    ModeNameQuizComponent,
     ModeQuizComponent,
     ScaleQuizComponent,
   ],
