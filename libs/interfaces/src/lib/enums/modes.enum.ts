@@ -7,3 +7,13 @@ export enum ModesEnum {
   Aeolian,
   Locrian,
 }
+
+export const MODES_ARRAY: string[] = [
+  'Ionian',
+  'Dorian',
+  'Phrygian',
+  'Lydian',
+  'Mixolydian',
+  'Aeolian',
+  'Locrian',
+];

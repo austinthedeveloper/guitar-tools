@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
-import { ModesEnum } from '@guitar/interfaces';
+import { ModesEnum, MODES_ARRAY } from '@guitar/interfaces';
 import { random } from 'lodash-es';
 
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
@@ -17,15 +17,7 @@ export class ModeQuizComponent extends ChordQuizBaseComponent {
     mode: [null, Validators.required],
   });
   private scaleOptions = SCALE;
-  options = [
-    'Ionian',
-    'Dorian',
-    'Phrygian',
-    'Lydian',
-    'Mixolydian',
-    'Aeolian',
-    'Locrian',
-  ];
+  options = MODES_ARRAY;
 
   constructor(fb: FormBuilder) {
     super(fb);
