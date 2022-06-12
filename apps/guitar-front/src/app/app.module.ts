@@ -5,16 +5,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GuitarToolsModule } from '@guitar/guitar-tools';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing.module';
 import { APP_COMPONENTS } from './components';
+import { APP_CONTAINERS } from './containers';
 
 @NgModule({
-  declarations: [AppComponent, ...APP_COMPONENTS],
+  declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
   imports: [
     BrowserModule,
     GuitarToolsModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

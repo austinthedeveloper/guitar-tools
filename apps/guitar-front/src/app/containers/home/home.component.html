@@ -1,0 +1,35 @@
+<div class="container">
+  <div>
+    <h2>User Options</h2>
+    <guitar-user-options
+      [options]="options$ | async"
+      (optionChanged)="optionChanged($event)"
+      class="d-block my-2"
+    ></guitar-user-options>
+  </div>
+
+  <div>
+    <h2>Tab Example</h2>
+    <guitar-chart-tab></guitar-chart-tab>
+  </div>
+
+  <div>
+    <h2>Chord Example</h2>
+    <label for="chordSelector" class="form-label">Select a Chord</label>
+    <select
+      class="form-select mb-2"
+      [formControl]="formId"
+      placeholder="Select a Chord"
+      id="chordSelector"
+    >
+      <option *ngFor="let chord of chords" [value]="chord.id">
+        Chord {{ chord.fullName }}
+      </option>
+    </select>
+    <guitar-chord
+      [tuning]="(tuning$ | async)!"
+      [presses]="formPress.value"
+      (pressesChanged)="onPressChange($event)"
+    ></guitar-chord>
+  </div>
+</div>
