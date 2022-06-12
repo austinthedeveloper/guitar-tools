@@ -1,60 +1,33 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChordComponent } from './components/chord/chord.component';
-import { ChartComponent } from './components/chart/chart.component';
-import { MetronomeComponent } from './components/metronome/metronome.component';
-import {
-  IncludesStringPipe,
-  ActivePressesPipe,
-  IsMutedPipe,
-  StringTypePipe,
-  TabStringTypePipe,
-  FretDotPipe,
-} from './pipes';
-import { ChartTabComponent } from './components/chart-tab/chart-tab.component';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { ChartTabComponent } from './components/chart-tab/chart-tab.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { ChordComponent } from './components/chord/chord.component';
 import { FretboardComponent } from './components/fretboard/fretboard.component';
-import { ChordQuizComponent } from './components/chord-quiz/chord-quiz.component';
-import { FretboardQuizComponent } from './components/fretboard-quiz/fretboard-quiz.component';
-import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.component';
-import { ScaleQuizComponent } from './components/scale-quiz/scale-quiz.component';
-import { ModeQuizComponent } from './components/mode-quiz/mode-quiz.component';
-import { ModeNameQuizComponent } from './components/mode-name-quiz/mode-name-quiz.component';
-import { RelativeMinorQuizComponent } from './components/relative-minor-quiz/relative-minor-quiz.component';
+import { MetronomeComponent } from './components/metronome/metronome.component';
+import { GUITAR_QUIZ_COMPONENTS } from './components/quiz';
+import { GUITAR_TOOLS_PIPES } from './pipes';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [
-    ActivePressesPipe,
     ChartComponent,
     ChartTabComponent,
     ChordComponent,
-    ChordQuizComponent,
     FretboardComponent,
-    FretboardQuizComponent,
-    FretDotPipe,
-    IncludesStringPipe,
-    IsMutedPipe,
     MetronomeComponent,
-    ModeNameQuizComponent,
-    ModeQuizComponent,
-    QuizTotalsComponent,
-    RelativeMinorQuizComponent,
-    ScaleQuizComponent,
-    StringTypePipe,
-    TabStringTypePipe,
+    ...GUITAR_QUIZ_COMPONENTS,
+    ...GUITAR_TOOLS_PIPES,
   ],
   exports: [
     ChartComponent,
     ChartTabComponent,
     ChordComponent,
-    ChordQuizComponent,
     FretboardComponent,
     MetronomeComponent,
-    ModeNameQuizComponent,
-    ModeQuizComponent,
-    RelativeMinorQuizComponent,
-    ScaleQuizComponent,
+    ...GUITAR_QUIZ_COMPONENTS,
   ],
 })
 export class GuitarToolsModule {}
