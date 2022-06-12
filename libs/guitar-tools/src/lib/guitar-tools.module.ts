@@ -1,3 +1,4 @@
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +12,7 @@ import { GUITAR_QUIZ_COMPONENTS } from './components/quiz';
 import { GUITAR_TOOLS_PIPES } from './pipes';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, DragDropModule],
   declarations: [
     ChartComponent,
     ChartTabComponent,

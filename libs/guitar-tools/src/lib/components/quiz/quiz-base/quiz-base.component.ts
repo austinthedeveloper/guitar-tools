@@ -30,28 +30,44 @@ export class ChordQuizBaseComponent {
   constructor(public fb: FormBuilder) {}
 
   setAnswer(): void {}
-  submitAnswer() {
-    const { answer, guess, correct, incorrect, total } = this.form.value;
-    const base = { total: total + 1 };
-    if (guess === answer) {
-      this.correct.emit(this.form.value);
-      this.form.patchValue({ ...base, guess: null, correct: correct + 1 });
-      this.setAnswer();
+  submitAnswer(callback?: Function) {
+    const { answer, guess } = this.form.value;
+    const isCorrect = callback ? callback(guess, answer) : guess === answer;
+    if (isCorrect) {
+      this.isCorrect();
     } else {
-      this.incorrect.emit(this.form.value);
-      this.form.patchValue({
-        ...base,
-        incorrect: incorrect + 1,
-      });
+      this.isWrong();
     }
 
-    this.afterAnswer.emit(this.form.value);
+    this.onAfterAnswer();
   }
 
   reset() {
     this.form.reset({ correct: 0, incorrect: 0, total: 0 });
     this.afterReset.emit(this.form.value);
     this.setAnswer();
+  }
+
+  isCorrect() {
+    const { correct, total } = this.form.value;
+    const base = { total: total + 1 };
+    this.correct.emit(this.form.value);
+    this.form.patchValue({ ...base, guess: null, correct: correct + 1 });
+    this.setAnswer();
+  }
+
+  isWrong() {
+    const { incorrect, total } = this.form.value;
+    const base = { total: total + 1 };
+    this.incorrect.emit(this.form.value);
+    this.form.patchValue({
+      ...base,
+      incorrect: incorrect + 1,
+    });
+  }
+
+  onAfterAnswer() {
+    this.afterAnswer.emit(this.form.value);
   }
 
   get answer(): FormControl {

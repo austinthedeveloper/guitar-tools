@@ -1,0 +1,83 @@
+.chart-tab {
+  border: 1px solid #ccc;
+  transition: 0.1s all ease-in-out;
+  position: relative;
+  .chart-row {
+    transition: 0.1s all ease-in-out;
+    border-right: 2px solid #ccc;
+    position: relative;
+    &:last-child {
+      border-right-width: 0;
+    }
+  }
+  .tuning-fret {
+    position: absolute;
+    right: 100%;
+    top: 0;
+    height: 100%;
+    width: 40px;
+  }
+  &:hover {
+    border-color: #000;
+    .chart-row {
+      border-color: #000;
+    }
+  }
+  .fret {
+    height: 30px;
+    position: relative;
+    &::before {
+      content: '';
+      height: 1px;
+      background-color: #000;
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      z-index: -1;
+    }
+    &:hover {
+      .fret-active-press {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+  }
+  .fret-active-press {
+    font-size: 11px;
+    transition: 0.2s all ease-in-out;
+    cursor: pointer;
+  }
+  .fret-active-new {
+    opacity: 0;
+  }
+
+  .chord-press {
+    $w: 12px;
+    $half: $w / 2;
+    width: $w;
+    height: $w;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - #{$half});
+    left: calc(50% - #{$half});
+    cursor: pointer;
+    transition: 0.2s ease-in-out all;
+    opacity: 0;
+    &:hover {
+      opacity: 1;
+    }
+    &.active,
+    &.pressed {
+      background-color: $primary;
+      opacity: 1;
+    }
+    &.pressed-root {
+      background-color: $info !important;
+      transform: scale(1.5);
+    }
+    &.muted {
+      background-color: #ccc;
+      opacity: 1;
+    }
+  }
+}

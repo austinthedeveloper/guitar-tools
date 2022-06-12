@@ -1,0 +1,35 @@
+<h3>Sorting Modes</h3>
+<div>
+  <p>Order the different types of Modes.</p>
+</div>
+<form [formGroup]="form">
+  <div class="row">
+    <div class="col">
+      <div
+        cdkDropList
+        class="list-group"
+        (cdkDropListDropped)="drop($event, guess.value)"
+      >
+        <div
+          class="list-group-item list-group-item-action"
+          *ngFor="let movie of guess.value"
+          cdkDrag
+        >
+          {{ movie }}
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <button
+        class="btn btn-primary"
+        [disabled]="form.invalid"
+        (click)="submit()"
+      >
+        Submit
+      </button>
+    </div>
+    <div class="col" *ngIf="form.value as formValues">
+      <guitar-quiz-totals [totals]="formValues"></guitar-quiz-totals>
+    </div>
+  </div>
+</form>

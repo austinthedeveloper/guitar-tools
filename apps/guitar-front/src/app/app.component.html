@@ -1,11 +1,7 @@
 <div class="container">
-  <guitar-user-options
-    [options]="options$ | async"
-    (optionChanged)="optionChanged($event)"
-    class="d-block my-2"
-  ></guitar-user-options>
   <div>
     <h2>Quiz</h2>
+    <guitar-mode-ordering-quiz></guitar-mode-ordering-quiz>
     <guitar-relative-minor-quiz></guitar-relative-minor-quiz>
     <guitar-mode-name-quiz></guitar-mode-name-quiz>
     <guitar-mode-quiz></guitar-mode-quiz>
@@ -15,6 +11,15 @@
       [tuningChart]="(tuningChart$ | async)!"
       [frets]="(frets$ | async)!"
     ></guitar-scale-quiz>
+  </div>
+
+  <div>
+    <h2>User Options</h2>
+    <guitar-user-options
+      [options]="options$ | async"
+      (optionChanged)="optionChanged($event)"
+      class="d-block my-2"
+    ></guitar-user-options>
   </div>
 
   <div>
