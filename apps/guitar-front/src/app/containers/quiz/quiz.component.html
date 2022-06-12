@@ -1,13 +1,25 @@
 <div class="container">
   <h2>Quiz</h2>
-  <guitar-mode-ordering-quiz></guitar-mode-ordering-quiz>
-  <guitar-relative-minor-quiz></guitar-relative-minor-quiz>
-  <guitar-mode-name-quiz></guitar-mode-name-quiz>
-  <guitar-mode-quiz></guitar-mode-quiz>
-  <guitar-chord-quiz [chords]="chords"></guitar-chord-quiz>
-  <guitar-scale-quiz
-    [tuning]="(tuning$ | async)!"
-    [tuningChart]="(tuningChart$ | async)!"
-    [frets]="(frets$ | async)!"
-  ></guitar-scale-quiz>
+  <guitar-guitar-card header="Sorting Modes">
+    <guitar-mode-ordering-quiz></guitar-mode-ordering-quiz>
+  </guitar-guitar-card>
+
+  <guitar-guitar-card header="Relative Minor">
+    <guitar-relative-minor-quiz></guitar-relative-minor-quiz>
+  </guitar-guitar-card>
+  <guitar-guitar-card header="Mode">
+    <guitar-mode-name-quiz></guitar-mode-name-quiz>
+
+    <guitar-mode-quiz></guitar-mode-quiz>
+  </guitar-guitar-card>
+  <guitar-guitar-card header="Chord Quiz">
+    <guitar-chord-quiz [chords]="chords"></guitar-chord-quiz>
+  </guitar-guitar-card>
+  <guitar-guitar-card header="Guess the Scale">
+    <guitar-scale-quiz
+      [tuning]="(tuning$ | async)!"
+      [tuningChart]="(tuningChart$ | async)!"
+      [frets]="(frets$ | async)!"
+    ></guitar-scale-quiz>
+  </guitar-guitar-card>
 </div>

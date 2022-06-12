@@ -2,6 +2,7 @@
   border: 1px solid #ccc;
   transition: 0.1s all ease-in-out;
   position: relative;
+  padding-left: 40px;
   .chart-row {
     transition: 0.1s all ease-in-out;
     border-right: 2px solid #ccc;
@@ -12,7 +13,7 @@
   }
   .tuning-fret {
     position: absolute;
-    right: 100%;
+    left: 0;
     top: 0;
     height: 100%;
     width: 40px;

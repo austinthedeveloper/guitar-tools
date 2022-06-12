@@ -3,6 +3,13 @@
 
 @import '~libs/guitar-tools/src/lib/styles/index.scss';
 @import '~libs/drums/src/lib/styles.scss';
+@import 'styles/index.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

@@ -15,6 +15,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 })
 export class ChordQuizBaseComponent {
   @Input() hideTotals: boolean = false;
+  @Output() formReady: EventEmitter<any> = new EventEmitter();
   @Output() correct: EventEmitter<any> = new EventEmitter();
   @Output() incorrect: EventEmitter<any> = new EventEmitter();
   @Output() afterAnswer: EventEmitter<any> = new EventEmitter();
@@ -27,7 +28,9 @@ export class ChordQuizBaseComponent {
     guess: [null, [Validators.required]],
   });
 
-  constructor(public fb: FormBuilder) {}
+  constructor(public fb: FormBuilder) {
+    this.formReady.emit(this.form);
+  }
 
   setAnswer(): void {}
   submitAnswer(callback?: Function) {

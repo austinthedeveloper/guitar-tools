@@ -1,0 +1,27 @@
+.guitar-card {
+  background-color: $white;
+
+  padding-bottom: 20px;
+  .guitar-card-header {
+    padding: 10px 15px;
+    font-size: 25px;
+
+    background-color: $primary;
+    color: $white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+  .guitar-card-footer {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border: 1px solid $border-color;
+    border-top: 0;
+    padding-bottom: 20px;
+  }
+  .guitar-card-body {
+    display: block;
+    border: 1px solid $border-color;
+    padding: 20px;
+    border-bottom: 0;
+  }
+}
