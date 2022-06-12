@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   Output,
 } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -13,6 +14,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChordQuizBaseComponent {
+  @Input() hideTotals: boolean = false;
   @Output() correct: EventEmitter<any> = new EventEmitter();
   @Output() incorrect: EventEmitter<any> = new EventEmitter();
   @Output() afterAnswer: EventEmitter<any> = new EventEmitter();

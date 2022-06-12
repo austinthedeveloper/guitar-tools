@@ -20,6 +20,7 @@ import { QuizTotalsComponent } from './components/quiz-totals/quiz-totals.compon
 import { ScaleQuizComponent } from './components/scale-quiz/scale-quiz.component';
 import { ModeQuizComponent } from './components/mode-quiz/mode-quiz.component';
 import { ModeNameQuizComponent } from './components/mode-name-quiz/mode-name-quiz.component';
+import { RelativeMinorQuizComponent } from './components/relative-minor-quiz/relative-minor-quiz.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
@@ -35,12 +36,13 @@ import { ModeNameQuizComponent } from './components/mode-name-quiz/mode-name-qui
     IncludesStringPipe,
     IsMutedPipe,
     MetronomeComponent,
+    ModeNameQuizComponent,
     ModeQuizComponent,
     QuizTotalsComponent,
+    RelativeMinorQuizComponent,
     ScaleQuizComponent,
     StringTypePipe,
     TabStringTypePipe,
-    ModeNameQuizComponent,
   ],
   exports: [
     ChartComponent,
@@ -51,6 +53,7 @@ import { ModeNameQuizComponent } from './components/mode-name-quiz/mode-name-qui
     MetronomeComponent,
     ModeNameQuizComponent,
     ModeQuizComponent,
+    RelativeMinorQuizComponent,
     ScaleQuizComponent,
   ],
 })
