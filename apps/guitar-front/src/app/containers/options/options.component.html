@@ -1,0 +1,10 @@
+<div class="container">
+  <div>
+    <h2>User Options</h2>
+    <guitar-user-options
+      [options]="options$ | async"
+      (optionChanged)="optionChanged($event)"
+      class="d-block my-2"
+    ></guitar-user-options>
+  </div>
+</div>

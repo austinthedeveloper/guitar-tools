@@ -59,10 +59,6 @@ export class HomeComponent {
     this.formPress.patchValue($event);
   }
 
-  optionChanged(options: UserOptionsInterface) {
-    this.userOptions.setOption(options);
-  }
-
   get formPress(): FormControl {
     return this.form.get('presses') as FormControl;
   }
