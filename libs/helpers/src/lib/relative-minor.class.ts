@@ -1,17 +1,22 @@
+import { sortBy } from 'lodash-es';
+
 export const relativeMinor = {
+  Ab: 'F',
   A: 'F#',
-  'A#': 'G',
+  Bb: 'G',
   B: 'G#',
   C: 'A',
-  'C#': 'A#',
+  Db: 'Bb',
   D: 'B',
-  'D#': 'C',
+  Eb: 'C',
   E: 'C#',
   F: 'D',
-  'F#': 'D#',
+  Gb: 'Eb',
   G: 'E',
-  'G#': 'F',
 };
 
-export const relativeMinorValues = Object.keys(relativeMinor);
+export const relativeMinorValues = sortBy(
+  Object.values(relativeMinor),
+  (value) => value
+);
 export const relativeMinorArray = Object.entries(relativeMinor);
