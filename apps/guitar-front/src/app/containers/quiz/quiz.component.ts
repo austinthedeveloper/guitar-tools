@@ -43,7 +43,6 @@ export class QuizComponent implements OnInit {
     const original = this.form.value;
     const rand = random(quizItems.length - 1);
     const selected = quizItems[rand];
-    console.log('hit', selected);
 
     if (original.activeValue === selected.value) {
       this.randomizeQuiz();
@@ -71,11 +70,21 @@ export class QuizComponent implements OnInit {
     return this.form.get('incorrect') as FormControl;
   }
 
+  get total() {
+    return this.form.get('total') as FormControl;
+  }
+
   onCorrect() {
     this.correct.patchValue(this.correct.value + 1);
+    this.updateTotal();
     this.randomizeQuiz();
   }
   onIncorrect() {
     this.incorrect.patchValue(this.incorrect.value + 1);
+    this.updateTotal();
+  }
+
+  updateTotal() {
+    this.total.patchValue(this.total.value + 1);
   }
 }

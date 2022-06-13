@@ -1,6 +1,7 @@
 <div class="container">
   <h2>Quiz</h2>
-  <guitar-guitar-card [header]="activeType.value">
+  <guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>
+  <guitar-card [header]="activeType.value">
     <ng-container [ngSwitch]="activeValue.value">
       <ng-container *ngSwitchCase="'sorting'">
         <guitar-mode-ordering-quiz
@@ -34,7 +35,13 @@
         ></guitar-chord-quiz>
       </ng-container>
     </ng-container>
-  </guitar-guitar-card>
-</div>
+  </guitar-card>
 
-<guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>
+  <guitar-card header="Chords">
+    <guitar-chord-quiz
+      [chords]="chords"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-chord-quiz>
+  </guitar-card>
+</div>

@@ -1,5 +1,9 @@
-<div *ngIf="totals">
-  <p class="text-success">Correct: {{ totals.correct }}</p>
-  <p class="text-danger">Incorrect: {{ totals.incorrect }}</p>
-  <p class="text-primary">Total: {{ totals.correct + '/' + totals.total }}</p>
+<div *ngIf="totals" class="container text-white my-2">
+  <div class="row">
+    <div class="col bg-success py-2">Correct: {{ totals.correct }}</div>
+    <div class="col bg-danger py-2">Incorrect: {{ totals.incorrect }}</div>
+    <div class="col bg-primary py-2">
+      Total: {{ totals.correct + '/' + totals.total }}
+    </div>
+  </div>
 </div>

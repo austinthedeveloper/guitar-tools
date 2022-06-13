@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'guitar-guitar-card',
+  selector: 'guitar-card',
   templateUrl: './guitar-card.component.html',
   styleUrls: ['./guitar-card.component.css'],
 })
