@@ -1,25 +1,40 @@
 <div class="container">
   <h2>Quiz</h2>
-  <guitar-guitar-card header="Sorting Modes">
-    <guitar-mode-ordering-quiz></guitar-mode-ordering-quiz>
-  </guitar-guitar-card>
-
-  <guitar-guitar-card header="Relative Minor">
-    <guitar-relative-minor-quiz></guitar-relative-minor-quiz>
-  </guitar-guitar-card>
-  <guitar-guitar-card header="Mode">
-    <guitar-mode-name-quiz></guitar-mode-name-quiz>
-
-    <guitar-mode-quiz></guitar-mode-quiz>
-  </guitar-guitar-card>
-  <guitar-guitar-card header="Chord Quiz">
-    <guitar-chord-quiz [chords]="chords"></guitar-chord-quiz>
-  </guitar-guitar-card>
-  <guitar-guitar-card header="Guess the Scale">
-    <guitar-scale-quiz
-      [tuning]="(tuning$ | async)!"
-      [tuningChart]="(tuningChart$ | async)!"
-      [frets]="(frets$ | async)!"
-    ></guitar-scale-quiz>
+  <guitar-guitar-card [header]="activeType.value">
+    <ng-container [ngSwitch]="activeValue.value">
+      <ng-container *ngSwitchCase="'sorting'">
+        <guitar-mode-ordering-quiz
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-mode-ordering-quiz>
+      </ng-container>
+      <ng-container *ngSwitchCase="'relativeMinor'">
+        <guitar-relative-minor-quiz
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-relative-minor-quiz>
+      </ng-container>
+      <ng-container *ngSwitchCase="'modeName'">
+        <guitar-mode-name-quiz
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-mode-name-quiz>
+      </ng-container>
+      <ng-container *ngSwitchCase="'mode'">
+        <guitar-mode-quiz
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-mode-quiz>
+      </ng-container>
+      <ng-container *ngSwitchCase="'chord'">
+        <guitar-chord-quiz
+          [chords]="chords"
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-chord-quiz>
+      </ng-container>
+    </ng-container>
   </guitar-guitar-card>
 </div>
+
+<guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>

@@ -29,8 +29,8 @@
       </button>
       <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
     </div>
-    <div class="col" *ngIf="form.value as formValues">
-      <guitar-quiz-totals [totals]="formValues"></guitar-quiz-totals>
+    <div class="col" *ngIf="!hideTotals">
+      <guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>
     </div>
   </div>
 </form>
