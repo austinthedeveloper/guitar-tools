@@ -11,7 +11,7 @@ const quizItems = [
   { key: 'Relative Minor', value: 'relativeMinor' },
   { key: 'Mode', value: 'modeName' },
   { key: 'Mode', value: 'mode' },
-  // { key: 'Guess Chord', value: 'chord' },
+  { key: 'Guess Chord', value: 'chord' },
 ];
 @Component({
   selector: 'guitar-quiz',
@@ -24,10 +24,15 @@ export class QuizComponent implements OnInit {
   tuning$ = this.userOptions.tuning$;
   tuningChart$ = this.userOptions.tuningChart$;
   frets$ = this.userOptions.frets$;
+  quizItems = quizItems;
 
   form = this.fb.group({
     activeType: this.fb.control('', Validators.required),
     activeValue: this.fb.control('', Validators.required),
+    activeQuizzes: this.fb.control(
+      ['sorting', 'relativeMinor', 'modeName', 'mode'],
+      Validators.required
+    ),
     correct: 0,
     incorrect: 0,
     total: 0,
@@ -39,12 +44,19 @@ export class QuizComponent implements OnInit {
     this.randomizeQuiz();
   }
 
-  private randomizeQuiz() {
-    const original = this.form.value;
-    const rand = random(quizItems.length - 1);
-    const selected = quizItems[rand];
+  randomizeQuiz() {
+    if (!this.activeQuizValues.length) {
+      return;
+    }
 
-    if (original.activeValue === selected.value) {
+    const original = this.form.value;
+    const rand = random(this.activeQuizValues.length - 1);
+    const selected = this.activeQuizValues[rand];
+
+    if (
+      original.activeValue === selected.value &&
+      this.activeQuizValues.length > 1
+    ) {
       this.randomizeQuiz();
     } else {
       this.form.patchValue({
@@ -72,6 +84,15 @@ export class QuizComponent implements OnInit {
 
   get total() {
     return this.form.get('total') as FormControl;
+  }
+
+  get activeQuizzes() {
+    return this.form.get('activeQuizzes') as FormControl;
+  }
+
+  get activeQuizValues() {
+    const formValue: string[] = this.activeQuizzes.value;
+    return quizItems.filter((item) => formValue.includes(item.value));
   }
 
   onCorrect() {

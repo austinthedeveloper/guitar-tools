@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { APP_COMPONENTS } from './components';
 import { APP_CONTAINERS } from './containers';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
@@ -18,6 +19,7 @@ import { APP_CONTAINERS } from './containers';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
