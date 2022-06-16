@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 const quizItems = [
   { key: 'Sorting Modes', value: 'sorting' },
   { key: 'Relative Minor', value: 'relativeMinor' },
+  { key: 'Relative Major', value: 'relativeMajor' },
   { key: 'Mode', value: 'modeName' },
   { key: 'Mode', value: 'mode' },
   { key: 'Guess Chord', value: 'chord' },

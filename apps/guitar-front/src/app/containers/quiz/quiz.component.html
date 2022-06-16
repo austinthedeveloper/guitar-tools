@@ -30,6 +30,12 @@
           (incorrect)="onIncorrect()"
         ></guitar-relative-minor-quiz>
       </ng-container>
+      <ng-container *ngSwitchCase="'relativeMajor'">
+        <guitar-relative-major-quiz
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-relative-major-quiz>
+      </ng-container>
       <ng-container *ngSwitchCase="'modeName'">
         <guitar-mode-name-quiz
           (correct)="onCorrect()"
