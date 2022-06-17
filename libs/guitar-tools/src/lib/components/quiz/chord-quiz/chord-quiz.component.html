@@ -15,8 +15,8 @@
         placeholder="Select a Chord"
         id="chordSelector"
       >
-        <option *ngFor="let chord of chords" [value]="chord.fullName">
-          {{ chord.fullName }}
+        <option *ngFor="let chord of options" [value]="chord">
+          {{ chord }}
         </option>
       </select>
       <button

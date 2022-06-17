@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ChordInterface } from '@guitar/interfaces';
+import { uniq } from 'lodash-es';
 
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
@@ -15,19 +16,25 @@ export class ChordQuizComponent
 {
   @Input() chords: ChordInterface[] = [];
   chord!: ChordInterface;
+  options: string[] = [];
 
   constructor(public fb: FormBuilder) {
     super(fb);
   }
   ngOnChanges({ chords }: SimpleChanges): void {
     if (chords && this.chords.length) {
+      this.setOptions();
       this.setAnswer();
     }
   }
+
+  private setOptions() {
+    this.options = uniq(this.chords.map((chord) => chord.name));
+  }
+
   setAnswer() {
-    const match: ChordInterface =
+    this.chord =
       this.chords[Math.floor(Math.random() * (this.chords.length - 1))];
-    this.chord = match;
-    this.answer.patchValue(match.fullName);
+    this.answer.patchValue(this.chord.name);
   }
 }
