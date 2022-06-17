@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { CHORDS_MOCK_SORTED } from '@guitar/data';
+import { CHORDS_MOCK_SORTED, TRIADS_MOCK_SORTED } from '@guitar/data';
 import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
 import { random, shuffle } from 'lodash-es';
@@ -13,6 +13,7 @@ const quizItems = [
   { key: 'Mode', value: 'modeName' },
   { key: 'Mode', value: 'mode' },
   { key: 'Guess Chord', value: 'chord' },
+  { key: 'Guess Triad', value: 'triads' },
 ];
 @Component({
   selector: 'guitar-quiz',
@@ -21,6 +22,7 @@ const quizItems = [
 })
 export class QuizComponent implements OnInit {
   chords: ChordInterface[] = CHORDS_MOCK_SORTED;
+  triads: ChordInterface[] = TRIADS_MOCK_SORTED;
   options$: Observable<UserOptionsInterface> = this.userOptions.options$;
   tuning$ = this.userOptions.tuning$;
   tuningChart$ = this.userOptions.tuningChart$;
@@ -31,7 +33,7 @@ export class QuizComponent implements OnInit {
     activeType: this.fb.control('', Validators.required),
     activeValue: this.fb.control('', Validators.required),
     activeQuizzes: this.fb.control(
-      ['sorting', 'relativeMinor', 'modeName', 'mode'],
+      ['sorting', 'relativeMinor', 'modeName', 'mode', 'triads'],
       Validators.required
     ),
     correct: 0,

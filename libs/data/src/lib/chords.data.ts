@@ -101,6 +101,8 @@ export const CHORDS_MOCK: ChordInterface[] = [
   ...CHORDS_MOCK_POSITION_1(),
   ...CHORDS_MOCK_POSITION_2(),
   ...CHORDS_MOCK_POSITION_3(),
+];
+export const TRIADS_MOCK: ChordInterface[] = [
   ...TRIADS_POSITION_3,
   ...TRIADS_POSITION_1,
   ...TRIADS_POSITION_2,
@@ -108,6 +110,11 @@ export const CHORDS_MOCK: ChordInterface[] = [
 console.log('hit', CHORDS_MOCK);
 
 export const CHORDS_MOCK_SORTED: ChordInterface[] = orderBy(CHORDS_MOCK, [
+  'name',
+  'position',
+]);
+
+export const TRIADS_MOCK_SORTED: ChordInterface[] = orderBy(TRIADS_MOCK, [
   'name',
   'position',
 ]);
