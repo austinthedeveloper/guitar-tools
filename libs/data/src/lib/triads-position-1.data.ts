@@ -58,7 +58,7 @@ function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
     return new ChordClass(string, undefined, chords, 'Triad');
   });
 }
-export const TRIADS_POSITION_2 = [
+export const TRIADS_POSITION_1 = [
   ...CHORDS_MOCK_TRIADS_1(),
   ...CHORDS_MOCK_TRIADS_2(),
   ...CHORDS_MOCK_TRIADS_3(),
