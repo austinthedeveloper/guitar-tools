@@ -2,6 +2,7 @@ import { scaleStartWith } from '@guitar/helpers';
 import { ChordClass, ChordInterface } from '@guitar/interfaces';
 import { orderBy } from 'lodash-es';
 import { TRIADS_POSITION_1 } from './triads-position-1.data';
+import { TRIADS_POSITION_2 } from './triads-position-2.data';
 import { TRIADS_POSITION_3 } from './triads-position-3.data';
 
 export function CHORDS_MOCK_POSITION_1(): ChordInterface[] {
@@ -97,11 +98,12 @@ export function CHORDS_MOCK_POSITION_3(): ChordInterface[] {
 }
 
 export const CHORDS_MOCK: ChordInterface[] = [
-  // ...CHORDS_MOCK_POSITION_1(),
-  // ...CHORDS_MOCK_POSITION_2(),
-  // ...CHORDS_MOCK_POSITION_3(),
+  ...CHORDS_MOCK_POSITION_1(),
+  ...CHORDS_MOCK_POSITION_2(),
+  ...CHORDS_MOCK_POSITION_3(),
   ...TRIADS_POSITION_3,
   ...TRIADS_POSITION_1,
+  ...TRIADS_POSITION_2,
 ];
 console.log('hit', CHORDS_MOCK);
 
