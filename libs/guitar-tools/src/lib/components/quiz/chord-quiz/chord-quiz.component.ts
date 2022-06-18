@@ -35,6 +35,8 @@ export class ChordQuizComponent
   setAnswer() {
     this.chord =
       this.chords[Math.floor(Math.random() * (this.chords.length - 1))];
+    console.log('set answer', this.chord.name, this.chord);
+
     this.answer.patchValue(this.chord.name);
   }
 }

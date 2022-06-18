@@ -1,9 +1,16 @@
 import { scaleStartWith } from '@guitar/helpers';
 import { ChordClass, ChordInterface } from '@guitar/interfaces';
 import { orderBy } from 'lodash-es';
-import { TRIADS_POSITION_1 } from './triads-position-1.data';
-import { TRIADS_POSITION_2 } from './triads-position-2.data';
-import { TRIADS_POSITION_3 } from './triads-position-3.data';
+import {
+  TRIADS_POSITION_1,
+  TRIADS_POSITION_2,
+  TRIADS_POSITION_3,
+} from './triads';
+import {
+  TRIADS_POSITION_MINOR_1,
+  TRIADS_POSITION_MINOR_2,
+  TRIADS_POSITION_MINOR_3,
+} from './triads/minor';
 
 export function CHORDS_MOCK_POSITION_1(): ChordInterface[] {
   const scale = scaleStartWith('A');
@@ -103,9 +110,14 @@ export const CHORDS_MOCK: ChordInterface[] = [
   ...CHORDS_MOCK_POSITION_3(),
 ];
 export const TRIADS_MOCK: ChordInterface[] = [
-  ...TRIADS_POSITION_3,
   ...TRIADS_POSITION_1,
   ...TRIADS_POSITION_2,
+  ...TRIADS_POSITION_3,
+];
+export const TRIADS_MINOR_MOCK: ChordInterface[] = [
+  ...TRIADS_POSITION_MINOR_1,
+  // ...TRIADS_POSITION_MINOR_2,
+  // ...TRIADS_POSITION_MINOR_3,
 ];
 
 export const CHORDS_MOCK_SORTED: ChordInterface[] = orderBy(CHORDS_MOCK, [
@@ -117,3 +129,8 @@ export const TRIADS_MOCK_SORTED: ChordInterface[] = orderBy(TRIADS_MOCK, [
   'name',
   'position',
 ]);
+
+export const TRIADS_MOCK_MINOR_SORTED: ChordInterface[] = orderBy(
+  TRIADS_MINOR_MOCK,
+  ['name', 'position']
+);
