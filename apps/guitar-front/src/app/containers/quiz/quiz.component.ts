@@ -20,6 +20,7 @@ const quizItems = [
   { key: 'Guess Triad', value: 'triads' },
   { key: 'Guess Minor Triad', value: 'triadsMinor' },
   { key: 'Triads on a Specific Note', value: 'specificTriads' },
+  { key: 'Scale', value: 'scale' },
 ];
 @Component({
   selector: 'guitar-quiz',
@@ -43,13 +44,13 @@ export class QuizComponent implements OnInit {
     activeValue: this.fb.control('', Validators.required),
     activeQuizzes: this.fb.control(
       [
-        'specificTriads',
         'sorting',
         'relativeMinor',
         'modeName',
         'mode',
         'triads',
         'triadsMinor',
+        'specificTriads',
       ],
       Validators.required
     ),

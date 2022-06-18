@@ -76,6 +76,15 @@
           (incorrect)="onIncorrect()"
         ></guitar-specific-note>
       </ng-container>
+      <ng-container *ngSwitchCase="'scale'">
+        <guitar-scale-quiz
+          [tuning]="tuning$ | async"
+          [tuningChart]="tuningChart$ | async"
+          [frets]="frets$ | async"
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-scale-quiz>
+      </ng-container>
     </ng-container>
   </guitar-card>
 </div>
