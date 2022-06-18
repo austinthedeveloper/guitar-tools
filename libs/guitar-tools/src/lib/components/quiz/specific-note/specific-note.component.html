@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col" *ngIf="positionForm.value as formValue">
+      What Triads are played on the {{ formValue.fret }} Fret,
+      {{ formValue.string }} string?
+    </div>
+    <div class="col">
+      <mat-form-field>
+        <mat-label>Chords</mat-label>
+        <mat-select formControlName="guess" multiple>
+          <mat-select-trigger>
+            {{ guess.value?.length || 0 }} Chords
+          </mat-select-trigger>
+          <mat-option *ngFor="let item of options" [value]="item">{{
+            item
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        class="btn btn-secondary me-3"
+        type="button"
+        (click)="reset()"
+        [disabled]="form.pristine"
+      >
+        Reset
+      </button>
+      <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+    </div>
+    <div class="col" *ngIf="!hideTotals">
+      <guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>
+    </div>
+  </div>
+</form>

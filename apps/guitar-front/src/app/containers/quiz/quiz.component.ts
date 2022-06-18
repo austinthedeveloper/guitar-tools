@@ -7,7 +7,7 @@ import {
 } from '@guitar/data';
 import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
-import { random, shuffle } from 'lodash-es';
+import { random, shuffle, uniq } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 const quizItems = [
@@ -19,6 +19,7 @@ const quizItems = [
   { key: 'Guess Chord', value: 'chord' },
   { key: 'Guess Triad', value: 'triads' },
   { key: 'Guess Minor Triad', value: 'triadsMinor' },
+  { key: 'Triads on a Specific Note', value: 'specificTriads' },
 ];
 @Component({
   selector: 'guitar-quiz',
@@ -41,7 +42,15 @@ export class QuizComponent implements OnInit {
     activeType: this.fb.control('', Validators.required),
     activeValue: this.fb.control('', Validators.required),
     activeQuizzes: this.fb.control(
-      ['sorting', 'relativeMinor', 'modeName', 'mode', 'triads', 'triadsMinor'],
+      [
+        'specificTriads',
+        'sorting',
+        'relativeMinor',
+        'modeName',
+        'mode',
+        'triads',
+        'triadsMinor',
+      ],
       Validators.required
     ),
     correct: 0,
