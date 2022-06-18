@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormControl } from '@angular/forms';
+import { Validators, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { CHORDS_MOCK_SORTED } from '@guitar/data';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
@@ -46,7 +46,7 @@ export class HomeComponent {
     })
   );
 
-  constructor(private fb: FormBuilder, private userOptions: OptionsService) {
+  constructor(private fb: UntypedFormBuilder, private userOptions: OptionsService) {
     this.form.patchValue({ presses: this.presses });
     this.formId.valueChanges.subscribe((id) => {
       this.formPress.patchValue(
@@ -59,11 +59,11 @@ export class HomeComponent {
     this.formPress.patchValue($event);
   }
 
-  get formPress(): FormControl {
-    return this.form.get('presses') as FormControl;
+  get formPress(): UntypedFormControl {
+    return this.form.get('presses') as UntypedFormControl;
   }
 
-  get formId(): FormControl {
-    return this.form.get('id') as FormControl;
+  get formId(): UntypedFormControl {
+    return this.form.get('id') as UntypedFormControl;
   }
 }

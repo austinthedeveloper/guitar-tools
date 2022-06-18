@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'helpers',
+/* eslint-disable */
+export default {
+  displayName: 'data',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/helpers',
+  coverageDirectory: '../../coverage/libs/data',
 };

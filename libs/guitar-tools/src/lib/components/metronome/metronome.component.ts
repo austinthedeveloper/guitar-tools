@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { interval } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { tap, map } from 'rxjs/operators';
 })
 export class MetronomeComponent implements OnInit, OnChanges {
   @Input() bpm = 120;
-  form = new FormControl(this.bpm);
+  form = new UntypedFormControl(this.bpm);
   interval = this.intervalSet();
 
   constructor() { }

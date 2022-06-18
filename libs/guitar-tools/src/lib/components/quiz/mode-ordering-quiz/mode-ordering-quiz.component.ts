@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MODES_ARRAY } from '@guitar/interfaces';
@@ -13,7 +13,7 @@ import { isEqual, shuffle } from 'lodash-es';
 export class ModeOrderingQuizComponent extends ChordQuizBaseComponent {
   private answers = MODES_ARRAY;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
     this.setAnswer();
   }

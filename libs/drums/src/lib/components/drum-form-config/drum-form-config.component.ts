@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { DrumKeyService } from '../../services';
   styleUrls: ['./drum-form-config.component.css'],
 })
 export class DrumFormConfigComponent implements OnDestroy {
-  form: FormGroup;
+  form: UntypedFormGroup;
   config$ = this.drumKeyService.userOptions$.pipe(
     first(),
     tap((options) => this.buildForm(options))
@@ -27,7 +27,7 @@ export class DrumFormConfigComponent implements OnDestroy {
 
   constructor(
     private drumKeyService: DrumKeyService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnDestroy(): void {
@@ -70,11 +70,11 @@ export class DrumFormConfigComponent implements OnDestroy {
       .subscribe();
   }
 
-  getMapControls(key: string): FormControl {
-    return (this.form.get('maps') as FormGroup).get(key) as FormControl;
+  getMapControls(key: string): UntypedFormControl {
+    return (this.form.get('maps') as UntypedFormGroup).get(key) as UntypedFormControl;
   }
 
-  get timelines(): FormControl {
-    return this.form.get('timelines') as FormControl;
+  get timelines(): UntypedFormControl {
+    return this.form.get('timelines') as UntypedFormControl;
   }
 }

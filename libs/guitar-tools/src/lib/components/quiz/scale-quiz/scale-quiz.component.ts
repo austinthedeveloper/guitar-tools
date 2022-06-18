@@ -5,7 +5,7 @@ import {
   Input,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { random } from 'lodash-es';
@@ -38,7 +38,7 @@ export class ScaleQuizComponent
   scaleOptions = SCALE;
   scaleTypeOptions = TuningHelper.getScaleOptions;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
   }
 

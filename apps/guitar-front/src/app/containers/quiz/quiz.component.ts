@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import {
   CHORDS_MOCK_SORTED,
   TRIADS_MOCK_MINOR_SORTED,
@@ -59,7 +59,7 @@ export class QuizComponent implements OnInit {
     total: 0,
   });
 
-  constructor(private fb: FormBuilder, private userOptions: OptionsService) {}
+  constructor(private fb: UntypedFormBuilder, private userOptions: OptionsService) {}
 
   ngOnInit() {
     this.randomizeQuiz();
@@ -88,27 +88,27 @@ export class QuizComponent implements OnInit {
   }
 
   get activeType() {
-    return this.form.get('activeType') as FormControl;
+    return this.form.get('activeType') as UntypedFormControl;
   }
 
   get activeValue() {
-    return this.form.get('activeValue') as FormControl;
+    return this.form.get('activeValue') as UntypedFormControl;
   }
 
   get correct() {
-    return this.form.get('correct') as FormControl;
+    return this.form.get('correct') as UntypedFormControl;
   }
 
   get incorrect() {
-    return this.form.get('incorrect') as FormControl;
+    return this.form.get('incorrect') as UntypedFormControl;
   }
 
   get total() {
-    return this.form.get('total') as FormControl;
+    return this.form.get('total') as UntypedFormControl;
   }
 
   get activeQuizzes() {
-    return this.form.get('activeQuizzes') as FormControl;
+    return this.form.get('activeQuizzes') as UntypedFormControl;
   }
 
   get activeQuizValues() {

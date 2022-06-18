@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, UntypedFormBuilder } from '@angular/forms';
 import { relativeMajorValues, relativeMajorArray } from '@guitar/helpers';
 import { random } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
@@ -15,7 +15,7 @@ export class RelativeMajorQuizComponent extends ChordQuizBaseComponent {
   majorValues = relativeMajorValues;
   private majorArray = relativeMajorArray;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
     this.setAnswer();
   }

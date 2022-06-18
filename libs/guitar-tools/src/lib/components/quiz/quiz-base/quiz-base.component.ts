@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'guitar-quiz-base',
@@ -28,7 +28,7 @@ export class ChordQuizBaseComponent {
     guess: [null, [Validators.required]],
   });
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: UntypedFormBuilder) {
     this.formReady.emit(this.form);
   }
 
@@ -73,11 +73,11 @@ export class ChordQuizBaseComponent {
     this.afterAnswer.emit(this.form.value);
   }
 
-  get answer(): FormControl {
-    return this.form.get('answer') as FormControl;
+  get answer(): UntypedFormControl {
+    return this.form.get('answer') as UntypedFormControl;
   }
 
-  get guess(): FormControl {
-    return this.form.get('guess') as FormControl;
+  get guess(): UntypedFormControl {
+    return this.form.get('guess') as UntypedFormControl;
   }
 }

@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { TuningHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { minBy, orderBy } from 'lodash-es';
@@ -33,7 +33,7 @@ export class ChordComponent implements OnChanges {
 
   tuningChart: TuningChart[] = [];
 
-  form: FormControl = new FormControl('');
+  form: UntypedFormControl = new UntypedFormControl('');
 
   constructor() {
     this.buildRows();

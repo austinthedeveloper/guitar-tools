@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { ChordInterface } from '@guitar/interfaces';
 import { uniq } from 'lodash-es';
 
@@ -18,7 +18,7 @@ export class ChordQuizComponent
   chord!: ChordInterface;
   options: string[] = [];
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: UntypedFormBuilder) {
     super(fb);
   }
   ngOnChanges({ chords }: SimpleChanges): void {

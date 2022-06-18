@@ -5,7 +5,7 @@ import {
   Input,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ChordInterface } from '@guitar/interfaces';
 import { isEqual, random, uniq } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
@@ -24,7 +24,7 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
   @Input() chords: ChordInterface[] = [];
   options: string[] = [];
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
     this.setAnswer();
   }

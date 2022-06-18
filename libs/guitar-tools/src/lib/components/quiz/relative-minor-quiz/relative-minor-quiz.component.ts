@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { relativeMinorArray, relativeMinorValues } from '@guitar/helpers';
 import { random } from 'lodash-es';
 
@@ -15,7 +15,7 @@ export class RelativeMinorQuizComponent extends ChordQuizBaseComponent {
   minorValues = relativeMinorValues;
   private minorArray = relativeMinorArray;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
     this.setAnswer();
   }

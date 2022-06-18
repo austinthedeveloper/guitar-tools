@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import {TABS_DATA, TABS_DATA_DEMO} from '@guitar/data';
 import {ChartTabNote} from '@guitar/interfaces'
 @Component({
@@ -19,7 +19,7 @@ form = this.fb.group({
   position: this.fb.control('', [Validators.required]),
   order: this.fb.control('', [Validators.required]),
 })
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     this.mapStuff();
    }
 

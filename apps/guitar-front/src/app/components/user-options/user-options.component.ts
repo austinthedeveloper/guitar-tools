@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { UserOptions, UserOptionsInterface } from '@guitar/interfaces';
 import { filter } from 'rxjs/operators';
 
@@ -47,7 +47,7 @@ export class UserOptionsComponent implements OnChanges, OnDestroy {
     .pipe(filter(() => this.form.valid && this.form.dirty))
     .subscribe((options) => this.optionChanged.emit(options));
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   ngOnDestroy(): void {
     this.formSub.unsubscribe();

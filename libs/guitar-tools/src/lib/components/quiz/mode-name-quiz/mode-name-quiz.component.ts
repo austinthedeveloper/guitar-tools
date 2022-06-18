@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { ModesEnum, MODES_ARRAY } from '@guitar/interfaces';
 import { random } from 'lodash-es';
@@ -19,7 +19,7 @@ export class ModeNameQuizComponent extends ChordQuizBaseComponent {
   scaleOptions = SCALE;
   modeOptions = MODES_ARRAY;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: UntypedFormBuilder) {
     super(fb);
     this.setAnswer();
   }
