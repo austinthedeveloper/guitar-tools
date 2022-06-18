@@ -1,136 +1,16 @@
-import { scaleStartWith } from '@guitar/helpers';
-import { ChordClass, ChordInterface } from '@guitar/interfaces';
+import { ChordInterface } from '@guitar/interfaces';
 import { orderBy } from 'lodash-es';
-import {
-  TRIADS_POSITION_1,
-  TRIADS_POSITION_2,
-  TRIADS_POSITION_3,
-} from './triads';
-import {
-  TRIADS_POSITION_MINOR_1,
-  TRIADS_POSITION_MINOR_2,
-  TRIADS_POSITION_MINOR_3,
-} from './triads/minor';
 
-export function CHORDS_MOCK_POSITION_1(): ChordInterface[] {
-  const scale = scaleStartWith('A');
-  return scale.map((string, index) => {
-    const indexStr = index.toString();
-    const chords = [
-      {
-        fret: indexStr,
-        string: '1',
-      },
+import { CHORDS_MOCK } from './bar-chords';
+import { TRIADS_MINOR_MOCK, TRIADS_MOCK } from './triads';
 
-      {
-        fret: (index + 1).toString(),
-        string: '2',
-      },
-      {
-        fret: indexStr,
-        string: '3',
-      },
-      {
-        fret: (index + 2).toString(),
-        string: '4',
-      },
-      {
-        fret: (index + 3).toString(),
-        string: '5',
-      },
-    ];
-    const name = scale[index + 3] || scale[+chords[4].fret - 12];
-    return new ChordClass(name, undefined, chords, '1');
-  });
+export const CHORDS_MOCK_SORTED: ChordInterface[] = orderChords(CHORDS_MOCK);
+
+export const TRIADS_MOCK_SORTED: ChordInterface[] = orderChords(TRIADS_MOCK);
+
+export const TRIADS_MOCK_MINOR_SORTED: ChordInterface[] =
+  orderChords(TRIADS_MINOR_MOCK);
+
+function orderChords(chords: ChordInterface[]): ChordInterface[] {
+  return orderBy(chords, ['name', 'position']);
 }
-export function CHORDS_MOCK_POSITION_2(): ChordInterface[] {
-  return scaleStartWith('A').map((string, index) => {
-    const indexStr = index.toString();
-    const chords = [
-      {
-        fret: indexStr,
-        string: '1',
-      },
-      {
-        fret: indexStr,
-        string: '5',
-      },
-      {
-        fret: (index + 2).toString(),
-        string: '2',
-      },
-      {
-        fret: (index + 2).toString(),
-        string: '3',
-      },
-      {
-        fret: (index + 2).toString(),
-        string: '4',
-      },
-    ];
-    return new ChordClass(string, undefined, chords, '2');
-  });
-}
-export function CHORDS_MOCK_POSITION_3(): ChordInterface[] {
-  return scaleStartWith('E').map((string, index) => {
-    const indexStr = index.toString();
-    const chords = [
-      {
-        fret: indexStr,
-        string: '1',
-      },
-      {
-        fret: indexStr,
-        string: '2',
-      },
-      {
-        fret: indexStr,
-        string: '6',
-      },
-      {
-        fret: (index + 1).toString(),
-        string: '3',
-      },
-      {
-        fret: (index + 2).toString(),
-        string: '4',
-      },
-      {
-        fret: (index + 2).toString(),
-        string: '5',
-      },
-    ];
-    return new ChordClass(string, undefined, chords, '3');
-  });
-}
-
-export const CHORDS_MOCK: ChordInterface[] = [
-  ...CHORDS_MOCK_POSITION_1(),
-  ...CHORDS_MOCK_POSITION_2(),
-  ...CHORDS_MOCK_POSITION_3(),
-];
-export const TRIADS_MOCK: ChordInterface[] = [
-  ...TRIADS_POSITION_1,
-  ...TRIADS_POSITION_2,
-  ...TRIADS_POSITION_3,
-];
-export const TRIADS_MINOR_MOCK: ChordInterface[] = [
-  ...TRIADS_POSITION_MINOR_1,
-  ...TRIADS_POSITION_MINOR_2,
-  ...TRIADS_POSITION_MINOR_3,
-];
-
-export const CHORDS_MOCK_SORTED: ChordInterface[] = orderBy(CHORDS_MOCK, [
-  'name',
-  'position',
-]);
-
-export const TRIADS_MOCK_SORTED: ChordInterface[] = orderBy(TRIADS_MOCK, [
-  'name',
-  'position',
-]);
-
-export const TRIADS_MOCK_MINOR_SORTED: ChordInterface[] = orderBy(
-  TRIADS_MINOR_MOCK,
-  ['name', 'position']
-);
