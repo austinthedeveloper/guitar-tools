@@ -19,14 +19,6 @@
           {{ chord }}
         </option>
       </select>
-      <button
-        class="btn btn-secondary me-3"
-        type="button"
-        (click)="reset()"
-        [disabled]="form.pristine"
-      >
-        Reset
-      </button>
       <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
     </div>
     <div class="col" *ngIf="!hideTotals">
