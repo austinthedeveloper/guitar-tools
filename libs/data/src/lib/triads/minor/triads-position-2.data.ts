@@ -2,22 +2,22 @@ import { scaleStartWith } from '@guitar/helpers';
 import { ChordClass, ChordInterface } from '@guitar/interfaces';
 
 function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
-  return scaleStartWith('G').map((string, index) => {
+  return scaleStartWith('A').map((string, index) => {
     const chords = [
       {
-        fret: (index + 1).toString(),
+        fret: (index + 2).toString(),
         string: '3',
       },
       {
-        fret: (index + 1).toString(),
+        fret: (index + 2).toString(),
         string: '4',
       },
       {
-        fret: (index + 2).toString(),
+        fret: (index + 3).toString(),
         string: '5',
       },
     ];
-    return new ChordClass(string, undefined, chords, 'Triad');
+    return new ChordClass(string, undefined, chords, 'Triad Minor');
   });
 }
 function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
@@ -36,11 +36,11 @@ function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
         string: '4',
       },
     ];
-    return new ChordClass(string, undefined, chords, 'Triad');
+    return new ChordClass(string, undefined, chords, 'Triad Minor');
   });
 }
 function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
-  return scaleStartWith('A# / B').map((string, index) => {
+  return scaleStartWith('A# / B♭').map((string, index) => {
     const chords = [
       {
         fret: (index + 1).toString(),
@@ -55,7 +55,7 @@ function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
         string: '3',
       },
     ];
-    return new ChordClass(string, undefined, chords, 'Triad');
+    return new ChordClass(string, undefined, chords, `Triad Minor ${index}`);
   });
 }
 export const TRIADS_POSITION_MINOR_2 = [

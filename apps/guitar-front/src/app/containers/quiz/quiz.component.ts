@@ -41,10 +41,7 @@ export class QuizComponent implements OnInit {
     activeType: this.fb.control('', Validators.required),
     activeValue: this.fb.control('', Validators.required),
     activeQuizzes: this.fb.control(
-      [
-        // 'sorting', 'relativeMinor', 'modeName', 'mode', 'triads',
-        'triadsMinor',
-      ],
+      ['sorting', 'relativeMinor', 'modeName', 'mode', 'triads', 'triadsMinor'],
       Validators.required
     ),
     correct: 0,

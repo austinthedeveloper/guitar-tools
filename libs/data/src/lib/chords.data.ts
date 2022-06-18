@@ -116,8 +116,8 @@ export const TRIADS_MOCK: ChordInterface[] = [
 ];
 export const TRIADS_MINOR_MOCK: ChordInterface[] = [
   ...TRIADS_POSITION_MINOR_1,
-  // ...TRIADS_POSITION_MINOR_2,
-  // ...TRIADS_POSITION_MINOR_3,
+  ...TRIADS_POSITION_MINOR_2,
+  ...TRIADS_POSITION_MINOR_3,
 ];
 
 export const CHORDS_MOCK_SORTED: ChordInterface[] = orderBy(CHORDS_MOCK, [
