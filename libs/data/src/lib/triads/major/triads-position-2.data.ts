@@ -2,18 +2,18 @@ import { scaleStartWith } from '@guitar/helpers';
 import { ChordClass, ChordInterface } from '@guitar/interfaces';
 
 function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
-  return scaleStartWith('G').map((string, index) => {
+  return scaleStartWith('A').map((string, index) => {
     const chords = [
       {
-        fret: index.toString(),
+        fret: (index + 2).toString(),
         string: '3',
       },
       {
-        fret: index.toString(),
+        fret: (index + 2).toString(),
         string: '4',
       },
       {
-        fret: (index + 2).toString(),
+        fret: (index + 4).toString(),
         string: '5',
       },
     ];
@@ -21,18 +21,18 @@ function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
   });
 }
 function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
-  return scaleStartWith('G').map((string, index) => {
+  return scaleStartWith('A').map((string, index) => {
     const chords = [
       {
-        fret: index.toString(),
+        fret: (index + 2).toString(),
         string: '2',
       },
       {
-        fret: index.toString(),
+        fret: (index + 2).toString(),
         string: '3',
       },
       {
-        fret: index.toString(),
+        fret: (index + 2).toString(),
         string: '4',
       },
     ];
