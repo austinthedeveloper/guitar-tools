@@ -2,6 +2,7 @@ import { ActivePressesPipe } from './active-presses.pipe';
 import { FretDotPipe } from './fret-dot.pipe';
 import { IncludesStringPipe } from './includes-string.pipe';
 import { IsMutedPipe } from './is-muted.pipe';
+import { NumberProperPipe } from './number-proper.pipe';
 import { StringTypePipe } from './string-type.pipe';
 import { TabStringTypePipe } from './tab-string-type.pipe';
 
@@ -19,4 +20,5 @@ export const GUITAR_TOOLS_PIPES = [
   StringTypePipe,
   TabStringTypePipe,
   FretDotPipe,
+  NumberProperPipe,
 ];

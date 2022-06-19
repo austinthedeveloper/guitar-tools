@@ -31,7 +31,6 @@ import { GuitarFormsModule } from '@guitar/forms';
     MetronomeComponent,
     ...GUITAR_QUIZ_COMPONENTS,
     ...GUITAR_TOOLS_PIPES,
-    SpecificNoteComponent,
   ],
   exports: [
     ChartComponent,
