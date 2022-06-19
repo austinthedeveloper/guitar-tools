@@ -70,10 +70,9 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
   }
 
   addGuess(v: string) {
-    const answers: string[] = this.answer.value;
     const currentValues: string[] = this.guess.value;
 
-    if (answers.includes(v) && !currentValues.includes(v)) {
+    if (!currentValues.includes(v)) {
       const ordered = orderBy([...currentValues, v], (item) => item);
       this.guess.patchValue(ordered);
     }
