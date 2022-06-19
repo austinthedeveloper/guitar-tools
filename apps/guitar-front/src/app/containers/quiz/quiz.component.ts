@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  Validators,
+} from '@angular/forms';
 import {
   CHORDS_MOCK_SORTED,
   TRIADS_MOCK_MINOR_SORTED,
@@ -44,12 +48,12 @@ export class QuizComponent implements OnInit {
     activeValue: this.fb.control('', Validators.required),
     activeQuizzes: this.fb.control(
       [
-        'sorting',
-        'relativeMinor',
-        'modeName',
-        'mode',
-        'triads',
-        'triadsMinor',
+        // 'sorting',
+        // 'relativeMinor',
+        // 'modeName',
+        // 'mode',
+        // 'triads',
+        // 'triadsMinor',
         'specificTriads',
       ],
       Validators.required
@@ -59,7 +63,10 @@ export class QuizComponent implements OnInit {
     total: 0,
   });
 
-  constructor(private fb: UntypedFormBuilder, private userOptions: OptionsService) {}
+  constructor(
+    private fb: UntypedFormBuilder,
+    private userOptions: OptionsService
+  ) {}
 
   ngOnInit() {
     this.randomizeQuiz();

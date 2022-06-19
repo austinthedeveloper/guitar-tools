@@ -182,6 +182,29 @@
       },
       "tags": []
     },
+    "forms": {
+      "projectType": "library",
+      "root": "libs/forms",
+      "sourceRoot": "libs/forms/src",
+      "prefix": "guitar",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/forms"],
+          "options": {
+            "jestConfig": "libs/forms/jest.config.ts",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/forms/**/*.ts", "libs/forms/**/*.html"]
+          }
+        }
+      },
+      "tags": []
+    },
     "guitar-front": {
       "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",

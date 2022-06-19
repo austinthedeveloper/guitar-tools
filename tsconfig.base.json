@@ -18,6 +18,7 @@
     "paths": {
       "@guitar/data": ["libs/data/src/index.ts"],
       "@guitar/drums": ["libs/drums/src/index.ts"],
+      "@guitar/forms": ["libs/forms/src/index.ts"],
       "@guitar/guitar-tools": ["libs/guitar-tools/src/index.ts"],
       "@guitar/helpers": ["libs/helpers/src/index.ts"],
       "@guitar/interfaces": ["libs/interfaces/src/index.ts"],
