@@ -5,25 +5,11 @@
       {{ formValue.string }} string?
     </div>
     <div class="col">
-      <mat-form-field>
-        <mat-label>Chords</mat-label>
-        <mat-select formControlName="guess" multiple>
-          <mat-select-trigger>
-            {{ guess.value?.length || 0 }} Chords
-          </mat-select-trigger>
-          <mat-option *ngFor="let item of options" [value]="item">{{
-            item
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div class="list-group">
-        <div
-          class="list-group-item list-group-item-action"
-          *ngFor="let item of options"
-        >
-          {{ item }}
-        </div>
-      </div>
+      <guitar-list-group-select
+        [items]="options"
+        [values]="answer.value"
+        (onClick)="addGuess($event)"
+      ></guitar-list-group-select>
       <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
     </div>
     <div class="col" *ngIf="!hideTotals">

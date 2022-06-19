@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ChordInterface } from '@guitar/interfaces';
-import { isEqual, random, uniq } from 'lodash-es';
+import { isEqual, orderBy, random, uniq } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
@@ -58,6 +58,7 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
     if (!uniqueValues.length) {
       this.setAnswer();
     } else {
+      this.guess.patchValue([]);
       this.answer.patchValue(uniqueValues);
     }
   }
@@ -66,5 +67,15 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
     this.submitAnswer((guess: string[], answer: string[]) =>
       isEqual(guess, answer)
     );
+  }
+
+  addGuess(v: string) {
+    const answers: string[] = this.answer.value;
+    const currentValues: string[] = this.guess.value;
+
+    if (answers.includes(v) && !currentValues.includes(v)) {
+      const ordered = orderBy([...currentValues, v], (item) => item);
+      this.guess.patchValue(ordered);
+    }
   }
 }
