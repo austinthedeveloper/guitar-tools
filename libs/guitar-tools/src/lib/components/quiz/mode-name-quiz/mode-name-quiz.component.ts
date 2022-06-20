@@ -41,7 +41,8 @@ export class ModeNameQuizComponent extends ChordQuizBaseComponent {
     this.answer.patchValue(scale[randomMode]);
   }
 
-  submit() {
+  submit(value: string) {
+    this.guess.patchValue(value);
     this.submitAnswer();
   }
 }

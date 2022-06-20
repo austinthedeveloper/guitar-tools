@@ -1,27 +1,19 @@
-<div *ngIf="modeForm.value as modeFormValues">
-  <p>
-    What is the Mode for {{ modeFormValues.mode }} in the
-    {{ modeFormValues.scale }} scale?
-  </p>
-</div>
 <form [formGroup]="form">
   <div class="row">
-    <div class="col">
-      <label for="frets" class="form-label">Mode</label>
-      <select class="form-select" formControlName="guess">
-        <option *ngFor="let item of options" [value]="item">
-          {{ item }}
-        </option>
-      </select>
+    <div class="col" *ngIf="modeForm.value as modeFormValues">
+      <p>
+        What is the Mode for {{ modeFormValues.mode }} in the
+        {{ modeFormValues.scale }} scale?
+      </p>
     </div>
     <div class="col">
-      <button
-        class="btn btn-primary"
-        [disabled]="form.invalid"
-        (click)="submit()"
-      >
-        Submit
-      </button>
+      <label for="frets" class="form-label">Mode</label>
+      <guitar-list-group-select
+        [items]="options"
+        [values]="answer.value"
+        (onCorrect)="submit($event)"
+        (onIncorrect)="incorrect.emit($event)"
+      ></guitar-list-group-select>
     </div>
     <div class="col" *ngIf="!hideTotals">
       <guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>

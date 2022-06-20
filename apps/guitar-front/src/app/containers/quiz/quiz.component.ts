@@ -11,15 +11,15 @@ import {
 } from '@guitar/data';
 import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
-import { random, shuffle, uniq } from 'lodash-es';
+import { random } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 const quizItems = [
   { key: 'Sorting Modes', value: 'sorting' },
   { key: 'Relative Minor', value: 'relativeMinor' },
   { key: 'Relative Major', value: 'relativeMajor' },
-  { key: 'Mode', value: 'modeName' },
-  { key: 'Mode', value: 'mode' },
+  { key: 'Mode Note', value: 'modeName' },
+  { key: 'Mode Name', value: 'mode' },
   { key: 'Guess Chord', value: 'chord' },
   { key: 'Guess Triad', value: 'triads' },
   { key: 'Guess Minor Triad', value: 'triadsMinor' },
@@ -48,12 +48,11 @@ export class QuizComponent implements OnInit {
     activeValue: this.fb.control('', Validators.required),
     activeQuizzes: this.fb.control(
       [
-        // 'sorting',
-        // 'relativeMinor',
-        // 'modeName',
-        // 'mode',
-        // 'triads',
-        // 'triadsMinor',
+        'relativeMinor',
+        'modeName',
+        'mode',
+        'triads',
+        'triadsMinor',
         'specificTriads',
       ],
       Validators.required
