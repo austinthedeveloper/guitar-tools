@@ -2,9 +2,7 @@
   <div class="row">
     <div class="col" *ngIf="positionForm.value as formValue">
       What Triads are played on the {{ formValue.fret | numberProper }} Fret,
-      {{ formValue.string | numberProper }} string ({{
-        answer.value.length
-      }}
+      {{ formValue.string | numberProper }} string ({{ answer.value.length }}
       Items)?
     </div>
     <div class="col">
@@ -13,7 +11,6 @@
         [values]="answer.value"
         (onCorrect)="addGuess($event)"
       ></guitar-list-group-select>
-      <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
     </div>
     <div class="col" *ngIf="!hideTotals">
       <guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>

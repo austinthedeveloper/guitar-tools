@@ -75,5 +75,9 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
       const ordered = orderBy([...currentValues, v], (item) => item);
       this.guess.patchValue(ordered);
     }
+
+    if (this.callback(this.guess.value, this.answer.value)) {
+      this.submitAnswer();
+    }
   }
 }
