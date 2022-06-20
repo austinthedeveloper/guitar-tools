@@ -10,6 +10,7 @@
         [items]="options"
         [values]="answer.value"
         (onCorrect)="addGuess($event)"
+        (onIncorrect)="incorrect.emit($event)"
       ></guitar-list-group-select>
     </div>
     <div class="col" *ngIf="!hideTotals">

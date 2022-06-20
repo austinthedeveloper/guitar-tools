@@ -27,7 +27,8 @@ export class RelativeMajorQuizComponent extends ChordQuizBaseComponent {
     this.answer.patchValue(scale[1]);
   }
 
-  submit() {
+  submit(value: string) {
+    this.guess.patchValue(value);
     this.submitAnswer();
   }
 }
