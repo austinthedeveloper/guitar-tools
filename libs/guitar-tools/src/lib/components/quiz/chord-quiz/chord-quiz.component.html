@@ -9,17 +9,12 @@
     </div>
     <div class="col">
       <label for="chordSelector" class="form-label">Select a Chord</label>
-      <select
-        class="form-select mb-2"
-        formControlName="guess"
-        placeholder="Select a Chord"
-        id="chordSelector"
-      >
-        <option *ngFor="let chord of options" [value]="chord">
-          {{ chord }}
-        </option>
-      </select>
-      <button class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+      <guitar-list-group-select
+        [items]="options"
+        [values]="answer.value"
+        (onCorrect)="addGuess($event)"
+        (onIncorrect)="incorrect.emit($event)"
+      ></guitar-list-group-select>
     </div>
     <div class="col" *ngIf="!hideTotals">
       <guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>

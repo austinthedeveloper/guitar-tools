@@ -17,12 +17,13 @@ import {
 })
 export class ListGroupSelectComponent implements OnChanges {
   @Input() items: string[] = [];
-  @Input() values: string[] = [];
+  @Input() values: string[] | string;
 
   options: { value: string; active: boolean }[] = [];
 
   @Output() onClick: EventEmitter<string> = new EventEmitter();
   @Output() onCorrect: EventEmitter<string> = new EventEmitter();
+  @Output() onIncorrect: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
 
@@ -40,17 +41,26 @@ export class ListGroupSelectComponent implements OnChanges {
   itemClicked(item: { value: string; active: boolean }) {
     item.active = true;
     this.onClick.emit(item.value);
-    if (this.values.includes(item.value)) {
+    if (this.valuesInclude(item.value)) {
       this.onCorrect.emit(item.value);
+    } else {
+      this.onIncorrect.emit(item.value);
     }
   }
 
   activeV(item: { value: string; active: boolean }) {
     if (!item.active) return '';
-    if (this.values.includes(item.value)) {
+    if (this.valuesInclude(item.value)) {
       return 'bg-success text-white';
     } else {
       return 'bg-danger text-white';
     }
+  }
+
+  private valuesInclude(value: string): boolean {
+    const arr: string[] = Array.isArray(this.values)
+      ? this.values
+      : [this.values];
+    return arr.includes(value);
   }
 }

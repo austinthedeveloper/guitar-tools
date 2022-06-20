@@ -38,4 +38,9 @@ export class ChordQuizComponent
 
     this.answer.patchValue(this.chord.name);
   }
+
+  addGuess(value: string) {
+    this.guess.patchValue(value);
+    this.submitAnswer();
+  }
 }

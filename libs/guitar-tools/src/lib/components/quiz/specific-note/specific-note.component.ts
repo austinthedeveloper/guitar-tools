@@ -21,6 +21,7 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
     fret: this.fb.control(null, Validators.required),
     string: this.fb.control(null, Validators.required),
   });
+  callback = (guess: string[], answer: string[]) => isEqual(guess, answer);
   @Input() chords: ChordInterface[] = [];
   options: string[] = [];
 
@@ -64,9 +65,7 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
   }
 
   submit() {
-    this.submitAnswer((guess: string[], answer: string[]) =>
-      isEqual(guess, answer)
-    );
+    this.submitAnswer();
   }
 
   addGuess(v: string) {

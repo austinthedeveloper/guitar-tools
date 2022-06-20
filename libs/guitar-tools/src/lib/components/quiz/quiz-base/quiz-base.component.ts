@@ -5,7 +5,11 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'guitar-quiz-base',
@@ -15,6 +19,7 @@ import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/for
 })
 export class ChordQuizBaseComponent {
   @Input() hideTotals: boolean = true;
+  callback: Function = (guess: any, answer: any) => guess === answer;
   @Output() formReady: EventEmitter<any> = new EventEmitter();
   @Output() correct: EventEmitter<any> = new EventEmitter();
   @Output() incorrect: EventEmitter<any> = new EventEmitter();
@@ -33,9 +38,9 @@ export class ChordQuizBaseComponent {
   }
 
   setAnswer(): void {}
-  submitAnswer(callback?: Function) {
+  submitAnswer() {
     const { answer, guess } = this.form.value;
-    const isCorrect = callback ? callback(guess, answer) : guess === answer;
+    const isCorrect = this.callback(guess, answer);
     if (isCorrect) {
       this.isCorrect();
     } else {
