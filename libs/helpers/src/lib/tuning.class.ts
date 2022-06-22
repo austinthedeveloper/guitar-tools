@@ -12,39 +12,7 @@ export const GUITAR_TUNING: GuitarTuningStorage = {
   dropB: ['B', 'F #', 'B', 'E', 'G', 'C'],
 };
 
-export const SCALE_TYPES: { [key: string]: ScaleTypesInterface } = {
-  majorPentatonic: {
-    name: 'Major Pentatonic',
-    positions: [0, 2, 4, 7, 9],
-  },
-  minorPentatonic: {
-    name: 'Minor Pentatonic',
-    positions: [0, 3, 5, 7, 10],
-  },
-  bluesPentatonic: {
-    name: 'Pentatonic Blues',
-    positions: [0, 3, 5, 6, 7, 10],
-  },
-  neutralPentatonic: {
-    name: 'Neutral Pentatonic',
-    positions: [0, 2, 5, 7, 10],
-  },
-  major: {
-    name: 'Major',
-    positions: [0, 2, 4, 5, 7, 9, 11],
-  },
-  harmonicMinor: {
-    name: 'Harmonic Minor',
-    positions: [0, 2, 3, 5, 7, 8, 11],
-  },
-  melodicMinor: {
-    name: 'Melodic Minor',
-    positions: [0, 2, 3, 5, 7, 9, 11],
-  },
-  naturalMinor: {
-    name: 'Natural Minor',
-    positions: [0, 2, 3, 5, 7, 8, 10],
-  },
+export const SCALE_MODE_TYPES: { [key: string]: ScaleTypesInterface } = {
   ionian: {
     name: 'Ionian',
     positions: [0, 2, 4, 5, 7, 9, 11],
@@ -61,6 +29,55 @@ export const SCALE_TYPES: { [key: string]: ScaleTypesInterface } = {
     name: 'Lydian',
     positions: [0, 2, 4, 6, 7, 9, 11],
   },
+  mixolydian: {
+    name: 'Mixolydian',
+    positions: [0, 2, 4, 5, 7, 9, 10],
+  },
+  aeolian: {
+    name: 'Aeolian',
+    positions: [0, 2, 3, 5, 7, 8, 10],
+  },
+  locrian: {
+    name: 'Locrian',
+    positions: [0, 1, 3, 5, 6, 8, 10],
+  },
+};
+export const SCALE_TYPES: { [key: string]: ScaleTypesInterface } = {
+  minorPentatonic: {
+    name: 'Minor Pentatonic',
+    positions: [0, 3, 5, 7, 10],
+  },
+  bluesPentatonic: {
+    name: 'Pentatonic Blues',
+    positions: [0, 3, 5, 6, 7, 10],
+  },
+
+  major: {
+    name: 'Major',
+    positions: [0, 2, 4, 5, 7, 9, 11],
+  },
+  harmonicMinor: {
+    name: 'Harmonic Minor',
+    positions: [0, 2, 3, 5, 7, 8, 11],
+  },
+  ...SCALE_MODE_TYPES,
+
+  // majorPentatonic: {
+  //   name: 'Major Pentatonic',
+  //   positions: [0, 2, 4, 7, 9],
+  // },
+  // neutralPentatonic: {
+  //   name: 'Neutral Pentatonic',
+  //   positions: [0, 2, 5, 7, 10],
+  // },
+  // melodicMinor: {
+  //   name: 'Melodic Minor',
+  //   positions: [0, 2, 3, 5, 7, 9, 11],
+  // },
+  // naturalMinor: {
+  //   name: 'Natural Minor',
+  //   positions: [0, 2, 3, 5, 7, 8, 10],
+  // },
 };
 export class TuningHelper {
   static buildTuningChart(tune: string[]): TuningChart[] {
