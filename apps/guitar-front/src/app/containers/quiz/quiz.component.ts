@@ -1,31 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormControl,
-  Validators,
-} from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import {
   CHORDS_MOCK_SORTED,
+  QUIZ_TYPES,
   TRIADS_MOCK_MINOR_SORTED,
   TRIADS_MOCK_SORTED,
 } from '@guitar/data';
 import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
-import { OptionsService } from '@guitar/store';
+import { OptionsService, QuizTotalsService } from '@guitar/store';
 import { random } from 'lodash-es';
 import { Observable } from 'rxjs';
 
-const quizItems = [
-  { key: 'Sorting Modes', value: 'sorting' },
-  { key: 'Relative Minor', value: 'relativeMinor' },
-  { key: 'Relative Major', value: 'relativeMajor' },
-  { key: 'Mode Note', value: 'modeName' },
-  { key: 'Mode Name', value: 'mode' },
-  { key: 'Guess Chord', value: 'chord' },
-  { key: 'Guess Triad', value: 'triads' },
-  { key: 'Guess Minor Triad', value: 'triadsMinor' },
-  { key: 'Triads on a Specific Note', value: 'specificTriads' },
-  { key: 'Scale', value: 'scale' },
-];
 @Component({
   selector: 'guitar-quiz',
   templateUrl: './quiz.component.html',
@@ -41,28 +26,12 @@ export class QuizComponent implements OnInit {
   tuningChart$ = this.userOptions.tuningChart$;
   frets$ = this.userOptions.frets$;
 
-  quizItems = quizItems;
+  quizItems = QUIZ_TYPES;
 
-  form = this.fb.group({
-    activeType: this.fb.control('', Validators.required),
-    activeValue: this.fb.control('', Validators.required),
-    activeQuizzes: this.fb.control(
-      [
-        'relativeMinor',
-        'modeName',
-        'mode',
-        'triads',
-        'triadsMinor',
-        'specificTriads',
-      ],
-      Validators.required
-    ),
-    correct: 0,
-    incorrect: 0,
-  });
+  form = this.quizTotalsService.form;
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private quizTotalsService: QuizTotalsService,
     private userOptions: OptionsService
   ) {}
 
@@ -114,7 +83,7 @@ export class QuizComponent implements OnInit {
 
   get activeQuizValues() {
     const formValue: string[] = this.activeQuizzes.value;
-    return quizItems.filter((item) => formValue.includes(item.value));
+    return this.quizItems.filter((item) => formValue.includes(item.value));
   }
 
   onCorrect() {
