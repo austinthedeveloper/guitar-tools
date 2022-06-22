@@ -59,7 +59,6 @@ export class QuizComponent implements OnInit {
     ),
     correct: 0,
     incorrect: 0,
-    total: 0,
   });
 
   constructor(
@@ -109,10 +108,6 @@ export class QuizComponent implements OnInit {
     return this.form.get('incorrect') as UntypedFormControl;
   }
 
-  get total() {
-    return this.form.get('total') as UntypedFormControl;
-  }
-
   get activeQuizzes() {
     return this.form.get('activeQuizzes') as UntypedFormControl;
   }
@@ -124,15 +119,9 @@ export class QuizComponent implements OnInit {
 
   onCorrect() {
     this.correct.patchValue(this.correct.value + 1);
-    this.updateTotal();
     this.randomizeQuiz();
   }
   onIncorrect() {
     this.incorrect.patchValue(this.incorrect.value + 1);
-    this.updateTotal();
-  }
-
-  updateTotal() {
-    this.total.patchValue(this.total.value + 1);
   }
 }

@@ -15,7 +15,10 @@
       }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <guitar-quiz-totals [totals]="form.value"></guitar-quiz-totals>
+  <guitar-quiz-totals
+    [correct]="correct.value"
+    [incorrect]="incorrect.value"
+  ></guitar-quiz-totals>
   <guitar-card [header]="activeType.value">
     <ng-container [ngSwitch]="activeValue.value">
       <ng-container *ngSwitchCase="'sorting'">

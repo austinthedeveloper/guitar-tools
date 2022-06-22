@@ -6,17 +6,17 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./quiz-totals.component.css'],
 })
 export class QuizTotalsComponent implements OnInit {
-  @Input() totals: {
-    correct: number;
-    incorrect: number;
-    total: number;
-  };
-
+  @Input() correct: number;
+  @Input() incorrect: number;
   constructor() {}
 
   ngOnInit() {
-    if (!this.totals) {
+    if (!this.correct || !this.incorrect) {
       console.error('Please add the missing totals');
     }
+  }
+
+  get total() {
+    return this.correct + '/' + (this.correct + this.incorrect);
   }
 }
