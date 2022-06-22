@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +23,25 @@ export class QuizTotalsService {
     incorrect: 0,
   });
 
-  constructor(private fb: UntypedFormBuilder) {}
+  constructor(private fb: FormBuilder) {}
+
+  get correct() {
+    return this.form.controls.correct;
+  }
+
+  get incorrect() {
+    return this.form.controls.incorrect;
+  }
+
+  onCorrect() {
+    this.correct.patchValue(this.correct.value + 1);
+  }
+
+  onIncorrect() {
+    this.incorrect.patchValue(this.incorrect.value + 1);
+  }
+
+  onReset() {
+    this.form.patchValue({ correct: 0, incorrect: 0 });
+  }
 }

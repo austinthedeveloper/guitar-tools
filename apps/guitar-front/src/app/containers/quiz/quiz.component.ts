@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
 import {
   CHORDS_MOCK_SORTED,
   QUIZ_TYPES,
@@ -62,23 +61,23 @@ export class QuizComponent implements OnInit {
   }
 
   get activeType() {
-    return this.form.get('activeType') as UntypedFormControl;
+    return this.form.controls.activeType;
   }
 
   get activeValue() {
-    return this.form.get('activeValue') as UntypedFormControl;
+    return this.form.controls.activeValue;
   }
 
   get correct() {
-    return this.form.get('correct') as UntypedFormControl;
+    return this.form.controls.correct;
   }
 
   get incorrect() {
-    return this.form.get('incorrect') as UntypedFormControl;
+    return this.form.controls.incorrect;
   }
 
   get activeQuizzes() {
-    return this.form.get('activeQuizzes') as UntypedFormControl;
+    return this.form.controls.activeQuizzes;
   }
 
   get activeQuizValues() {
@@ -87,10 +86,15 @@ export class QuizComponent implements OnInit {
   }
 
   onCorrect() {
-    this.correct.patchValue(this.correct.value + 1);
+    this.quizTotalsService.onCorrect();
     this.randomizeQuiz();
   }
+
   onIncorrect() {
-    this.incorrect.patchValue(this.incorrect.value + 1);
+    this.quizTotalsService.onIncorrect();
+  }
+
+  onReset() {
+    this.quizTotalsService.onReset();
   }
 }
