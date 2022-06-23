@@ -13,8 +13,8 @@ import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 })
 export class ModeQuizComponent extends ChordQuizBaseComponent {
   modeForm = this.fb.group({
-    scale: [null, Validators.required],
-    mode: [null, Validators.required],
+    scale: this.fb.control(null, [Validators.required]),
+    mode: this.fb.control(null, [Validators.required]),
   });
   private scaleOptions = SCALE;
   options = MODES_ARRAY;

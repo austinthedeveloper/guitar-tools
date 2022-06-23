@@ -5,11 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormControl,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'guitar-quiz-base',
@@ -26,14 +22,14 @@ export class ChordQuizBaseComponent {
   @Output() afterAnswer: EventEmitter<any> = new EventEmitter();
   @Output() afterReset: EventEmitter<any> = new EventEmitter();
   form = this.fb.group({
-    correct: 0,
-    incorrect: 0,
-    total: 0,
-    answer: [null, [Validators.required]],
-    guess: [null, [Validators.required]],
+    correct: this.fb.control(0),
+    incorrect: this.fb.control(0),
+    total: this.fb.control(0),
+    answer: this.fb.control(null, [Validators.required]),
+    guess: this.fb.control(null, [Validators.required]),
   });
 
-  constructor(public fb: UntypedFormBuilder) {
+  constructor(public fb: FormBuilder) {
     this.formReady.emit(this.form);
   }
 
@@ -78,11 +74,11 @@ export class ChordQuizBaseComponent {
     this.afterAnswer.emit(this.form.value);
   }
 
-  get answer(): UntypedFormControl {
-    return this.form.get('answer') as UntypedFormControl;
+  get answer() {
+    return this.form.controls.answer;
   }
 
-  get guess(): UntypedFormControl {
-    return this.form.get('guess') as UntypedFormControl;
+  get guess() {
+    return this.form.controls.guess;
   }
 }
