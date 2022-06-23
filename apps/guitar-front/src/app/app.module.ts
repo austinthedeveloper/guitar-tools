@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { APP_COMPONENTS } from './components';
 import { APP_CONTAINERS } from './containers';
 import { MatSelectModule } from '@angular/material/select';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
@@ -20,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
     BrowserAnimationsModule,
     AppRoutingModule,
     MatSelectModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

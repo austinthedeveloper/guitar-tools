@@ -248,6 +248,15 @@
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-14.0.2.tgz#32f1e226354dbdaad89aabfbdd6394676e993ff6"
   integrity sha512-R322CUZnYa9fDBQQnPplJgwS1lUeVClJKpcRhdFMVX9cPKAnYA+qq/VoPfqvX07Sy6Hawtrh7bYDF/Iek5MQCg==
 
+"@angular/localize@14.0.2":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/localize/-/localize-14.0.2.tgz#3bb32713f62649c1ecd65abf7f755da299d1e449"
+  integrity sha512-m6fNQNnua0kYkyqtaemATcJopaNigSZTEo1m905pwtcD/GPLFl+wItbBnZqBTa3DsI1Oxwo6K0ZNcInnUYNXvQ==
+  dependencies:
+    "@babel/core" "7.18.2"
+    glob "8.0.3"
+    yargs "^17.2.1"
+
 "@angular/material@14.0.2":
   version "14.0.2"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-14.0.2.tgz#6a2b74d2b8767c69a58a3af520b3b979aea7e733"
@@ -314,7 +323,7 @@
     json5 "^2.2.1"
     semver "^6.3.0"
 
-"@babel/core@^7.0.1", "@babel/core@^7.1.0", "@babel/core@^7.12.3", "@babel/core@^7.7.2", "@babel/core@^7.8.0":
+"@babel/core@7.18.2", "@babel/core@^7.0.1", "@babel/core@^7.1.0", "@babel/core@^7.12.3", "@babel/core@^7.7.2", "@babel/core@^7.8.0":
   version "7.18.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.18.2.tgz#87b2fcd7cce9becaa7f5acebdc4f09f3dd19d876"
   integrity sha512-A8pri1YJiC5UnkdrWcmfZTJTV85b4UXTAfImGmCfYmax4TR9Cw8sDS0MOk++Gp2mE/BefVJ5nwy5yzqNJbP/DQ==
@@ -1892,6 +1901,13 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@ng-bootstrap/ng-bootstrap@^12.1.2":
+  version "12.1.2"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-12.1.2.tgz#19f21313234fe21090ba50a7721046ed5d9928e1"
+  integrity sha512-p27c+mYVdHiJMYrj5hwClVJxLdiZxafAqlbw1sdJh2xJ1rGOe+H/kCf5YDRbhlHqRN+34Gr0RQqIUeD1I2V8hg==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ng-web-apis/audio@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@ng-web-apis/audio/-/audio-1.5.1.tgz#66f15e0273155393a7ea10ea0a923c7f04cb82d9"
@@ -2313,6 +2329,11 @@
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
     source-map "^0.7.3"
+
+"@popperjs/core@^2.10.2":
+  version "2.11.5"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
+  integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
 "@rollup/plugin-babel@^5.3.0":
   version "5.3.1"
@@ -6021,6 +6042,17 @@ glob@8.0.1:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+glob@8.0.3, glob@^8.0.0, glob@^8.0.1:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-8.0.3.tgz#415c6eb2deed9e502c68fa44a272e6da6eeca42e"
+  integrity sha512-ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^5.0.1"
+    once "^1.3.0"
+
 glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.2.3.tgz#b8df0fb802bbfa8e89bd1d938b4e16578ed44f2b"
@@ -6032,17 +6064,6 @@ glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
     minimatch "^3.1.1"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
-
-glob@^8.0.0, glob@^8.0.1:
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-8.0.3.tgz#415c6eb2deed9e502c68fa44a272e6da6eeca42e"
-  integrity sha512-ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^5.0.1"
-    once "^1.3.0"
 
 global-dirs@^3.0.0:
   version "3.0.0"
