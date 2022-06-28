@@ -1,14 +1,9 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnChanges,
-} from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
-import { Subscription } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'guitar-scale-reference',
@@ -27,31 +22,22 @@ export class ScaleReferenceComponent {
     key: ['', Validators.required],
     scale: ['', Validators.required],
   });
+  tabs$: Observable<PressInterface[]> = this.scaleForm.valueChanges.pipe(
+    map(() => this.buildScale())
+  );
   scaleOptions = SCALE;
   scaleTypeOptions = TuningHelper.getScaleOptions;
   formSub: Subscription;
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.setFormSub();
-  }
-
-  private setFormSub() {
-    this.formSub = this.scaleForm.valueChanges
-      .pipe(
-        tap(() => {
-          this.tabs = this.buildScale();
-        })
-      )
-      .subscribe();
-  }
+  constructor(private fb: FormBuilder) {}
 
   buildScale(): PressInterface[] {
     if (!this.tuningChart) return [];
-    const scaleForm = this.scaleForm.value;
-    const tuning = TuningHelper.getScaleByKeyAndType(
-      scaleForm.key,
-      scaleForm.scale
-    );
+    const { key, scale } = this.scaleForm.value;
+    if (!key || !scale) {
+      return [];
+    }
+    const tuning = TuningHelper.getScaleByKeyAndType(key, scale);
 
     return TuningHelper.buildNotes(tuning, this.tuningChart);
   }
