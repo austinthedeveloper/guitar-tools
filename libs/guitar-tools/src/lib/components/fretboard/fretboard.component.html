@@ -16,7 +16,8 @@
           <div
             class="chord-press"
             [ngClass]="tabs | stringType: fret:6 - +string"
-            [title]="tuningChart[+string].scale[fret]"
+            [matTooltip]="tuningChart[+string].scale[fret]"
+            [matTooltipDisabled]="!showNote"
             (click)="toggleActive(fret, 6 - +string)"
           ></div>
         </div>

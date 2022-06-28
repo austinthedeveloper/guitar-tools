@@ -12,6 +12,7 @@ import { GUITAR_QUIZ_COMPONENTS } from './components/quiz';
 import { GUITAR_TOOLS_PIPES } from './pipes';
 import { SpecificNoteComponent } from './components/quiz/specific-note/specific-note.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { GuitarFormsModule } from '@guitar/forms';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { GuitarFormsModule } from '@guitar/forms';
     ReactiveFormsModule,
     DragDropModule,
     MatSelectModule,
+    MatTooltipModule,
     GuitarFormsModule,
   ],
   declarations: [

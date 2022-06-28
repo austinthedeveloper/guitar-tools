@@ -8,7 +8,8 @@
     >
       <div
         class="chord-press"
-        [title]="tuningChart[+string].scale[0]"
+        [matTooltip]="tuningChart[+string].scale[0]"
+        [matTooltipDisabled]="!showNote"
         [ngClass]="{ active: presses | includesString: 0:6 - +string }"
       ></div>
     </div>
@@ -19,10 +20,11 @@
       class="chord-string"
       *ngFor="let string of fret"
       (click)="toggleActive(startFret + i, 6 - +string)"
+      [matTooltip]="tuningChart[+string].scale[startFret + i]"
+      [matTooltipDisabled]="!showNote"
     >
       <div
         class="chord-press"
-        [title]="tuningChart[+string].scale[startFret + i]"
         [ngClass]="presses | stringType: startFret + i:6 - +string"
       ></div>
     </div>

@@ -25,6 +25,7 @@ export class FretboardComponent implements OnChanges {
   @Output() tabChange: EventEmitter<PressInterface[]> = new EventEmitter();
   built: any[] = [];
   @Input() disabled!: boolean;
+  @Input() showNote!: boolean;
   @Output() stringPressed = new EventEmitter();
   @Output() tabsChanged = new EventEmitter();
 

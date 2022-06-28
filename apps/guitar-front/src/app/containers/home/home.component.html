@@ -19,6 +19,7 @@
     </select>
     <guitar-chord
       [tuning]="(tuning$ | async)!"
+      [showNote]="true"
       [presses]="formPress.value"
       (pressesChanged)="onPressChange($event)"
     ></guitar-chord>
