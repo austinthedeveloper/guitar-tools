@@ -1,5 +1,14 @@
 <div class="container">
   <div>
+    <h2>Scales</h2>
+    <guitar-scale-reference
+      [tuning]="tuning$ | async"
+      [tuningChart]="tuningChart$ | async"
+      [frets]="frets$ | async"
+      [showNote]="true"
+    ></guitar-scale-reference>
+  </div>
+  <div>
     <h2>Tab Example</h2>
     <guitar-chart-tab></guitar-chart-tab>
   </div>
