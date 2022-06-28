@@ -91,6 +91,9 @@
           (incorrect)="onIncorrect()"
         ></guitar-scale-quiz>
       </ng-container>
+      <ng-container *ngSwitchCase="'triadsNoteOrder'">
+        <guitar-triad-note-order [chords]="triads"></guitar-triad-note-order>
+      </ng-container>
     </ng-container>
   </guitar-card>
 </div>

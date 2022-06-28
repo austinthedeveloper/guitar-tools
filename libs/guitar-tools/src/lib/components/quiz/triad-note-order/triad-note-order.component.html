@@ -1,5 +1,5 @@
 <div>
-  <p>Order the different types of Modes.</p>
+  <p>Order the notes of the {{ chordName.value }} Major Triad</p>
 </div>
 <form [formGroup]="form">
   <div class="row">
@@ -19,13 +19,15 @@
       </div>
     </div>
     <div class="col">
-      <button
+      <pre>{{ answer.value | json }}</pre>
+      <pre>{{ guess.value | json }}</pre>
+      <!-- <button
         class="btn btn-primary"
         [disabled]="form.invalid"
         (click)="submit()"
       >
         Submit
-      </button>
+      </button> -->
     </div>
   </div>
 </form>

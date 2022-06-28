@@ -7,6 +7,7 @@ import { RelativeMajorQuizComponent } from './relative-major-quiz/relative-major
 import { RelativeMinorQuizComponent } from './relative-minor-quiz/relative-minor-quiz.component';
 import { ScaleQuizComponent } from './scale-quiz/scale-quiz.component';
 import { SpecificNoteComponent } from './specific-note/specific-note.component';
+import { TriadNoteOrderComponent } from './triad-note-order/triad-note-order.component';
 
 export const GUITAR_QUIZ_COMPONENTS = [
   ChordQuizComponent,
@@ -18,4 +19,5 @@ export const GUITAR_QUIZ_COMPONENTS = [
   ModeOrderingQuizComponent,
   RelativeMajorQuizComponent,
   SpecificNoteComponent,
+  TriadNoteOrderComponent,
 ];
