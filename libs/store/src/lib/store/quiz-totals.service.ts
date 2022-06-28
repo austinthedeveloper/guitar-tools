@@ -16,6 +16,7 @@ export class QuizTotalsService {
         'triads',
         'triadsMinor',
         'specificTriads',
+        'scale',
       ],
       Validators.required
     ),
