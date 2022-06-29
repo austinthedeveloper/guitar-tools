@@ -4,8 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'numberProper',
 })
 export class NumberProperPipe implements PipeTransform {
-  transform(value: number): string {
-    return `${value}${this.getTrail(value)}`;
+  transform(value: string | number): string {
+    return `${value}${this.getTrail(+value)}`;
   }
 
   private getTrail(value: number): string {
