@@ -11,13 +11,13 @@ export class QuizTotalsService {
     activeQuizzes: this.fb.control(
       [
         'triadsNoteOrder',
-        // 'relativeMinor',
-        // 'modeName',
-        // 'mode',
-        // 'triads',
-        // 'triadsMinor',
-        // 'specificTriads',
-        // 'scale',
+        'relativeMinor',
+        'modeName',
+        'mode',
+        'triads',
+        'triadsMinor',
+        'specificTriads',
+        'scale',
       ],
       Validators.required
     ),
