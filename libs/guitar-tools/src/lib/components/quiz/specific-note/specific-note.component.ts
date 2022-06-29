@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { ChordInterface } from '@guitar/interfaces';
+import { ChordInterface, PressInterface } from '@guitar/interfaces';
 import { isEqual, orderBy, random, uniq } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
@@ -20,6 +20,7 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
   positionForm = this.fb.group({
     fret: this.fb.control(null, Validators.required),
     string: this.fb.control(null, Validators.required),
+    // presses: this.fb.control([], Validators.required)
   });
   callback = (guess: string[], answer: string[]) => isEqual(guess, answer);
   @Input() chords: ChordInterface[] = [];
@@ -45,6 +46,7 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
     if (!this.chords.length) return;
     const fret = (random(14) + 1).toString();
     const string = (random(4) + 1).toString();
+    // const built: PressInterface[] = [{}];
     this.positionForm.patchValue({ fret, string });
     const values = this.chords
       .filter(
@@ -79,5 +81,10 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
     if (this.callback(this.guess.value, this.answer.value)) {
       this.submitAnswer();
     }
+  }
+
+  get positionFormAsInterface(): PressInterface[] {
+    const formValue = this.positionForm.value as PressInterface;
+    return [formValue];
   }
 }

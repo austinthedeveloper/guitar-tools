@@ -48,7 +48,7 @@ export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
     const item = this.chords[scaleIndex];
 
     const reversedChart = reverse([...this.tuningChart]);
-    const options = item.presses.map((press) => {
+    const options: string[] = item.presses.map((press) => {
       const fret = +press.fret >= 12 ? +press.fret - 12 : +press.fret;
       return reversedChart[+press.string - 1].scale[fret];
     });

@@ -4,7 +4,15 @@
       What Triads are played on the {{ formValue.fret | numberProper }} Fret,
       {{ formValue.string | numberProper }} string ({{ answer.value.length }}
       Items)?
+
+      <guitar-chord
+        *ngIf="positionForm"
+        class="d-block mt-3"
+        [presses]="positionFormAsInterface"
+        [disabled]="true"
+      ></guitar-chord>
     </div>
+
     <div class="col">
       <guitar-list-group-select
         [items]="options"
