@@ -42,6 +42,8 @@ export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
 
   setAnswer() {
     if (!this.chords.length) return;
+
+    // Get a single item from the provided chords
     const scaleIndex = random(this.chords.length - 1);
     const item = this.chords[scaleIndex];
 
