@@ -3,13 +3,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TuningHelper } from '@guitar/helpers';
 import { ChordInterface, PressInterface } from '@guitar/interfaces';
-import { isEqual, random, reverse } from 'lodash-es';
+import { isEqual, random, reverse, shuffle } from 'lodash-es';
+
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
@@ -44,20 +44,24 @@ export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
     if (!this.chords.length) return;
     const scaleIndex = random(this.chords.length - 1);
     const item = this.chords[scaleIndex];
-    this.chordName.patchValue(item.name);
-    const reversedChart = reverse(this.tuningChart);
+
+    const reversedChart = reverse([...this.tuningChart]);
     const options = item.presses.map((press) => {
       const fret = +press.fret >= 12 ? +press.fret - 12 : +press.fret;
       return reversedChart[+press.string - 1].scale[fret];
     });
+    const optionsOrdered = reverse([...options]);
 
-    if (isEqual(options, this.answer.value)) {
-      console.log('is equal');
+    if (isEqual(optionsOrdered, this.answer.value)) {
+      console.warn('Matching Last Question');
+      this.setAnswer();
+      return;
     }
 
+    this.chordName.patchValue(item.name);
     this.presses.patchValue(item.presses);
-    this.guess.patchValue(reverse([...options]));
-    this.answer.patchValue([...options]);
+    this.guess.patchValue(shuffle([...options]));
+    this.answer.patchValue(optionsOrdered);
   }
 
   drop(changedItem: CdkDragDrop<string[]>, guess: string[]) {

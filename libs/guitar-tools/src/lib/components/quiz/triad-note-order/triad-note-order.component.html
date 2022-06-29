@@ -27,8 +27,11 @@
       </button>
     </div>
     <div class="col">
-      <pre>{{ answer.value | json }}</pre>
-      <pre>{{ guess.value | json }}</pre>
+      <guitar-chord
+        *ngIf="presses"
+        [presses]="presses.value"
+        [disabled]="true"
+      ></guitar-chord>
     </div>
   </div>
 </form>
