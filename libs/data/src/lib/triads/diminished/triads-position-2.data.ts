@@ -5,7 +5,7 @@ function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
   return scaleStartWith('A').map((string, index) => {
     const chords = [
       {
-        fret: (index + 2).toString(),
+        fret: (index + 1).toString(),
         string: '3',
       },
       {
@@ -13,7 +13,7 @@ function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
         string: '4',
       },
       {
-        fret: (index + 4).toString(),
+        fret: (index + 3).toString(),
         string: '5',
       },
     ];
@@ -24,7 +24,7 @@ function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
   return scaleStartWith('A').map((string, index) => {
     const chords = [
       {
-        fret: (index + 2).toString(),
+        fret: (index + 1).toString(),
         string: '2',
       },
       {
@@ -32,7 +32,7 @@ function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
         string: '3',
       },
       {
-        fret: (index + 2).toString(),
+        fret: (index + 1).toString(),
         string: '4',
       },
     ];
@@ -40,7 +40,7 @@ function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
   });
 }
 function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
-  return scaleStartWith('A').map((string, index) => {
+  return scaleStartWith('A# / B♭').map((string, index) => {
     const chords = [
       {
         fret: index.toString(),
@@ -51,7 +51,7 @@ function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
         string: '2',
       },
       {
-        fret: (index + 2).toString(),
+        fret: (index + 3).toString(),
         string: '3',
       },
     ];
