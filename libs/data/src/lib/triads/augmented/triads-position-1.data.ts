@@ -5,7 +5,7 @@ function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
   return scaleStartWith('C').map((string, index) => {
     const chords = [
       {
-        fret: index.toString(),
+        fret: (index + 1).toString(),
         string: '3',
       },
       {
@@ -28,7 +28,7 @@ function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
         string: '2',
       },
       {
-        fret: index.toString(),
+        fret: (index + 1).toString(),
         string: '3',
       },
       {
@@ -51,7 +51,7 @@ function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
         string: '2',
       },
       {
-        fret: index.toString(),
+        fret: (index + 1).toString(),
         string: '3',
       },
     ];
@@ -60,6 +60,6 @@ function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
 }
 export const TRIADS_POSITION_1_AUGMENTED = [
   ...CHORDS_MOCK_TRIADS_1(),
-  // ...CHORDS_MOCK_TRIADS_2(),
-  // ...CHORDS_MOCK_TRIADS_3(),
+  ...CHORDS_MOCK_TRIADS_2(),
+  ...CHORDS_MOCK_TRIADS_3(),
 ];
