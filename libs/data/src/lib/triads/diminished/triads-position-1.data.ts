@@ -2,7 +2,7 @@ import { scaleStartWith } from '@guitar/helpers';
 import { ChordClass, ChordInterface } from '@guitar/interfaces';
 
 function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
-  return scaleStartWith('C').map((string, index) => {
+  return scaleStartWith('C# / D♭').map((string, index) => {
     const chords = [
       {
         fret: index.toString(),
@@ -13,7 +13,7 @@ function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
         string: '4',
       },
       {
-        fret: (index + 3).toString(),
+        fret: (index + 4).toString(),
         string: '5',
       },
     ];
