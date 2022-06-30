@@ -10,14 +10,15 @@ export class QuizTotalsService {
     activeValue: this.fb.control('', Validators.required),
     activeQuizzes: this.fb.control(
       [
-        'triadsNoteOrder',
-        'relativeMinor',
-        'modeName',
-        'mode',
-        'triads',
-        'triadsMinor',
-        'specificTriads',
-        'scale',
+        // 'triadsNoteOrder',
+        // 'relativeMinor',
+        // 'modeName',
+        // 'mode',
+        // 'triads',
+        // 'triadsMinor',
+        'triadsAugmented',
+        // 'specificTriads',
+        // 'scale',
       ],
       Validators.required
     ),

@@ -75,6 +75,13 @@
           (incorrect)="onIncorrect()"
         ></guitar-chord-quiz>
       </ng-container>
+      <ng-container *ngSwitchCase="'triadsAugmented'">
+        <guitar-chord-quiz
+          [chords]="triadsAugmented"
+          (correct)="onCorrect()"
+          (incorrect)="onIncorrect()"
+        ></guitar-chord-quiz>
+      </ng-container>
       <ng-container *ngSwitchCase="'specificTriads'">
         <guitar-specific-note
           [chords]="triads"

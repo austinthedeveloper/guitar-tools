@@ -60,6 +60,6 @@ function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
 }
 export const TRIADS_POSITION_1_AUGMENTED = [
   ...CHORDS_MOCK_TRIADS_1(),
-  ...CHORDS_MOCK_TRIADS_2(),
-  ...CHORDS_MOCK_TRIADS_3(),
+  // ...CHORDS_MOCK_TRIADS_2(),
+  // ...CHORDS_MOCK_TRIADS_3(),
 ];
