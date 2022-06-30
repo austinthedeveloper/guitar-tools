@@ -7,6 +7,7 @@ export const QUIZ_TYPES = [
   { key: 'Guess Chord', value: 'chord' },
   { key: 'Guess Triad', value: 'triads' },
   { key: 'Guess Minor Triad', value: 'triadsMinor' },
+  { key: 'Guess Augmented Triad', value: 'triadsAugmented' },
   { key: 'Triads Note Order', value: 'triadsNoteOrder' },
   { key: 'Triads on a Specific Note', value: 'specificTriads' },
   { key: 'Scale', value: 'scale' },
