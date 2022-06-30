@@ -3,6 +3,7 @@ import {
   CHORDS_MOCK_SORTED,
   QUIZ_TYPES,
   TRIADS_MOCK_AUGMENTED_SORTED,
+  TRIADS_MOCK_DIMINISHED_SORTED,
   TRIADS_MOCK_MINOR_SORTED,
   TRIADS_MOCK_SORTED,
 } from '@guitar/data';
@@ -21,6 +22,7 @@ export class QuizComponent implements OnInit {
   triads: ChordInterface[] = TRIADS_MOCK_SORTED;
   triadsMinor: ChordInterface[] = TRIADS_MOCK_MINOR_SORTED;
   triadsAugmented: ChordInterface[] = TRIADS_MOCK_AUGMENTED_SORTED;
+  triadsDiminished: ChordInterface[] = TRIADS_MOCK_DIMINISHED_SORTED;
 
   options$: Observable<UserOptionsInterface> = this.userOptions.options$;
   tuning$ = this.userOptions.tuning$;
