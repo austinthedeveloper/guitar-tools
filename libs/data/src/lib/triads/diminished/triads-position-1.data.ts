@@ -21,10 +21,10 @@ function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
   });
 }
 function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
-  return scaleStartWith('C').map((string, index) => {
+  return scaleStartWith('C# / D♭').map((string, index) => {
     const chords = [
       {
-        fret: (index + 1).toString(),
+        fret: (index + 2).toString(),
         string: '2',
       },
       {
@@ -40,14 +40,14 @@ function CHORDS_MOCK_TRIADS_2(): ChordInterface[] {
   });
 }
 function CHORDS_MOCK_TRIADS_3(): ChordInterface[] {
-  return scaleStartWith('C').map((string, index) => {
+  return scaleStartWith('C# / D♭').map((string, index) => {
     const chords = [
       {
         fret: index.toString(),
         string: '1',
       },
       {
-        fret: (index + 1).toString(),
+        fret: (index + 2).toString(),
         string: '2',
       },
       {
