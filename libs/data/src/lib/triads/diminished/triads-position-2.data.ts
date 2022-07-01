@@ -5,11 +5,11 @@ function CHORDS_MOCK_TRIADS_1(): ChordInterface[] {
   return scaleStartWith('A').map((string, index) => {
     const chords = [
       {
-        fret: (index + 1).toString(),
+        fret: (index + 2).toString(),
         string: '3',
       },
       {
-        fret: (index + 2).toString(),
+        fret: (index + 1).toString(),
         string: '4',
       },
       {
