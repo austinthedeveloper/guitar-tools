@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+import {
+  FormControl,
+  NonNullableFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { CHORDS_MOCK_SORTED } from '@guitar/data';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
-import { Observable, combineLatest } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
@@ -46,7 +50,10 @@ export class HomeComponent {
     })
   );
 
-  constructor(private fb: FormBuilder, private userOptions: OptionsService) {
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private userOptions: OptionsService
+  ) {
     this.form.patchValue({ presses: this.presses });
     this.formId.valueChanges.subscribe((id) => {
       this.formPress.patchValue(

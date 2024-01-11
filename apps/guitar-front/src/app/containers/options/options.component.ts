@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
 import { Observable } from 'rxjs';
@@ -8,11 +8,9 @@ import { Observable } from 'rxjs';
   templateUrl: './options.component.html',
   styleUrls: ['./options.component.css'],
 })
-export class OptionsComponent implements OnInit {
+export class OptionsComponent {
   options$: Observable<UserOptionsInterface> = this.userOptions.options$;
   constructor(private userOptions: OptionsService) {}
-
-  ngOnInit() {}
 
   optionChanged(options: UserOptionsInterface) {
     this.userOptions.setOption(options);

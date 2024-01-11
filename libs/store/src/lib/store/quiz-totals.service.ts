@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  NonNullableFormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +31,7 @@ export class QuizTotalsService {
     incorrect: 0,
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: NonNullableFormBuilder) {}
 
   get correct() {
     return this.form.controls.correct;
