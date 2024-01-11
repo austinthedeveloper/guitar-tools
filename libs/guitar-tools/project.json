@@ -1,0 +1,20 @@
+{
+  "name": "guitar-tools",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/guitar-tools/src",
+  "prefix": "guitar",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/guitar-tools"],
+      "options": {
+        "jestConfig": "libs/guitar-tools/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}
