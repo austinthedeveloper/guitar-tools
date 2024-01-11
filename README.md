@@ -12,3 +12,12 @@ https://guitartools.z22.web.core.windows.net/
 - Scale Example (Includes tuning and fret changes)
 - Tab Example
 - Chord Selection/Builder
+
+## Deploying
+
+- `npm run build:prod`
+- Sign in to Azure on VS Code
+- Resources - Storage Accounts
+- Right click "guitartools"
+- Deploy and select the built application
+- Accept overwriting of files
