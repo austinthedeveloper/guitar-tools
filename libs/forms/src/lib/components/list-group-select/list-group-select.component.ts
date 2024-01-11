@@ -25,8 +25,6 @@ export class ListGroupSelectComponent implements OnChanges {
   @Output() onCorrect: EventEmitter<string> = new EventEmitter();
   @Output() onIncorrect: EventEmitter<string> = new EventEmitter();
 
-  constructor() {}
-
   ngOnChanges({ items, values }: SimpleChanges): void {
     // items build when either values or items are triggered
     if (items || values) {

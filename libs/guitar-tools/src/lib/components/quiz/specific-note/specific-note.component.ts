@@ -17,12 +17,13 @@ import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpecificNoteComponent extends ChordQuizBaseComponent {
+  @Input() chords: ChordInterface[] = [];
   positionForm = this.fb.group({
     fret: this.fb.control('', Validators.required),
     string: this.fb.control('', Validators.required),
   });
   callback = (guess: string[], answer: string[]) => isEqual(guess, answer);
-  @Input() chords: ChordInterface[] = [];
+
   options: string[] = [];
 
   constructor(fb: FormBuilder) {

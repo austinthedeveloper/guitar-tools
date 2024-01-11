@@ -8,7 +8,6 @@ import { Component, Input } from '@angular/core';
 export class QuizTotalsComponent {
   @Input() correct: number;
   @Input() incorrect: number;
-  constructor() {}
 
   get total() {
     return this.correct + '/' + (this.correct + this.incorrect);
