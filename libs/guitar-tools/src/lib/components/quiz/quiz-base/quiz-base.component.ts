@@ -6,11 +6,8 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import {
-  FormBuilder,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'guitar-quiz-base',
@@ -64,6 +61,8 @@ export class ChordQuizBaseComponent {
   isCorrect() {
     this.markEnd();
     const { correct } = this.form.value;
+    console.log('testing', this.calculateDuration());
+
     this.incrementTotal();
     this.correct.emit(this.form.value);
     this.form.patchValue({ guess: null, correct: correct + 1 });
@@ -93,10 +92,9 @@ export class ChordQuizBaseComponent {
 
   calculateDuration() {
     const { startTime, endTime } = this.form.value;
-    var eventStartTime = new Date(startTime);
-    var eventEndTime = new Date(endTime);
-    var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
-    return new Date(duration);
+    var eventStartTime = DateTime.fromISO(endTime);
+    var eventEndTime = DateTime.fromISO(startTime);
+    return eventEndTime.diff(eventStartTime).milliseconds / 1000;
   }
 
   private incrementTotal() {

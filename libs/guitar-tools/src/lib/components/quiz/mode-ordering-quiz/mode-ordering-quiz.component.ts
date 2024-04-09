@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component } from '@angular/core';
 import { MODES_ARRAY } from '@guitar/interfaces';
 import { isEqual, shuffle } from 'lodash-es';
+
+import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
   selector: 'guitar-mode-ordering-quiz',
