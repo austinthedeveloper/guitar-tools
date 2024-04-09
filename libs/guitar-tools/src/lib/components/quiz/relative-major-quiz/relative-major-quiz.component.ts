@@ -25,6 +25,7 @@ export class RelativeMajorQuizComponent extends ChordQuizBaseComponent {
     const scale = this.majorArray[randomScale];
     this.majorForm.patchValue(scale[0]);
     this.answer.patchValue(scale[1]);
+    this.markStart();
   }
 
   submit(value: string) {

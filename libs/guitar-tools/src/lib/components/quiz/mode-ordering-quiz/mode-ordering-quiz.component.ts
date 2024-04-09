@@ -22,6 +22,7 @@ export class ModeOrderingQuizComponent extends ChordQuizBaseComponent {
   setAnswer() {
     this.answer.patchValue([...this.answers]);
     this.guess.patchValue(shuffle([...this.answers]));
+    this.markStart();
   }
 
   drop(changedItem: CdkDragDrop<string[]>, guess: string[]) {

@@ -48,6 +48,7 @@ export class ScaleQuizComponent
     this.answerForm.reset();
     this.randomizeValues();
     this.tabs = this.buildScale();
+    this.markStart();
   }
 
   submit() {

@@ -34,6 +34,8 @@ export class ChordQuizBaseComponent {
     total: this.fb.control(0),
     answer: this.fb.control(null, [Validators.required]),
     guess: this.fb.control(null, [Validators.required]),
+    startTime: this.fb.control(''),
+    endTime: this.fb.control(''),
   });
 
   constructor() {
@@ -60,6 +62,7 @@ export class ChordQuizBaseComponent {
   }
 
   isCorrect() {
+    this.markEnd();
     const { correct } = this.form.value;
     this.incrementTotal();
     this.correct.emit(this.form.value);
@@ -78,6 +81,22 @@ export class ChordQuizBaseComponent {
 
   onAfterAnswer() {
     this.afterAnswer.emit(this.form.value);
+  }
+
+  markStart() {
+    this.form.controls.startTime.patchValue(new Date().toISOString());
+  }
+
+  markEnd() {
+    this.form.controls.endTime.patchValue(new Date().toISOString());
+  }
+
+  calculateDuration() {
+    const { startTime, endTime } = this.form.value;
+    var eventStartTime = new Date(startTime);
+    var eventEndTime = new Date(endTime);
+    var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+    return new Date(duration);
   }
 
   private incrementTotal() {

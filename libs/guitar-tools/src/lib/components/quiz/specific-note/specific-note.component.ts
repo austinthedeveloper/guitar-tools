@@ -63,6 +63,7 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
       this.guess.patchValue([]);
       this.answer.patchValue(uniqueValues);
     }
+    this.markStart();
   }
 
   submit() {

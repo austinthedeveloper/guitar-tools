@@ -17,7 +17,7 @@
       <guitar-list-group-select
         [items]="options"
         [values]="answer.value"
-        (onCorrect)="addGuess($event)"
+        (onClick)="addGuess($event)"
         (onIncorrect)="incorrect.emit($event)"
       ></guitar-list-group-select>
     </div>

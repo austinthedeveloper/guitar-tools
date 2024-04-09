@@ -25,6 +25,7 @@ export class RelativeMinorQuizComponent extends ChordQuizBaseComponent {
     const scale = this.minorArray[randomScale];
     this.minorForm.patchValue(scale[0]);
     this.answer.patchValue(scale[1]);
+    this.markStart();
   }
 
   submit(value: string) {

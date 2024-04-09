@@ -33,6 +33,7 @@ export class ChordQuizComponent
       this.chords[Math.floor(Math.random() * (this.chords.length - 1))];
 
     this.answer.patchValue(this.chord.name);
+    this.markStart();
   }
 
   addGuess(value: string) {

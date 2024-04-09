@@ -39,6 +39,7 @@ export class ModeNameQuizComponent extends ChordQuizBaseComponent {
     });
 
     this.answer.patchValue(scale[randomMode]);
+    this.markStart();
   }
 
   submit(value: string) {

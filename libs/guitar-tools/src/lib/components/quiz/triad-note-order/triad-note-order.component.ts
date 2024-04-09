@@ -64,6 +64,7 @@ export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
     this.presses.patchValue(item.presses);
     this.guess.patchValue(shuffle([...options]));
     this.answer.patchValue(optionsOrdered);
+    this.markStart();
   }
 
   drop(changedItem: CdkDragDrop<string[]>, guess: string[]) {
