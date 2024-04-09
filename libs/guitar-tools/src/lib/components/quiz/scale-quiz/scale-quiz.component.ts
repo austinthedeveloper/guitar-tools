@@ -38,10 +38,6 @@ export class ScaleQuizComponent
   scaleOptions = SCALE;
   scaleTypeOptions = TuningHelper.getScaleOptions;
 
-  constructor(fb: UntypedFormBuilder) {
-    super(fb);
-  }
-
   ngOnChanges({ tuningChart }: SimpleChanges): void {
     if (tuningChart) {
       this.setAnswer();

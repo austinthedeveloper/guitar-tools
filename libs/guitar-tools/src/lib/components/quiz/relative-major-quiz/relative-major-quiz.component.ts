@@ -15,8 +15,8 @@ export class RelativeMajorQuizComponent extends ChordQuizBaseComponent {
   majorValues = relativeMajorValues;
   private majorArray = relativeMajorArray;
 
-  constructor(fb: UntypedFormBuilder) {
-    super(fb);
+  constructor() {
+    super();
     this.setAnswer();
   }
 

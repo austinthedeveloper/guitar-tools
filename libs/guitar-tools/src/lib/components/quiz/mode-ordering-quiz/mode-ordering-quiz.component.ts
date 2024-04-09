@@ -14,8 +14,8 @@ export class ModeOrderingQuizComponent extends ChordQuizBaseComponent {
   private answers = MODES_ARRAY;
   callback = (guess: string[], answer: string[]) => isEqual(guess, answer);
 
-  constructor(fb: UntypedFormBuilder) {
-    super(fb);
+  constructor() {
+    super();
     this.setAnswer();
   }
 

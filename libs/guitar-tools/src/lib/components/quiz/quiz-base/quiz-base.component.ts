@@ -4,8 +4,13 @@ import {
   EventEmitter,
   Input,
   Output,
+  inject,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  NonNullableFormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'guitar-quiz-base',
@@ -21,6 +26,8 @@ export class ChordQuizBaseComponent {
   @Output() incorrect: EventEmitter<any> = new EventEmitter();
   @Output() afterAnswer: EventEmitter<any> = new EventEmitter();
   @Output() afterReset: EventEmitter<any> = new EventEmitter();
+
+  fb: NonNullableFormBuilder = inject(NonNullableFormBuilder);
   form = this.fb.group({
     correct: this.fb.control(0),
     incorrect: this.fb.control(0),
@@ -29,7 +36,7 @@ export class ChordQuizBaseComponent {
     guess: this.fb.control(null, [Validators.required]),
   });
 
-  constructor(public fb: FormBuilder) {
+  constructor() {
     this.formReady.emit(this.form);
   }
 
@@ -53,25 +60,30 @@ export class ChordQuizBaseComponent {
   }
 
   isCorrect() {
-    const { correct, total } = this.form.value;
-    const base = { total: total + 1 };
+    const { correct } = this.form.value;
+    this.incrementTotal();
     this.correct.emit(this.form.value);
-    this.form.patchValue({ ...base, guess: null, correct: correct + 1 });
+    this.form.patchValue({ guess: null, correct: correct + 1 });
     this.setAnswer();
   }
 
   isWrong() {
-    const { incorrect, total } = this.form.value;
-    const base = { total: total + 1 };
+    const { incorrect } = this.form.value;
+    this.incrementTotal();
     this.incorrect.emit(this.form.value);
     this.form.patchValue({
-      ...base,
       incorrect: incorrect + 1,
     });
   }
 
   onAfterAnswer() {
     this.afterAnswer.emit(this.form.value);
+  }
+
+  private incrementTotal() {
+    const { total } = this.form.value;
+    const value = { total: total + 1 };
+    this.form.patchValue(value);
   }
 
   get answer() {

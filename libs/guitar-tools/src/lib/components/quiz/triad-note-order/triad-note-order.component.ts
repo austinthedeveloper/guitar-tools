@@ -5,7 +5,7 @@ import {
   Input,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { TuningHelper } from '@guitar/helpers';
 import { ChordInterface, PressInterface } from '@guitar/interfaces';
 import { isEqual, random, reverse, shuffle } from 'lodash-es';
@@ -29,8 +29,8 @@ export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
   tuning = TuningHelper.getTuning('standard');
   tuningChart = TuningHelper.buildTuningChart(this.tuning);
 
-  constructor(fb: FormBuilder) {
-    super(fb);
+  constructor() {
+    super();
     this.setAnswer();
   }
 

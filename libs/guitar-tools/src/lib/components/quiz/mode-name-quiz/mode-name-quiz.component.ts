@@ -19,8 +19,8 @@ export class ModeNameQuizComponent extends ChordQuizBaseComponent {
   scaleOptions = SCALE;
   modeOptions = MODES_ARRAY;
 
-  constructor(fb: UntypedFormBuilder) {
-    super(fb);
+  constructor() {
+    super();
     this.setAnswer();
   }
 

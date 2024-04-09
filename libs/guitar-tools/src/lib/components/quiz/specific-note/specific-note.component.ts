@@ -26,8 +26,8 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
 
   options: string[] = [];
 
-  constructor(fb: FormBuilder) {
-    super(fb);
+  constructor() {
+    super();
     this.setAnswer();
   }
 
