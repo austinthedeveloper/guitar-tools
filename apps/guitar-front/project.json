@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/guitar-front/src",
   "prefix": "guitar",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -24,10 +25,7 @@
           "apps/guitar-front/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "./node_modules",
-            "./libs"
-          ]
+          "includePaths": ["./node_modules", "./libs"]
         },
         "scripts": []
       },
@@ -91,7 +89,13 @@
       "options": {
         "jestConfig": "apps/guitar-front/jest.config.ts"
       }
+    },
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/guitar-front"],
+      "options": {
+        "config": "apps/guitar-front/playwright.config.ts"
+      }
     }
-  },
-  "tags": []
+  }
 }
