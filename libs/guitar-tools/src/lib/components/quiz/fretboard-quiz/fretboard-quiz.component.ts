@@ -1,5 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
@@ -11,8 +10,5 @@ export class FretboardQuizComponent
   extends ChordQuizBaseComponent
   implements OnChanges
 {
-  constructor(public fb: FormBuilder) {
-    super(fb);
-  }
   ngOnChanges({}: SimpleChanges): void {}
 }

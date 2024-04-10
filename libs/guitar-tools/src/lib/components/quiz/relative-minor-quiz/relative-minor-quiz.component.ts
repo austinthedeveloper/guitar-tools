@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { relativeMinorArray, relativeMinorValues } from '@guitar/helpers';
 import { random } from 'lodash-es';
 

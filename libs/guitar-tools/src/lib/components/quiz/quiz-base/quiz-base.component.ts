@@ -43,6 +43,7 @@ export class ChordQuizBaseComponent {
   submitAnswer() {
     const { answer, guess } = this.form.value;
     const isCorrect = this.callback(guess, answer);
+
     if (isCorrect) {
       this.isCorrect();
     } else {
@@ -61,10 +62,12 @@ export class ChordQuizBaseComponent {
   isCorrect() {
     this.markEnd();
     const { correct } = this.form.value;
-    console.log('testing', this.calculateDuration());
-
     this.incrementTotal();
-    this.correct.emit(this.form.value);
+    // TODO: Correct this typing
+    this.correct.emit({
+      ...this.form.value,
+      duration: this.calculateDuration(),
+    });
     this.form.patchValue({ guess: null, correct: correct + 1 });
     this.setAnswer();
   }
@@ -92,8 +95,8 @@ export class ChordQuizBaseComponent {
 
   calculateDuration() {
     const { startTime, endTime } = this.form.value;
-    var eventStartTime = DateTime.fromISO(endTime);
-    var eventEndTime = DateTime.fromISO(startTime);
+    var eventStartTime = DateTime.fromISO(startTime);
+    var eventEndTime = DateTime.fromISO(endTime);
     return eventEndTime.diff(eventStartTime).milliseconds / 1000;
   }
 

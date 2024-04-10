@@ -8,8 +8,7 @@
       <guitar-list-group-select
         [items]="minorValues"
         [values]="answer.value"
-        (onCorrect)="submit($event)"
-        (onIncorrect)="incorrect.emit($event)"
+        (onClick)="submit($event)"
       ></guitar-list-group-select>
     </div>
   </div>
