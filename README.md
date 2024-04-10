@@ -2,6 +2,10 @@
 
 This project was generated using [Nx](https://nx.dev).
 
+## Note
+
+- Use `yarn` for package management
+
 ## Demo Site
 
 https://guitartools.z22.web.core.windows.net/
