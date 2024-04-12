@@ -1,13 +1,22 @@
 import { Page } from '@playwright/test';
 
 export class QuizSelectorHelper {
-  static async openMenu(page: Page) {
-    const menu = page.locator(`.mat-mdc-form-field`);
+  constructor(private page: Page) {}
+  selectMenu() {
+    return this.page.locator(`.mat-mdc-form-field`);
+  }
+  async openMenu() {
+    const menu = this.selectMenu();
     return await menu.click();
   }
-  static async selectItem(name: string, page: Page) {
-    const item = page.getByRole('option', { name });
-    await this.openMenu(page);
+
+  async closeMenu() {
+    const menu = this.selectMenu();
+    return await menu.press('Escape');
+  }
+  async selectItem(name: string) {
+    const item = this.page.getByRole('option', { name: name });
+    await this.openMenu();
     return item;
   }
 }
