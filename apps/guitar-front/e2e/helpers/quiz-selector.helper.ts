@@ -15,7 +15,7 @@ export class QuizSelectorHelper {
     return await btn.click();
   }
   async clearForm() {
-    const btn = this.page.getByRole('button', { name: 'Click' });
+    const btn = this.page.getByRole('button', { name: 'Clear' });
     return await btn.click();
   }
   async closeMenu() {
@@ -26,5 +26,14 @@ export class QuizSelectorHelper {
     const item = this.page.getByRole('option', { name: name });
     await this.openMenu();
     return item;
+  }
+
+  async backdropClick() {
+    const item = this.page.locator('.cdk-overlay-backdrop');
+    await item.click();
+  }
+
+  getSelectItems() {
+    return this.page.locator('.list-group-item');
   }
 }
