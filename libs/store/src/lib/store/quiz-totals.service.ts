@@ -52,4 +52,8 @@ export class QuizTotalsService {
   onReset() {
     this.form.patchValue({ correct: 0, incorrect: 0 });
   }
+
+  onClear() {
+    this.form.controls.activeQuizzes.reset([]);
+  }
 }

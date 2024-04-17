@@ -101,4 +101,8 @@ export class QuizComponent implements OnInit {
   onReset() {
     this.quizTotalsService.onReset();
   }
+
+  onClear() {
+    this.quizTotalsService.onClear();
+  }
 }

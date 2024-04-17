@@ -10,6 +10,14 @@ export class QuizSelectorHelper {
     return await menu.click();
   }
 
+  async resetForm() {
+    const btn = this.page.getByRole('button', { name: 'Reset' });
+    return await btn.click();
+  }
+  async clearForm() {
+    const btn = this.page.getByRole('button', { name: 'Click' });
+    return await btn.click();
+  }
   async closeMenu() {
     const menu = this.selectMenu();
     return await menu.press('Escape');

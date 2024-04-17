@@ -15,7 +15,18 @@
       }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <button type="button" class="btn btn-secondary" (click)="onReset()">
+  <button
+    type="button"
+    class="btn btn-secondary clear-button"
+    (click)="onClear()"
+  >
+    Clear
+  </button>
+  <button
+    type="button"
+    class="btn btn-secondary reset-button"
+    (click)="onReset()"
+  >
     Reset
   </button>
   <guitar-quiz-totals
