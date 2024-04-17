@@ -38,123 +38,57 @@ test('Quiz Selector Checking Selected Items', async ({ page }) => {
   expect(await menu.innerText()).toContain('2 Types');
 });
 
-test('Quiz: Relative Minor ', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-  const item = await selectorHelper.selectItem('Relative Minor');
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
-  await item.click();
-  await selectorHelper.backdropClick();
-  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
+const tests = [
+  {
+    value: 'Relative Minor',
+  },
+  {
+    value: 'Relative Major',
+  },
+  {
+    value: 'Mode Note',
+  },
+  {
+    value: 'Mode Name',
+  },
+  {
+    value: 'Guess Chord',
+  },
+  {
+    value: 'Guess Triad',
+  },
+  {
+    value: 'Guess Minor Triad',
+  },
+  {
+    value: 'Guess Augmented Triad',
+  },
+  {
+    value: 'Guess Diminished Triad',
+  },
+];
 
-  // looper
-  const items = selectorHelper.getSelectItems();
-  const elementsCount = await items.count();
+tests.forEach((t) => {
+  test(`Quiz: ${t.value}`, async ({ page }) => {
+    await NavigationHelper.navigateQuiz(page);
+    const selectorHelper = new QuizSelectorHelper(page);
+    await selectorHelper.clearForm();
+    const item = await selectorHelper.selectItem(t.value);
+    expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
+    await item.click();
+    await selectorHelper.backdropClick();
+    expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
 
-  for (var index = 0; index < elementsCount; index++) {
-    await items.nth(index).click();
-  }
+    // looper
+    const items = selectorHelper.getSelectItems();
+    const elementsCount = await items.count();
 
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain('0');
-});
-test('Quiz: Relative Major ', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-  const item = await selectorHelper.selectItem('Relative Major');
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
-  await item.click();
-  await selectorHelper.backdropClick();
-  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
+    for (var index = 0; index < elementsCount; index++) {
+      await items.nth(index).click();
+    }
 
-  // looper
-  const items = selectorHelper.getSelectItems();
-  const elementsCount = await items.count();
-
-  for (var index = 0; index < elementsCount; index++) {
-    await items.nth(index).click();
-  }
-
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain('0');
-});
-test('Quiz: Mode Note ', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-  const item = await selectorHelper.selectItem('Mode Note');
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
-  await item.click();
-  await selectorHelper.backdropClick();
-  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
-
-  // looper
-  const items = selectorHelper.getSelectItems();
-  const elementsCount = await items.count();
-
-  for (var index = 0; index < elementsCount; index++) {
-    await items.nth(index).click();
-  }
-
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain('0');
-});
-test('Quiz: Mode Name ', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-  const item = await selectorHelper.selectItem('Mode Name');
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
-  await item.click();
-  await selectorHelper.backdropClick();
-  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
-
-  // looper
-  const items = selectorHelper.getSelectItems();
-  const elementsCount = await items.count();
-
-  for (var index = 0; index < elementsCount; index++) {
-    await items.nth(index).click();
-  }
-
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain('0');
-});
-test('Quiz: Guess Chord ', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-  const item = await selectorHelper.selectItem('Guess Chord');
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
-  await item.click();
-  await selectorHelper.backdropClick();
-  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
-
-  // looper
-  const items = selectorHelper.getSelectItems();
-  const elementsCount = await items.count();
-
-  for (var index = 0; index < elementsCount; index++) {
-    await items.nth(index).click();
-  }
-
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain('0');
-});
-test('Quiz: Guess Triad ', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-  const item = await selectorHelper.selectItem('Guess Triad');
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
-  await item.click();
-  await selectorHelper.backdropClick();
-  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
-
-  // looper
-  const items = selectorHelper.getSelectItems();
-  const elementsCount = await items.count();
-
-  for (var index = 0; index < elementsCount; index++) {
-    await items.nth(index).click();
-  }
-
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain('0');
+    expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain(
+      '0'
+    );
+  });
 });
