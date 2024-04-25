@@ -37,6 +37,7 @@ export class QuizSelectorHelper {
     return this.page.locator('.list-group-item');
   }
 
+  // DND Selectors
   getDropList() {
     return this.page.locator('.cdk-drop-list');
   }
@@ -44,7 +45,8 @@ export class QuizSelectorHelper {
   getDropListItem(name: string) {
     return this.page.getByText(name, { exact: true });
   }
-  getDropListItemTest() {
+
+  getAllDropListItems() {
     return this.page.locator(`.list-group-item`);
   }
 

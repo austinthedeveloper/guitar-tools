@@ -5,42 +5,45 @@ import {
   QuizCountHelper,
   QuizSelectorHelper,
 } from '../helpers';
+import { MODES_ARRAY } from 'libs/interfaces/src/lib/enums';
 
 test.beforeEach(async ({ page }) => {
   await NavigationHelper.navigateQuiz(page);
 });
 
-test('Quiz Count: Init', async ({ page }) => {
-  const correct = QuizCountHelper.getCorrect(page);
-  const incorrect = QuizCountHelper.getInCorrect(page);
-  const total = QuizCountHelper.getTotal(page);
-  expect(await correct.innerText()).toContain('0');
-  expect(await incorrect.innerText()).toContain('0');
-  expect(await total.innerText()).toContain('0/0');
-});
-test('Quiz Selector', async ({ page }) => {
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-  const item = await selectorHelper.selectItem('Sorting Modes');
-  expect(await page.locator('.cdk-overlay-pane')).toBeVisible();
-  const checkbox = item.locator('mat-pseudo-checkbox');
-  expect(await item.innerText()).toContain('Sorting Modes');
-  expect(await checkbox).toHaveAttribute('ng-reflect-state', 'unchecked');
+test.describe('Base Tests', () => {
+  test('Quiz Count: Init', async ({ page }) => {
+    const correct = QuizCountHelper.getCorrect(page);
+    const incorrect = QuizCountHelper.getInCorrect(page);
+    const total = QuizCountHelper.getTotal(page);
+    expect(await correct.innerText()).toContain('0');
+    expect(await incorrect.innerText()).toContain('0');
+    expect(await total.innerText()).toContain('0/0');
+  });
+  test('Quiz Selector', async ({ page }) => {
+    const selectorHelper = new QuizSelectorHelper(page);
+    await selectorHelper.clearForm();
+    const item = await selectorHelper.selectItem('Sorting Modes');
+    expect(await page.locator('.cdk-overlay-pane')).toBeVisible();
+    const checkbox = item.locator('mat-pseudo-checkbox');
+    expect(await item.innerText()).toContain('Sorting Modes');
+    expect(await checkbox).toHaveAttribute('ng-reflect-state', 'unchecked');
 
-  await item.click();
-  expect(await checkbox).toHaveAttribute('ng-reflect-state', 'checked');
-});
-test('Quiz Selector Checking Selected Items', async ({ page }) => {
-  const selectorHelper = new QuizSelectorHelper(page);
-  const menu = selectorHelper.selectMenu();
-  expect(await menu.innerText()).toContain('1 Types');
-  const item = await selectorHelper.selectItem('Sorting Modes');
-  await item.click();
-  await selectorHelper.closeMenu();
-  expect(await menu.innerText()).toContain('2 Types');
+    await item.click();
+    expect(await checkbox).toHaveAttribute('ng-reflect-state', 'checked');
+  });
+  test('Quiz Selector Checking Selected Items', async ({ page }) => {
+    const selectorHelper = new QuizSelectorHelper(page);
+    const menu = selectorHelper.selectMenu();
+    expect(await menu.innerText()).toContain('1 Types');
+    const item = await selectorHelper.selectItem('Sorting Modes');
+    await item.click();
+    await selectorHelper.closeMenu();
+    expect(await menu.innerText()).toContain('2 Types');
+  });
 });
 
-const tests = [
+const multiChoiceTests = [
   {
     value: 'Relative Minor',
   },
@@ -71,7 +74,7 @@ const tests = [
 ];
 
 test.describe('Testing Quizzes', () => {
-  tests.forEach((t) => {
+  multiChoiceTests.forEach((t) => {
     test(`Quiz: ${t.value}`, async ({ page }) => {
       const selectorHelper = new QuizSelectorHelper(page);
       await selectorHelper.clearForm();
@@ -104,15 +107,7 @@ test.describe('Testing Quizzes', () => {
     await selectorHelper.backdropClick();
     expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
 
-    const modes = [
-      'Ionian',
-      'Dorian',
-      'Phrygian',
-      'Lydian',
-      'Mixolydian',
-      'Aeolian',
-      'Locrian',
-    ];
+    const modes = MODES_ARRAY;
 
     for (var index = 0; index < modes.length; index++) {
       const mode = modes[index];
@@ -122,7 +117,7 @@ test.describe('Testing Quizzes', () => {
       await selectorHelper.moveDND(selectedMode, index);
 
       expect(
-        await selectorHelper.getDropListItemTest().nth(index).innerHTML()
+        await selectorHelper.getAllDropListItems().nth(index).innerHTML()
       ).toContain(mode);
     }
     await selectorHelper.getSubmitbutton().click();
