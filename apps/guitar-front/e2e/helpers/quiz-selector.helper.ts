@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
 export class QuizSelectorHelper {
   constructor(private page: Page) {}
@@ -42,9 +42,31 @@ export class QuizSelectorHelper {
   }
 
   getDropListItem(name: string) {
-    return this.page.locator(`.list-group-item:has-text("${name}")`);
+    return this.page.getByText(name, { exact: true });
   }
   getDropListItemTest() {
     return this.page.locator(`.list-group-item`);
+  }
+
+  getSubmitbutton() {
+    return this.page.getByRole('button', { name: 'Submit' });
+  }
+
+  async moveDND(origin: Locator, index: number) {
+    const list = this.getDropList();
+    const originElementBox = await origin.boundingBox();
+    const destinationElementBox = await list.boundingBox();
+
+    await this.page.mouse.move(
+      originElementBox.x + originElementBox.width / 2,
+      originElementBox.y + originElementBox.height / 2
+    );
+    await this.page.mouse.down();
+    await this.page.mouse.move(
+      destinationElementBox.x + destinationElementBox.width / 2,
+      destinationElementBox.y + originElementBox.height * index + 5,
+      { steps: 20 }
+    );
+    await this.page.mouse.up();
   }
 }

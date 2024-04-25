@@ -1,4 +1,5 @@
-import { test, expect, Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+
 import {
   NavigationHelper,
   QuizCountHelper,
@@ -104,22 +105,27 @@ test(`Quiz: Sorting Modes`, async ({ page }) => {
   await selectorHelper.backdropClick();
   expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
 
-  const list = selectorHelper.getDropList();
-  const ionian = selectorHelper.getDropListItem('Ionian');
-  expect(await ionian.innerHTML()).toContain('Ionian');
+  const modes = [
+    'Ionian',
+    'Dorian',
+    'Phrygian',
+    'Lydian',
+    'Mixolydian',
+    'Aeolian',
+    'Locrian',
+  ];
 
-  const originElementBox = await ionian.boundingBox();
-  const destinationElementBox = await list.boundingBox();
+  for (var index = 0; index < modes.length; index++) {
+    const mode = modes[index];
+    const selectedMode = selectorHelper.getDropListItem(mode);
+    expect(await selectedMode.innerHTML()).toContain(mode);
 
-  await page.mouse.move(
-    originElementBox.x + originElementBox.width / 2,
-    originElementBox.y + originElementBox.height / 2
-  );
-  await page.mouse.down();
-  await page.mouse.move(0, 0, { steps: 20 });
-  await page.mouse.up();
+    await selectorHelper.moveDND(selectedMode, index);
 
-  expect(
-    await selectorHelper.getDropListItemTest().nth(0).innerHTML()
-  ).toContain('Ionian');
+    expect(
+      await selectorHelper.getDropListItemTest().nth(index).innerHTML()
+    ).toContain(mode);
+  }
+  await selectorHelper.getSubmitbutton().click();
+  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('1');
 });
