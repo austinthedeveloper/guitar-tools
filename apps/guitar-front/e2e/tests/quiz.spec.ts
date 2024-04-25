@@ -6,8 +6,11 @@ import {
   QuizSelectorHelper,
 } from '../helpers';
 
-test('Quiz Count: Init', async ({ page }) => {
+test.beforeEach(async ({ page }) => {
   await NavigationHelper.navigateQuiz(page);
+});
+
+test('Quiz Count: Init', async ({ page }) => {
   const correct = QuizCountHelper.getCorrect(page);
   const incorrect = QuizCountHelper.getInCorrect(page);
   const total = QuizCountHelper.getTotal(page);
@@ -16,7 +19,6 @@ test('Quiz Count: Init', async ({ page }) => {
   expect(await total.innerText()).toContain('0/0');
 });
 test('Quiz Selector', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
   const selectorHelper = new QuizSelectorHelper(page);
   await selectorHelper.clearForm();
   const item = await selectorHelper.selectItem('Sorting Modes');
@@ -29,7 +31,6 @@ test('Quiz Selector', async ({ page }) => {
   expect(await checkbox).toHaveAttribute('ng-reflect-state', 'checked');
 });
 test('Quiz Selector Checking Selected Items', async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
   const selectorHelper = new QuizSelectorHelper(page);
   const menu = selectorHelper.selectMenu();
   expect(await menu.innerText()).toContain('1 Types');
@@ -69,63 +70,62 @@ const tests = [
   },
 ];
 
-tests.forEach((t) => {
-  test(`Quiz: ${t.value}`, async ({ page }) => {
-    await NavigationHelper.navigateQuiz(page);
+test.describe('Testing Quizzes', () => {
+  tests.forEach((t) => {
+    test(`Quiz: ${t.value}`, async ({ page }) => {
+      const selectorHelper = new QuizSelectorHelper(page);
+      await selectorHelper.clearForm();
+      const item = await selectorHelper.selectItem(t.value);
+      expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
+      await item.click();
+      await selectorHelper.backdropClick();
+      expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
+
+      // looper
+      const items = selectorHelper.getSelectItems();
+      const elementsCount = await items.count();
+
+      for (var index = 0; index < elementsCount; index++) {
+        await items.nth(index).click();
+      }
+
+      expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain(
+        '0'
+      );
+    });
+  });
+  test(`Quiz: Sorting Modes`, async ({ page }) => {
     const selectorHelper = new QuizSelectorHelper(page);
     await selectorHelper.clearForm();
-    const item = await selectorHelper.selectItem(t.value);
+
+    const item = await selectorHelper.selectItem('Sorting Modes');
     expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
     await item.click();
     await selectorHelper.backdropClick();
     expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
 
-    // looper
-    const items = selectorHelper.getSelectItems();
-    const elementsCount = await items.count();
+    const modes = [
+      'Ionian',
+      'Dorian',
+      'Phrygian',
+      'Lydian',
+      'Mixolydian',
+      'Aeolian',
+      'Locrian',
+    ];
 
-    for (var index = 0; index < elementsCount; index++) {
-      await items.nth(index).click();
+    for (var index = 0; index < modes.length; index++) {
+      const mode = modes[index];
+      const selectedMode = selectorHelper.getDropListItem(mode);
+      expect(await selectedMode.innerHTML()).toContain(mode);
+
+      await selectorHelper.moveDND(selectedMode, index);
+
+      expect(
+        await selectorHelper.getDropListItemTest().nth(index).innerHTML()
+      ).toContain(mode);
     }
-
-    expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain(
-      '0'
-    );
+    await selectorHelper.getSubmitbutton().click();
+    expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('1');
   });
-});
-
-test(`Quiz: Sorting Modes`, async ({ page }) => {
-  await NavigationHelper.navigateQuiz(page);
-  const selectorHelper = new QuizSelectorHelper(page);
-  await selectorHelper.clearForm();
-
-  const item = await selectorHelper.selectItem('Sorting Modes');
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
-  await item.click();
-  await selectorHelper.backdropClick();
-  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
-
-  const modes = [
-    'Ionian',
-    'Dorian',
-    'Phrygian',
-    'Lydian',
-    'Mixolydian',
-    'Aeolian',
-    'Locrian',
-  ];
-
-  for (var index = 0; index < modes.length; index++) {
-    const mode = modes[index];
-    const selectedMode = selectorHelper.getDropListItem(mode);
-    expect(await selectedMode.innerHTML()).toContain(mode);
-
-    await selectorHelper.moveDND(selectedMode, index);
-
-    expect(
-      await selectorHelper.getDropListItemTest().nth(index).innerHTML()
-    ).toContain(mode);
-  }
-  await selectorHelper.getSubmitbutton().click();
-  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('1');
 });
