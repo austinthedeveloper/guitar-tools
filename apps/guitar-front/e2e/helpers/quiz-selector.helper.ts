@@ -36,4 +36,15 @@ export class QuizSelectorHelper {
   getSelectItems() {
     return this.page.locator('.list-group-item');
   }
+
+  getDropList() {
+    return this.page.locator('.cdk-drop-list');
+  }
+
+  getDropListItem(name: string) {
+    return this.page.locator(`.list-group-item:has-text("${name}")`);
+  }
+  getDropListItemTest() {
+    return this.page.locator(`.list-group-item`);
+  }
 }

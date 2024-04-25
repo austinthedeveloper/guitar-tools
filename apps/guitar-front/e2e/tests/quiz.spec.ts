@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import {
   NavigationHelper,
   QuizCountHelper,
@@ -91,4 +91,35 @@ tests.forEach((t) => {
       '0'
     );
   });
+});
+
+test(`Quiz: Sorting Modes`, async ({ page }) => {
+  await NavigationHelper.navigateQuiz(page);
+  const selectorHelper = new QuizSelectorHelper(page);
+  await selectorHelper.clearForm();
+
+  const item = await selectorHelper.selectItem('Sorting Modes');
+  expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
+  await item.click();
+  await selectorHelper.backdropClick();
+  expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
+
+  const list = selectorHelper.getDropList();
+  const ionian = selectorHelper.getDropListItem('Ionian');
+  expect(await ionian.innerHTML()).toContain('Ionian');
+
+  const originElementBox = await ionian.boundingBox();
+  const destinationElementBox = await list.boundingBox();
+
+  await page.mouse.move(
+    originElementBox.x + originElementBox.width / 2,
+    originElementBox.y + originElementBox.height / 2
+  );
+  await page.mouse.down();
+  await page.mouse.move(0, 0, { steps: 20 });
+  await page.mouse.up();
+
+  expect(
+    await selectorHelper.getDropListItemTest().nth(0).innerHTML()
+  ).toContain('Ionian');
 });
