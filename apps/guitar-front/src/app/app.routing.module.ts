@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './containers/home/home.component';
 import { OptionsComponent } from './containers/options/options.component';
 import { QuizComponent } from './containers/quiz/quiz.component';
+import { MetronomeComponent } from './containers/metronome/metronome.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'options',
     component: OptionsComponent,
+  },
+  {
+    path: 'metronome',
+    component: MetronomeComponent,
   },
 ];
 
