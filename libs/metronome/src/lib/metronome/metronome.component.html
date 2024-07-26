@@ -1,1 +1,12 @@
-<p>metronome works!</p>
+<div>
+  <div>
+    <label class="form-label">BPM</label>
+    <input class="form-control" [formControl]="form.controls.bpm" />
+  </div>
+  <button class="btn btn-secondary" type="button" (click)="onStop()">
+    Stop
+  </button>
+  <button class="btn btn-primary" type="button" (click)="onStart()">
+    Start
+  </button>
+</div>
