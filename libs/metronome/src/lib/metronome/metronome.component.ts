@@ -1,5 +1,9 @@
 import { debounceTime, filter, tap } from 'rxjs/operators';
-import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,12 +24,15 @@ export class MetronomeComponent implements OnInit {
   private fb = inject(NonNullableFormBuilder);
 
   form = this.fb.group({
-    bpm: 60,
+    bpm: [60, Validators.max(255)],
   });
 
   private intervalCheck: any;
+  private audioSrc: HTMLAudioElement = new Audio(
+    '../assets/metronome-85688.mp3'
+  );
   callbackFn = () => {
-    console.log('testing');
+    this.audioSrc.play();
   };
   private sub!: any;
 
