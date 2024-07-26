@@ -7,8 +7,10 @@ import {
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   inject,
   OnInit,
+  Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -25,14 +27,20 @@ export class MetronomeComponent implements OnInit {
 
   form = this.fb.group({
     bpm: [60, Validators.max(255)],
+    playAudio: false,
   });
 
   private intervalCheck: any;
-  private audioSrc: HTMLAudioElement = new Audio(
-    '../assets/metronome-85688.mp3'
-  );
+  private audioSrc: HTMLAudioElement = new Audio('/assets/metronome-85688.mp3');
+
+  @Output() onClick = new EventEmitter();
+
   callbackFn = () => {
-    this.audioSrc.play();
+    this.onClick.emit();
+    if (this.form.value.playAudio) {
+      this.audioSrc.currentTime = 0;
+      this.audioSrc.play();
+    }
   };
   private sub!: any;
 
