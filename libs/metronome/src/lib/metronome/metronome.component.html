@@ -1,7 +1,10 @@
 <div>
   <div>
     <label class="form-label">BPM</label>
-    <input class="form-control" [formControl]="form.controls.bpm" />
+    <mat-slider min="1" max="255" step="1" [discrete]="true">
+      <input matSliderThumb [formControl]="form.controls.bpm" />
+    </mat-slider>
+    {{ form.controls.bpm.value }}bpm
   </div>
   <div class="form-check">
     <input

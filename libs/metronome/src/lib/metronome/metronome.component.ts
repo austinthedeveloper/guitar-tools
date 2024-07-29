@@ -13,11 +13,12 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatSliderModule } from '@angular/material/slider';
 
 @Component({
   selector: 'lib-metronome',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSliderModule],
   templateUrl: './metronome.component.html',
   styleUrl: './metronome.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
