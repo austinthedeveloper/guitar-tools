@@ -30,6 +30,7 @@ export class MetronomeComponent implements OnInit {
     bpm: [60, Validators.max(255)],
     playAudio: false,
   });
+  isPlaying = false;
 
   private intervalCheck: any;
   private audioSrc: HTMLAudioElement = new Audio('/assets/metronome-85688.mp3');
@@ -60,10 +61,12 @@ export class MetronomeComponent implements OnInit {
   }
 
   onStart() {
+    this.isPlaying = true;
     this.setInterval();
   }
 
   onStop() {
+    this.isPlaying = false;
     this.clearInterval();
   }
 

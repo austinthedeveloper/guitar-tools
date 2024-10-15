@@ -4,7 +4,7 @@
     <mat-slider min="1" max="255" step="1" [discrete]="true">
       <input matSliderThumb [formControl]="form.controls.bpm" />
     </mat-slider>
-    {{ form.controls.bpm.value }}bpm
+    <div class="bpm-text-value">{{ form.controls.bpm.value }}bpm</div>
   </div>
   <div class="form-check">
     <input
@@ -22,4 +22,8 @@
   <button class="btn btn-primary" type="button" (click)="onStart()">
     Start
   </button>
+  <div class="metronome-status">
+    <span *ngIf="isPlaying" class="metronome-playing">Playing</span>
+    <span *ngIf="!isPlaying" class="metronome-stopped">Stopped</span>
+  </div>
 </div>
