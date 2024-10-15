@@ -40,6 +40,8 @@ export class MetronomeComponent implements OnInit {
 
   private intervalCheck: any;
   private audioSrc: HTMLAudioElement = new Audio('/assets/metronome-85688.mp3');
+  bars = [1, 2, 3, 4]; // Represent the four bars
+  currentBar = 0; // Keep track of the active bar
 
   @Output() onClick = new EventEmitter();
 
@@ -49,6 +51,7 @@ export class MetronomeComponent implements OnInit {
       this.audioSrc.currentTime = 0;
       this.audioSrc.play();
     }
+    this.updateBars();
   };
   private sub!: any;
 
@@ -98,5 +101,25 @@ export class MetronomeComponent implements OnInit {
 
   private clearInterval() {
     clearInterval(this.intervalCheck);
+  }
+
+  updateBars() {
+    this.currentBar = (this.currentBar + 1) % this.bars.length; // Loop through the bars
+
+    // Remove 'active' class from all bars
+    this.bars.forEach((barIndex) => {
+      const barElement = document.getElementById(`bar-${barIndex}`);
+      if (barElement) {
+        barElement.classList.remove('active');
+      }
+    });
+
+    // Add 'active' class to the current bar
+    const activeBarElement = document.getElementById(
+      `bar-${this.currentBar + 1}`
+    );
+    if (activeBarElement) {
+      activeBarElement.classList.add('active');
+    }
   }
 }
