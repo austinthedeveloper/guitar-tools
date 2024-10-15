@@ -6,6 +6,14 @@
     </mat-slider>
     <div class="bpm-text-value">{{ form.controls.bpm.value }}bpm</div>
   </div>
+  <div class="col">
+    <label for="frets" class="form-label">Note Value</label>
+    <select class="form-select" [formControl]="form.controls.noteValue">
+      <option *ngFor="let option of noteValues" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
   <div class="form-check">
     <input
       class="form-check-input"

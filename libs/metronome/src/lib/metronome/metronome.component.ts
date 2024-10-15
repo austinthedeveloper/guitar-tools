@@ -28,9 +28,15 @@ export class MetronomeComponent implements OnInit {
 
   form = this.fb.group({
     bpm: [60, Validators.max(255)],
+    noteValue: ['quarters'],
     playAudio: false,
   });
   isPlaying = false;
+  noteValues = [
+    { label: 'Quarters', value: 'quarters' },
+    { label: 'Eighths', value: 'eighths' },
+    { label: 'Sixteenths', value: 'sixteenths' },
+  ];
 
   private intervalCheck: any;
   private audioSrc: HTMLAudioElement = new Audio('/assets/metronome-85688.mp3');
@@ -61,6 +67,18 @@ export class MetronomeComponent implements OnInit {
   }
 
   onStart() {
+    const selectedNoteValue = this.form.controls.noteValue.value;
+    switch (selectedNoteValue) {
+      case 'quarters':
+        // Logic for quarter notes
+        break;
+      case 'eighths':
+        // Logic for eighth notes
+        break;
+      case 'sixteenths':
+        // Logic for sixteenth notes
+        break;
+    }
     this.isPlaying = true;
     this.setInterval();
   }

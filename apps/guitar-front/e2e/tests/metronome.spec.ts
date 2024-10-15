@@ -53,3 +53,40 @@ test.describe('Metronome Component', () => {
     expect(isStopped).toBeTruthy();
   });
 });
+
+test.describe('Metronome Component - Note Values', () => {
+  test.beforeEach(async ({ page }) => {
+    // Navigate to the metronome page
+    await page.goto('/metronome');
+  });
+
+  test('should select quarters from the note value dropdown', async ({
+    page,
+  }) => {
+    await page.selectOption('select.form-select', 'quarters'); // Select quarters
+
+    // Verify the selection
+    const selectedValue = await page.locator('select.form-select').inputValue();
+    expect(selectedValue).toBe('quarters');
+  });
+
+  test('should select eighths from the note value dropdown', async ({
+    page,
+  }) => {
+    await page.selectOption('select.form-select', 'eighths'); // Select eighths
+
+    // Verify the selection
+    const selectedValue = await page.locator('select.form-select').inputValue();
+    expect(selectedValue).toBe('eighths');
+  });
+
+  test('should select sixteenths from the note value dropdown', async ({
+    page,
+  }) => {
+    await page.selectOption('select.form-select', 'sixteenths'); // Select sixteenths
+
+    // Verify the selection
+    const selectedValue = await page.locator('select.form-select').inputValue();
+    expect(selectedValue).toBe('sixteenths');
+  });
+});
