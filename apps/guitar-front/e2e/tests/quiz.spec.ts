@@ -10,7 +10,7 @@ test('Quiz Count: Init', async ({ page }) => {
   const correct = QuizCountHelper.getCorrect(page);
   const incorrect = QuizCountHelper.getInCorrect(page);
   const total = QuizCountHelper.getTotal(page);
-  expect(await correct.innerText()).toContain('0');
+  expect(await correct).toContain('0');
   expect(await incorrect.innerText()).toContain('0');
   expect(await total.innerText()).toContain('0/0');
 });
@@ -74,21 +74,32 @@ tests.forEach((t) => {
     const selectorHelper = new QuizSelectorHelper(page);
     await selectorHelper.clearForm();
     const item = await selectorHelper.selectItem(t.value);
-    expect(await QuizCountHelper.getCorrect(page).innerHTML()).toContain('0');
     await item.click();
     await selectorHelper.backdropClick();
-    expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
+    let initialCorrectCount = parseInt(await QuizCountHelper.getCorrect(page));
 
-    // looper
+    expect(initialCorrectCount).toBe(0);
+
     const items = selectorHelper.getSelectItems();
     const elementsCount = await items.count();
 
-    for (var index = 0; index < elementsCount; index++) {
+    let foundCorrectAnswer = false;
+
+    for (let index = 0; index < elementsCount; index++) {
       await items.nth(index).click();
+      // await selectorHelper.backdropClick();
+      expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
+
+      let currentCorrectCount = parseInt(
+        await QuizCountHelper.getCorrect(page)
+      );
+
+      if (currentCorrectCount > initialCorrectCount) {
+        foundCorrectAnswer = true;
+        break;
+      }
     }
 
-    expect(await QuizCountHelper.getCorrect(page).innerHTML()).not.toContain(
-      '0'
-    );
+    expect(foundCorrectAnswer).toBe(true);
   });
 });
