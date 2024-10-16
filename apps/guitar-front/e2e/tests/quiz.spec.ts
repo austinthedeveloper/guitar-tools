@@ -103,3 +103,62 @@ tests.forEach((t) => {
     expect(foundCorrectAnswer).toBe(true);
   });
 });
+
+test(`Quiz: Scale`, async ({ page }) => {
+  // Navigate to the quiz page
+  await NavigationHelper.navigateQuiz(page);
+  const selectorHelper = new QuizSelectorHelper(page);
+
+  // Clear the form and select the 'Scale' quiz item
+  await selectorHelper.clearForm();
+  const item = await selectorHelper.selectItem('Scale');
+  await item.click();
+  await selectorHelper.backdropClick();
+
+  // Initial count of correct answers should be 0
+  let initialCorrectCount = parseInt(await QuizCountHelper.getCorrect(page));
+  expect(initialCorrectCount).toBe(0);
+
+  // Select dropdowns (first is 'Key', second is 'Scale')
+  const keysSelect = page.getByRole('combobox').nth(1);
+  const scaleSelect = page.getByRole('combobox').nth(2);
+
+  // Get the count of available options in both dropdowns
+  const keysCount = await keysSelect.locator('option').count();
+  const scaleCount = await scaleSelect.locator('option').count();
+
+  let foundCorrectAnswer = false;
+
+  // Loop through keys and scales as per your steps
+  for (let keyIndex = 0; keyIndex < keysCount; keyIndex++) {
+    // Select the key by index
+    await keysSelect.selectOption({ index: keyIndex });
+
+    for (let scaleIndex = 0; scaleIndex < scaleCount; scaleIndex++) {
+      // Select the scale by index
+      await scaleSelect.selectOption({ index: scaleIndex });
+
+      // Click the submit button
+      await page.getByRole('button', { name: 'Submit' }).click();
+
+      // Check if the answer is correct
+      let currentCorrectCount = parseInt(
+        await QuizCountHelper.getCorrect(page)
+      );
+
+      // If the answer is correct, break out of the loops
+      if (currentCorrectCount > initialCorrectCount) {
+        foundCorrectAnswer = true;
+        break;
+      }
+    }
+
+    // If the correct answer was found, break out of the outer loop
+    if (foundCorrectAnswer) {
+      break;
+    }
+  }
+
+  // Assert that the correct answer was found
+  expect(foundCorrectAnswer).toBe(true);
+});
