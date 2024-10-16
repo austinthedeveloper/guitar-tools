@@ -89,4 +89,42 @@ test.describe('Metronome Component - Note Values', () => {
     const selectedValue = await page.locator('select.form-select').inputValue();
     expect(selectedValue).toBe('sixteenths');
   });
+
+  test('should trigger sound when checkbox is checked and Start is clicked', async ({
+    page,
+  }) => {
+    await page.route('/metronome', (route) => route.abort()); // Prevent actual sound playing during the test
+    console.log('init');
+
+    // Mock the Audio constructor by extending HTMLAudioElement
+    await page.evaluate(() => {
+      window.Audio = class extends HTMLAudioElement {
+        constructor(src = '') {
+          super(); // Call HTMLAudioElement constructor
+          this.src = src;
+        }
+
+        play(): Promise<void> {
+          console.log('Play called');
+          return Promise.resolve(); // Return a resolved promise to match the HTMLAudioElement signature
+        }
+      };
+    });
+
+    // Capture console logs
+    const consoleMessages: string[] = [];
+    page.on('console', (msg) => consoleMessages.push(msg.text()));
+
+    // Interact with the page
+    await page.check('input[type="checkbox"]'); // Check the Play Sound checkbox
+    await page.getByRole('button', { name: 'Start' }).click(); // Click Start button
+
+    // Wait for 2-3 seconds to give time for the sound to trigger based on the BPM
+    await page.waitForTimeout(3000); // Wait for 3 seconds
+
+    // Ensure the play function was called
+    expect(
+      consoleMessages.some((msg) => msg.includes('Play called'))
+    ).toBeTruthy();
+  });
 });
