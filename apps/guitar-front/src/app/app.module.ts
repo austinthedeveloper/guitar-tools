@@ -10,6 +10,7 @@ import { APP_COMPONENTS } from './components';
 import { APP_CONTAINERS } from './containers';
 import { MatSelectModule } from '@angular/material/select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MetronomeComponent } from '@guitar/metronome';
 
 @NgModule({
   declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
@@ -22,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     MatSelectModule,
     NgbModule,
+    MetronomeComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

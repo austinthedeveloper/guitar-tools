@@ -22,7 +22,8 @@
       "@guitar/guitar-tools": ["libs/guitar-tools/src/index.ts"],
       "@guitar/helpers": ["libs/helpers/src/index.ts"],
       "@guitar/interfaces": ["libs/interfaces/src/index.ts"],
-      "@guitar/store": ["libs/store/src/index.ts"]
+      "@guitar/store": ["libs/store/src/index.ts"],
+      "@guitar/metronome": ["libs/metronome/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,43 @@
+<div>
+  <div>
+    <label class="form-label">BPM</label>
+    <mat-slider min="1" max="255" step="1" [discrete]="true">
+      <input matSliderThumb [formControl]="form.controls.bpm" />
+    </mat-slider>
+    <div class="bpm-text-value">{{ form.controls.bpm.value }}bpm</div>
+  </div>
+  <div class="col">
+    <label for="frets" class="form-label">Note Value</label>
+    <select class="form-select" [formControl]="form.controls.noteValue">
+      <option *ngFor="let option of noteValues" [value]="option.value">
+        {{ option.label }}
+      </option>
+    </select>
+  </div>
+  <div class="form-check">
+    <input
+      class="form-check-input"
+      [formControl]="form.controls.playAudio"
+      type="checkbox"
+      value=""
+      id="flexCheckDefault"
+    />
+    <label class="form-check-label" for="flexCheckDefault"> Play Sound </label>
+  </div>
+  <button class="btn btn-secondary" type="button" (click)="onStop()">
+    Stop
+  </button>
+  <button class="btn btn-primary" type="button" (click)="onStart()">
+    Start
+  </button>
+  <div class="metronome-status">
+    <span *ngIf="isPlaying" class="metronome-playing">Playing</span>
+    <span *ngIf="!isPlaying" class="metronome-stopped">Stopped</span>
+  </div>
+</div>
+<div class="metronome-visual">
+  <div class="bar" id="bar-1"></div>
+  <div class="bar" id="bar-2"></div>
+  <div class="bar" id="bar-3"></div>
+  <div class="bar" id="bar-4"></div>
+</div>
