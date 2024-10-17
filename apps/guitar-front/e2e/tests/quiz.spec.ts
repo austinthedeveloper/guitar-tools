@@ -4,7 +4,6 @@ import {
   QuizCountHelper,
   QuizSelectorHelper,
 } from '../helpers';
-import { MODES_ARRAY } from '@guitar/interfaces';
 
 test('Quiz Count: Init', async ({ page }) => {
   await NavigationHelper.navigateQuiz(page);
@@ -140,7 +139,7 @@ test(`Quiz: Scale`, async ({ page }) => {
       await scaleSelect.selectOption({ index: scaleIndex });
 
       // Click the submit button
-      await page.getByRole('button', { name: 'Submit' }).click();
+      await selectorHelper.getSubmitbutton().click();
 
       // Check if the answer is correct
       let currentCorrectCount = parseInt(
@@ -173,13 +172,19 @@ test(`Quiz: Sorting Modes`, async ({ page }) => {
   await selectorHelper.backdropClick();
 
   // Define the correct order of modes
-  const correctOrder = MODES_ARRAY;
+  const correctOrder = [
+    'Ionian',
+    'Dorian',
+    'Phrygian',
+    'Lydian',
+    'Mixolydian',
+    'Aeolian',
+    'Locrian',
+  ];
 
   // Select the drag-and-drop list items (Material CDK drag items)
   const listItems = await page.locator('.list-group-item');
 
-  // Height of each item (42px)
-  const itemHeight = 42;
   const steps = 10; // Number of steps for the drag
 
   for (let i = 0; i < correctOrder.length; i++) {
@@ -229,7 +234,7 @@ test(`Quiz: Sorting Modes`, async ({ page }) => {
   }
 
   // Click the 'Submit' button to confirm the order
-  await page.getByRole('button', { name: 'Submit' }).click();
+  await selectorHelper.getSubmitbutton().click();
 
   // Assert that the correct answer was submitted
   expect(parseInt(await QuizCountHelper.getCorrect(page))).toBe(1);
