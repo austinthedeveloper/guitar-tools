@@ -14,11 +14,18 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSliderModule } from '@angular/material/slider';
+import { MetronomeBarsComponent } from './components/metronome-bars/metronome-bars.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'lib-metronome',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatSliderModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatSliderModule,
+    MetronomeBarsComponent,
+  ],
   templateUrl: './metronome.component.html',
   styleUrl: './metronome.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +48,8 @@ export class MetronomeComponent implements OnInit {
   private intervalCheck: any;
   private audioSrc: HTMLAudioElement = new Audio('/assets/metronome-85688.mp3');
   bars = [1, 2, 3, 4]; // Represent the four bars
-  currentBar = 0; // Keep track of the active bar
+  private _currentBar = new BehaviorSubject(0);
+  currentBar$ = this._currentBar.asObservable();
 
   @Output() onClick = new EventEmitter();
 
@@ -83,6 +91,7 @@ export class MetronomeComponent implements OnInit {
         break;
     }
     this.isPlaying = true;
+    this.callbackFn();
     this.setInterval();
   }
 
@@ -104,22 +113,14 @@ export class MetronomeComponent implements OnInit {
   }
 
   updateBars() {
-    this.currentBar = (this.currentBar + 1) % this.bars.length; // Loop through the bars
-
-    // Remove 'active' class from all bars
-    this.bars.forEach((barIndex) => {
-      const barElement = document.getElementById(`bar-${barIndex}`);
-      if (barElement) {
-        barElement.classList.remove('active');
-      }
-    });
-
-    // Add 'active' class to the current bar
-    const activeBarElement = document.getElementById(
-      `bar-${this.currentBar + 1}`
-    );
-    if (activeBarElement) {
-      activeBarElement.classList.add('active');
+    let current = this._currentBar.value;
+    if (current === 0) {
+      // If no bar is active, activate the first bar
+      current = 1;
+    } else {
+      // Increment the current bar, reset to 1 when exceeding the number of bars
+      current = (current % this.bars.length) + 1;
     }
+    this._currentBar.next(current);
   }
 }
