@@ -4,6 +4,7 @@ import {
   QuizCountHelper,
   QuizSelectorHelper,
 } from '../helpers';
+import { MODES_ARRAY } from '@guitar/interfaces';
 
 test('Quiz Count: Init', async ({ page }) => {
   await NavigationHelper.navigateQuiz(page);
@@ -161,4 +162,75 @@ test(`Quiz: Scale`, async ({ page }) => {
 
   // Assert that the correct answer was found
   expect(foundCorrectAnswer).toBe(true);
+});
+test(`Quiz: Sorting Modes`, async ({ page }) => {
+  // Navigate to the quiz page and set the quiz type to 'Sorting Modes'
+  await NavigationHelper.navigateQuiz(page);
+  const selectorHelper = new QuizSelectorHelper(page);
+  await selectorHelper.clearForm();
+  const item = await selectorHelper.selectItem('Sorting Modes');
+  await item.click();
+  await selectorHelper.backdropClick();
+
+  // Define the correct order of modes
+  const correctOrder = MODES_ARRAY;
+
+  // Select the drag-and-drop list items (Material CDK drag items)
+  const listItems = await page.locator('.list-group-item');
+
+  // Height of each item (42px)
+  const itemHeight = 42;
+  const steps = 10; // Number of steps for the drag
+
+  for (let i = 0; i < correctOrder.length; i++) {
+    // Traverse the list and find the correct mode in the current randomized order
+    const currentIndex = await listItems.evaluateAll(
+      (elements, correctMode) => {
+        return elements.findIndex(
+          (el) => el.textContent?.trim() === correctMode
+        );
+      },
+      correctOrder[i]
+    );
+
+    // If the item is not already in the correct position, drag it
+    if (currentIndex !== i) {
+      const startElement = listItems.nth(currentIndex);
+      const endElement = listItems.nth(i); // Target element
+
+      // Get the bounding boxes for the start and target positions
+      const startBox = await startElement.boundingBox();
+      const endBox = await endElement.boundingBox();
+      if (startBox && endBox) {
+        const startX = startBox.x + startBox.width / 2; // Center X of the current element
+        const startY = startBox.y + startBox.height / 2; // Center Y of the current element
+
+        const targetX = endBox.x + endBox.width / 2; // Center X of the target element
+        const targetY = endBox.y + endBox.height / 2; // Center Y of the target element
+
+        const deltaX = (targetX - startX) / steps; // Divide the X distance by steps
+        const deltaY = (targetY - startY) / steps; // Divide the Y distance by steps
+
+        // Drag item from its current position to the target position in steps
+        await startElement.hover();
+        await page.mouse.down();
+
+        for (let step = 1; step <= steps; step++) {
+          await page.mouse.move(startX + deltaX * step, startY + deltaY * step);
+          await page.waitForTimeout(100); // Pause between steps to slow down the drag
+        }
+
+        await page.mouse.up();
+
+        // Wait for the list to update
+        await page.waitForTimeout(500);
+      }
+    }
+  }
+
+  // Click the 'Submit' button to confirm the order
+  await page.getByRole('button', { name: 'Submit' }).click();
+
+  // Assert that the correct answer was submitted
+  expect(parseInt(await QuizCountHelper.getCorrect(page))).toBe(1);
 });
