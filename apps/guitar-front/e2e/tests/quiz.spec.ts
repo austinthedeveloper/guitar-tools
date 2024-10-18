@@ -242,3 +242,205 @@ test(`Quiz: Sorting Modes`, async ({ page }) => {
   // Assert that the correct answer was submitted
   expect(parseInt(await QuizCountHelper.getCorrect(page))).toBe(1);
 });
+
+test(`Quiz: Major Triads - Randomized`, async ({ page }) => {
+  // Navigate to the quiz page and set the quiz type to 'Major Triads'
+  await NavigationHelper.navigateQuiz(page);
+  const selectorHelper = new QuizSelectorHelper(page);
+  await selectorHelper.clearForm();
+  const item = await selectorHelper.selectItem('Triads Note Order');
+  await item.click();
+  await selectorHelper.backdropClick();
+
+  // Get the quiz sentence and extract the major key
+  const quizSentence = await page.locator('.description p').innerText(); // Assuming the title is here
+  const majorKeyMatch = quizSentence.match(
+    /Order the notes of the (.+) Major Triad/
+  );
+
+  if (!majorKeyMatch) {
+    throw new Error('Major key not found in quiz sentence');
+  }
+
+  const majorKey = majorKeyMatch[1]; // Extracted major key
+
+  // Map of major keys to their corresponding triad notes
+  const majorTriads: { [key: string]: string[] } = {
+    C: ['C', 'E', 'G'],
+    'C# / Db': ['C#/Db', 'F', 'G#/Ab'],
+    D: ['D', 'F#/Gb', 'A'],
+    'D# / Eb': ['D#/Eb', 'G', 'A#/Bb'],
+    E: ['E', 'G#/Ab', 'B'],
+    F: ['F', 'A', 'C'],
+    'F# / Gb': ['F#/Gb', 'A#/Bb', 'C#/Db'],
+    G: ['G', 'B', 'D'],
+    'G# / Ab': ['G#/Ab', 'C', 'D#/Eb'],
+    A: ['A', 'C#/Db', 'E'],
+    'A# / Bb': ['A#/Bb', 'D', 'F'],
+    B: ['B', 'D#/Eb', 'F#/Gb'],
+  };
+
+  // Ensure the key exists in the mapping
+  const correctOrder = majorTriads[majorKey];
+  if (!correctOrder) {
+    throw new Error(`Major triad for ${majorKey} not found`);
+  }
+
+  // Select the drag-and-drop list items (Material CDK drag items)
+  const listItems = await page.locator('.list-group-item');
+
+  // Height of each item (assuming it's 42px as per previous examples)
+  const itemHeight = 42;
+  const steps = 10; // Number of steps for the drag
+
+  for (let i = 0; i < correctOrder.length; i++) {
+    // Traverse the list and find the correct note in the current randomized order
+    const currentIndex = await listItems.evaluateAll(
+      (elements, correctNote) => {
+        return elements.findIndex(
+          (el) => el.textContent?.trim() === correctNote
+        );
+      },
+      correctOrder[i]
+    );
+
+    // If the item is not already in the correct position, drag it
+    if (currentIndex !== i) {
+      const startElement = listItems.nth(currentIndex);
+      const endElement = listItems.nth(i); // Target element
+
+      // Get the bounding boxes for the start and target positions
+      const startBox = await startElement.boundingBox();
+      const endBox = await endElement.boundingBox();
+      if (startBox && endBox) {
+        const startX = startBox.x + startBox.width / 2; // Center X of the current element
+        const startY = startBox.y + startBox.height / 2; // Center Y of the current element
+
+        const targetX = endBox.x + endBox.width / 2; // Center X of the target element
+        const targetY = endBox.y + endBox.height / 2; // Center Y of the target element
+
+        const deltaX = (targetX - startX) / steps; // Divide the X distance by steps
+        const deltaY = (targetY - startY) / steps; // Divide the Y distance by steps
+
+        // Drag item from its current position to the target position in steps
+        await startElement.hover();
+        await page.mouse.down();
+
+        for (let step = 1; step <= steps; step++) {
+          await page.mouse.move(startX + deltaX * step, startY + deltaY * step);
+          await page.waitForTimeout(100); // Pause between steps to slow down the drag
+        }
+
+        await page.mouse.up();
+
+        // Wait for the list to update
+        await page.waitForTimeout(500);
+      }
+    }
+  }
+
+  // Click the 'Submit' button to confirm the order
+  await page.getByRole('button', { name: 'Submit' }).click();
+
+  // Assert that the correct answer was submitted
+  expect(parseInt(await QuizCountHelper.getCorrect(page))).toBe(1);
+});
+
+test(`Quiz: Major Triads - Try All Orders`, async ({ page }) => {
+  // Navigate to the quiz page and set the quiz type to 'Major Triads'
+  await NavigationHelper.navigateQuiz(page);
+  const selectorHelper = new QuizSelectorHelper(page);
+  await selectorHelper.clearForm();
+  const item = await selectorHelper.selectItem('Triads Note Order');
+  await item.click();
+  await selectorHelper.backdropClick();
+  await page.waitForTimeout(100);
+
+  // Get the quiz sentence and extract the major key
+  const quizSentence = await page.locator('.description p').innerText();
+  const majorKeyMatch = quizSentence.match(
+    /Order the notes of the (.+) Major Triad/
+  );
+
+  if (!majorKeyMatch) {
+    throw new Error('Major key not found in quiz sentence');
+  }
+
+  const majorKey = majorKeyMatch[1];
+
+  // Select the drag-and-drop list items (Material CDK drag items)
+  const listItems = await page.locator('.list-group-item');
+  const initialOrder = await listItems.allTextContents(); // Get the initial randomized order
+
+  // Possible permutations of the three triad notes
+  const permutations = [
+    [0, 1, 2],
+    [0, 2, 1],
+    [1, 0, 2],
+    [1, 2, 0],
+    [2, 0, 1],
+    [2, 1, 0],
+  ];
+
+  let foundCorrectAnswer = false;
+  let previousOrder = [...initialOrder]; // Track the order to avoid submitting the same arrangement
+
+  for (let perm of permutations) {
+    // Rearrange the notes according to the current permutation
+    let reorderedNotes = perm.map((index) => previousOrder[index]);
+
+    // Only proceed with drag-and-drop if the new order is different from the previous order
+    if (JSON.stringify(reorderedNotes) !== JSON.stringify(previousOrder)) {
+      previousOrder = reorderedNotes; // Update the previous order for the next check
+
+      for (let i = 0; i < perm.length; i++) {
+        const startElement = listItems.nth(perm[i]);
+        const endElement = listItems.nth(i);
+        const steps = 3;
+
+        // Get the bounding boxes for the start and target positions
+        const startBox = await startElement.boundingBox();
+        const endBox = await endElement.boundingBox();
+        if (startBox && endBox) {
+          const startX = startBox.x + startBox.width / 2;
+          const startY = startBox.y + startBox.height / 2;
+          const targetX = endBox.x + endBox.width / 2;
+          const targetY = endBox.y + endBox.height / 2;
+
+          const deltaX = (targetX - startX) / steps;
+          const deltaY = (targetY - startY) / steps;
+
+          // Drag item from its current position to the target position in steps
+          await startElement.hover();
+          await page.mouse.down();
+
+          for (let step = 1; step <= steps; step++) {
+            await page.mouse.move(
+              startX + deltaX * step,
+              startY + deltaY * step
+            );
+            await page.waitForTimeout(100); // Pause between steps to slow down the drag
+          }
+
+          await page.mouse.up();
+
+          // Wait for the list to update
+          await page.waitForTimeout(500);
+        }
+      }
+
+      // Submit the current arrangement
+      await page.getByRole('button', { name: 'Submit' }).click();
+
+      // Check if the answer is correct
+      const correctCount = parseInt(await QuizCountHelper.getCorrect(page));
+      if (correctCount > 0) {
+        foundCorrectAnswer = true;
+        break; // Exit if the correct answer is found
+      }
+    }
+  }
+
+  // Ensure the correct answer was found
+  expect(foundCorrectAnswer).toBe(true);
+});
