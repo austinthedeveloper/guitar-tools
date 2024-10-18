@@ -66,6 +66,9 @@ const tests = [
   {
     value: 'Guess Diminished Triad',
   },
+  {
+    value: 'Triads on a Specific Note',
+  },
 ];
 
 tests.forEach((t) => {

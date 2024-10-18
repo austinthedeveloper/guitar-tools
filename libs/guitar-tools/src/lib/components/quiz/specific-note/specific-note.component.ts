@@ -22,7 +22,8 @@ export class SpecificNoteComponent extends ChordQuizBaseComponent {
     fret: this.fb.control('', Validators.required),
     string: this.fb.control('', Validators.required),
   });
-  callback = (guess: string[], answer: string[]) => isEqual(guess, answer);
+  callback = (guess: string[], answer: string[]) =>
+    answer.every((ans) => guess.includes(ans));
 
   options: string[] = [];
 
