@@ -1,0 +1,13 @@
+<div
+  class="profile-picture"
+  [ngStyle]="{ 'width.px': size, 'height.px': size }"
+>
+  <img
+    *ngIf="user?.photoUrl; else placeholder"
+    [src]="user.photoUrl"
+    [alt]="user.displayName"
+  />
+  <ng-template #placeholder>
+    <div class="profile-placeholder">{{ user?.displayName?.charAt(0) }}</div>
+  </ng-template>
+</div>

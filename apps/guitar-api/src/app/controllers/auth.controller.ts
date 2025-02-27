@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
@@ -36,5 +36,13 @@ export class AuthController {
   @UseGuards(JwtAuthGuard) // Protect this route with JWT authentication
   async getProfile(@Req() req: Request) {
     return req.user; // User data from JWT payload
+  }
+
+  @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  async logout(@Req() req: Request) {
+    const user: any = req.user;
+    await this.usersService.clearRefreshToken(user._id);
+    return { message: 'Logged out successfully' };
   }
 }

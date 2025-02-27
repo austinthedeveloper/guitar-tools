@@ -1,8 +1,8 @@
-import { EnvInterface } from './../../../../interfaces/src/lib/environment.interface';
+import { UserProfile, EnvInterface } from '@guitar/interfaces';
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +13,14 @@ export class AuthService {
   private userKey = 'auth_user';
 
   // Observable for authentication status
+  private userSubject = new BehaviorSubject<UserProfile>(null);
+  user$ = this.userSubject.asObservable();
   private authStatusSubject = new BehaviorSubject<boolean>(
     this.isAuthenticated()
   );
-  authStatus$ = this.authStatusSubject.asObservable();
+  authStatus$ = this.authStatusSubject
+    .asObservable()
+    .pipe(distinctUntilChanged());
 
   constructor(
     private http: HttpClient,
@@ -44,20 +48,29 @@ export class AuthService {
 
   /** Fetch the logged-in user */
   fetchUserProfile() {
-    return this.http.get<any>(`${this.apiUrl}/profile`).pipe(
+    return this.http.get<UserProfile>(`${this.apiUrl}/profile`).pipe(
       tap((user) => {
         localStorage.setItem(this.userKey, JSON.stringify(user));
-        this.authStatusSubject.next(true);
+        this.userSubject.next(user);
+        this.setAuthStatus(true);
       })
     );
   }
 
+  private setAuthStatus(newStatus: boolean): void {
+    if (this.authStatusSubject.value !== newStatus) {
+      this.authStatusSubject.next(newStatus);
+    }
+  }
+
   /** Logout */
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
-    localStorage.removeItem(this.userKey);
-    this.authStatusSubject.next(false);
-    this.router.navigate(['/login']);
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe(() => {
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('auth_user');
+      this.authStatusSubject.next(false);
+      this.router.navigate(['/login']);
+    });
   }
 
   /** Store the JWT token */
@@ -74,5 +87,9 @@ export class AuthService {
   /** Check if user is authenticated */
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  profileLoaded() {
+    return !!this.userSubject.value;
   }
 }
