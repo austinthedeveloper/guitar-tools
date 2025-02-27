@@ -1,9 +1,9 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { UsersService } from '../services/users.service';
-import { AuthUser } from '../models';
+import { JwtAuthGuard } from '../guards';
 
 @Controller('auth')
 export class AuthController {
@@ -20,13 +20,21 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(@Req() req: Request & { user: AuthUser }) {
-    const user: AuthUser = req.user; // Now correctly typed as AuthUser
-
-    // Generate JWT
+  async googleAuthRedirect(
+    @Req() req: Request & { user: any },
+    @Res() res: Response
+  ) {
+    const user = req.user; // User object from Google
     const payload = { sub: user._id, email: user.email };
     const accessToken = this.jwtService.sign(payload, { expiresIn: '1h' });
 
-    return { user, accessToken };
+    // Redirect to frontend with token
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4200';
+    return res.redirect(`${frontendUrl}/auth/callback?token=${accessToken}`);
+  }
+  @Get('profile')
+  @UseGuards(JwtAuthGuard) // Protect this route with JWT authentication
+  async getProfile(@Req() req: Request) {
+    return req.user; // User data from JWT payload
   }
 }

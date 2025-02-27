@@ -22,9 +22,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     @Inject('environment') private env: EnvInterface
-  ) {
-    console.log('auth service', this.env);
-  }
+  ) {}
 
   /** Redirect to Google login */
   loginWithGoogle(): void {
@@ -34,12 +32,12 @@ export class AuthService {
   /** Handle authentication response from backend */
   handleAuthCallback(): void {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('accessToken');
+    const token = urlParams.get('token');
 
     if (token) {
       this.storeToken(token);
       this.fetchUserProfile().subscribe(() => {
-        this.router.navigate(['/dashboard']); // Redirect after login
+        this.router.navigate(['/']);
       });
     }
   }
@@ -63,7 +61,7 @@ export class AuthService {
   }
 
   /** Store the JWT token */
-  private storeToken(token: string): void {
+  storeToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
     this.authStatusSubject.next(true);
   }
