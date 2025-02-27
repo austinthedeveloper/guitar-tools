@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "strictNullChecks": false,
     "paths": {
+      "@guitar/auth": ["libs/auth/src/index.ts"],
       "@guitar/data": ["libs/data/src/index.ts"],
       "@guitar/drums": ["libs/drums/src/index.ts"],
       "@guitar/forms": ["libs/forms/src/index.ts"],

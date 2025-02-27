@@ -5,6 +5,9 @@ import { HomeComponent } from './containers/home/home.component';
 import { OptionsComponent } from './containers/options/options.component';
 import { QuizComponent } from './containers/quiz/quiz.component';
 import { MetronomeComponent } from './containers/metronome/metronome.component';
+import { AuthGuard } from '@guitar/auth';
+import { SetupComponent } from './containers/setup/setup.component';
+import { LoginComponent } from './containers/login/login.component';
 
 const routes: Routes = [
   {
@@ -23,6 +26,8 @@ const routes: Routes = [
     path: 'metronome',
     component: MetronomeComponent,
   },
+  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

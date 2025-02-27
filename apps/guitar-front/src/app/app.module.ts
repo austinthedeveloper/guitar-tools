@@ -11,6 +11,10 @@ import { APP_CONTAINERS } from './containers';
 import { MatSelectModule } from '@angular/material/select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MetronomeComponent } from '@guitar/metronome';
+import { environment } from '../environments/environment';
+import { EnvInterface } from '@guitar/interfaces';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor, AuthModule } from '@guitar/auth';
 
 @NgModule({
   declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
@@ -24,8 +28,13 @@ import { MetronomeComponent } from '@guitar/metronome';
     MatSelectModule,
     NgbModule,
     MetronomeComponent,
+    HttpClientModule,
+    AuthModule,
   ],
-  providers: [],
+  providers: [
+    { provide: 'environment', useValue: environment },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
