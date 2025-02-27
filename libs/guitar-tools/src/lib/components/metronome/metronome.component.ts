@@ -4,9 +4,10 @@ import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'guitar-metronome',
-  templateUrl: './metronome.component.html',
-  styleUrls: ['./metronome.component.css'],
+    selector: 'guitar-metronome',
+    templateUrl: './metronome.component.html',
+    styleUrls: ['./metronome.component.css'],
+    standalone: false
 })
 export class MetronomeComponent implements OnChanges {
   @Input() bpm = 120;

@@ -10,10 +10,11 @@ import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { DateTime } from 'luxon';
 
 @Component({
-  selector: 'guitar-quiz-base',
-  template: '',
-  styleUrls: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'guitar-quiz-base',
+    template: '',
+    styleUrls: [],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ChordQuizBaseComponent {
   @Input() hideTotals: boolean = true;

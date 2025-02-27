@@ -5,10 +5,11 @@ import { random } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-  selector: 'guitar-relative-major-quiz',
-  templateUrl: './relative-major-quiz.component.html',
-  styleUrls: ['./relative-major-quiz.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'guitar-relative-major-quiz',
+    templateUrl: './relative-major-quiz.component.html',
+    styleUrls: ['./relative-major-quiz.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class RelativeMajorQuizComponent extends ChordQuizBaseComponent {
   majorForm = this.fb.control('', Validators.required);
