@@ -1,6 +1,7 @@
 export * from './enums';
 export * from './chart-tab-note.interface';
 export * from './chord.interface';
+export * from './environment.interface';
 export * from './fret.interface';
 export * from './options.interface';
 export * from './press.interface';
