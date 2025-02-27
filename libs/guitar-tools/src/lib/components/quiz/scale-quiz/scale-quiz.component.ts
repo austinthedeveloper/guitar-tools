@@ -12,11 +12,10 @@ import { random } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-    selector: 'guitar-scale-quiz',
-    templateUrl: './scale-quiz.component.html',
-    styleUrls: ['./scale-quiz.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-scale-quiz',
+  templateUrl: './scale-quiz.component.html',
+  styleUrls: ['./scale-quiz.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScaleQuizComponent
   extends ChordQuizBaseComponent

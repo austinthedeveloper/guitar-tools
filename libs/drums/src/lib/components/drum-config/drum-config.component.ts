@@ -18,11 +18,10 @@ import MIDIAccess = WebMidi.MIDIAccess;
 import MIDIOutput = WebMidi.MIDIOutput;
 
 @Component({
-    selector: 'guitar-drum-config',
-    templateUrl: './drum-config.component.html',
-    styleUrls: ['./drum-config.component.css'],
-    providers: [inputById('input-0'), outputByName('VirtualMIDISynth')],
-    standalone: false
+  selector: 'guitar-drum-config',
+  templateUrl: './drum-config.component.html',
+  styleUrls: ['./drum-config.component.css'],
+  providers: [inputById('input-0'), outputByName('VirtualMIDISynth')],
 })
 export class DrumConfigComponent {
   activeInput$: Observable<DrumKeyPress> = this.drumKeyService.activeInput$;

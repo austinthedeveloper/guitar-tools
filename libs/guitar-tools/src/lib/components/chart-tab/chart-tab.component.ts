@@ -12,11 +12,10 @@ import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { TABS_DATA, TABS_DATA_DEMO } from '@guitar/data';
 import { ChartTabNote } from '@guitar/interfaces';
 @Component({
-    selector: 'guitar-chart-tab',
-    templateUrl: './chart-tab.component.html',
-    styleUrls: ['./chart-tab.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-chart-tab',
+  templateUrl: './chart-tab.component.html',
+  styleUrls: ['./chart-tab.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartTabComponent implements OnChanges {
   @Input() strings = '6';

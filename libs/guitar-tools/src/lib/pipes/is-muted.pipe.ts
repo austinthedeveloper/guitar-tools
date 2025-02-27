@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PressInterface } from '@guitar/interfaces';
 
 @Pipe({
-    name: 'isMuted',
-    standalone: false
+  name: 'isMuted'
 })
 export class IsMutedPipe implements PipeTransform {
 
