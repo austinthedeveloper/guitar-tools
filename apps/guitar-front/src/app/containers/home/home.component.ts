@@ -12,9 +12,10 @@ import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: 'guitar-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+    selector: 'guitar-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    standalone: false
 })
 export class HomeComponent {
   presses: any[] = [];

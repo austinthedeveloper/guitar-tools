@@ -6,10 +6,11 @@ import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'guitar-scale-reference',
-  templateUrl: './scale-reference.component.html',
-  styleUrls: ['./scale-reference.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'guitar-scale-reference',
+    templateUrl: './scale-reference.component.html',
+    styleUrls: ['./scale-reference.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ScaleReferenceComponent {
   @Input() tuning: string;

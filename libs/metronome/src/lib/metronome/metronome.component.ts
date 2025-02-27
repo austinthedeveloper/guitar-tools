@@ -18,17 +18,16 @@ import { MetronomeBarsComponent } from './components/metronome-bars/metronome-ba
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'lib-metronome',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatSliderModule,
-    MetronomeBarsComponent,
-  ],
-  templateUrl: './metronome.component.html',
-  styleUrl: './metronome.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'lib-metronome',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatSliderModule,
+        MetronomeBarsComponent,
+    ],
+    templateUrl: './metronome.component.html',
+    styleUrl: './metronome.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MetronomeComponent implements OnInit {
   private fb = inject(NonNullableFormBuilder);
