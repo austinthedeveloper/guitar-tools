@@ -10,11 +10,10 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'guitar-list-group-select',
-    templateUrl: './list-group-select.component.html',
-    styleUrls: ['./list-group-select.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-list-group-select',
+  templateUrl: './list-group-select.component.html',
+  styleUrls: ['./list-group-select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListGroupSelectComponent implements OnChanges {
   @Input() items: string[] = [];

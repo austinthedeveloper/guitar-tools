@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'guitar-quiz-totals',
-    templateUrl: './quiz-totals.component.html',
-    styleUrls: ['./quiz-totals.component.css'],
-    standalone: false
+  selector: 'guitar-quiz-totals',
+  templateUrl: './quiz-totals.component.html',
+  styleUrls: ['./quiz-totals.component.css'],
 })
 export class QuizTotalsComponent {
   @Input() correct: number;

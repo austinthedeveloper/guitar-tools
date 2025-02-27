@@ -6,10 +6,9 @@ import { random } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-    selector: 'guitar-relative-minor-quiz',
-    templateUrl: './relative-minor-quiz.component.html',
-    styleUrls: ['./relative-minor-quiz.component.css'],
-    standalone: false
+  selector: 'guitar-relative-minor-quiz',
+  templateUrl: './relative-minor-quiz.component.html',
+  styleUrls: ['./relative-minor-quiz.component.css'],
 })
 export class RelativeMinorQuizComponent extends ChordQuizBaseComponent {
   minorForm = this.fb.control('', Validators.required);

@@ -12,11 +12,10 @@ import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { orderBy } from 'lodash-es';
 
 @Component({
-    selector: 'guitar-fretboard',
-    templateUrl: './fretboard.component.html',
-    styleUrls: ['./fretboard.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-fretboard',
+  templateUrl: './fretboard.component.html',
+  styleUrls: ['./fretboard.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FretboardComponent implements OnChanges {
   @Input() strings = '6';

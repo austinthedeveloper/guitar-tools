@@ -6,10 +6,9 @@ import { isEqual, shuffle } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-    selector: 'guitar-mode-ordering-quiz',
-    templateUrl: './mode-ordering-quiz.component.html',
-    styleUrls: ['./mode-ordering-quiz.component.css'],
-    standalone: false
+  selector: 'guitar-mode-ordering-quiz',
+  templateUrl: './mode-ordering-quiz.component.html',
+  styleUrls: ['./mode-ordering-quiz.component.css'],
 })
 export class ModeOrderingQuizComponent extends ChordQuizBaseComponent {
   private answers = MODES_ARRAY;

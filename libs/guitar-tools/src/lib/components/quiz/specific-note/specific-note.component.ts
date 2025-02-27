@@ -11,11 +11,10 @@ import { isEqual, orderBy, random, uniq } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-    selector: 'guitar-specific-note',
-    templateUrl: './specific-note.component.html',
-    styleUrls: ['./specific-note.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-specific-note',
+  templateUrl: './specific-note.component.html',
+  styleUrls: ['./specific-note.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpecificNoteComponent extends ChordQuizBaseComponent {
   @Input() chords: ChordInterface[] = [];

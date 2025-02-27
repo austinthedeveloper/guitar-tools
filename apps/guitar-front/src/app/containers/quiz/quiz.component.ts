@@ -13,10 +13,9 @@ import { random } from 'lodash-es';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'guitar-quiz',
-    templateUrl: './quiz.component.html',
-    styleUrls: ['./quiz.component.css'],
-    standalone: false
+  selector: 'guitar-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.css'],
 })
 export class QuizComponent implements OnInit {
   chords: ChordInterface[] = CHORDS_MOCK_SORTED;

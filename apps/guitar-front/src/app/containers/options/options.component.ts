@@ -4,10 +4,9 @@ import { OptionsService } from '@guitar/store';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'guitar-options',
-    templateUrl: './options.component.html',
-    styleUrls: ['./options.component.css'],
-    standalone: false
+  selector: 'guitar-options',
+  templateUrl: './options.component.html',
+  styleUrls: ['./options.component.css'],
 })
 export class OptionsComponent {
   options$: Observable<UserOptionsInterface> = this.userOptions.options$;

@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'fretDot',
-    standalone: false
+  name: 'fretDot',
 })
 export class FretDotPipe implements PipeTransform {
   transform(dot: number, dots: number[]): string {

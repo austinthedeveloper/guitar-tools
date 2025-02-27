@@ -13,11 +13,10 @@ import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { minBy, orderBy } from 'lodash-es';
 
 @Component({
-    selector: 'guitar-chord',
-    templateUrl: './chord.component.html',
-    styleUrls: ['./chord.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-chord',
+  templateUrl: './chord.component.html',
+  styleUrls: ['./chord.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChordComponent implements OnChanges {
   @Input() strings = '6';

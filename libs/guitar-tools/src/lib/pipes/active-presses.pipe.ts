@@ -3,8 +3,7 @@ import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { maxBy } from 'lodash-es';
 
 @Pipe({
-    name: 'activePresses',
-    standalone: false
+  name: 'activePresses'
 })
 export class ActivePressesPipe implements PipeTransform {
 
