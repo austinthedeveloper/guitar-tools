@@ -14,6 +14,9 @@ export class User extends Document {
 
   @Prop()
   photoUrl: string;
+
+  @Prop()
+  refreshToken?: string; // Optional for refresh token support
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
