@@ -7,10 +7,14 @@ import { User } from './user.schema';
 @Schema({ timestamps: true })
 export class Pairing extends Document {
   @Prop({ type: Types.ObjectId, ref: Amp.name, required: true })
-  ampId: Amp;
+  ampId: string;
+
+  amp?: Amp;
 
   @Prop({ type: Types.ObjectId, ref: PedalBoard.name, required: true })
-  pedalBoardId: PedalBoard;
+  pedalBoardId: string;
+
+  pedalBoard?: PedalBoard;
 
   @Prop({ required: true })
   createdById: string;

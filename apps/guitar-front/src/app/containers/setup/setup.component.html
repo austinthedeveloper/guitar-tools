@@ -1,1 +1,34 @@
+<div class="landing-container">
+  <h1>Your Gear Setup</h1>
+
+  <section>
+    <h2>Pairings</h2>
+    <ul>
+      <li *ngFor="let pairing of pairings">
+        {{ pairing.ampId }} paired with {{ pairing.pedalBoardId }}
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Your Amps</h2>
+    <ul>
+      <li *ngFor="let amp of amps">{{ amp.name }}</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Your Pedals</h2>
+    <ul>
+      <li *ngFor="let pedal of pedals">{{ pedal.name }}</li>
+    </ul>
+  </section>
+
+  <div class="actions">
+    <button (click)="createAmp()">Create Amp</button>
+    <button (click)="createPedal()">Create Pedal</button>
+    <button (click)="createPedalBoard()">Create Pedalboard</button>
+  </div>
+</div>
+
 <lib-api-test></lib-api-test>

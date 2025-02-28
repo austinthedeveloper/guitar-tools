@@ -71,4 +71,8 @@ export class ApiTestService {
   ): Observable<Pairing> {
     return this.http.post<Pairing>(`${this.apiUrl}/pairings`, pairingData);
   }
+
+  getPairings(): Observable<Pairing[]> {
+    return this.http.get<Pairing[]>(`${this.apiUrl}/pairings`);
+  }
 }
