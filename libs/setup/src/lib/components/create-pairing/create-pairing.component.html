@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <h2 class="text-center mb-3">Create a New Pairing</h2>
+    <form [formGroup]="pairingForm" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="ampUsageId" class="form-label">Select Amp Usage</label>
+        <select
+          id="ampUsageId"
+          formControlName="ampUsageId"
+          class="form-select"
+          required
+        >
+          <option *ngFor="let amp of ampUsages" [value]="amp._id">
+            {{ amp.amp.name }} - {{ amp.knobValues | json }}
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="pedalBoardId" class="form-label">Select Pedalboard</label>
+        <select
+          id="pedalBoardId"
+          formControlName="pedalBoardId"
+          class="form-select"
+          required
+        >
+          <option *ngFor="let board of pedalBoards" [value]="board._id">
+            {{ board.name }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="pairingForm.invalid"
+      >
+        Create Pairing
+      </button>
+    </form>
+  </div>
+</div>

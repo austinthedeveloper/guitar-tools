@@ -9,7 +9,7 @@ import {
   CreatePedalBoardRequest,
   CreatePairingRequest,
 } from '@guitar/interfaces';
-import { ApiTestService } from '../services';
+import { ApiTestService } from '../../services';
 
 @Component({
   selector: 'lib-api-test',

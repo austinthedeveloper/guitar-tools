@@ -28,6 +28,32 @@ export class AmpService {
     return ampUsage;
   }
 
+  async findAllUsage(
+    userId: string,
+    populateUser = false
+  ): Promise<AmpUsage[]> {
+    const ampUsages: AmpUsage[] = await this.ampUsageModel
+      .find({ createdById: userId })
+      .populate('createdBy', 'displayName email')
+      .exec();
+
+    // ✅ Use Promise.all to fetch amp details separately
+    const populatedAmpUsages = await Promise.all(
+      ampUsages.map(async (usage) => {
+        const amp = usage.ampId
+          ? await this.ampModel.findById(usage.ampId).exec()
+          : null;
+        return {
+          ...usage.toObject(),
+          ampId: usage.ampId, // Keep ampId as a string
+          amp: amp, // Attach full amp details
+        };
+      })
+    );
+
+    return populatedAmpUsages;
+  }
+
   async getAmpUsage(id: string, populateUser = false): Promise<AmpUsage> {
     const query = this.ampUsageModel.findOne({ _id: id });
 

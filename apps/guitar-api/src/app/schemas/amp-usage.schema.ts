@@ -6,9 +6,11 @@ import { Amp } from './amp.schema'; // Import Amp schema
 @Schema({ timestamps: true })
 export class AmpUsage extends Document {
   @Prop({ type: Types.ObjectId, ref: Amp.name, required: true }) // Store a reference, not just a string
-  ampId: Amp;
+  ampId: string;
 
-  @Prop({ type: Map, of: Number })
+  amp?: Amp;
+
+  @Prop({ type: Map, of: Number, default: {} })
   knobValues: Map<string, number>;
 
   @Prop({ required: true })

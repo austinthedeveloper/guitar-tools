@@ -3,6 +3,7 @@ import { Document, Types } from 'mongoose';
 import { Amp } from './amp.schema';
 import { PedalBoard } from './pedal-board.schema';
 import { User } from './user.schema';
+import { AmpUsage } from './amp-usage.schema';
 
 @Schema({ timestamps: true })
 export class Pairing extends Document {
@@ -10,6 +11,11 @@ export class Pairing extends Document {
   ampId: string;
 
   amp?: Amp;
+
+  @Prop({ type: Types.ObjectId, ref: 'AmpUsage', required: true }) // ✅ Link to AmpUsage
+  ampUsageId: string;
+
+  ampUsage?: AmpUsage;
 
   @Prop({ type: Types.ObjectId, ref: PedalBoard.name, required: true })
   pedalBoardId: string;

@@ -12,6 +12,7 @@ import {
   Pairing,
   CreatePairingRequest,
   EnvInterface,
+  AmpUsage,
 } from '@guitar/interfaces';
 
 @Injectable({
@@ -35,9 +36,13 @@ export class ApiTestService {
     return this.http.get<Amp[]>(`${this.apiUrl}/amps`);
   }
 
+  getAmpUsages(): Observable<AmpUsage[]> {
+    return this.http.get<AmpUsage[]>(`${this.apiUrl}/amps/use`);
+  }
+
   /** ✅ Save an amp configuration */
-  saveAmpUsage(ampUsage: SaveAmpUsageRequest): Observable<Amp> {
-    return this.http.post<Amp>(`${this.apiUrl}/amps/use`, ampUsage);
+  saveAmpUsage(ampUsage: SaveAmpUsageRequest): Observable<AmpUsage> {
+    return this.http.post<AmpUsage>(`${this.apiUrl}/amps/use`, ampUsage);
   }
 
   /** ✅ Create a pedal */

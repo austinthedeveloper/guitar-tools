@@ -1,0 +1,69 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <h2 class="text-center mb-3">Create a New Amp</h2>
+    <form [formGroup]="ampForm" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Amp Name</label>
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <h3>Inputs</h3>
+      <div formArrayName="inputs">
+        <div
+          class="mb-2 d-flex"
+          *ngFor="let input of inputs.controls; let i = index"
+        >
+          <input
+            [formControlName]="i"
+            type="text"
+            class="form-control me-2"
+            placeholder="Input Name"
+            required
+          />
+          <button type="button" class="btn btn-danger" (click)="removeInput(i)">
+            Remove
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary mb-3" (click)="addInput()">
+        Add Input
+      </button>
+
+      <h3>Knobs</h3>
+      <div formArrayName="knobs">
+        <div
+          class="mb-2 d-flex"
+          *ngFor="let knob of knobs.controls; let i = index"
+        >
+          <input
+            [formControlName]="i"
+            type="text"
+            class="form-control me-2"
+            placeholder="Knob Name"
+            required
+          />
+          <button type="button" class="btn btn-danger" (click)="removeKnob(i)">
+            Remove
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary mb-3" (click)="addKnob()">
+        Add Knob
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="ampForm.invalid"
+      >
+        Create Amp
+      </button>
+    </form>
+  </div>
+</div>

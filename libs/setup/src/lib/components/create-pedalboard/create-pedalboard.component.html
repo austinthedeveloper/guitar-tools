@@ -1,0 +1,53 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <h2 class="text-center mb-3">Create a New Pedalboard</h2>
+    <form [formGroup]="pedalboardForm" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Pedalboard Name</label>
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <h3>Pedals</h3>
+      <div formArrayName="pedals">
+        <div
+          class="mb-2 d-flex"
+          *ngFor="let pedal of pedalControls.controls; let i = index"
+          [formGroup]="getPedalGroup(i)"
+        >
+          <select formControlName="pedalId" class="form-select me-2" required>
+            <option *ngFor="let p of pedals" [value]="p._id">
+              {{ p.name }}
+            </option>
+          </select>
+          <input
+            formControlName="order"
+            type="number"
+            class="form-control me-2"
+            placeholder="Order"
+            required
+          />
+          <button type="button" class="btn btn-danger" (click)="removePedal(i)">
+            Remove
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary mb-3" (click)="addPedal()">
+        Add Pedal
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="pedalboardForm.invalid"
+      >
+        Create Pedalboard
+      </button>
+    </form>
+  </div>
+</div>
