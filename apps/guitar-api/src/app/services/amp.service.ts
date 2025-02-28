@@ -10,15 +10,22 @@ export class AmpService {
   constructor(
     @InjectModel(Amp.name) private ampModel: Model<Amp>,
     @InjectModel(Knob.name) private knobModel: Model<Knob>,
-    @InjectModel(Knob.name) private ampUsageModel: Model<AmpUsage>
+    @InjectModel(AmpUsage.name) private ampUsageModel: Model<AmpUsage>
   ) {}
 
   async create(ampData: any): Promise<Amp> {
     return new this.ampModel({ ...ampData, knobs: ampData.knobs || [] }).save();
   }
+  async createAmpUsage(data: any): Promise<AmpUsage> {
+    return new this.ampUsageModel(data).save();
+  }
 
-  async useAmp(ampUsageData: any): Promise<AmpUsage> {
-    return new this.ampUsageModel(ampUsageData).save();
+  async useAmp(id: string): Promise<AmpUsage> {
+    const ampUsage = await this.ampUsageModel
+      .findById(id)
+      .populate('ampId')
+      .exec();
+    return ampUsage;
   }
 
   async getAmpUsage(id: string, populateUser = false): Promise<AmpUsage> {

@@ -10,13 +10,17 @@ export class PedalBoard extends Document {
   @Prop({
     type: [
       {
-        pedalId: { type: String, required: true },
+        pedalId: { type: Types.ObjectId, ref: 'Pedal', required: true },
         order: { type: Number, required: true },
         knobValues: { type: Map, of: Number }, // Assign values here
       },
     ],
   })
-  pedals: { pedalId: string; order: number; knobValues: Map<string, number> }[];
+  pedals: {
+    pedalId: Types.ObjectId;
+    order: number;
+    knobValues: Map<string, number>;
+  }[];
 
   @Prop({ required: true })
   createdById: string; // Always stored for filtering

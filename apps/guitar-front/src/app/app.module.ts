@@ -15,6 +15,7 @@ import { environment } from '../environments/environment';
 import { EnvInterface } from '@guitar/interfaces';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor, AuthModule } from '@guitar/auth';
+import { SetupModule } from '@guitar/setup';
 
 @NgModule({
   declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
@@ -30,6 +31,7 @@ import { AuthInterceptor, AuthModule } from '@guitar/auth';
     MetronomeComponent,
     HttpClientModule,
     AuthModule,
+    SetupModule,
   ],
   providers: [
     { provide: 'environment', useValue: environment },

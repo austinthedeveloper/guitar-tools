@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Pedal } from '../schemas/pedal.schema';
 import { PedalBoard } from '../schemas/pedal-board.schema';
 
@@ -56,14 +56,24 @@ export class PedalService {
   /** ✅ Create a Pedal Board Setup */
   async createPedalBoard(
     name: string,
-    userId: string,
+    createdById: string,
     pedals: {
       pedalId: string;
       order: number;
       knobValues: Record<string, number>;
     }[]
   ): Promise<PedalBoard> {
-    return new this.pedalBoardModel({ name, userId, pedals }).save();
+    const formattedPedals = pedals.map((pedal) => ({
+      pedalId: new Types.ObjectId(pedal.pedalId),
+      order: pedal.order,
+      knobValues: pedal.knobValues,
+    }));
+
+    return new this.pedalBoardModel({
+      name,
+      createdById,
+      pedals: formattedPedals,
+    }).save();
   }
 
   /** ✅ Get all Pedal Boards (Including Order) */
@@ -72,7 +82,11 @@ export class PedalService {
     populateUser = false
   ): Promise<PedalBoard[]> {
     let config = userId ? { createdById: userId } : {};
-    const query = this.pedalBoardModel.find(config).populate('pedals.pedalId');
+
+    const query = this.pedalBoardModel.find(config).populate({
+      path: 'pedals.pedalId',
+      model: 'Pedal', // Ensure this is correct
+    });
     if (populateUser) {
       query.populate('createdBy', 'displayName email');
     }

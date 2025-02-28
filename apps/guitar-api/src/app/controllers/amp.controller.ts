@@ -8,15 +8,19 @@ import {
   Param,
   Req,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { AmpService } from '../services';
 import { AuthRequest } from '../models';
+import { JwtAuthGuard } from '../guards';
+import { ParseObjectIdPipe } from '../pipes';
 
 @Controller('amps')
 export class AmpController {
   constructor(private readonly ampService: AmpService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
   async create(@Req() req: AuthRequest, @Body() ampData: any) {
     return this.ampService.create({
       ...ampData,
@@ -25,6 +29,7 @@ export class AmpController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async findAll(
     @Req() req: AuthRequest,
     @Query('populateUser') populateUser: boolean
@@ -33,17 +38,22 @@ export class AmpController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id', ParseObjectIdPipe) id: string) {
     return this.ampService.findOne(id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() ampData: any) {
+  @UseGuards(JwtAuthGuard)
+  async update(
+    @Param('id', ParseObjectIdPipe) id: string,
+    @Body() ampData: any
+  ) {
     return this.ampService.update(id, ampData);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  @UseGuards(JwtAuthGuard)
+  async delete(@Param('id', ParseObjectIdPipe) id: string) {
     return this.ampService.delete(id);
   }
 
@@ -52,12 +62,20 @@ export class AmpController {
     return this.ampService.getKnobs();
   }
   @Post('/use')
-  async useAmp(@Body() ampUsageData: any) {
-    return this.ampService.useAmp(ampUsageData);
+  @UseGuards(JwtAuthGuard)
+  async useAmp(@Req() req: AuthRequest, @Body() ampUsageData: any) {
+    return this.ampService.createAmpUsage({
+      ...ampUsageData,
+      createdById: req.user?._id,
+    });
   }
 
   @Get('/use/:id')
-  async getAmpUsage(@Req() req: AuthRequest, @Param('id') id: string) {
-    return this.ampService.getAmpUsage(id);
+  @UseGuards(JwtAuthGuard)
+  async getAmpUsage(
+    @Req() req: AuthRequest,
+    @Param('id', ParseObjectIdPipe) id: string
+  ) {
+    return this.ampService.useAmp(id);
   }
 }

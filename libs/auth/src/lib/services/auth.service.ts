@@ -65,12 +65,11 @@ export class AuthService {
 
   /** Logout */
   logout(): void {
-    this.http.post(`${this.apiUrl}/logout`, {}).subscribe(() => {
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('auth_user');
-      this.authStatusSubject.next(false);
-      this.router.navigate(['/login']);
-    });
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
+    this.authStatusSubject.next(false);
+    this.router.navigate(['/login']);
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe(() => {});
   }
 
   /** Store the JWT token */
