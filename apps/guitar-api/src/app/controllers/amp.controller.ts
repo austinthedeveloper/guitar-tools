@@ -6,21 +6,30 @@ import {
   Delete,
   Body,
   Param,
+  Req,
+  Query,
 } from '@nestjs/common';
 import { AmpService } from '../services';
+import { AuthRequest } from '../models';
 
 @Controller('amps')
 export class AmpController {
   constructor(private readonly ampService: AmpService) {}
 
   @Post()
-  async create(@Body() ampData: any) {
-    return this.ampService.create(ampData);
+  async create(@Req() req: AuthRequest, @Body() ampData: any) {
+    return this.ampService.create({
+      ...ampData,
+      createdById: req.user?._id,
+    });
   }
 
   @Get()
-  async findAll() {
-    return this.ampService.findAll();
+  async findAll(
+    @Req() req: AuthRequest,
+    @Query('populateUser') populateUser: boolean
+  ) {
+    return this.ampService.findAll(req.user?._id, populateUser);
   }
 
   @Get(':id')
@@ -45,5 +54,10 @@ export class AmpController {
   @Post('/use')
   async useAmp(@Body() ampUsageData: any) {
     return this.ampService.useAmp(ampUsageData);
+  }
+
+  @Get('/use/:id')
+  async getAmpUsage(@Req() req: AuthRequest, @Param('id') id: string) {
+    return this.ampService.getAmpUsage(id);
   }
 }

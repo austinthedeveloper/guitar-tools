@@ -6,8 +6,11 @@ import {
   Delete,
   Body,
   Param,
+  Req,
+  Query,
 } from '@nestjs/common';
 import { PedalService } from '../services/pedal.service';
+import { AuthRequest } from '../models';
 
 @Controller('pedals')
 export class PedalController {
@@ -15,14 +18,21 @@ export class PedalController {
 
   /** ✅ Create a new pedal */
   @Post()
-  async createPedal(@Body() pedalData: any) {
-    return this.pedalService.createPedal(pedalData);
+  @Post()
+  async create(@Req() req: AuthRequest, @Body() pedalData: any) {
+    return this.pedalService.createPedal({
+      ...pedalData,
+      createdById: req.user?._id,
+    });
   }
 
   /** ✅ Get all pedals */
   @Get()
-  async findAllPedals() {
-    return this.pedalService.findAllPedals();
+  async findAll(
+    @Req() req: AuthRequest,
+    @Query('populateUser') populateUser: boolean
+  ) {
+    return this.pedalService.findAllPedals(req.user?._id, populateUser);
   }
 
   /** ✅ Get a single pedal */
@@ -46,6 +56,7 @@ export class PedalController {
   /** ✅ Create a Pedal Board with an ordered list of pedals */
   @Post('/pedal-board')
   async createPedalBoard(
+    @Req() req: AuthRequest,
     @Body()
     body: {
       name: string;
@@ -56,12 +67,19 @@ export class PedalController {
       }[];
     }
   ) {
-    return this.pedalService.createPedalBoard(body.name, body.pedals);
+    return this.pedalService.createPedalBoard(
+      body.name,
+      req.user?._id,
+      body.pedals
+    );
   }
 
   /** ✅ Get all Pedal Boards */
   @Get('/pedal-boards')
-  async getPedalBoards() {
-    return this.pedalService.getPedalBoards();
+  async getPedalBoards(
+    @Req() req: AuthRequest,
+    @Query('populateUser') populateUser: boolean
+  ) {
+    return this.pedalService.getPedalBoards(req.user?._id, populateUser);
   }
 }

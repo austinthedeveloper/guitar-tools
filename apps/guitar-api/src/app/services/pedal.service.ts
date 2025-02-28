@@ -20,13 +20,25 @@ export class PedalService {
   }
 
   /** ✅ Get all Pedals */
-  async findAllPedals(): Promise<Pedal[]> {
-    return this.pedalModel.find().exec();
+  async findAllPedals(userId: string, populateUser = false): Promise<Pedal[]> {
+    let config = userId ? { createdById: userId } : {};
+    const query = this.pedalModel.find(config);
+    if (populateUser) {
+      query.populate('createdBy', 'displayName email');
+    }
+
+    return query.exec();
   }
 
   /** ✅ Get a single Pedal by ID */
-  async findOnePedal(id: string): Promise<Pedal> {
-    return this.pedalModel.findById(id).exec();
+  async findOnePedal(id: string, populateUser = false): Promise<Pedal> {
+    const query = this.pedalModel.findOne({ _id: id });
+
+    if (populateUser) {
+      query.populate('createdBy', 'displayName email');
+    }
+
+    return query.exec();
   }
 
   /** ✅ Update a Pedal (only updates knob names, not values) */
@@ -44,18 +56,27 @@ export class PedalService {
   /** ✅ Create a Pedal Board Setup */
   async createPedalBoard(
     name: string,
+    userId: string,
     pedals: {
       pedalId: string;
       order: number;
       knobValues: Record<string, number>;
     }[]
   ): Promise<PedalBoard> {
-    const pedalBoard = new this.pedalBoardModel({ name, pedals });
-    return pedalBoard.save();
+    return new this.pedalBoardModel({ name, userId, pedals }).save();
   }
 
   /** ✅ Get all Pedal Boards (Including Order) */
-  async getPedalBoards(): Promise<PedalBoard[]> {
-    return this.pedalBoardModel.find().populate('pedals.pedalId').exec();
+  async getPedalBoards(
+    userId: string,
+    populateUser = false
+  ): Promise<PedalBoard[]> {
+    let config = userId ? { createdById: userId } : {};
+    const query = this.pedalBoardModel.find(config).populate('pedals.pedalId');
+    if (populateUser) {
+      query.populate('createdBy', 'displayName email');
+    }
+
+    return query.exec();
   }
 }

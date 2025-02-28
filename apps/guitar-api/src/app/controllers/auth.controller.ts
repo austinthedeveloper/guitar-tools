@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express';
 import { UsersService } from '../services/users.service';
 import { JwtAuthGuard } from '../guards';
+import { AuthRequest } from '../models';
 
 @Controller('auth')
 export class AuthController {
@@ -21,7 +22,7 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
   async googleAuthRedirect(
-    @Req() req: Request & { user: any },
+    @Req() req: AuthRequest & { user: any },
     @Res() res: Response
   ) {
     const user = req.user; // User object from Google
@@ -34,13 +35,13 @@ export class AuthController {
   }
   @Get('profile')
   @UseGuards(JwtAuthGuard) // Protect this route with JWT authentication
-  async getProfile(@Req() req: Request) {
+  async getProfile(@Req() req: AuthRequest) {
     return req.user; // User data from JWT payload
   }
 
   @Post('logout')
   @UseGuards(JwtAuthGuard)
-  async logout(@Req() req: Request) {
+  async logout(@Req() req: AuthRequest) {
     const user: any = req.user;
     await this.usersService.clearRefreshToken(user._id);
     return { message: 'Logged out successfully' };

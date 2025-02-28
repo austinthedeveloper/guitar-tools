@@ -21,12 +21,34 @@ export class AmpService {
     return new this.ampUsageModel(ampUsageData).save();
   }
 
-  async findAll(): Promise<Amp[]> {
-    return this.ampModel.find().exec();
+  async getAmpUsage(id: string, populateUser = false): Promise<AmpUsage> {
+    const query = this.ampUsageModel.findOne({ _id: id });
+
+    if (populateUser) {
+      query.populate('createdBy', 'displayName email');
+    }
+
+    return query.exec();
   }
 
-  async findOne(id: string): Promise<Amp> {
-    return this.ampModel.findById(id).exec();
+  async findAll(userId: string, populateUser = false): Promise<Amp[]> {
+    const query = this.ampModel.find({ createdById: userId });
+
+    if (populateUser) {
+      query.populate('createdBy', 'displayName email'); // Only return displayName & email
+    }
+
+    return query.exec();
+  }
+
+  async findOne(id: string, populateUser = false): Promise<Amp> {
+    const query = this.ampModel.findOne({ _id: id });
+
+    if (populateUser) {
+      query.populate('createdBy', 'displayName email');
+    }
+
+    return query.exec();
   }
 
   async update(id: string, ampData: any): Promise<Amp> {

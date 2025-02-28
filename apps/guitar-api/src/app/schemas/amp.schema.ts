@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { User } from './user.schema';
 
-@Schema()
+@Schema({ timestamps: true })
 export class Amp extends Document {
   @Prop({ required: true })
   name: string;
@@ -11,6 +12,12 @@ export class Amp extends Document {
 
   @Prop({ type: [String] }) // Store only knob names
   knobs: string[];
+
+  @Prop({ required: true })
+  createdById: string; // Always stored for filtering
+
+  @Prop({ type: Types.ObjectId, ref: User.name })
+  createdBy?: User; // Optional, can be populated
 }
 
 export const AmpSchema = SchemaFactory.createForClass(Amp);
