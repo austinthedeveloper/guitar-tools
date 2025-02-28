@@ -5,6 +5,8 @@ import {
   PairingService,
   PedalBoardService,
   PedalService,
+  PedalStore,
+  AmpStore,
 } from '@guitar/setup';
 
 @Component({
@@ -14,15 +16,17 @@ import {
 })
 export class SetupComponent {
   pairings: Pairing[] = [];
-  amps: Amp[] = [];
-  pedals: Pedal[] = [];
+  amps$ = this.ampStore.amps$;
+  pedals$ = this.pedalStore.pedals$;
   ampUsages: AmpUsage[] = [];
 
   constructor(
     private pedalService: PedalService,
     private ampService: AmpService,
     private pairingService: PairingService,
-    private pedalBoardService: PedalBoardService
+    private pedalBoardService: PedalBoardService,
+    private ampStore: AmpStore,
+    private pedalStore: PedalStore
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +37,8 @@ export class SetupComponent {
     this.pairingService
       .getPairings()
       .subscribe((data) => (this.pairings = data));
-    this.ampService.getAmps().subscribe((data) => (this.amps = data));
-    this.pedalService.getPedals().subscribe((data) => (this.pedals = data));
+    this.ampService.getAmps().subscribe();
+    this.pedalService.getPedals().subscribe();
     this.ampService.getAmpUsages().subscribe((data) => (this.ampUsages = data));
   }
 

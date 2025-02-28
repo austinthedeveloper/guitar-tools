@@ -40,6 +40,8 @@
     "@ng-web-apis/audio": "^3.0.6",
     "@ng-web-apis/common": "^3.0.6",
     "@ng-web-apis/midi": "^3.0.6",
+    "@ngneat/elf": "^2.5.1",
+    "@ngneat/elf-entities": "^5.0.2",
     "@nx/angular": "18.2.4",
     "@popperjs/core": "^2.10.2",
     "@types/luxon": "^3.4.2",

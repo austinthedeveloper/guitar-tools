@@ -13,7 +13,7 @@
   <section>
     <h2>Your Amps</h2>
     <ul>
-      <li *ngFor="let amp of amps">{{ amp.name }}</li>
+      <li *ngFor="let amp of amps$ | async">{{ amp.name }}</li>
     </ul>
   </section>
   <section>
@@ -26,7 +26,7 @@
   <section>
     <h2>Your Pedals</h2>
     <ul>
-      <li *ngFor="let pedal of pedals">{{ pedal.name }}</li>
+      <li *ngFor="let pedal of pedals$ | async">{{ pedal.name }}</li>
     </ul>
   </section>
 
@@ -36,7 +36,6 @@
     <button (click)="createPedalBoard()">Create Pedalboard</button>
   </div>
 </div>
-
 <lib-create-amp></lib-create-amp>
 <lib-create-amp-usage></lib-create-amp-usage>
 <lib-create-pedal></lib-create-pedal>
