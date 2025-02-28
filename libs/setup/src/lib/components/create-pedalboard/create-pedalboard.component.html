@@ -20,11 +20,35 @@
           *ngFor="let pedal of pedalControls.controls; let i = index"
           [formGroup]="getPedalGroup(i)"
         >
-          <select formControlName="pedalId" class="form-select me-2" required>
+          <select
+            formControlName="pedalId"
+            class="form-select me-2"
+            (change)="onPedalChange($event, i)"
+            required
+          >
             <option *ngFor="let p of pedals" [value]="p._id">
               {{ p.name }}
             </option>
           </select>
+          <div formArrayName="knobs" *ngIf="getPedalKnobs(i)?.controls.length">
+            <div
+              *ngFor="
+                let knobControl of getPedalKnobs(i)?.controls;
+                let j = index
+              "
+              [formGroup]="getPedalKnob(i, j)"
+              class="mb-2"
+            >
+              <label class="form-label">{{
+                knobControl.get('name')?.value
+              }}</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="value"
+              />
+            </div>
+          </div>
           <input
             formControlName="order"
             type="number"

@@ -7,7 +7,6 @@ import { ApiTestService } from '../../services';
   selector: 'lib-create-pairing',
   templateUrl: './create-pairing.component.html',
   styleUrl: './create-pairing.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePairingComponent {
   pairingForm = this.fb.group({

@@ -5,6 +5,11 @@ export interface PedalBoardPedal {
   pedalId: string;
   order: number;
   knobValues: Record<string, number>;
+  // Used in forms
+  knobs?: {
+    name: string;
+    value: number;
+  }[];
 }
 
 /** ✅ Request Payload to Create a Pedal Board */

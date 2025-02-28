@@ -12,7 +12,6 @@ import { ApiTestService } from '../../services';
   selector: 'lib-create-amp-usage',
   templateUrl: './create-amp-usage.component.html',
   styleUrl: './create-amp-usage.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAmpUsageComponent {
   ampUsageForm = this.fb.group({

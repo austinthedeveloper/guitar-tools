@@ -8,7 +8,6 @@ import { ApiTestService } from '../../services';
   selector: 'lib-create-amp',
   templateUrl: './create-amp.component.html',
   styleUrl: './create-amp.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAmpComponent {
   ampForm = this.fb.group({

@@ -7,7 +7,6 @@ import { ApiTestService } from '../../services';
   selector: 'lib-create-pedal',
   templateUrl: './create-pedal.component.html',
   styleUrl: './create-pedal.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreatePedalComponent {
   pedalForm = this.fb.group({
