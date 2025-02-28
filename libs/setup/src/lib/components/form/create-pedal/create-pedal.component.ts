@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CreatePedalRequest } from '@guitar/interfaces';
 
-import { PedalService } from '../../services';
+import { PedalService } from '../../../services';
 
 @Component({
   selector: 'lib-create-pedal',

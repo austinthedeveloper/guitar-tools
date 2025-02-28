@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { AmpUsage, CreatePairingRequest, PedalBoard } from '@guitar/interfaces';
 
-import { AmpService, PairingService } from '../../services';
-import { PedalBoardService } from './../../services/pedalboard.service';
+import { AmpService, PairingService } from '../../../services';
+import { PedalBoardService } from '../../../services/pedalboard.service';
 
 @Component({
   selector: 'lib-create-pairing',

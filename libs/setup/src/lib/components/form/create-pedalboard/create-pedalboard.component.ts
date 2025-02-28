@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { CreatePedalBoardRequest, Pedal } from '@guitar/interfaces';
 
-import { PedalBoardService, PedalService } from '../../services';
+import { PedalBoardService, PedalService } from '../../../services';
 
 @Component({
   selector: 'lib-create-pedalboard',

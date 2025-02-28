@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CreateAmpRequest } from '@guitar/interfaces';
 
-import { AmpService } from './../../services';
+import { AmpService } from '../../../services';
 
 @Component({
   selector: 'lib-create-amp',

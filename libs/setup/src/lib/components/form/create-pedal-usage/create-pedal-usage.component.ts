@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Pedal } from '@guitar/interfaces';
 
-import { PedalService, PedalUsageService } from '../../services';
+import { PedalService, PedalUsageService } from '../../../services';
 
 @Component({
   selector: 'lib-create-pedal-usage',

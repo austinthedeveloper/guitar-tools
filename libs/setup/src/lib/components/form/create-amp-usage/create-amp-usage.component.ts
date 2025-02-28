@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Amp, SaveAmpUsageRequest } from '@guitar/interfaces';
 
-import { AmpService } from '../../services';
+import { AmpService } from '../../../services';
 
 @Component({
   selector: 'lib-create-amp-usage',
