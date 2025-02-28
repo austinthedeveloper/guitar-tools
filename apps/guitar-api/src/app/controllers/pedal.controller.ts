@@ -23,10 +23,7 @@ export class PedalController {
   @Post()
   @UseGuards(JwtAuthGuard)
   async create(@Req() req: AuthRequest, @Body() pedalData: any) {
-    return this.pedalService.createPedal({
-      ...pedalData,
-      createdById: req.user?._id,
-    });
+    return this.pedalService.createPedal(pedalData, req.user?._id);
   }
 
   /** ✅ Get all pedals */
@@ -93,5 +90,17 @@ export class PedalController {
     @Query('populateUser') populateUser: boolean
   ) {
     return this.pedalService.getPedalBoards(req.user?._id, populateUser);
+  }
+
+  @Post('/pedal-usage')
+  @UseGuards(JwtAuthGuard)
+  async createPedalUsage(
+    @Req() req: AuthRequest,
+    @Body() createPedalUsageDto: any
+  ) {
+    return this.pedalService.createPedalUsage(
+      createPedalUsageDto,
+      req.user?._id
+    );
   }
 }

@@ -1,22 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Pedal } from '../schemas/pedal.schema';
 import { PedalBoard } from '../schemas/pedal-board.schema';
+import { PedalUsage } from '../schemas';
 
 @Injectable()
 export class PedalService {
   constructor(
     @InjectModel(Pedal.name) private pedalModel: Model<Pedal>,
-    @InjectModel(PedalBoard.name) private pedalBoardModel: Model<PedalBoard>
+    @InjectModel(PedalBoard.name) private pedalBoardModel: Model<PedalBoard>,
+    @InjectModel(PedalUsage.name) private pedalUsageModel: Model<PedalUsage>
   ) {}
 
-  /** ✅ Create a new Pedal (Base configuration, no values) */
-  async createPedal(pedalData: any): Promise<Pedal> {
-    return new this.pedalModel({
-      ...pedalData,
-      knobs: pedalData.knobs || [],
-    }).save();
+  async createPedal(createPedalDto: any, userId: string) {
+    try {
+      const pedal = new this.pedalModel({
+        ...createPedalDto,
+        knobs: createPedalDto.knobs || [],
+        createdById: userId,
+      });
+      return await pedal.save();
+    } catch (error) {
+      if (error.code === 11000) {
+        throw new ConflictException('You have already created this pedal');
+      }
+      throw error;
+    }
   }
 
   /** ✅ Get all Pedals */
@@ -92,5 +106,19 @@ export class PedalService {
     }
 
     return query.exec();
+  }
+
+  async createPedalUsage(dto: any, createdById: string) {
+    const pedal = await this.pedalModel.findById(dto.pedalId);
+    if (!pedal) throw new NotFoundException('Pedal not found');
+
+    const pedalUsage = new this.pedalUsageModel({
+      name: dto.name,
+      pedalId: dto.pedalId,
+      knobs: dto.knobs,
+      createdById,
+    });
+
+    return pedalUsage.save();
   }
 }

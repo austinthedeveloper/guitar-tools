@@ -21,10 +21,7 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))
-  async googleAuthRedirect(
-    @Req() req: AuthRequest & { user: any },
-    @Res() res: Response
-  ) {
+  async googleAuthRedirect(@Req() req: AuthRequest, @Res() res: Response) {
     const user = req.user; // User object from Google
     const payload = { sub: user._id, email: user.email };
     const accessToken = this.jwtService.sign(payload, { expiresIn: '1h' });

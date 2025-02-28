@@ -1,3 +1,4 @@
+import { PedalUsage } from './../../../../../apps/guitar-api/src/app/schemas/pedal-usage.schema';
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -53,6 +54,17 @@ export class ApiTestService {
   /** ✅ Get all pedals */
   getPedals(): Observable<Pedal[]> {
     return this.http.get<Pedal[]>(`${this.apiUrl}/pedals`);
+  }
+
+  // USAGE
+  getPedalUsage(): Observable<PedalUsage[]> {
+    return this.http.get<PedalUsage[]>(`${this.apiUrl}/pedal-usage`);
+  }
+  createPedalUsage(pedalBoardData: any): Observable<PedalUsage> {
+    return this.http.post<PedalUsage>(
+      `${this.apiUrl}/pedals/pedal-usage`,
+      pedalBoardData
+    );
   }
 
   /** ✅ Create a pedalboard */

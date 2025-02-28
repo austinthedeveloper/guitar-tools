@@ -5,6 +5,9 @@ import { User } from './user.schema';
 @Schema({ timestamps: true })
 export class PedalUsage extends Document {
   @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
   pedalId: string; // Reference to the pedal
 
   @Prop({ type: Map, of: Number }) // Actual values for this setup

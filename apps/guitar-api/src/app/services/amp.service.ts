@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Amp } from '../schemas/amp.schema';
 import { Knob } from '../schemas/knob.schema';
 import { AmpUsage } from '../schemas/amp-usage.schema';
+import { validateObjectId } from '../utils';
 
 @Injectable()
 export class AmpService {
@@ -77,7 +78,7 @@ export class AmpService {
   }
 
   async findOne(id: string, populateUser = false): Promise<Amp> {
-    const query = this.ampModel.findOne({ _id: id });
+    const query = this.ampModel.findById(validateObjectId(id));
 
     if (populateUser) {
       query.populate('createdBy', 'displayName email');
