@@ -4,12 +4,11 @@
   <section>
     <h2>Pairings</h2>
     <ul>
-      <li *ngFor="let pairing of pairings">
+      <li *ngFor="let pairing of pairings$ | async">
         {{ pairing.ampUsageId }} paired with {{ pairing.pedalBoardId }}
       </li>
     </ul>
   </section>
-
   <section>
     <h2>Your Amps</h2>
     <ul>
@@ -19,7 +18,9 @@
   <section>
     <h2>Your Amp Usages</h2>
     <ul>
-      <li *ngFor="let ampUsage of ampUsages">{{ ampUsage.amp.name }}</li>
+      <li *ngFor="let ampUsage of ampUsages$ | async">
+        {{ ampUsage.amp.name }}
+      </li>
     </ul>
   </section>
 
