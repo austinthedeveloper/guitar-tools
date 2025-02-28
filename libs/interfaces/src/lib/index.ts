@@ -1,5 +1,7 @@
 export * from './auth';
 export * from './enums';
+export * from './setup';
+export * from './base-document.interface';
 export * from './chart-tab-note.interface';
 export * from './chord.interface';
 export * from './environment.interface';

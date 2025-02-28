@@ -1,7 +1,18 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EnvInterface } from '@guitar/interfaces';
+import {
+  Amp,
+  CreateAmpRequest,
+  SaveAmpUsageRequest,
+  Pedal,
+  CreatePedalRequest,
+  PedalBoard,
+  CreatePedalBoardRequest,
+  Pairing,
+  CreatePairingRequest,
+  EnvInterface,
+} from '@guitar/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -15,42 +26,49 @@ export class ApiTestService {
   ) {}
 
   /** ✅ Create an amp */
-  createAmp(ampData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/amps`, ampData);
+  createAmp(ampData: CreateAmpRequest): Observable<Amp> {
+    return this.http.post<Amp>(`${this.apiUrl}/amps`, ampData);
   }
 
   /** ✅ Get all amps */
-  getAmps(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/amps`);
+  getAmps(): Observable<Amp[]> {
+    return this.http.get<Amp[]>(`${this.apiUrl}/amps`);
   }
 
   /** ✅ Save an amp configuration */
-  saveAmpUsage(ampUsage: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/amps/use`, ampUsage);
+  saveAmpUsage(ampUsage: SaveAmpUsageRequest): Observable<Amp> {
+    return this.http.post<Amp>(`${this.apiUrl}/amps/use`, ampUsage);
   }
 
   /** ✅ Create a pedal */
-  createPedal(pedalData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/pedals`, pedalData);
+  createPedal(pedalData: CreatePedalRequest): Observable<Pedal> {
+    return this.http.post<Pedal>(`${this.apiUrl}/pedals`, pedalData);
   }
 
   /** ✅ Get all pedals */
-  getPedals(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/pedals`);
+  getPedals(): Observable<Pedal[]> {
+    return this.http.get<Pedal[]>(`${this.apiUrl}/pedals`);
   }
 
   /** ✅ Create a pedalboard */
-  createPedalBoard(pedalBoardData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/pedals/pedal-board`, pedalBoardData);
+  createPedalBoard(
+    pedalBoardData: CreatePedalBoardRequest
+  ): Observable<PedalBoard> {
+    return this.http.post<PedalBoard>(
+      `${this.apiUrl}/pedals/pedal-board`,
+      pedalBoardData
+    );
   }
 
   /** ✅ Get all pedalboards */
-  getPedalBoards(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/pedals/pedal-boards`);
+  getPedalBoards(): Observable<PedalBoard[]> {
+    return this.http.get<PedalBoard[]>(`${this.apiUrl}/pedals/pedal-boards`);
   }
 
-  /** ✅ Pair an amp with a pedalboard (Future Feature) */
-  pairAmpWithPedalBoard(pairingData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/pairings`, pairingData);
+  /** ✅ Pair an amp with a pedalboard */
+  pairAmpWithPedalBoard(
+    pairingData: CreatePairingRequest
+  ): Observable<Pairing> {
+    return this.http.post<Pairing>(`${this.apiUrl}/pairings`, pairingData);
   }
 }

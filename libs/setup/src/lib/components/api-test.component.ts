@@ -1,5 +1,14 @@
-import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
+import {
+  Amp,
+  CreateAmpRequest,
+  SaveAmpUsageRequest,
+  Pedal,
+  CreatePedalRequest,
+  PedalBoard,
+  CreatePedalBoardRequest,
+  CreatePairingRequest,
+} from '@guitar/interfaces';
 import { ApiTestService } from '../services';
 
 @Component({
@@ -8,17 +17,17 @@ import { ApiTestService } from '../services';
   styleUrls: ['./api-test.component.scss'],
 })
 export class ApiTestComponent {
-  amps: any[] = [];
-  pedals: any[] = [];
-  pedalBoards: any[] = [];
-  selectedAmp: any;
-  selectedPedalBoard: any;
+  amps: Amp[] = [];
+  pedals: Pedal[] = [];
+  pedalBoards: PedalBoard[] = [];
+  selectedAmp?: Amp;
+  selectedPedalBoard?: PedalBoard;
 
   constructor(private apiTestService: ApiTestService) {}
 
   /** ✅ 1st Pass: Create an amp */
   createAmp() {
-    const ampData = {
+    const ampData: CreateAmpRequest = {
       name: 'Fender Deville',
       inputs: ['Input 1'],
       knobs: ['Treble', 'Middle', 'Bass'],
@@ -40,7 +49,7 @@ export class ApiTestComponent {
   /** ✅ Save amp usage */
   saveAmpUsage() {
     if (!this.selectedAmp) return;
-    const ampUsage = {
+    const ampUsage: SaveAmpUsageRequest = {
       ampId: this.selectedAmp._id,
       knobValues: { Treble: 6, Middle: 5, Bass: 7 },
     };
@@ -51,12 +60,12 @@ export class ApiTestComponent {
 
   /** ✅ 2nd Pass: Create two pedals */
   createPedals() {
-    const pedal1 = {
+    const pedal1: CreatePedalRequest = {
       name: 'Tube Screamer',
       type: 'Overdrive',
       knobs: ['Drive', 'Tone', 'Level'],
     };
-    const pedal2 = {
+    const pedal2: CreatePedalRequest = {
       name: 'Big Muff',
       type: 'Fuzz',
       knobs: ['Sustain', 'Tone', 'Volume'],
@@ -76,16 +85,16 @@ export class ApiTestComponent {
 
   /** ✅ Create a pedalboard */
   createPedalBoard() {
-    const pedalBoardData = {
+    const pedalBoardData: CreatePedalBoardRequest = {
       name: 'Blues Rig',
       pedals: [
         {
-          pedalId: this.pedals[0]?._id,
+          pedalId: this.pedals[0]?._id!,
           order: 1,
           knobValues: { Drive: 5, Tone: 6, Level: 7 },
         },
         {
-          pedalId: this.pedals[1]?._id,
+          pedalId: this.pedals[1]?._id!,
           order: 2,
           knobValues: { Sustain: 8, Tone: 5, Volume: 6 },
         },
@@ -109,7 +118,7 @@ export class ApiTestComponent {
   pairAmpWithPedalBoard() {
     if (!this.selectedAmp || !this.selectedPedalBoard) return;
 
-    const pairingData = {
+    const pairingData: CreatePairingRequest = {
       ampId: this.selectedAmp._id,
       pedalBoardId: this.selectedPedalBoard._id,
     };
