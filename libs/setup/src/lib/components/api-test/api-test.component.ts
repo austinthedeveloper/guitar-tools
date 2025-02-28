@@ -50,8 +50,9 @@ export class ApiTestComponent {
   saveAmpUsage() {
     if (!this.selectedAmp) return;
     const ampUsage: SaveAmpUsageRequest = {
+      name: 'testing',
       ampId: this.selectedAmp._id,
-      knobValues: { Treble: 6, Middle: 5, Bass: 7 },
+      knobValues: { Treble: 10, Middle: 5, Bass: 7 },
     };
     this.apiTestService
       .saveAmpUsage(ampUsage)
@@ -119,7 +120,7 @@ export class ApiTestComponent {
     if (!this.selectedAmp || !this.selectedPedalBoard) return;
 
     const pairingData: CreatePairingRequest = {
-      ampId: this.selectedAmp._id,
+      ampUsageId: this.selectedAmp._id,
       pedalBoardId: this.selectedPedalBoard._id,
     };
     this.apiTestService

@@ -7,11 +7,6 @@ import { AmpUsage } from './amp-usage.schema';
 
 @Schema({ timestamps: true })
 export class Pairing extends Document {
-  @Prop({ type: Types.ObjectId, ref: Amp.name, required: true })
-  ampId: string;
-
-  amp?: Amp;
-
   @Prop({ type: Types.ObjectId, ref: 'AmpUsage', required: true }) // ✅ Link to AmpUsage
   ampUsageId: string;
 

@@ -21,10 +21,10 @@ export class PairingController {
   @Post()
   async createPairing(
     @Req() req: AuthRequest,
-    @Body() body: { ampId: string; pedalBoardId: string }
+    @Body() body: { ampUsageId: string; pedalBoardId: string }
   ) {
     return this.pairingService.createPairing(
-      body.ampId,
+      body.ampUsageId,
       body.pedalBoardId,
       req.user._id
     );
@@ -34,6 +34,11 @@ export class PairingController {
   @Get()
   async getPairings(@Req() req: AuthRequest) {
     return this.pairingService.getPairings(req.user._id);
+  }
+
+  @Get(':id')
+  async getPairing(@Param('id') id: string) {
+    return this.pairingService.getPairing(id);
   }
 
   /** ✅ Delete a pairing */

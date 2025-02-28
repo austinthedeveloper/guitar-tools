@@ -43,10 +43,12 @@ export class AmpService {
         const amp = usage.ampId
           ? await this.ampModel.findById(usage.ampId).exec()
           : null;
+
         return {
           ...usage.toObject(),
           ampId: usage.ampId, // Keep ampId as a string
           amp: amp, // Attach full amp details
+          knobValues: Object.fromEntries(usage.knobValues || new Map()),
         };
       })
     );

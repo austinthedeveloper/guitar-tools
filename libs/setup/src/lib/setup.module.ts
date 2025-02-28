@@ -6,6 +6,7 @@ import { CreateAmpComponent } from './components/create-amp/create-amp.component
 import { CreatePedalComponent } from './components/create-pedal/create-pedal.component';
 import { CreatePedalboardComponent } from './components/create-pedalboard/create-pedalboard.component';
 import { CreatePairingComponent } from './components/create-pairing/create-pairing.component';
+import { CreateAmpUsageComponent } from './components/create-amp-usage/create-amp-usage.component';
 
 const components = [
   ApiTestComponent,
@@ -13,6 +14,7 @@ const components = [
   CreatePedalComponent,
   CreatePedalboardComponent,
   CreatePairingComponent,
+  CreateAmpUsageComponent,
 ];
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
