@@ -12,6 +12,7 @@ import { AmpService } from './../../services';
 export class CreateAmpComponent {
   ampForm = this.fb.group({
     name: ['', Validators.required],
+    brand: [''],
     inputs: this.fb.array([this.fb.control('Input 1', Validators.required)]),
     knobs: this.fb.array([]),
   });

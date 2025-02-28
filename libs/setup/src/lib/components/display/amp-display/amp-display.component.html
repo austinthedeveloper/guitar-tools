@@ -1,0 +1,17 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ amp.name }}</h5>
+    <h6 class="card-subtitle text-muted" *ngIf="amp.brand">
+      Brand: {{ amp.brand }}
+    </h6>
+
+    <div *ngIf="amp.knobs.length">
+      <h6 class="mt-3">Knobs</h6>
+      <ul class="list-group">
+        <li *ngFor="let knob of amp.knobs" class="list-group-item">
+          {{ knob }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,9 @@ export class Amp extends Document {
   @Prop({ required: true })
   name: string;
 
+  @Prop()
+  brand: string;
+
   @Prop({ type: [String], default: ['Input 1'] }) // Multiple inputs supported
   inputs: string[];
 

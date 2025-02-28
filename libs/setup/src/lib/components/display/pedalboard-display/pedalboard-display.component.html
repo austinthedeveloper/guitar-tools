@@ -1,0 +1,29 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">{{ pedalboard.name }}</h5>
+    <h6 class="card-subtitle text-muted">Pedalboard Configuration</h6>
+
+    <div *ngIf="pedalboard.pedals.length">
+      <h6 class="mt-3">Pedals</h6>
+      <ul class="list-group">
+        <li *ngFor="let pedal of pedalboard.pedals" class="list-group-item">
+          <strong>{{ pedal.pedalId }}</strong> (Order: {{ pedal.order }})
+          <div *ngIf="pedal.knobValues">
+            <ul class="mt-2">
+              <li *ngFor="let knob of pedal.knobValues | keyvalue">
+                {{ knob.key }}: {{ knob.value }}
+              </li>
+            </ul>
+          </div>
+          <!-- <div *ngIf="pedal.knobValues && pedal.knobValues.size">
+            <ul class="mt-2">
+              <li *ngFor="let knob of pedal.knobValues | keyvalue">
+                {{ knob.key }}: {{ knob.value }}
+              </li>
+            </ul>
+          </div> -->
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

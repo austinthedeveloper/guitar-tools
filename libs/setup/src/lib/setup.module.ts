@@ -7,6 +7,9 @@ import { CreatePedalboardComponent } from './components/create-pedalboard/create
 import { CreatePairingComponent } from './components/create-pairing/create-pairing.component';
 import { CreateAmpUsageComponent } from './components/create-amp-usage/create-amp-usage.component';
 import { CreatePedalUsageComponent } from './components/create-pedal-usage/create-pedal-usage.component';
+import { PedalDisplayComponent } from './components/display/pedal-display/pedal-display.component';
+import { AmpDisplayComponent } from './components/display/amp-display/amp-display.component';
+import { PedalboardDisplayComponent } from './components/display/pedalboard-display/pedalboard-display.component';
 
 const components = [
   CreateAmpComponent,
@@ -15,6 +18,10 @@ const components = [
   CreatePairingComponent,
   CreateAmpUsageComponent,
   CreatePedalUsageComponent,
+  // display
+  PedalDisplayComponent,
+  AmpDisplayComponent,
+  PedalboardDisplayComponent,
 ];
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule],

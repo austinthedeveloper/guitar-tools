@@ -11,9 +11,10 @@
   </section>
   <section>
     <h2>Your Amps</h2>
-    <ul>
-      <li *ngFor="let amp of amps$ | async">{{ amp.name }}</li>
-    </ul>
+    <lib-amp-display
+      *ngFor="let amp of amps$ | async"
+      [amp]="amp"
+    ></lib-amp-display>
   </section>
   <section>
     <h2>Your Amp Usages</h2>
@@ -26,9 +27,10 @@
 
   <section>
     <h2>Your Pedals</h2>
-    <ul>
-      <li *ngFor="let pedal of pedals$ | async">{{ pedal.name }}</li>
-    </ul>
+    <lib-pedal-display
+      *ngFor="let pedal of pedals$ | async"
+      [pedal]="pedal"
+    ></lib-pedal-display>
   </section>
 
   <div class="actions">
