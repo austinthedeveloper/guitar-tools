@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CreateAmpRequest } from '@guitar/interfaces';
 
-import { ApiTestService } from '../../services';
+import { AmpService } from './../../services';
 
 @Component({
   selector: 'lib-create-amp',
@@ -18,7 +18,7 @@ export class CreateAmpComponent {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private apiService: ApiTestService
+    private ampService: AmpService
   ) {}
 
   get knobs(): FormArray {
@@ -48,7 +48,7 @@ export class CreateAmpComponent {
   submit() {
     if (this.ampForm.valid) {
       const ampData = this.ampForm.value as CreateAmpRequest;
-      this.apiService.createAmp(ampData).subscribe((res) => {
+      this.ampService.createAmp(ampData).subscribe((res) => {
         console.log('Amp Created:', res);
         this.ampForm.reset();
         this.knobs.clear();

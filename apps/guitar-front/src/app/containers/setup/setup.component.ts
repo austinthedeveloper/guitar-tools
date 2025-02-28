@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { Pairing, Amp, Pedal, AmpUsage } from '@guitar/interfaces';
-import { ApiTestService } from 'libs/setup/src/lib/services';
+import {
+  AmpService,
+  PairingService,
+  PedalBoardService,
+  PedalService,
+} from '@guitar/setup';
 
 @Component({
   selector: 'guitar-setup',
@@ -13,17 +18,24 @@ export class SetupComponent {
   pedals: Pedal[] = [];
   ampUsages: AmpUsage[] = [];
 
-  constructor(private apiService: ApiTestService) {}
+  constructor(
+    private pedalService: PedalService,
+    private ampService: AmpService,
+    private pairingService: PairingService,
+    private pedalBoardService: PedalBoardService
+  ) {}
 
   ngOnInit(): void {
     this.loadData();
   }
 
   private loadData() {
-    this.apiService.getPairings().subscribe((data) => (this.pairings = data));
-    this.apiService.getAmps().subscribe((data) => (this.amps = data));
-    this.apiService.getPedals().subscribe((data) => (this.pedals = data));
-    this.apiService.getAmpUsages().subscribe((data) => (this.ampUsages = data));
+    this.pairingService
+      .getPairings()
+      .subscribe((data) => (this.pairings = data));
+    this.ampService.getAmps().subscribe((data) => (this.amps = data));
+    this.pedalService.getPedals().subscribe((data) => (this.pedals = data));
+    this.ampService.getAmpUsages().subscribe((data) => (this.ampUsages = data));
   }
 
   createAmp() {

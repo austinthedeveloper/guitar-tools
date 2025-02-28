@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CreatePedalRequest } from '@guitar/interfaces';
-import { ApiTestService } from '../../services';
+
+import { PedalService } from '../../services';
 
 @Component({
   selector: 'lib-create-pedal',
@@ -17,7 +18,7 @@ export class CreatePedalComponent {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private apiService: ApiTestService
+    private pedalService: PedalService
   ) {}
 
   get knobs(): FormArray {
@@ -35,7 +36,7 @@ export class CreatePedalComponent {
   submit() {
     if (this.pedalForm.valid) {
       const pedalData = this.pedalForm.value as CreatePedalRequest;
-      this.apiService.createPedal(pedalData).subscribe((res) => {
+      this.pedalService.createPedal(pedalData).subscribe((res) => {
         console.log('Pedal Created:', res);
         this.pedalForm.reset();
         this.knobs.clear();

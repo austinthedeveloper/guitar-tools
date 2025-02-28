@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormArray,
   FormGroup,
@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { CreatePedalBoardRequest, Pedal } from '@guitar/interfaces';
 
-import { ApiTestService } from '../../services';
+import { PedalBoardService, PedalService } from '../../services';
 
 @Component({
   selector: 'lib-create-pedalboard',
@@ -23,11 +23,12 @@ export class CreatePedalboardComponent {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private apiService: ApiTestService
+    private pedalService: PedalService,
+    private pedalBoardService: PedalBoardService
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getPedals().subscribe((data) => (this.pedals = data));
+    this.pedalService.getPedals().subscribe((data) => (this.pedals = data));
   }
 
   get pedalControls(): FormArray {
@@ -89,11 +90,13 @@ export class CreatePedalboardComponent {
         });
         delete pedal.knobs; // Remove knobs array before sending to API
       });
-      this.apiService.createPedalBoard(pedalboardData).subscribe((res) => {
-        console.log('Pedalboard Created:', res);
-        this.pedalboardForm.reset();
-        this.pedalControls.clear();
-      });
+      this.pedalBoardService
+        .createPedalBoard(pedalboardData)
+        .subscribe((res) => {
+          console.log('Pedalboard Created:', res);
+          this.pedalboardForm.reset();
+          this.pedalControls.clear();
+        });
     }
   }
 }

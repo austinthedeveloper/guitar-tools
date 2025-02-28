@@ -5,8 +5,9 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { ApiTestService } from '../../services';
 import { Pedal } from '@guitar/interfaces';
+
+import { PedalService, PedalUsageService } from '../../services';
 
 @Component({
   selector: 'lib-create-pedal-usage',
@@ -24,7 +25,8 @@ export class CreatePedalUsageComponent {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private apiService: ApiTestService
+    private pedalService: PedalService,
+    private pedalUsageService: PedalUsageService
   ) {}
 
   ngOnInit() {
@@ -40,9 +42,7 @@ export class CreatePedalUsageComponent {
 
   // Fetch pedals from API
   loadPedals() {
-    this.apiService.getPedals().subscribe((pedals) => {
-      console.log('pedals', pedals);
-
+    this.pedalService.getPedals().subscribe((pedals) => {
       this.pedals = pedals;
     });
   }
@@ -71,7 +71,7 @@ export class CreatePedalUsageComponent {
   submitPedalUsage() {
     if (this.pedalUsageForm.valid) {
       console.log('test form', this.pedalUsageForm.value);
-      this.apiService
+      this.pedalUsageService
         .createPedalUsage(this.pedalUsageForm.value)
         .subscribe((res) => {
           console.log('Pedal Usage Created:', res);

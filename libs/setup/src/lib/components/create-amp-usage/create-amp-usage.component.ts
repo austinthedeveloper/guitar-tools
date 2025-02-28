@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormArray,
   FormGroup,
@@ -6,7 +6,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { Amp, SaveAmpUsageRequest } from '@guitar/interfaces';
-import { ApiTestService } from '../../services';
+
+import { AmpService } from '../../services';
 
 @Component({
   selector: 'lib-create-amp-usage',
@@ -24,11 +25,11 @@ export class CreateAmpUsageComponent {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private apiService: ApiTestService
+    private ampService: AmpService
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getAmps().subscribe((data) => (this.amps = data));
+    this.ampService.getAmps().subscribe((data) => (this.amps = data));
   }
 
   get knobValues(): FormArray {
@@ -69,7 +70,7 @@ export class CreateAmpUsageComponent {
         knobValues: knobValuesObject,
       };
 
-      this.apiService.saveAmpUsage(ampUsageData).subscribe((res) => {
+      this.ampService.saveAmpUsage(ampUsageData).subscribe((res) => {
         console.log('Amp Usage Created:', res);
         this.ampUsageForm.reset();
         this.knobValues.clear();

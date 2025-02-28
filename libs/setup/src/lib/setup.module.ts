@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApiTestComponent } from './components/api-test/api-test.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateAmpComponent } from './components/create-amp/create-amp.component';
 import { CreatePedalComponent } from './components/create-pedal/create-pedal.component';
@@ -10,7 +9,6 @@ import { CreateAmpUsageComponent } from './components/create-amp-usage/create-am
 import { CreatePedalUsageComponent } from './components/create-pedal-usage/create-pedal-usage.component';
 
 const components = [
-  ApiTestComponent,
   CreateAmpComponent,
   CreatePedalComponent,
   CreatePedalboardComponent,
