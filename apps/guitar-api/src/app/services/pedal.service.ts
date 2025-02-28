@@ -108,7 +108,20 @@ export class PedalService {
     return query.exec();
   }
 
-  async createPedalUsage(dto: any, createdById: string) {
+  async findAllPedalUsage(
+    userId: string,
+    populateUser = false
+  ): Promise<PedalUsage[]> {
+    let config = userId ? { createdById: userId } : {};
+    const query = this.pedalUsageModel.find(config);
+    if (populateUser) {
+      query.populate('createdBy', 'displayName email');
+    }
+
+    return query.exec();
+  }
+
+  async createPedalUsage(dto: any, createdById: string): Promise<PedalUsage> {
     const pedal = await this.pedalModel.findById(dto.pedalId);
     if (!pedal) throw new NotFoundException('Pedal not found');
 

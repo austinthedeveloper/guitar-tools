@@ -92,6 +92,15 @@ export class PedalController {
     return this.pedalService.getPedalBoards(req.user?._id, populateUser);
   }
 
+  @Get('/pedal-usage')
+  @UseGuards(JwtAuthGuard)
+  async getPedalUsage(
+    @Req() req: AuthRequest,
+    @Query('populateUser') populateUser: boolean
+  ) {
+    return this.pedalService.findAllPedalUsage(req.user?._id, populateUser);
+  }
+
   @Post('/pedal-usage')
   @UseGuards(JwtAuthGuard)
   async createPedalUsage(
