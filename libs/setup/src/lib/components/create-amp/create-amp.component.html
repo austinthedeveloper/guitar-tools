@@ -30,24 +30,17 @@
           [formGroup]="getControl(i)"
         >
           <label class="form-label">Control Name</label>
-          <select formControlName="name" class="form-select">
+          <select
+            formControlName="name"
+            class="form-select"
+            (change)="onControlChange(getControl(i))"
+          >
             <option value="">-- Select Control --</option>
             <option
               *ngFor="let controlOption of controlOptions"
               [value]="controlOption.name"
             >
               {{ controlOption.name }}
-            </option>
-          </select>
-
-          <label class="form-label">Control Type</label>
-          <select formControlName="type" class="form-select">
-            <option value="">-- Select Knob --</option>
-            <option
-              *ngFor="let controlType of controlTypes"
-              [value]="controlType.name"
-            >
-              {{ controlType.name }}
             </option>
           </select>
 

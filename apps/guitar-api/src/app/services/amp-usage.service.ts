@@ -22,7 +22,7 @@ export class AmpUsageService extends BaseService<AmpUsage> {
       ...ampUsage.toObject(),
       ampId: ampUsage.ampId,
       amp,
-      knobValues: Object.fromEntries(ampUsage.knobValues || new Map()),
+      controlValues: Object.fromEntries(ampUsage.controlValues || new Map()),
     };
   }
 

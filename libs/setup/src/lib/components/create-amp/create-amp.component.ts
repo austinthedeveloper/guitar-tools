@@ -25,13 +25,7 @@ export class CreateAmpComponent {
   ampForm = this.fb.group({
     name: ['', Validators.required],
     brand: [''],
-    controls: this.fb.array([
-      this.fb.group({
-        name: this.fb.control('Input 1', Validators.required),
-        type: 'input',
-        order: 0,
-      }),
-    ]),
+    controls: this.fb.array([]),
   });
   controlOptions = [...AMP_INPUTS, ...AMP_KNOBS];
   controlTypes = AmpInputControls;
@@ -41,7 +35,9 @@ export class CreateAmpComponent {
   constructor(
     private fb: NonNullableFormBuilder,
     private ampService: AmpService
-  ) {}
+  ) {
+    this.addControl('Input 1', 'input');
+  }
 
   get controls(): FormArray {
     return this.ampForm.controls.controls;
@@ -51,14 +47,14 @@ export class CreateAmpComponent {
     return this.controls.controls[i] as FormGroup;
   }
 
-  addControl(name = '') {
+  addControl(name = '', type = 'input') {
     const index = this.controls.length;
     this.controls.push(
       this.fb.group({
         name: [name, Validators.required],
         value: [0],
         type: [null, Validators.required],
-        order: [index], // 👈 Set initial order based on FormArray index
+        order: [index],
         values: this.fb.array([]),
       })
     );
@@ -66,6 +62,12 @@ export class CreateAmpComponent {
 
   removeControl(index: number) {
     this.controls.removeAt(index);
+  }
+
+  onControlChange(formGroup: FormGroup) {
+    const name = formGroup.controls['name'].value;
+    const type = this.controlOptions.find((option) => option.name === name);
+    formGroup.controls['type'].patchValue(type.type);
   }
 
   submit() {
@@ -85,13 +87,7 @@ export class CreateAmpComponent {
   private clearForm() {
     this.ampForm.reset();
     this.controls.clear();
-    this.controls.push(
-      this.fb.group({
-        name: this.fb.control('Input 1', Validators.required),
-        type: 0,
-        order: 0,
-      })
-    );
+    this.addControl('Input 1', 'input');
   }
 
   private mapControls(controls: AmpControl[]) {

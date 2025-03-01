@@ -27,19 +27,21 @@
         </select>
       </div>
 
-      <h3>Knob Values</h3>
-      <div formArrayName="knobValues">
+      <h3>Control Values</h3>
+      <div formArrayName="controlValues">
         <div
           class="mb-2 d-flex"
-          *ngFor="let knob of knobValues.controls; let i = index"
-          [formGroup]="getKnobGroup(i)"
+          *ngFor="let control of controlValues.controls; let i = index"
+          [formGroup]="getControlGroup(i)"
         >
-          <label class="form-label me-2">{{ knob.get('name')?.value }}</label>
+          <label class="form-label me-2"
+            >{{ control.get('name')?.value }} -
+            {{ control.get('type')?.value | titlecase }}</label
+          >
           <input
             formControlName="value"
-            type="number"
+            type="text"
             class="form-control me-2"
-            required
           />
         </div>
       </div>
