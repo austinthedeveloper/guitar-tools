@@ -32,12 +32,6 @@
       [pedal]="pedal"
     ></lib-pedal-display>
   </section>
-
-  <div class="actions">
-    <button (click)="createAmp()">Create Amp</button>
-    <button (click)="createPedal()">Create Pedal</button>
-    <button (click)="createPedalBoard()">Create Pedalboard</button>
-  </div>
 </div>
 <lib-create-amp></lib-create-amp>
 <lib-create-amp-usage [amps]="amps$ | async"></lib-create-amp-usage>

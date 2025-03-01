@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   FormArray,
   FormGroup,
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { CreateAmpRequest } from '@guitar/interfaces';
+import { AmpKnob, CreateAmpRequest } from '@guitar/interfaces';
 
 import { AmpService } from './../../services';
 import { AMP_KNOBS } from '../../helpers';
@@ -23,6 +23,8 @@ export class CreateAmpComponent {
     knobs: this.fb.array([]),
   });
   ampKnobs = AMP_KNOBS;
+
+  @Output() save = new EventEmitter();
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -67,15 +69,25 @@ export class CreateAmpComponent {
   submit() {
     if (this.ampForm.valid) {
       const ampData = this.ampForm.value as CreateAmpRequest;
-      console.log('s', ampData);
+      const knobs = this.mapKnobs(ampData.knobs);
+      const mappedData = { ...ampData, knobs };
+      this.save.emit(mappedData);
 
-      this.ampService.createAmp(ampData).subscribe((res) => {
+      this.ampService.createAmp(mappedData).subscribe((res) => {
         console.log('Amp Created:', res);
-        this.ampForm.reset();
-        this.knobs.clear();
-        this.inputs.clear();
-        this.inputs.push(this.fb.control('Input 1', Validators.required));
+        this.clearForm();
       });
     }
+  }
+
+  private clearForm() {
+    this.ampForm.reset();
+    this.knobs.clear();
+    this.inputs.clear();
+    this.inputs.push(this.fb.control('Input 1', Validators.required));
+  }
+
+  private mapKnobs(knobs: AmpKnob[]) {
+    return knobs.map((knob, i) => ({ ...knob, order: i }));
   }
 }

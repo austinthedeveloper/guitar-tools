@@ -12,7 +12,7 @@ export interface CreateAmpRequest {
 export interface Amp extends BaseDocument {
   name: string;
   brand?: string;
-  inputs: string[];
+  inputs: AmpKnob[];
   knobs: any[];
   createdById: string;
 }
