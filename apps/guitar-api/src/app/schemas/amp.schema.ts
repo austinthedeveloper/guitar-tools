@@ -10,6 +10,31 @@ export class Amp extends Document {
   @Prop()
   brand: string;
 
+  @Prop({
+    type: [
+      {
+        name: { type: String, required: true },
+        type: {
+          type: String,
+          enum: ['input', 'knob', 'switch', 'selector'],
+          required: true,
+        },
+        order: { type: Number, required: true },
+        values: {
+          type: [String],
+          default: [],
+        }, // Only for selectors
+      },
+    ],
+    default: [],
+  })
+  controls: {
+    name: string;
+    type: 'input' | 'knob' | 'switch' | 'selector';
+    order: number;
+    values?: string[];
+  }[];
+
   @Prop({ type: [String], default: ['Input 1'] }) // Multiple inputs supported
   inputs: string[];
 
