@@ -3,6 +3,10 @@
 
   <section>
     <h2>Pairings</h2>
+    <lib-pairing-display
+      *ngFor="let pairing of pairings$ | async"
+      [pairing]="pairing"
+    ></lib-pairing-display>
     <ul>
       <li *ngFor="let pairing of pairings$ | async">
         {{ pairing.ampUsageId }} paired with {{ pairing.pedalBoardId }}

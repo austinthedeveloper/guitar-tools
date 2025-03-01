@@ -1,0 +1,50 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">Pairing</h5>
+    <p class="text-muted">
+      Created at: {{ pairing.createdAt | date: 'medium' }}
+    </p>
+
+    <!-- Amp Usage -->
+    <div class="mt-3">
+      <h6 class="text-primary">Amp Usage: {{ pairing.ampUsage.name }}</h6>
+      <p>
+        <strong>Amp:</strong> {{ pairing.ampUsage.amp.name }} ({{
+          pairing.ampUsage.amp.brand
+        }})
+      </p>
+
+      <h6 class="mt-2">Amp Settings</h6>
+      <ul class="list-group">
+        <li
+          *ngFor="let control of pairing.ampUsage.amp.controls"
+          class="list-group-item"
+        >
+          <strong>{{ control.name }}</strong
+          >: {{ pairing.ampUsage.controlValues[control.name] || 'N/A' }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Pedalboard -->
+    <div class="mt-3">
+      <h6 class="text-success">Pedalboard: {{ pairing.pedalBoard.name }}</h6>
+      <ul class="list-group">
+        <li
+          *ngFor="let pedal of pairing.pedalBoard.pedals"
+          class="list-group-item"
+        >
+          <strong>Pedal:</strong> {{ pedal.pedal.name }} -
+          {{ pedal.pedal.type }} (Order: {{ pedal.order }})
+          <div *ngIf="pedal.knobValues && pedal.pedal.knobs.length">
+            <ul class="mt-2">
+              <li *ngFor="let knob of pedal.pedal.knobs">
+                {{ knob }}: {{ pedal.knobValues[knob] }}
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

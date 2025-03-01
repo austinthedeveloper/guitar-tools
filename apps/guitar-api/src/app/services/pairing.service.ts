@@ -4,6 +4,8 @@ import { Model, Types } from 'mongoose';
 import { Pairing } from '../schemas/pairing.schema';
 import { Amp, AmpUsage, PedalBoard } from '../schemas';
 import { AmpService } from './amp.service';
+import { AmpUsageService } from './amp-usage.service';
+import { PedalService } from './pedal.service';
 
 @Injectable()
 export class PairingService {
@@ -12,7 +14,9 @@ export class PairingService {
     @InjectModel(PedalBoard.name) private pedalBoardModel: Model<PedalBoard>,
     @InjectModel(Amp.name) private ampModel: Model<Amp>,
     @InjectModel(AmpUsage.name) private ampUsageModel: Model<AmpUsage>,
-    private ampService: AmpService
+    private ampService: AmpService,
+    private ampUsageService: AmpUsageService,
+    private pedalservice: PedalService
   ) {}
 
   /** ✅ Create a pairing between an amp and a pedalboard */
@@ -56,10 +60,12 @@ export class PairingService {
 
   async populatedPairing(pairing: Pairing): Promise<Pairing> {
     const pedalBoard = pairing.pedalBoardId
-      ? await this.pedalBoardModel.findById(pairing.pedalBoardId).exec()
+      ? await this.pedalservice.getPedalBoardById(pairing.pedalBoardId)
       : null;
     const ampUsage = pairing.ampUsageId
-      ? await this.ampService.getAmpUsage(pairing.ampUsageId.toString())
+      ? await this.ampUsageService.getAmpUsageById(
+          pairing.ampUsageId.toString()
+        )
       : null;
 
     return {

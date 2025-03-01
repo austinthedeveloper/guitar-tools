@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
-import { Pairing, Amp, Pedal, AmpUsage } from '@guitar/interfaces';
 import {
   AmpService,
+  AmpStore,
+  AmpUsageService,
+  AmpUsageStore,
   PairingService,
+  PairingStore,
   PedalBoardService,
+  PedalBoardStore,
   PedalService,
   PedalStore,
-  AmpStore,
-  PedalBoardStore,
-  PairingStore,
-  AmpUsageStore,
-  AmpUsageService,
 } from '@guitar/setup';
 
 @Component({
@@ -19,6 +18,8 @@ import {
   styleUrl: './setup.component.scss',
 })
 export class SetupComponent {
+  disabled!: boolean;
+
   pairings$ = this.pairingStore.pairings$;
   amps$ = this.ampStore.amps$;
   pedals$ = this.pedalStore.pedals$;

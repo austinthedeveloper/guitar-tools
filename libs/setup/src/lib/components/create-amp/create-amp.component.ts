@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormArray,
   FormGroup,
@@ -8,13 +8,11 @@ import {
 import {
   AmpControl,
   AmpInputControls,
-  AmpInputControlType,
-  AmpKnob,
   CreateAmpRequest,
 } from '@guitar/interfaces';
 
-import { AmpService } from './../../services';
 import { AMP_INPUTS, AMP_KNOBS } from '../../helpers';
+import { AmpService } from './../../services';
 
 @Component({
   selector: 'lib-create-amp',
@@ -22,6 +20,9 @@ import { AMP_INPUTS, AMP_KNOBS } from '../../helpers';
   styleUrl: './create-amp.component.scss',
 })
 export class CreateAmpComponent {
+  @Input() disabled!: boolean;
+  @Output() save = new EventEmitter();
+
   ampForm = this.fb.group({
     name: ['', Validators.required],
     brand: [''],
@@ -29,8 +30,6 @@ export class CreateAmpComponent {
   });
   controlOptions = [...AMP_INPUTS, ...AMP_KNOBS];
   controlTypes = AmpInputControls;
-
-  @Output() save = new EventEmitter();
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -53,7 +52,7 @@ export class CreateAmpComponent {
       this.fb.group({
         name: [name, Validators.required],
         value: [0],
-        type: [null, Validators.required],
+        type: [type, Validators.required],
         order: [index],
         values: this.fb.array([]),
       })
@@ -74,7 +73,7 @@ export class CreateAmpComponent {
     if (this.ampForm.valid) {
       const ampData = this.ampForm.value as CreateAmpRequest;
       const controls = this.mapControls(ampData.controls);
-      const mappedData = { ...ampData, controls };
+      const mappedData: CreateAmpRequest = { ...ampData, controls };
       this.save.emit(mappedData);
 
       this.ampService.createAmp(mappedData).subscribe((res) => {

@@ -83,11 +83,13 @@ export class PedalService {
       knobValues: pedal.knobValues,
     }));
 
-    return new this.pedalBoardModel({
+    const newPedalBoard = await new this.pedalBoardModel({
       name,
       createdById,
       pedals: formattedPedals,
     }).save();
+
+    return this.populatePedalboard(newPedalBoard);
   }
 
   /** ✅ Get all Pedal Boards (Including Order) */
@@ -97,15 +99,47 @@ export class PedalService {
   ): Promise<PedalBoard[]> {
     let config = userId ? { createdById: userId } : {};
 
-    const query = this.pedalBoardModel.find(config).populate({
-      path: 'pedals.pedalId',
-      model: 'Pedal', // Ensure this is correct
-    });
+    const pedalBoards = await this.pedalBoardModel.find(config).exec();
+
+    const populatedPedalBoards = await Promise.all(
+      pedalBoards.map((pedalBoard) => this.populatePedalboard(pedalBoard))
+    );
+
     if (populateUser) {
-      query.populate('createdBy', 'displayName email');
+      return this.pedalBoardModel.populate(populatedPedalBoards, {
+        path: 'createdBy',
+        select: 'displayName email',
+      });
     }
 
-    return query.exec();
+    return populatedPedalBoards;
+  }
+  async getPedalBoardById(id: string): Promise<PedalBoard> {
+    const pedalBoard = await this.pedalBoardModel.findById(id).exec();
+    return this.populatePedalboard(pedalBoard);
+  }
+  private async populatePedalboard(
+    pedalBoard: PedalBoard
+  ): Promise<PedalBoard> {
+    const populatedPedals = await Promise.all(
+      pedalBoard.pedals.map(async (entry) => {
+        const pedal = entry.pedalId
+          ? await this.pedalModel.findById(entry.pedalId).exec()
+          : null;
+
+        return {
+          pedalId: entry.pedalId, // Keep original ID
+          order: entry.order,
+          knobValues: entry.knobValues,
+          pedal: pedal.toObject(), // ✅ Attach populated pedal data
+        };
+      })
+    );
+
+    return {
+      ...pedalBoard.toObject(),
+      pedals: populatedPedals,
+    };
   }
 
   async findAllPedalUsage(

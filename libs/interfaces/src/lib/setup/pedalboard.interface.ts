@@ -1,10 +1,12 @@
 import { BaseDocument } from '../base-document.interface';
+import { Pedal } from './pedal.interface';
 
 /** ✅ Pedal Configuration Inside a Pedal Board */
 export interface PedalBoardPedal {
   pedalId: string;
   order: number;
   knobValues: Record<string, number>;
+  pedal: Pedal;
   // Used in forms
   knobs?: {
     name: string;
