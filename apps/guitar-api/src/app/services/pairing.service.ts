@@ -21,11 +21,12 @@ export class PairingService {
     pedalBoardId: string,
     createdById: string
   ): Promise<Pairing> {
-    return new this.pairingModel({
+    const pairing = await new this.pairingModel({
       ampUsageId: new Types.ObjectId(ampUsageId),
       pedalBoardId: new Types.ObjectId(pedalBoardId),
       createdById,
     }).save();
+    return await this.populatedPairing(pairing);
   }
 
   /** ✅ Get all pairings for a user */
@@ -43,7 +44,7 @@ export class PairingService {
     return populatedPairings;
   }
 
-  async getPairing(pairingId: string): Promise<Pairing[]> {
+  async getPairing(pairingId: string): Promise<Pairing> {
     const pairing: Pairing = await this.pairingModel
       .findOne({ _id: pairingId })
       .populate('createdBy', 'displayName email')
@@ -53,7 +54,7 @@ export class PairingService {
     return await this.populatedPairing(pairing);
   }
 
-  async populatedPairing(pairing: Pairing) {
+  async populatedPairing(pairing: Pairing): Promise<Pairing> {
     const pedalBoard = pairing.pedalBoardId
       ? await this.pedalBoardModel.findById(pairing.pedalBoardId).exec()
       : null;

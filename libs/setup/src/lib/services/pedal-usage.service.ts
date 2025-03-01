@@ -8,7 +8,7 @@ import { EnvInterface } from '@guitar/interfaces';
   providedIn: 'root',
 })
 export class PedalUsageService {
-  private apiUrl = `${this.env.api}/pedal-usage`;
+  private apiUrl = `${this.env.api}/pedals/pedal-usage`;
 
   constructor(
     private http: HttpClient,
