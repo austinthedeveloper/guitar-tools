@@ -26,4 +26,7 @@ export class Amp extends Document {
   createdBy?: User; // Optional, can be populated
 }
 
-export const AmpSchema = SchemaFactory.createForClass(Amp);
+export const AmpSchema = SchemaFactory.createForClass(Amp).index(
+  { name: 1, createdById: 1 },
+  { unique: true }
+);

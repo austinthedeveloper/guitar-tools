@@ -14,7 +14,7 @@ export class AmpService {
     @InjectModel(AmpUsage.name) private ampUsageModel: Model<AmpUsage>
   ) {}
 
-  async create(ampData: any): Promise<Amp> {
+  async create(ampData: Amp): Promise<Amp> {
     return new this.ampModel({ ...ampData, knobs: ampData.knobs || [] }).save();
   }
 
@@ -26,7 +26,7 @@ export class AmpService {
     return ampUsage;
   }
 
-  async createAmpUsage(data: any): Promise<AmpUsage> {
+  async createAmpUsage(data: AmpUsage): Promise<AmpUsage> {
     const ampUsage = await new this.ampUsageModel(data).save();
     return this.populateAmpUsage(ampUsage);
   }
@@ -41,7 +41,7 @@ export class AmpService {
 
     return Promise.all(ampUsages.map((usage) => this.populateAmpUsage(usage)));
   }
-  async updateAmpUsage(id: string, data: any): Promise<AmpUsage> {
+  async updateAmpUsage(id: string, data: AmpUsage): Promise<AmpUsage> {
     const updatedUsage = await this.ampUsageModel
       .findByIdAndUpdate(id, data, { new: true })
       .exec();
@@ -91,7 +91,7 @@ export class AmpService {
     return query.exec();
   }
 
-  async update(id: string, ampData: any): Promise<Amp> {
+  async update(id: string, ampData: Amp): Promise<Amp> {
     return this.ampModel.findByIdAndUpdate(id, ampData, { new: true }).exec();
   }
 
