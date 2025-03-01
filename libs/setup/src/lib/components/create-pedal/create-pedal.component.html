@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <h2 class="text-center mb-3">Create a New Pedal</h2>
+    <form [formGroup]="pedalForm" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Pedal Name</label>
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="type" class="form-label">Pedal Type</label>
+        <select id="type" formControlName="type" class="form-select" required>
+          <option *ngFor="let option of typeOptions" [value]="option.name">
+            {{ option.name }}
+          </option>
+        </select>
+      </div>
+
+      <h3>Knobs</h3>
+      <div formArrayName="knobs">
+        <div
+          *ngFor="let knobControl of knobs.controls; let i = index"
+          class="mb-2"
+        >
+          <label class="form-label">Knob Name</label>
+          <select [formControlName]="i" class="form-select">
+            <option value="">-- Select Knob --</option>
+            <option *ngFor="let knob of pedalKnobs" [value]="knob.name">
+              {{ knob.name }}
+            </option>
+          </select>
+
+          <button type="button" class="btn btn-danger" (click)="removeKnob(i)">
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary mb-3" (click)="addKnob()">
+        Add Knob
+      </button>
+
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="pedalForm.invalid"
+      >
+        Create Pedal
+      </button>
+    </form>
+  </div>
+</div>
