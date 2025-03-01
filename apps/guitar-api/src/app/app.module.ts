@@ -10,9 +10,11 @@ import {
   AmpController,
   PedalController,
   PairingController,
+  AmpUsageController,
 } from './controllers';
 import {
   AmpService,
+  AmpUsageService,
   GoogleStrategy,
   JwtStrategy,
   PairingService,
@@ -70,6 +72,7 @@ import { JwtModule } from '@nestjs/jwt';
     AmpController,
     PedalController,
     PairingController,
+    AmpUsageController,
   ],
   providers: [
     AppService,
@@ -77,6 +80,7 @@ import { JwtModule } from '@nestjs/jwt';
     AmpService,
     PedalService,
     PairingService,
+    AmpUsageService,
     GoogleStrategy,
     JwtStrategy,
   ],

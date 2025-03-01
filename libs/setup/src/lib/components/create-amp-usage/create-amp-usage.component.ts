@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Amp, SaveAmpUsageRequest } from '@guitar/interfaces';
 
-import { AmpService } from '../../services';
+import { AmpUsageService } from '../../services';
 
 @Component({
   selector: 'lib-create-amp-usage',
@@ -25,7 +25,7 @@ export class CreateAmpUsageComponent {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private ampService: AmpService
+    private ampUsageService: AmpUsageService
   ) {}
 
   get knobValues(): FormArray {
@@ -66,7 +66,7 @@ export class CreateAmpUsageComponent {
         knobValues: knobValuesObject,
       };
 
-      this.ampService.saveAmpUsage(ampUsageData).subscribe((res) => {
+      this.ampUsageService.saveAmpUsage(ampUsageData).subscribe((res) => {
         console.log('Amp Usage Created:', res);
         this.ampUsageForm.reset();
         this.knobValues.clear();

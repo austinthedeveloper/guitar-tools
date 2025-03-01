@@ -10,6 +10,7 @@ import {
   PedalBoardStore,
   PairingStore,
   AmpUsageStore,
+  AmpUsageService,
 } from '@guitar/setup';
 
 @Component({
@@ -27,6 +28,7 @@ export class SetupComponent {
   constructor(
     private pedalService: PedalService,
     private ampService: AmpService,
+    private ampUsageService: AmpUsageService,
     private pairingService: PairingService,
     private pedalBoardService: PedalBoardService,
     private ampStore: AmpStore,
@@ -44,19 +46,7 @@ export class SetupComponent {
     this.pairingService.getPairings().subscribe();
     this.ampService.getAmps().subscribe();
     this.pedalService.getPedals().subscribe();
-    this.ampService.getAmpUsages().subscribe();
+    this.ampUsageService.getAmpUsages().subscribe();
     this.pedalBoardService.getPedalBoards().subscribe();
-  }
-
-  createAmp() {
-    // Navigate to Create Amp Page (Router Logic Placeholder)
-  }
-
-  createPedal() {
-    // Navigate to Create Pedal Page (Router Logic Placeholder)
-  }
-
-  createPedalBoard() {
-    // Navigate to Create Pedal Board Page (Router Logic Placeholder)
   }
 }
