@@ -13,8 +13,11 @@ export class Amp extends Document {
   @Prop({ type: [String], default: ['Input 1'] }) // Multiple inputs supported
   inputs: string[];
 
-  @Prop({ type: [String] }) // Store only knob names
-  knobs: string[];
+  @Prop({
+    type: [{ name: String, value: Number, order: Number }], // 👈 Added order
+    default: [],
+  })
+  knobs: { name: string; value: number; order: number }[];
 
   @Prop({ required: true })
   createdById: string; // Always stored for filtering

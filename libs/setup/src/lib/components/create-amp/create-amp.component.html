@@ -50,9 +50,10 @@
         <div
           *ngFor="let knobControl of knobs.controls; let i = index"
           class="mb-2"
+          [formGroup]="getKnob(i)"
         >
           <label class="form-label">Knob Name</label>
-          <select [formControlName]="i" class="form-select">
+          <select formControlName="name" class="form-select">
             <option value="">-- Select Knob --</option>
             <option *ngFor="let knob of ampKnobs" [value]="knob.name">
               {{ knob.name }}

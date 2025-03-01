@@ -49,7 +49,6 @@ export class AmpService {
   // Get all Amp Usages and store them
   getAmpUsages(): Observable<AmpUsage[]> {
     return this.http.get<AmpUsage[]>(`${this.apiUrl}/use`).pipe(
-      tap((ampUsages) => console.log('usage', ampUsages)), // Store in Elf
       tap((ampUsages) => this.ampUsageStore.setAmpUsages(ampUsages)) // Store in Elf
     );
   }

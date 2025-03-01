@@ -42,9 +42,9 @@ export class CreateAmpUsageComponent {
     if (selectedAmp) {
       this.selectedAmpKnobs = selectedAmp.knobs;
       this.knobValues.clear();
-      this.selectedAmpKnobs.forEach((knob) => {
+      this.selectedAmpKnobs.forEach((knob: any) => {
         this.knobValues.push(
-          this.fb.group({ name: knob, value: [0, Validators.required] })
+          this.fb.group({ name: knob.name, value: [0, Validators.required] })
         );
       });
     }

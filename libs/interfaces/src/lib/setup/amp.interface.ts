@@ -5,7 +5,7 @@ export interface CreateAmpRequest {
   name: string;
   brand?: string;
   inputs: string[];
-  knobs: string[];
+  knobs: AmpKnob[];
 }
 
 /** ✅ Amp Document from Mongo */
@@ -13,6 +13,12 @@ export interface Amp extends BaseDocument {
   name: string;
   brand?: string;
   inputs: string[];
-  knobs: string[];
+  knobs: any[];
   createdById: string;
+}
+
+export interface AmpKnob {
+  name: string;
+  value?: number;
+  order: number;
 }

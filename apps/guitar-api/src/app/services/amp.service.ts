@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Amp } from '../schemas/amp.schema';
@@ -17,9 +17,6 @@ export class AmpService {
   async create(ampData: any): Promise<Amp> {
     return new this.ampModel({ ...ampData, knobs: ampData.knobs || [] }).save();
   }
-  async createAmpUsage(data: any): Promise<AmpUsage> {
-    return new this.ampUsageModel(data).save();
-  }
 
   async useAmp(id: string): Promise<AmpUsage> {
     const ampUsage = await this.ampUsageModel
@@ -29,32 +26,28 @@ export class AmpService {
     return ampUsage;
   }
 
+  async createAmpUsage(data: any): Promise<AmpUsage> {
+    const ampUsage = await new this.ampUsageModel(data).save();
+    return this.populateAmpUsage(ampUsage);
+  }
   async findAllUsage(
     userId: string,
     populateUser = false
   ): Promise<AmpUsage[]> {
     const ampUsages: AmpUsage[] = await this.ampUsageModel
       .find({ createdById: userId })
-      .populate('createdBy', 'displayName email')
+      .populate(populateUser ? 'createdBy' : '') // Optional user population
       .exec();
 
-    // ✅ Use Promise.all to fetch amp details separately
-    const populatedAmpUsages = await Promise.all(
-      ampUsages.map(async (usage) => {
-        const amp = usage.ampId
-          ? await this.ampModel.findById(usage.ampId).exec()
-          : null;
+    return Promise.all(ampUsages.map((usage) => this.populateAmpUsage(usage)));
+  }
+  async updateAmpUsage(id: string, data: any): Promise<AmpUsage> {
+    const updatedUsage = await this.ampUsageModel
+      .findByIdAndUpdate(id, data, { new: true })
+      .exec();
+    if (!updatedUsage) throw new NotFoundException('Amp Usage not found');
 
-        return {
-          ...usage.toObject(),
-          ampId: usage.ampId, // Keep ampId as a string
-          amp: amp, // Attach full amp details
-          knobValues: Object.fromEntries(usage.knobValues || new Map()),
-        };
-      })
-    );
-
-    return populatedAmpUsages;
+    return this.populateAmpUsage(updatedUsage);
   }
 
   async getAmpUsage(id: string, populateUser = false): Promise<AmpUsage> {
@@ -65,6 +58,17 @@ export class AmpService {
     }
 
     return query.exec();
+  }
+  private async populateAmpUsage(ampUsage: AmpUsage): Promise<any> {
+    const amp = ampUsage.ampId
+      ? await this.ampModel.findById(ampUsage.ampId).exec()
+      : null;
+    return {
+      ...ampUsage.toObject(),
+      ampId: ampUsage.ampId, // Ensure ampId stays as a string
+      amp, // Attach populated amp
+      knobValues: Object.fromEntries(ampUsage.knobValues || new Map()), // Ensure knobValues is a plain object
+    };
   }
 
   async findAll(userId: string, populateUser = false): Promise<Amp[]> {
