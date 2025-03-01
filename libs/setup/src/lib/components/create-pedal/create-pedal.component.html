@@ -14,33 +14,33 @@
       </div>
       <div class="mb-3">
         <label for="type" class="form-label">Pedal Type</label>
-        <input
-          id="type"
-          formControlName="type"
-          type="text"
-          class="form-control"
-          required
-        />
+        <select id="type" formControlName="type" class="form-select" required>
+          <option *ngFor="let option of typeOptions" [value]="option.name">
+            {{ option.name }}
+          </option>
+        </select>
       </div>
 
       <h3>Knobs</h3>
       <div formArrayName="knobs">
         <div
-          class="mb-2 d-flex"
-          *ngFor="let knob of knobs.controls; let i = index"
+          *ngFor="let knobControl of knobs.controls; let i = index"
+          class="mb-2"
         >
-          <input
-            [formControlName]="i"
-            type="text"
-            class="form-control me-2"
-            placeholder="Knob Name"
-            required
-          />
+          <label class="form-label">Knob Name</label>
+          <select [formControlName]="i" class="form-select">
+            <option value="">-- Select Knob --</option>
+            <option *ngFor="let knob of pedalKnobs" [value]="knob.name">
+              {{ knob.name }}
+            </option>
+          </select>
+
           <button type="button" class="btn btn-danger" (click)="removeKnob(i)">
             Remove
           </button>
         </div>
       </div>
+
       <button type="button" class="btn btn-primary mb-3" (click)="addKnob()">
         Add Knob
       </button>

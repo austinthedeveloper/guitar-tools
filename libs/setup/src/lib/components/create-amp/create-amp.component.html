@@ -48,16 +48,17 @@
       <h3>Knobs</h3>
       <div formArrayName="knobs">
         <div
-          class="mb-2 d-flex"
-          *ngFor="let knob of knobs.controls; let i = index"
+          *ngFor="let knobControl of knobs.controls; let i = index"
+          class="mb-2"
         >
-          <input
-            [formControlName]="i"
-            type="text"
-            class="form-control me-2"
-            placeholder="Knob Name"
-            required
-          />
+          <label class="form-label">Knob Name</label>
+          <select [formControlName]="i" class="form-select">
+            <option value="">-- Select Knob --</option>
+            <option *ngFor="let knob of ampKnobs" [value]="knob.name">
+              {{ knob.name }}
+            </option>
+          </select>
+
           <button type="button" class="btn btn-danger" (click)="removeKnob(i)">
             Remove
           </button>

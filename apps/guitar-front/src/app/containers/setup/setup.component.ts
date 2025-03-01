@@ -22,6 +22,7 @@ export class SetupComponent {
   amps$ = this.ampStore.amps$;
   pedals$ = this.pedalStore.pedals$;
   ampUsages$ = this.ampUsageStore.ampUsages$;
+  pedalBoards$ = this.pedalBoardStore.pedalBoards$;
 
   constructor(
     private pedalService: PedalService,
@@ -44,6 +45,7 @@ export class SetupComponent {
     this.ampService.getAmps().subscribe();
     this.pedalService.getPedals().subscribe();
     this.ampService.getAmpUsages().subscribe();
+    this.pedalBoardService.getPedalBoards().subscribe();
   }
 
   createAmp() {

@@ -3,6 +3,7 @@ import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { CreateAmpRequest } from '@guitar/interfaces';
 
 import { AmpService } from './../../services';
+import { AMP_KNOBS } from '../../helpers';
 
 @Component({
   selector: 'lib-create-amp',
@@ -16,6 +17,7 @@ export class CreateAmpComponent {
     inputs: this.fb.array([this.fb.control('Input 1', Validators.required)]),
     knobs: this.fb.array([]),
   });
+  ampKnobs = AMP_KNOBS;
 
   constructor(
     private fb: NonNullableFormBuilder,

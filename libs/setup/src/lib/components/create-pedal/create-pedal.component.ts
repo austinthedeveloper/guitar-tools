@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { CreatePedalRequest } from '@guitar/interfaces';
+import { CreatePedalRequest, PedalType } from '@guitar/interfaces';
 
 import { PedalService } from '../../services';
+import { PEDAL_KNOBS, PEDAL_TYPES } from '../../helpers';
 
 @Component({
   selector: 'lib-create-pedal',
@@ -15,6 +16,8 @@ export class CreatePedalComponent {
     type: ['', Validators.required],
     knobs: this.fb.array([]),
   });
+  typeOptions: PedalType[] = PEDAL_TYPES;
+  pedalKnobs = PEDAL_KNOBS;
 
   constructor(
     private fb: NonNullableFormBuilder,

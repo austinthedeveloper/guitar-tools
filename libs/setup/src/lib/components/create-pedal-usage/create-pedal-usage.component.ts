@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormArray,
   FormGroup,
@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Pedal } from '@guitar/interfaces';
 
-import { PedalService, PedalUsageService } from '../../services';
+import { PedalUsageService } from '../../services';
 
 @Component({
   selector: 'lib-create-pedal-usage',
@@ -20,31 +20,20 @@ export class CreatePedalUsageComponent {
     pedalId: ['', Validators.required],
     knobs: this.fb.array([]), // This will hold knob values dynamically
   });
-  pedals: Pedal[] = [];
+  @Input() pedals: Pedal[] = [];
   selectedPedalKnobs: { name: string }[] = [];
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private pedalService: PedalService,
     private pedalUsageService: PedalUsageService
   ) {}
 
-  ngOnInit() {
-    this.loadPedals();
-  }
   get knobControls() {
     return this.pedalUsageForm.get('knobs') as FormArray<FormGroup>;
   }
 
   getKnobGroup(index: number): FormGroup {
     return this.knobControls.at(index) as FormGroup;
-  }
-
-  // Fetch pedals from API
-  loadPedals() {
-    this.pedalService.getPedals().subscribe((pedals) => {
-      this.pedals = pedals;
-    });
   }
 
   // When a pedal is selected, update the knobs array
@@ -70,7 +59,6 @@ export class CreatePedalUsageComponent {
   // Submit form to API
   submitPedalUsage() {
     if (this.pedalUsageForm.valid) {
-      console.log('test form', this.pedalUsageForm.value);
       this.pedalUsageService
         .createPedalUsage(this.pedalUsageForm.value)
         .subscribe((res) => {

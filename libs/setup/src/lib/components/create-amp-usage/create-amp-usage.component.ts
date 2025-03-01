@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormArray,
   FormGroup,
@@ -20,17 +20,13 @@ export class CreateAmpUsageComponent {
     ampId: ['', Validators.required],
     knobValues: this.fb.array([]),
   });
-  amps: Amp[] = [];
+  @Input() amps: Amp[] = [];
   selectedAmpKnobs: string[] = [];
 
   constructor(
     private fb: NonNullableFormBuilder,
     private ampService: AmpService
   ) {}
-
-  ngOnInit(): void {
-    this.ampService.getAmps().subscribe((data) => (this.amps = data));
-  }
 
   get knobValues(): FormArray {
     return this.ampUsageForm.get('knobValues') as FormArray;

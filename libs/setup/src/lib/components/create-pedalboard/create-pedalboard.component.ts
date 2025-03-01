@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormArray,
   FormGroup,
@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { CreatePedalBoardRequest, Pedal } from '@guitar/interfaces';
 
-import { PedalBoardService, PedalService } from '../../services';
+import { PedalBoardService } from '../../services';
 
 @Component({
   selector: 'lib-create-pedalboard',
@@ -19,18 +19,12 @@ export class CreatePedalboardComponent {
     name: ['', Validators.required],
     pedals: this.fb.array([]),
   });
-  pedals: Pedal[] = [];
+  @Input() pedals: Pedal[] = [];
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private pedalService: PedalService,
     private pedalBoardService: PedalBoardService
   ) {}
-
-  ngOnInit(): void {
-    this.pedalService.getPedals().subscribe((data) => (this.pedals = data));
-  }
-
   get pedalControls(): FormArray {
     return this.pedalboardForm.get('pedals') as FormArray<FormGroup>;
   }
