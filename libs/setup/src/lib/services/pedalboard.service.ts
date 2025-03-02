@@ -12,7 +12,7 @@ import { PedalBoardStore } from '../+state';
   providedIn: 'root',
 })
 export class PedalBoardService {
-  private apiUrl = `${this.env.api}/pedals/pedal-board`;
+  private apiUrl = `${this.env.api}/pedal-board`;
 
   constructor(
     private http: HttpClient,

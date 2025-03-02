@@ -6,6 +6,7 @@ import { Amp, AmpUsage, PedalBoard } from '../schemas';
 import { AmpService } from './amp.service';
 import { AmpUsageService } from './amp-usage.service';
 import { PedalService } from './pedal.service';
+import { PedalboardService } from './pedalboard.service';
 
 @Injectable()
 export class PairingService {
@@ -16,7 +17,8 @@ export class PairingService {
     @InjectModel(AmpUsage.name) private ampUsageModel: Model<AmpUsage>,
     private ampService: AmpService,
     private ampUsageService: AmpUsageService,
-    private pedalservice: PedalService
+    private pedalservice: PedalService,
+    private pedalboardService: PedalboardService
   ) {}
 
   /** ✅ Create a pairing between an amp and a pedalboard */
@@ -60,7 +62,7 @@ export class PairingService {
 
   async populatedPairing(pairing: Pairing): Promise<Pairing> {
     const pedalBoard = pairing.pedalBoardId
-      ? await this.pedalservice.getPedalBoardById(pairing.pedalBoardId)
+      ? await this.pedalboardService.getPedalBoardById(pairing.pedalBoardId)
       : null;
     const ampUsage = pairing.ampUsageId
       ? await this.ampUsageService.getAmpUsageById(

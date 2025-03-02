@@ -4,16 +4,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
-import { Pedal } from '../schemas/pedal.schema';
-import { PedalBoard } from '../schemas/pedal-board.schema';
+import { Model } from 'mongoose';
+
 import { PedalUsage } from '../schemas';
+import { Pedal } from '../schemas/pedal.schema';
 
 @Injectable()
 export class PedalService {
   constructor(
     @InjectModel(Pedal.name) private pedalModel: Model<Pedal>,
-    @InjectModel(PedalBoard.name) private pedalBoardModel: Model<PedalBoard>,
     @InjectModel(PedalUsage.name) private pedalUsageModel: Model<PedalUsage>
   ) {}
 
@@ -65,81 +64,6 @@ export class PedalService {
   /** ✅ Delete a Pedal */
   async deletePedal(id: string): Promise<Pedal> {
     return this.pedalModel.findByIdAndDelete(id).exec();
-  }
-
-  /** ✅ Create a Pedal Board Setup */
-  async createPedalBoard(
-    name: string,
-    createdById: string,
-    pedals: {
-      pedalId: string;
-      order: number;
-      knobValues: Record<string, number>;
-    }[]
-  ): Promise<PedalBoard> {
-    const formattedPedals = pedals.map((pedal) => ({
-      pedalId: new Types.ObjectId(pedal.pedalId),
-      order: pedal.order,
-      knobValues: pedal.knobValues,
-    }));
-
-    const newPedalBoard = await new this.pedalBoardModel({
-      name,
-      createdById,
-      pedals: formattedPedals,
-    }).save();
-
-    return this.populatePedalboard(newPedalBoard);
-  }
-
-  /** ✅ Get all Pedal Boards (Including Order) */
-  async getPedalBoards(
-    userId: string,
-    populateUser = false
-  ): Promise<PedalBoard[]> {
-    let config = userId ? { createdById: userId } : {};
-
-    const pedalBoards = await this.pedalBoardModel.find(config).exec();
-
-    const populatedPedalBoards = await Promise.all(
-      pedalBoards.map((pedalBoard) => this.populatePedalboard(pedalBoard))
-    );
-
-    if (populateUser) {
-      return this.pedalBoardModel.populate(populatedPedalBoards, {
-        path: 'createdBy',
-        select: 'displayName email',
-      });
-    }
-
-    return populatedPedalBoards;
-  }
-  async getPedalBoardById(id: string): Promise<PedalBoard> {
-    const pedalBoard = await this.pedalBoardModel.findById(id).exec();
-    return this.populatePedalboard(pedalBoard);
-  }
-  private async populatePedalboard(
-    pedalBoard: PedalBoard
-  ): Promise<PedalBoard> {
-    const populatedPedals = await Promise.all(
-      pedalBoard.pedals.map(async (entry) => {
-        const pedal = entry.pedalId
-          ? await this.pedalModel.findById(entry.pedalId).exec()
-          : null;
-
-        return {
-          pedalId: entry.pedalId, // Keep original ID
-          order: entry.order,
-          knobValues: entry.knobValues,
-          pedal: pedal.toObject(), // ✅ Attach populated pedal data
-        };
-      })
-    );
-
-    return {
-      ...pedalBoard.toObject(),
-      pedals: populatedPedals,
-    };
   }
 
   async findAllPedalUsage(

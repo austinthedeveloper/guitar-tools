@@ -60,38 +60,6 @@ export class PedalController {
     return this.pedalService.deletePedal(id);
   }
 
-  /** ✅ Create a Pedal Board with an ordered list of pedals */
-  @Post('/pedal-board')
-  @UseGuards(JwtAuthGuard)
-  async createPedalBoard(
-    @Req() req: AuthRequest,
-    @Body()
-    body: {
-      name: string;
-      pedals: {
-        pedalId: string;
-        order: number;
-        knobValues: Record<string, number>;
-      }[];
-    }
-  ) {
-    return this.pedalService.createPedalBoard(
-      body.name,
-      req.user?._id,
-      body.pedals
-    );
-  }
-
-  /** ✅ Get all Pedal Boards */
-  @Get('/pedal-boards')
-  @UseGuards(JwtAuthGuard)
-  async getPedalBoards(
-    @Req() req: AuthRequest,
-    @Query('populateUser') populateUser: boolean
-  ) {
-    return this.pedalService.getPedalBoards(req.user?._id, populateUser);
-  }
-
   @Get('/pedal-usage')
   @UseGuards(JwtAuthGuard)
   async getPedalUsage(
