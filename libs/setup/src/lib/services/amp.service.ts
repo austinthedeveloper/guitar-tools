@@ -15,6 +15,7 @@ import { AmpStore, AmpUsageStore } from '../+state';
 })
 export class AmpService {
   private apiUrl = `${this.env.api}/amps`;
+  private apiUsageUrl = `${this.env.api}/amp-usage`;
 
   constructor(
     private http: HttpClient,
@@ -44,35 +45,5 @@ export class AmpService {
     return this.http
       .delete<void>(`${this.apiUrl}/${ampId}`)
       .pipe(tap(() => this.ampStore.deleteAmp(ampId)));
-  }
-  // Usage
-  // Get all Amp Usages and store them
-  getAmpUsages(): Observable<AmpUsage[]> {
-    return this.http.get<AmpUsage[]>(`${this.apiUrl}/use`).pipe(
-      tap((ampUsages) => this.ampUsageStore.setAmpUsages(ampUsages)) // Store in Elf
-    );
-  }
-
-  // Create a new Amp Usage and add it to the store
-  saveAmpUsage(ampUsageData: SaveAmpUsageRequest): Observable<AmpUsage> {
-    return this.http.post<AmpUsage>(`${this.apiUrl}/use`, ampUsageData).pipe(
-      tap((ampUsage) => this.ampUsageStore.addAmpUsage(ampUsage)) // Add to store
-    );
-  }
-
-  // Update an existing Amp Usage in the API and store
-  updateAmpUsage(ampUsage: AmpUsage): Observable<AmpUsage> {
-    return this.http
-      .put<AmpUsage>(`${this.apiUrl}/use/${ampUsage._id}`, ampUsage)
-      .pipe(
-        tap((updated) => this.ampUsageStore.updateAmpUsage(updated)) // Update in store
-      );
-  }
-
-  // Delete an Amp Usage from the API and store
-  deleteAmpUsage(ampUsageId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/use/${ampUsageId}`).pipe(
-      tap(() => this.ampUsageStore.deleteAmpUsage(ampUsageId)) // Remove from store
-    );
   }
 }

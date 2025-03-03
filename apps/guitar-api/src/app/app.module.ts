@@ -10,12 +10,16 @@ import {
   AmpController,
   PedalController,
   PairingController,
+  AmpUsageController,
+  PedalboardController,
 } from './controllers';
 import {
   AmpService,
+  AmpUsageService,
   GoogleStrategy,
   JwtStrategy,
   PairingService,
+  PedalboardService,
   PedalService,
 } from './services';
 import {
@@ -61,7 +65,7 @@ import { JwtModule } from '@nestjs/jwt';
     MongooseModule.forFeature([{ name: Pairing.name, schema: PairingSchema }]),
     JwtModule.register({
       secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
+      signOptions: { expiresIn: '10h' },
     }),
   ],
   controllers: [
@@ -69,14 +73,18 @@ import { JwtModule } from '@nestjs/jwt';
     AuthController,
     AmpController,
     PedalController,
+    PedalboardController,
     PairingController,
+    AmpUsageController,
   ],
   providers: [
     AppService,
     UsersService,
     AmpService,
     PedalService,
+    PedalboardService,
     PairingService,
+    AmpUsageService,
     GoogleStrategy,
     JwtStrategy,
   ],

@@ -22,52 +22,40 @@
         />
       </div>
 
-      <h3>Inputs</h3>
-      <div formArrayName="inputs">
+      <h3>Controls</h3>
+      <div formArrayName="controls">
         <div
-          class="mb-2 d-flex"
-          *ngFor="let input of inputs.controls; let i = index"
-        >
-          <input
-            [formControlName]="i"
-            type="text"
-            class="form-control me-2"
-            placeholder="Input Name"
-            required
-          />
-          <button type="button" class="btn btn-danger" (click)="removeInput(i)">
-            Remove
-          </button>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary mb-3" (click)="addInput()">
-        Add Input
-      </button>
-
-      <h3>Knobs</h3>
-      <div formArrayName="knobs">
-        <div
-          *ngFor="let knobControl of knobs.controls; let i = index"
+          *ngFor="let control of controls.controls; let i = index"
           class="mb-2"
-          [formGroup]="getKnob(i)"
+          [formGroup]="getControl(i)"
         >
-          <label class="form-label">Knob Name</label>
-          <select formControlName="name" class="form-select">
-            <option value="">-- Select Knob --</option>
-            <option *ngFor="let knob of ampKnobs" [value]="knob.name">
-              {{ knob.name }}
+          <label class="form-label">Control Name</label>
+          <select
+            formControlName="name"
+            class="form-select"
+            (change)="onControlChange(getControl(i))"
+          >
+            <option value="">-- Select Control --</option>
+            <option
+              *ngFor="let controlOption of controlOptions"
+              [value]="controlOption.name"
+            >
+              {{ controlOption.name }}
             </option>
           </select>
 
-          <button type="button" class="btn btn-danger" (click)="removeKnob(i)">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="removeControl(i)"
+          >
             Remove
           </button>
         </div>
       </div>
-      <button type="button" class="btn btn-primary mb-3" (click)="addKnob()">
-        Add Knob
+      <button type="button" class="btn btn-primary mb-3" (click)="addControl()">
+        Add Control
       </button>
-
       <button
         type="submit"
         class="btn btn-success w-100"

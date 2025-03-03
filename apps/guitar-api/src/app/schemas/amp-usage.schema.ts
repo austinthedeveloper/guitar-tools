@@ -13,8 +13,8 @@ export class AmpUsage extends Document {
 
   amp?: Amp;
 
-  @Prop({ type: Map, of: Number, default: {} })
-  knobValues: Map<string, number>;
+  @Prop({ type: Map, of: String, default: {} })
+  controlValues: Map<string, string>;
 
   @Prop({ required: true })
   createdById: string;

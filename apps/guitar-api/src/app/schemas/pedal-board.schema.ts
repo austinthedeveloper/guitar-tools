@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { User } from './user.schema';
+import { Pedal } from './pedal.schema';
 
 @Schema({ timestamps: true })
 export class PedalBoard extends Document {
@@ -20,6 +21,7 @@ export class PedalBoard extends Document {
     pedalId: Types.ObjectId;
     order: number;
     knobValues: Map<string, number>;
+    pedal?: Pedal;
   }[];
 
   @Prop({ required: true })

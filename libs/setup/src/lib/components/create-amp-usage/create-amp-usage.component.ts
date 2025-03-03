@@ -5,9 +5,9 @@ import {
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { Amp, SaveAmpUsageRequest } from '@guitar/interfaces';
+import { Amp, AmpControl, SaveAmpUsageRequest } from '@guitar/interfaces';
 
-import { AmpService } from '../../services';
+import { AmpUsageService } from '../../services';
 
 @Component({
   selector: 'lib-create-amp-usage',
@@ -19,13 +19,14 @@ export class CreateAmpUsageComponent {
     name: ['', Validators.required],
     ampId: ['', Validators.required],
     knobValues: this.fb.array([]),
+    controlValues: this.fb.array([]),
   });
   @Input() amps: Amp[] = [];
-  selectedAmpKnobs: string[] = [];
+  ampControls: AmpControl[] = [];
 
   constructor(
     private fb: NonNullableFormBuilder,
-    private ampService: AmpService
+    private ampUsageService: AmpUsageService
   ) {}
 
   get knobValues(): FormArray {
@@ -34,17 +35,27 @@ export class CreateAmpUsageComponent {
   getKnobGroup(index: number): FormGroup {
     return this.knobValues.at(index) as FormGroup;
   }
+  get controlValues(): FormArray {
+    return this.ampUsageForm.controls.controlValues;
+  }
+  getControlGroup(index: number): FormGroup {
+    return this.controlValues.at(index) as FormGroup;
+  }
 
   onAmpChange() {
     const selectedAmpId = this.ampUsageForm.get('ampId')?.value;
     const selectedAmp = this.amps.find((amp) => amp._id === selectedAmpId);
 
     if (selectedAmp) {
-      this.selectedAmpKnobs = selectedAmp.knobs;
-      this.knobValues.clear();
-      this.selectedAmpKnobs.forEach((knob: any) => {
-        this.knobValues.push(
-          this.fb.group({ name: knob.name, value: [0, Validators.required] })
+      this.ampControls = selectedAmp.controls;
+      this.controlValues.clear();
+      this.ampControls.forEach((control: any) => {
+        this.controlValues.push(
+          this.fb.group({
+            name: control.name,
+            type: control.type,
+            value: [null],
+          })
         );
       });
     }
@@ -52,9 +63,9 @@ export class CreateAmpUsageComponent {
 
   submit() {
     if (this.ampUsageForm.valid) {
-      const knobValuesObject = this.knobValues.value.reduce(
-        (acc: any, knob: any) => {
-          acc[knob.name] = knob.value;
+      const controlValuesObject = this.controlValues.value.reduce(
+        (acc: any, control: any) => {
+          acc[control.name] = control.value;
           return acc;
         },
         {}
@@ -63,13 +74,13 @@ export class CreateAmpUsageComponent {
       const ampUsageData: SaveAmpUsageRequest = {
         name: this.ampUsageForm.get('name')?.value,
         ampId: this.ampUsageForm.get('ampId')?.value,
-        knobValues: knobValuesObject,
+        controlValues: controlValuesObject,
       };
 
-      this.ampService.saveAmpUsage(ampUsageData).subscribe((res) => {
+      this.ampUsageService.saveAmpUsage(ampUsageData).subscribe((res) => {
         console.log('Amp Usage Created:', res);
         this.ampUsageForm.reset();
-        this.knobValues.clear();
+        this.controlValues.clear();
       });
     }
   }

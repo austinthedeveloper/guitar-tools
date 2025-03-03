@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
-import { Pairing, Amp, Pedal, AmpUsage } from '@guitar/interfaces';
 import {
   AmpService,
+  AmpStore,
+  AmpUsageService,
+  AmpUsageStore,
   PairingService,
+  PairingStore,
   PedalBoardService,
+  PedalBoardStore,
   PedalService,
   PedalStore,
-  AmpStore,
-  PedalBoardStore,
-  PairingStore,
-  AmpUsageStore,
 } from '@guitar/setup';
 
 @Component({
@@ -18,6 +18,8 @@ import {
   styleUrl: './setup.component.scss',
 })
 export class SetupComponent {
+  disabled!: boolean;
+
   pairings$ = this.pairingStore.pairings$;
   amps$ = this.ampStore.amps$;
   pedals$ = this.pedalStore.pedals$;
@@ -27,6 +29,7 @@ export class SetupComponent {
   constructor(
     private pedalService: PedalService,
     private ampService: AmpService,
+    private ampUsageService: AmpUsageService,
     private pairingService: PairingService,
     private pedalBoardService: PedalBoardService,
     private ampStore: AmpStore,
@@ -44,19 +47,7 @@ export class SetupComponent {
     this.pairingService.getPairings().subscribe();
     this.ampService.getAmps().subscribe();
     this.pedalService.getPedals().subscribe();
-    this.ampService.getAmpUsages().subscribe();
+    this.ampUsageService.getAmpUsages().subscribe();
     this.pedalBoardService.getPedalBoards().subscribe();
-  }
-
-  createAmp() {
-    // Navigate to Create Amp Page (Router Logic Placeholder)
-  }
-
-  createPedal() {
-    // Navigate to Create Pedal Page (Router Logic Placeholder)
-  }
-
-  createPedalBoard() {
-    // Navigate to Create Pedal Board Page (Router Logic Placeholder)
   }
 }

@@ -11,7 +11,7 @@
           required
         >
           <option *ngFor="let amp of ampUsages" [value]="amp._id">
-            {{ amp.name }} - {{ amp.amp.name }} - {{ amp.knobValues | json }}
+            {{ amp.name }} - {{ amp.amp.name }}
           </option>
         </select>
       </div>

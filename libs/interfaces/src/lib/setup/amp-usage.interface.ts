@@ -5,7 +5,7 @@ import { Amp } from './amp.interface';
 export interface SaveAmpUsageRequest {
   name: string;
   ampId: string;
-  knobValues: Record<string, number>;
+  controlValues: Record<string, any>;
 }
 
 /** ✅ Amp Usage Document from Mongo */
@@ -13,6 +13,6 @@ export interface AmpUsage extends BaseDocument {
   name: string;
   ampId: string;
   amp: Amp;
-  knobValues: Record<string, number>;
+  controlValues: Record<string, any>;
   createdById: string;
 }

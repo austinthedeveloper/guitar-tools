@@ -67,7 +67,6 @@ export class AmpService {
       ...ampUsage.toObject(),
       ampId: ampUsage.ampId, // Ensure ampId stays as a string
       amp, // Attach populated amp
-      knobValues: Object.fromEntries(ampUsage.knobValues || new Map()), // Ensure knobValues is a plain object
     };
   }
 

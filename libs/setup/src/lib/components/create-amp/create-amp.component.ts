@@ -1,14 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormArray,
   FormGroup,
   NonNullableFormBuilder,
   Validators,
 } from '@angular/forms';
-import { AmpKnob, CreateAmpRequest } from '@guitar/interfaces';
+import {
+  AmpControl,
+  AmpInputControls,
+  CreateAmpRequest,
+} from '@guitar/interfaces';
 
+import { AMP_INPUTS, AMP_KNOBS } from '../../helpers';
 import { AmpService } from './../../services';
-import { AMP_KNOBS } from '../../helpers';
 
 @Component({
   selector: 'lib-create-amp',
@@ -16,61 +20,60 @@ import { AMP_KNOBS } from '../../helpers';
   styleUrl: './create-amp.component.scss',
 })
 export class CreateAmpComponent {
+  @Input() disabled!: boolean;
+  @Output() save = new EventEmitter();
+
   ampForm = this.fb.group({
     name: ['', Validators.required],
     brand: [''],
-    inputs: this.fb.array([this.fb.control('Input 1', Validators.required)]),
-    knobs: this.fb.array([]),
+    controls: this.fb.array([]),
   });
-  ampKnobs = AMP_KNOBS;
-
-  @Output() save = new EventEmitter();
+  controlOptions = [...AMP_INPUTS, ...AMP_KNOBS];
+  controlTypes = AmpInputControls;
 
   constructor(
     private fb: NonNullableFormBuilder,
     private ampService: AmpService
-  ) {}
-
-  get knobs(): FormArray {
-    return this.ampForm.get('knobs') as FormArray;
+  ) {
+    this.addControl('Input 1', 'input');
   }
 
-  getKnob(i: number) {
-    return this.knobs.controls[i] as FormGroup;
+  get controls(): FormArray {
+    return this.ampForm.controls.controls;
   }
 
-  get inputs(): FormArray {
-    return this.ampForm.get('inputs') as FormArray;
+  getControl(i: number) {
+    return this.controls.controls[i] as FormGroup;
   }
 
-  addKnob(knobName = '') {
-    const index = this.knobs.length;
-    this.knobs.push(
+  addControl(name = '', type = 'input') {
+    const index = this.controls.length;
+    this.controls.push(
       this.fb.group({
-        name: [knobName, Validators.required],
+        name: [name, Validators.required],
         value: [0],
-        order: [index], // 👈 Set initial order based on FormArray index
+        type: [type, Validators.required],
+        order: [index],
+        values: this.fb.array([]),
       })
     );
   }
 
-  removeKnob(index: number) {
-    this.knobs.removeAt(index);
+  removeControl(index: number) {
+    this.controls.removeAt(index);
   }
 
-  addInput() {
-    this.inputs.push(this.fb.control('', Validators.required));
-  }
-
-  removeInput(index: number) {
-    this.inputs.removeAt(index);
+  onControlChange(formGroup: FormGroup) {
+    const name = formGroup.controls['name'].value;
+    const type = this.controlOptions.find((option) => option.name === name);
+    formGroup.controls['type'].patchValue(type.type);
   }
 
   submit() {
     if (this.ampForm.valid) {
       const ampData = this.ampForm.value as CreateAmpRequest;
-      const knobs = this.mapKnobs(ampData.knobs);
-      const mappedData = { ...ampData, knobs };
+      const controls = this.mapControls(ampData.controls);
+      const mappedData: CreateAmpRequest = { ...ampData, controls };
       this.save.emit(mappedData);
 
       this.ampService.createAmp(mappedData).subscribe((res) => {
@@ -82,12 +85,14 @@ export class CreateAmpComponent {
 
   private clearForm() {
     this.ampForm.reset();
-    this.knobs.clear();
-    this.inputs.clear();
-    this.inputs.push(this.fb.control('Input 1', Validators.required));
+    this.controls.clear();
+    this.addControl('Input 1', 'input');
   }
 
-  private mapKnobs(knobs: AmpKnob[]) {
-    return knobs.map((knob, i) => ({ ...knob, order: i }));
+  private mapControls(controls: AmpControl[]) {
+    return controls.map((control, i) => ({
+      ...control,
+      order: i,
+    }));
   }
 }
