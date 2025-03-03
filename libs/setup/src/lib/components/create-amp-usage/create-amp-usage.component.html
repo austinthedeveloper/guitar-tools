@@ -35,17 +35,14 @@
           [formGroup]="getControlGroup(i)"
         >
           <label class="form-label me-2"
-            >{{ control.get('name')?.value }} -
-            {{ control.get('type')?.value | titlecase }}</label
+            >{{ control.get('name')?.value }}
+            <p class="mb-0 small">
+              {{ control.get('type')?.value | titlecase }}
+            </p></label
           >
-          <input
-            formControlName="value"
-            type="text"
-            class="form-control me-2"
-          />
+          <guitar-slider [formCtrl]="control.controls.value"></guitar-slider>
         </div>
       </div>
-
       <button
         type="submit"
         class="btn btn-success w-100 mt-3"

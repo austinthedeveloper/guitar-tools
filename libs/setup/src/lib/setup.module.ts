@@ -14,6 +14,7 @@ import { PairingDisplayComponent } from './components/display/pairing-display/pa
 import { KnobRotateDirective } from './directives/knob-rotate/knob-rotate.directive';
 import { PedalColorPipe } from './pipes/pedal-color/pedal-color.pipe';
 import { KnobDisplayComponent } from './components/display/knob-display/knob-display.component';
+import { GuitarFormsModule } from '@guitar/forms';
 
 const components = [
   CreateAmpComponent,
@@ -32,7 +33,7 @@ const components = [
 const directives = [KnobRotateDirective];
 const pipes = [PedalColorPipe];
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, GuitarFormsModule],
   declarations: [...components, ...directives, ...pipes],
   exports: [...components, ...directives, ...pipes],
 })
