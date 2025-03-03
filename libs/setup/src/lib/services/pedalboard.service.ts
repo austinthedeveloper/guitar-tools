@@ -12,7 +12,7 @@ import { PedalBoardStore } from '../+state';
   providedIn: 'root',
 })
 export class PedalBoardService {
-  private apiUrl = `${this.env.api}/pedal-board`;
+  private apiUrl = `${this.env.api}/pedal-boards`;
 
   constructor(
     private http: HttpClient,
@@ -22,7 +22,7 @@ export class PedalBoardService {
 
   // Get all pedalboards and store them
   getPedalBoards(): Observable<PedalBoard[]> {
-    return this.http.get<PedalBoard[]>(`${this.apiUrl}s`).pipe(
+    return this.http.get<PedalBoard[]>(`${this.apiUrl}`).pipe(
       tap((pedalBoards) => this.pedalBoardStore.setPedalBoards(pedalBoards)) // Store the pedalboards
     );
   }

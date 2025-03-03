@@ -1,20 +1,9 @@
 import { Component, Input } from '@angular/core';
-import {
-  FormArray,
-  FormControl,
-  FormGroup,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Amp, AmpControl, SaveAmpUsageRequest } from '@guitar/interfaces';
 
+import { ControlGroup } from '../../interfaces';
 import { AmpUsageService } from '../../services';
-
-interface ControlGroup {
-  name: FormControl<string>;
-  type: FormControl<string>;
-  value: FormControl<number>;
-}
 
 @Component({
   selector: 'lib-create-amp-usage',
