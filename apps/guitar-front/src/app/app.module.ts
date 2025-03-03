@@ -13,30 +13,24 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MetronomeComponent } from '@guitar/metronome';
 import { environment } from '../environments/environment';
 import { EnvInterface } from '@guitar/interfaces';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor, AuthModule } from '@guitar/auth';
 import { SetupModule } from '@guitar/setup';
 
-@NgModule({
-  declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
-  imports: [
-    BrowserModule,
-    GuitarToolsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    MatSelectModule,
-    NgbModule,
-    MetronomeComponent,
-    HttpClientModule,
-    AuthModule,
-    SetupModule,
-  ],
-  providers: [
-    { provide: 'environment', useValue: environment },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent, ...APP_COMPONENTS, ...APP_CONTAINERS],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        GuitarToolsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        MatSelectModule,
+        NgbModule,
+        MetronomeComponent,
+        AuthModule,
+        SetupModule], providers: [
+        { provide: 'environment', useValue: environment },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}
