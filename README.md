@@ -5,6 +5,7 @@ This project was generated using [Nx](https://nx.dev).
 ## Note
 
 - Use `yarn` for package management
+- There are package conflicts. Upgrading fully to NX works but breaks the API
 
 ## Demo Site
 
