@@ -1,24 +1,26 @@
-<div class="landing-container">
+<div class="container landing-container">
   <h1>Your Gear Setup</h1>
 
   <section>
     <h2>Pairings</h2>
-    <lib-pairing-display
-      *ngFor="let pairing of pairings$ | async"
-      [pairing]="pairing"
-    ></lib-pairing-display>
-    <ul>
-      <li *ngFor="let pairing of pairings$ | async">
-        {{ pairing.ampUsageId }} paired with {{ pairing.pedalBoardId }}
-      </li>
-    </ul>
+
+    <div class="row">
+      <lib-pairing-display
+        class="align-items-center col-12 col-md-6 mb-3"
+        *ngFor="let pairing of pairings$ | async"
+        [pairing]="pairing"
+      ></lib-pairing-display>
+    </div>
   </section>
   <section>
     <h2>Your Amps</h2>
-    <lib-amp-display
-      *ngFor="let amp of amps$ | async"
-      [amp]="amp"
-    ></lib-amp-display>
+    <div class="row">
+      <lib-amp-display
+        class="align-items-center col-12 col-md-4 mb-3"
+        *ngFor="let amp of amps$ | async"
+        [amp]="amp"
+      ></lib-amp-display>
+    </div>
   </section>
   <section>
     <h2>Your Amp Usages</h2>
@@ -31,10 +33,13 @@
 
   <section>
     <h2>Your Pedals</h2>
-    <lib-pedal-display
-      *ngFor="let pedal of pedals$ | async"
-      [pedal]="pedal"
-    ></lib-pedal-display>
+    <div class="row">
+      <lib-pedal-display
+        class="align-items-center col-12 col-md-4 mb-3"
+        *ngFor="let pedal of pedals$ | async"
+        [pedal]="pedal"
+      ></lib-pedal-display>
+    </div>
   </section>
 </div>
 <lib-create-amp></lib-create-amp>
