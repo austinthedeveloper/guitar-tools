@@ -1,3 +1,10 @@
-<mat-slider min="0" max="100" showTickMarks discrete>
+<mat-slider
+  class="slider-component"
+  [min]="min"
+  [max]="max"
+  [step]="step"
+  showTickMarks
+  discrete
+>
   <input matSliderThumb [formControl]="formCtrl" />
 </mat-slider>

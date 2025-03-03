@@ -31,16 +31,19 @@
       <div formArrayName="controlValues">
         <div
           class="mb-2 d-flex"
-          *ngFor="let control of controlValues.controls; let i = index"
-          [formGroup]="getControlGroup(i)"
+          *ngFor="let group of controlValues.controls; let i = index"
+          [formGroup]="group"
         >
-          <label class="form-label me-2"
-            >{{ control.get('name')?.value }}
+          <label class="form-label me-4"
+            >{{ group.get('name')?.value }}
             <p class="mb-0 small">
-              {{ control.get('type')?.value | titlecase }}
+              {{ group.get('type')?.value | titlecase }}
             </p></label
           >
-          <guitar-slider [formCtrl]="control.controls.value"></guitar-slider>
+          <guitar-slider
+            class="d-flex flex-grow-1"
+            [formCtrl]="group.controls.value"
+          ></guitar-slider>
         </div>
       </div>
       <button

@@ -8,4 +8,7 @@ import { FormControl } from '@angular/forms';
 })
 export class SliderComponent {
   @Input() formCtrl = new FormControl(0);
+  @Input() min = 0;
+  @Input() max = 100;
+  @Input() step = 1;
 }

@@ -25,7 +25,6 @@ export class CreateAmpUsageComponent {
   ampUsageForm = this.fb.group({
     name: ['', Validators.required],
     ampId: ['', Validators.required],
-    knobValues: this.fb.array([]),
     controlValues: this.fb.array<FormGroup<ControlGroup>>([]),
   });
   @Input() amps: Amp[] = [];
@@ -36,17 +35,8 @@ export class CreateAmpUsageComponent {
     private ampUsageService: AmpUsageService
   ) {}
 
-  get knobValues(): FormArray {
-    return this.ampUsageForm.get('knobValues') as FormArray;
-  }
-  getKnobGroup(index: number): FormGroup {
-    return this.knobValues.at(index) as FormGroup;
-  }
   get controlValues() {
     return this.ampUsageForm.controls.controlValues;
-  }
-  getControlGroup(index: number): FormGroup {
-    return this.controlValues.at(index) as FormGroup;
   }
 
   onAmpChange() {
