@@ -5,7 +5,7 @@ export class BaseController<T> {
   constructor(private readonly service: BaseService<T>) {}
 
   @Post()
-  create(@Body() data: any): Promise<T> {
+  create(@Body() data: Omit<T, '_id'>): Promise<T> {
     return this.service.create(data);
   }
 
@@ -20,7 +20,7 @@ export class BaseController<T> {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() data: any): Promise<T | null> {
+  update(@Param('id') id: string, @Body() data: Partial<T>): Promise<T | null> {
     return this.service.update(id, data);
   }
 
