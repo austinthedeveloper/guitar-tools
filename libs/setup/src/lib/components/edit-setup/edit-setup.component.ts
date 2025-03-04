@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { Amp, AmpControl, Pedal } from '@guitar/interfaces';
+import { Amp, AmpControl, Pedal, PedalBoard } from '@guitar/interfaces';
 import { ControlGroup } from '../../interfaces';
 
 @Component({
@@ -11,14 +11,17 @@ import { ControlGroup } from '../../interfaces';
 export class EditSetupComponent {
   @Input() amps: Amp[] = [];
   @Input() pedals: Pedal[] = [];
+  @Input() pedalboards: PedalBoard[] = [];
   private fb = inject(NonNullableFormBuilder);
   form = this.fb.group({
     name: ['', Validators.required],
     ampId: '',
+    pedalboardId: '',
     pedals: this.fb.array([]),
     controlValues: this.fb.array<FormGroup<ControlGroup>>([]),
   });
   ampControls: AmpControl[] = [];
+  pedalboard!: PedalBoard;
 
   get controlValues() {
     return this.form.controls.controlValues;
@@ -41,6 +44,14 @@ export class EditSetupComponent {
         );
       });
     }
+  }
+
+  onPedalboardChange() {
+    const pedalboardId = this.form.controls.pedalboardId.value;
+    this.pedalboard = this.pedalboards.find(
+      (board) => board._id === pedalboardId
+    );
+    console.log('pedalboard change', this.pedalboard);
   }
   submit() {}
 }

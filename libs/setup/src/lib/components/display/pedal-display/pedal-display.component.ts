@@ -9,4 +9,5 @@ import { Pedal } from '@guitar/interfaces';
 export class PedalDisplayComponent {
   @Input() pedal!: Pedal;
   @Input() values: Record<string, number> = {};
+  @Input() toggle = false;
 }

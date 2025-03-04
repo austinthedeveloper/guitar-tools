@@ -19,7 +19,6 @@
           formControlName="ampId"
           class="form-select"
           (change)="onAmpChange()"
-          required
         >
           <option *ngFor="let amp of amps" [value]="amp._id">
             {{ amp.name }}
@@ -59,6 +58,40 @@
           </div>
         </div>
       </ng-container>
+      <!-- Pedalboard -->
+      <div class="mb-3">
+        <label for="pedalBoardId" class="form-label">Select Pedalboard</label>
+        <select
+          id="pedalBoardId"
+          formControlName="pedalboardId"
+          class="form-select"
+          (change)="onPedalboardChange()"
+        >
+          <option *ngFor="let board of pedalboards" [value]="board._id">
+            {{ board.name }}
+          </option>
+        </select>
+      </div>
+      <!-- Pedalboard display -->
+      <div class="mt-3" *ngIf="pedalboard">
+        <h6 class="text-success">Pedalboard: {{ pedalboard.name }}</h6>
+        <div class="row">
+          <lib-pedal-display
+            class="align-items-center col-12 col-md-4 mb-3"
+            *ngFor="let pedal of pedalboard.pedals"
+            [pedal]="pedal.pedal"
+            [values]="pedal.knobValues"
+            [toggle]="true"
+          ></lib-pedal-display>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="form.invalid"
+      >
+        Save
+      </button>
     </form>
   </div>
 </div>

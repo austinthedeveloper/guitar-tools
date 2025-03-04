@@ -69,8 +69,10 @@ export class CreatePedalboardComponent {
         pedal.knobs.forEach((knob) => {
           pedal.knobValues[knob.name] = knob.value;
         });
+        // TODO: This is bad
         delete pedal.knobs; // Remove knobs array before sending to API
       });
+
       this.pedalBoardService
         .createPedalBoard(pedalboardData)
         .subscribe((res) => {

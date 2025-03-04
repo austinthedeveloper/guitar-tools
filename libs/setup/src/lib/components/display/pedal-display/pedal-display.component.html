@@ -5,8 +5,8 @@
       Pedal Type: {{ pedal.type | titlecase }}
     </h6>
 
-    <div *ngIf="pedal.knobs.length">
-      <div class="row">
+    <div>
+      <div class="row" *ngIf="pedal.knobs.length">
         <div
           *ngFor="let knob of pedal.knobs"
           class="d-flex flex-column align-items-center col-12 col-md-4 mb-3"
@@ -16,6 +16,9 @@
             [value]="values[knob] || 0"
           ></lib-knob-display>
         </div>
+      </div>
+      <div class="row" *ngIf="toggle">
+        <lib-pedal-toggle></lib-pedal-toggle>
       </div>
     </div>
   </div>

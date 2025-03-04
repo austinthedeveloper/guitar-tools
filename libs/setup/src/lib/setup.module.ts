@@ -16,6 +16,7 @@ import { PedalColorPipe } from './pipes/pedal-color/pedal-color.pipe';
 import { KnobDisplayComponent } from './components/display/knob-display/knob-display.component';
 import { GuitarFormsModule } from '@guitar/forms';
 import { EditSetupComponent } from './components/edit-setup/edit-setup.component';
+import { PedalToggleComponent } from './components/display/pedal-toggle/pedal-toggle.component';
 
 const components = [
   CreateAmpComponent,
@@ -31,6 +32,7 @@ const components = [
   PedalboardDisplayComponent,
   PairingDisplayComponent,
   KnobDisplayComponent,
+  PedalToggleComponent,
 ];
 const directives = [KnobRotateDirective];
 const pipes = [PedalColorPipe];
