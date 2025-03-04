@@ -1,12 +1,8 @@
 import { Component, Input } from '@angular/core';
-import {
-  FormArray,
-  FormGroup,
-  NonNullableFormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { Amp, AmpControl, SaveAmpUsageRequest } from '@guitar/interfaces';
 
+import { ControlGroup } from '../../interfaces';
 import { AmpUsageService } from '../../services';
 
 @Component({
@@ -18,8 +14,7 @@ export class CreateAmpUsageComponent {
   ampUsageForm = this.fb.group({
     name: ['', Validators.required],
     ampId: ['', Validators.required],
-    knobValues: this.fb.array([]),
-    controlValues: this.fb.array([]),
+    controlValues: this.fb.array<FormGroup<ControlGroup>>([]),
   });
   @Input() amps: Amp[] = [];
   ampControls: AmpControl[] = [];
@@ -29,17 +24,8 @@ export class CreateAmpUsageComponent {
     private ampUsageService: AmpUsageService
   ) {}
 
-  get knobValues(): FormArray {
-    return this.ampUsageForm.get('knobValues') as FormArray;
-  }
-  getKnobGroup(index: number): FormGroup {
-    return this.knobValues.at(index) as FormGroup;
-  }
-  get controlValues(): FormArray {
+  get controlValues() {
     return this.ampUsageForm.controls.controlValues;
-  }
-  getControlGroup(index: number): FormGroup {
-    return this.controlValues.at(index) as FormGroup;
   }
 
   onAmpChange() {
@@ -49,12 +35,12 @@ export class CreateAmpUsageComponent {
     if (selectedAmp) {
       this.ampControls = selectedAmp.controls;
       this.controlValues.clear();
-      this.ampControls.forEach((control: any) => {
+      this.ampControls.forEach((control) => {
         this.controlValues.push(
           this.fb.group({
             name: control.name,
             type: control.type,
-            value: [null],
+            value: [0],
           })
         );
       });

@@ -31,21 +31,21 @@
       <div formArrayName="controlValues">
         <div
           class="mb-2 d-flex"
-          *ngFor="let control of controlValues.controls; let i = index"
-          [formGroup]="getControlGroup(i)"
+          *ngFor="let group of controlValues.controls; let i = index"
+          [formGroup]="group"
         >
-          <label class="form-label me-2"
-            >{{ control.get('name')?.value }} -
-            {{ control.get('type')?.value | titlecase }}</label
+          <label class="form-label me-4"
+            >{{ group.get('name')?.value }}
+            <p class="mb-0 small">
+              {{ group.get('type')?.value | titlecase }}
+            </p></label
           >
-          <input
-            formControlName="value"
-            type="text"
-            class="form-control me-2"
-          />
+          <guitar-slider
+            class="d-flex flex-grow-1"
+            [formCtrl]="group.controls.value"
+          ></guitar-slider>
         </div>
       </div>
-
       <button
         type="submit"
         class="btn btn-success w-100 mt-3"

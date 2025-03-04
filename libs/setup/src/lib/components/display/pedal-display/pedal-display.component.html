@@ -1,16 +1,22 @@
-<div class="card mb-3">
+<div class="card mb-3" [style.background-color]="pedal.type | pedalColor">
   <div class="card-body">
-    <h5 class="card-title">{{ pedal.name }}</h5>
-    <h6 class="card-subtitle text-muted">Pedal Type: {{ pedal.type }}</h6>
+    <h5 class="card-title">{{ pedal.name | titlecase }}</h5>
+    <h6 class="card-subtitle text-muted">
+      Pedal Type: {{ pedal.type | titlecase }}
+    </h6>
 
     <div *ngIf="pedal.knobs.length">
-      <h6 class="mt-3">Knobs</h6>
-      <ul class="list-group">
-        <li *ngFor="let knob of pedal.knobs" class="list-group-item">
-          {{ knob }}
-          <!-- {{ knob.name }}: {{ knob.value }} -->
-        </li>
-      </ul>
+      <div class="row">
+        <div
+          *ngFor="let knob of pedal.knobs"
+          class="d-flex flex-column align-items-center col-12 col-md-4 mb-3"
+        >
+          <lib-knob-display
+            [name]="knob"
+            [value]="values[knob] || 0"
+          ></lib-knob-display>
+        </div>
+      </div>
     </div>
   </div>
 </div>

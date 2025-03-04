@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Query,
   Req,
@@ -11,14 +13,18 @@ import {
 import { JwtAuthGuard } from '../guards';
 import { AuthRequest } from '../models';
 import { PedalboardService } from '../services';
+import { PedalBoard } from '../schemas';
+import { BaseController } from './base.controller';
 
 @Controller('pedal-boards')
-export class PedalboardController {
-  constructor(private readonly pedalboardService: PedalboardService) {}
+@UseGuards(JwtAuthGuard)
+export class PedalboardController extends BaseController<PedalBoard> {
+  constructor(private readonly pedalboardService: PedalboardService) {
+    super(pedalboardService);
+  }
 
   /** ✅ Create a Pedal Board with an ordered list of pedals */
   @Post()
-  @UseGuards(JwtAuthGuard)
   async createPedalBoard(
     @Req() req: AuthRequest,
     @Body()
@@ -40,7 +46,6 @@ export class PedalboardController {
 
   /** ✅ Get all Pedal Boards */
   @Get()
-  @UseGuards(JwtAuthGuard)
   async getPedalBoards(
     @Req() req: AuthRequest,
     @Query('populateUser') populateUser: boolean

@@ -11,6 +11,10 @@ import { PedalDisplayComponent } from './components/display/pedal-display/pedal-
 import { AmpDisplayComponent } from './components/display/amp-display/amp-display.component';
 import { PedalboardDisplayComponent } from './components/display/pedalboard-display/pedalboard-display.component';
 import { PairingDisplayComponent } from './components/display/pairing-display/pairing-display.component';
+import { KnobRotateDirective } from './directives/knob-rotate/knob-rotate.directive';
+import { PedalColorPipe } from './pipes/pedal-color/pedal-color.pipe';
+import { KnobDisplayComponent } from './components/display/knob-display/knob-display.component';
+import { GuitarFormsModule } from '@guitar/forms';
 
 const components = [
   CreateAmpComponent,
@@ -24,10 +28,13 @@ const components = [
   AmpDisplayComponent,
   PedalboardDisplayComponent,
   PairingDisplayComponent,
+  KnobDisplayComponent,
 ];
+const directives = [KnobRotateDirective];
+const pipes = [PedalColorPipe];
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  declarations: [...components],
-  exports: [...components],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, GuitarFormsModule],
+  declarations: [...components, ...directives, ...pipes],
+  exports: [...components, ...directives, ...pipes],
 })
 export class SetupModule {}
