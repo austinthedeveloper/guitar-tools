@@ -15,6 +15,7 @@ import { KnobRotateDirective } from './directives/knob-rotate/knob-rotate.direct
 import { PedalColorPipe } from './pipes/pedal-color/pedal-color.pipe';
 import { KnobDisplayComponent } from './components/display/knob-display/knob-display.component';
 import { GuitarFormsModule } from '@guitar/forms';
+import { EditSetupComponent } from './components/edit-setup/edit-setup.component';
 
 const components = [
   CreateAmpComponent,
@@ -23,6 +24,7 @@ const components = [
   CreatePairingComponent,
   CreateAmpUsageComponent,
   CreatePedalUsageComponent,
+  EditSetupComponent,
   // display
   PedalDisplayComponent,
   AmpDisplayComponent,

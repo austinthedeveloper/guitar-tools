@@ -1,6 +1,9 @@
 <div class="container landing-container">
   <h1>Your Gear Setup</h1>
-
+  <lib-edit-setup
+    [amps]="amps$ | async"
+    [pedals]="pedals$ | async"
+  ></lib-edit-setup>
   <section>
     <h2>Pairings</h2>
 

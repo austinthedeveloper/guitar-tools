@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <h2 class="text-center mb-3">Setup</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="ampId" class="form-label">Select an Amp</label>
+        <select
+          id="ampId"
+          formControlName="ampId"
+          class="form-select"
+          (change)="onAmpChange()"
+          required
+        >
+          <option *ngFor="let amp of amps" [value]="amp._id">
+            {{ amp.name }}
+          </option>
+        </select>
+      </div>
+      <!-- Edit Amp Values -->
+      <ng-container *ngIf="controlValues.controls.length">
+        <h3>Control Values</h3>
+        <div formArrayName="controlValues">
+          <div
+            class="mb-2 d-flex"
+            *ngFor="let group of controlValues.controls; let i = index"
+            [formGroup]="group"
+          >
+            <label class="form-label me-4"
+              >{{ group.controls.name.value }}
+              <p class="mb-0 small">
+                {{ group.controls.type.value | titlecase }}
+              </p></label
+            >
+            <guitar-slider
+              class="d-flex flex-grow-1"
+              [formCtrl]="group.controls.value"
+            ></guitar-slider>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            *ngFor="let group of controlValues.controls"
+            class="d-flex flex-column align-items-center col-12 col-md-2 mb-3"
+          >
+            <lib-knob-display
+              [name]="group.controls.name.value"
+              [value]="group.controls.value.value"
+            ></lib-knob-display>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </div>
+</div>
