@@ -83,5 +83,7 @@ export class EditSetupComponent {
 
     this.form.controls.pedals.push(pedalForm);
   }
-  submit() {}
+  submit() {
+    console.log('submit', this.form.value);
+  }
 }
