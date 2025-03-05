@@ -7,6 +7,7 @@ import {
   Param,
   Req,
   UseGuards,
+  Put,
 } from '@nestjs/common';
 import { PairingService } from '../services/pairing.service';
 import { AuthRequest } from '../models/auth-request.model';
@@ -22,6 +23,11 @@ export class PairingController {
   @Post()
   async createPairing(@Req() req: AuthRequest, @Body() body: Pairing) {
     return this.pairingService.createPairing(body, req.user._id);
+  }
+
+  @Put(':id')
+  async updatePairing(@Param('id') id: string, @Body() body: Pairing) {
+    return this.pairingService.update(id, body);
   }
 
   /** ✅ Get all pairings for the user */

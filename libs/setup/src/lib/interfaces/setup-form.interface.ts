@@ -9,6 +9,14 @@ export interface ControlGroup {
 }
 
 // Pedalboard
+export interface PedalFormGroup {
+  _id: FormControl<string>;
+  name: FormControl<string>;
+  ampId: FormControl<string>;
+  pedalboardId: FormControl<string>;
+  pedals: FormArray<FormGroup<PedalControlGroupNew>>;
+  controlValues: FormArray<FormGroup<ControlGroup>>;
+}
 export interface PedalControlGroup {
   pedalId: FormControl<string>;
   order: FormControl<number>;

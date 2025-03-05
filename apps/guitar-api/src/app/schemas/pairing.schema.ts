@@ -17,7 +17,7 @@ export class Pairing extends Document {
 
   @Prop({ type: Types.ObjectId, ref: PedalBoard.name, required: false }) // ✅ Optional pedalboard link
   pedalboardId?: string;
-  pedalBoard?: PedalBoard;
+  pedalboard?: PedalBoard;
 
   // ✅ Updated Pedal Array (Matches PedalEntry Interface)
   @Prop({
@@ -25,8 +25,8 @@ export class Pairing extends Document {
       {
         pedalId: { type: Types.ObjectId, ref: 'Pedal', required: true },
         order: { type: Number, required: true },
-        on: { type: Boolean, required: true, default: true }, // Default ON
-        knobs: { type: Map, of: Number, default: {} }, // ✅ Uses "knobs" instead of "knobValues"
+        on: { type: Boolean, required: true, default: true },
+        knobs: { type: Map, of: Number, default: {} }, // ✅ Ensure this remains
       },
     ],
   })

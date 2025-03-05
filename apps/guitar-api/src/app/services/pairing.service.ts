@@ -27,7 +27,15 @@ export class PairingService {
       ...payload,
       createdById,
     }).save();
+
     return await this.populatedPairing(pairing);
+  }
+
+  async update(id: string, data: Pairing): Promise<Pairing> {
+    const updatedItem = await this.pairingModel
+      .findByIdAndUpdate(id, data, { new: true })
+      .exec();
+    return updatedItem ? this.populatedPairing(updatedItem) : null;
   }
 
   /** ✅ Get all pairings for a user */
@@ -62,11 +70,15 @@ export class PairingService {
     const amp = pairing.amp
       ? await this.ampService.findOne(pairing.ampId.toString())
       : null;
-
+    const pairingObject: Pairing = pairing.toObject();
     return {
       ...pairing.toObject(),
       pedalboard,
       amp,
+      pedals: pairingObject.pedals.map((pedal) => ({
+        ...pedal, // ✅ Convert subdocument to plain object
+        knobs: Object.fromEntries(pedal.knobs || new Map()), // ✅ Convert Map to Object
+      })),
     };
   }
 

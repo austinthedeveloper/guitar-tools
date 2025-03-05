@@ -14,6 +14,7 @@ import {
 import {
   ControlGroup,
   PedalControlGroupNew,
+  PedalFormGroup,
   PedalKnob,
 } from '../../interfaces';
 
@@ -28,7 +29,8 @@ export class EditSetupComponent {
   @Input() pedalboards: PedalBoard[] = [];
   private fb = inject(NonNullableFormBuilder);
   private pairingService = inject(PairingService);
-  form = this.fb.group({
+  form: FormGroup<PedalFormGroup> = this.fb.group({
+    _id: [''],
     name: ['', Validators.required],
     ampId: '',
     pedalboardId: '',
@@ -88,13 +90,18 @@ export class EditSetupComponent {
     this.form.controls.pedals.push(pedalForm);
   }
   submit() {
-    const formValue = this.form.value;
+    const { _id, ...formValue } = this.form.value;
     const payload: PairingPayload = {
       ...formValue,
       pedals: formValue.pedals.map(({ pedal, ...rest }) => rest as PedalEntry),
     };
-    this.pairingService
-      .createPairing(payload)
-      .subscribe((res) => console.log('success', res));
+    const call = _id
+      ? this.pairingService.updatePairing(_id, payload)
+      : this.pairingService.createPairing(payload);
+
+    call.subscribe((res) => {
+      console.log('success', res);
+      this.form.controls._id.patchValue(res._id);
+    });
   }
 }

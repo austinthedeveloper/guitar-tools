@@ -44,12 +44,10 @@ export class PairingService {
   }
 
   // Update an existing pairing in the API and store
-  updatePairing(pairing: Pairing): Observable<Pairing> {
-    return this.http
-      .put<Pairing>(`${this.apiUrl}/${pairing._id}`, pairing)
-      .pipe(
-        tap((updated) => this.pairingStore.updatePairing(updated)) // Update in store
-      );
+  updatePairing(id: string, pairing: PairingPayload): Observable<Pairing> {
+    return this.http.put<Pairing>(`${this.apiUrl}/${id}`, pairing).pipe(
+      tap((updated) => this.pairingStore.updatePairing(updated)) // Update in store
+    );
   }
 
   // Delete a pairing from the API and store

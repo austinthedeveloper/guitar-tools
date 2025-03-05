@@ -10,6 +10,7 @@ export interface CreatePairingRequest {
 }
 
 export interface PairingPayload {
+  _id?: string;
   pedals: PedalEntry[];
   name?: string;
   ampId?: string;
