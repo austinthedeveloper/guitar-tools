@@ -17,7 +17,7 @@ export class PairingService {
     @InjectModel(AmpUsage.name) private ampUsageModel: Model<AmpUsage>,
     private ampService: AmpService,
     private ampUsageService: AmpUsageService,
-    private pedalservice: PedalService,
+    private pedalService: PedalService,
     private pedalboardService: PedalboardService
   ) {}
 
@@ -58,7 +58,6 @@ export class PairingService {
       .findOne({ _id: pairingId })
       .populate('createdBy', 'displayName email')
       .exec();
-
     // ✅ Use Promise.all to resolve all async operations before returning the result
     return await this.populatedPairing(pairing);
   }
@@ -67,18 +66,28 @@ export class PairingService {
     const pedalboard = pairing.pedalboardId
       ? await this.pedalboardService.getPedalBoardById(pairing.pedalboardId)
       : null;
-    const amp = pairing.amp
+    const amp = pairing.ampId
       ? await this.ampService.findOne(pairing.ampId.toString())
       : null;
     const pairingObject: Pairing = pairing.toObject();
+    const populatedPedals = await Promise.all(
+      pairingObject.pedals.map(async (pedal) => {
+        const pedalData = await this.pedalService.findOnePedal(
+          pedal.pedalId.toString()
+        );
+
+        return {
+          ...pedal, // ✅ Keep original pedal data
+          pedal: pedalData || null, // ✅ Attach populated pedal data
+          knobs: Object.fromEntries(pedal.knobs || new Map()), // ✅ Convert Map to Object
+        };
+      })
+    );
     return {
       ...pairing.toObject(),
       pedalboard,
       amp,
-      pedals: pairingObject.pedals.map((pedal) => ({
-        ...pedal, // ✅ Convert subdocument to plain object
-        knobs: Object.fromEntries(pedal.knobs || new Map()), // ✅ Convert Map to Object
-      })),
+      pedals: populatedPedals,
     };
   }
 

@@ -29,7 +29,7 @@ export class PairingService {
   }
 
   createPairing(payload: PairingPayload) {
-    return this.http.post<any>(this.apiUrl, payload).pipe(
+    return this.http.post<Pairing>(this.apiUrl, payload).pipe(
       tap((pairing) => this.pairingStore.addPairing(pairing)) // Add to store
     );
   }
