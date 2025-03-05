@@ -82,6 +82,8 @@
             [pedal]="pedal.value.pedal.pedal"
             [values]="pedal.value.knobs"
             [canToggle]="true"
+            [canEdit]="true"
+            [formGrp]="pedal.controls.knobs"
             (toggle)="pedal.controls.on.patchValue($event)"
           ></lib-pedal-display>
         </div>

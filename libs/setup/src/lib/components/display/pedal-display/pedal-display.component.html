@@ -14,7 +14,14 @@
           <lib-knob-display
             [name]="knob"
             [value]="values[knob] || 0"
+            (click)="onKnobClick(knob)"
           ></lib-knob-display>
+          <div *ngIf="canEdit && active === knob && formGrp">
+            <guitar-slider
+              [step]="10"
+              [formCtrl]="formGrp.controls[knob]"
+            ></guitar-slider>
+          </div>
         </div>
       </div>
       <div class="row" *ngIf="canToggle">
