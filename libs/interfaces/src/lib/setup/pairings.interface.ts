@@ -9,6 +9,27 @@ export interface CreatePairingRequest {
   pedalBoardId: string;
 }
 
+export interface PairingPayload {
+  pedals: PedalEntry[];
+  name?: string;
+  ampId?: string;
+  pedalboardId?: string;
+  controlValues?: Partial<{
+    name: string;
+    type: string;
+    value: number;
+  }>[];
+}
+
+export interface PedalEntry {
+  pedalId: string;
+  order: number;
+  on: boolean;
+  knobs: {
+    [x: string]: number;
+  };
+}
+
 /** ✅ Pairing Document from Mongo */
 export interface Pairing extends BaseDocument {
   ampUsageId: string;

@@ -3,9 +3,11 @@ import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   Amp,
   AmpControl,
+  PairingPayload,
   Pedal,
   PedalBoard,
   PedalBoardPedal,
+  PedalEntry,
 } from '@guitar/interfaces';
 
 import {
@@ -84,6 +86,11 @@ export class EditSetupComponent {
     this.form.controls.pedals.push(pedalForm);
   }
   submit() {
-    console.log('submit', this.form.value);
+    const formValue = this.form.value;
+    const built: PairingPayload = {
+      ...formValue,
+      pedals: formValue.pedals.map(({ pedal, ...rest }) => rest as PedalEntry),
+    };
+    console.log('submit', built, this.form.value);
   }
 }
