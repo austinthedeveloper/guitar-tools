@@ -9,11 +9,11 @@
     <h2>Pairings</h2>
 
     <div class="row">
-      <lib-pairing-display
+      <!-- <lib-pairing-display
         class="align-items-center col-12 col-md-6 mb-3"
         *ngFor="let pairing of pairings$ | async"
         [pairing]="pairing"
-      ></lib-pairing-display>
+      ></lib-pairing-display> -->
     </div>
   </section>
   <section>
@@ -25,14 +25,6 @@
         [amp]="amp"
       ></lib-amp-display>
     </div>
-  </section>
-  <section>
-    <h2>Your Amp Usages</h2>
-    <ul>
-      <li *ngFor="let ampUsage of ampUsages$ | async">
-        {{ ampUsage.name }} - {{ ampUsage.amp.name }}
-      </li>
-    </ul>
   </section>
 
   <section>

@@ -22,14 +22,9 @@ export class PairingService {
   ) {}
 
   /** ✅ Create a pairing between an amp and a pedalboard */
-  async createPairing(
-    ampUsageId: string,
-    pedalBoardId: string,
-    createdById: string
-  ): Promise<Pairing> {
+  async createPairing(payload: Pairing, createdById: string): Promise<Pairing> {
     const pairing = await new this.pairingModel({
-      ampUsageId: new Types.ObjectId(ampUsageId),
-      pedalBoardId: new Types.ObjectId(pedalBoardId),
+      ...payload,
       createdById,
     }).save();
     return await this.populatedPairing(pairing);
@@ -61,19 +56,17 @@ export class PairingService {
   }
 
   async populatedPairing(pairing: Pairing): Promise<Pairing> {
-    const pedalBoard = pairing.pedalBoardId
-      ? await this.pedalboardService.getPedalBoardById(pairing.pedalBoardId)
+    const pedalboard = pairing.pedalboardId
+      ? await this.pedalboardService.getPedalBoardById(pairing.pedalboardId)
       : null;
-    const ampUsage = pairing.ampUsageId
-      ? await this.ampUsageService.getAmpUsageById(
-          pairing.ampUsageId.toString()
-        )
+    const amp = pairing.amp
+      ? await this.ampService.findOne(pairing.ampId.toString())
       : null;
 
     return {
       ...pairing.toObject(),
-      pedalBoard,
-      ampUsage,
+      pedalboard,
+      amp,
     };
   }
 

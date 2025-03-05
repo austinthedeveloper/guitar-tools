@@ -11,6 +11,7 @@ import {
 import { PairingService } from '../services/pairing.service';
 import { AuthRequest } from '../models/auth-request.model';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { Pairing } from '../schemas';
 
 @Controller('pairings')
 @UseGuards(JwtAuthGuard)
@@ -19,15 +20,8 @@ export class PairingController {
 
   /** ✅ Create a pairing */
   @Post()
-  async createPairing(
-    @Req() req: AuthRequest,
-    @Body() body: { ampUsageId: string; pedalBoardId: string }
-  ) {
-    return this.pairingService.createPairing(
-      body.ampUsageId,
-      body.pedalBoardId,
-      req.user._id
-    );
+  async createPairing(@Req() req: AuthRequest, @Body() body: Pairing) {
+    return this.pairingService.createPairing(body, req.user._id);
   }
 
   /** ✅ Get all pairings for the user */

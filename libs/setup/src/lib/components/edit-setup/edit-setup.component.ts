@@ -1,3 +1,4 @@
+import { PairingService } from './../../services/pairing.service';
 import { Component, inject, Input } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
@@ -26,6 +27,7 @@ export class EditSetupComponent {
   @Input() pedals: Pedal[] = [];
   @Input() pedalboards: PedalBoard[] = [];
   private fb = inject(NonNullableFormBuilder);
+  private pairingService = inject(PairingService);
   form = this.fb.group({
     name: ['', Validators.required],
     ampId: '',
@@ -87,10 +89,12 @@ export class EditSetupComponent {
   }
   submit() {
     const formValue = this.form.value;
-    const built: PairingPayload = {
+    const payload: PairingPayload = {
       ...formValue,
       pedals: formValue.pedals.map(({ pedal, ...rest }) => rest as PedalEntry),
     };
-    console.log('submit', built, this.form.value);
+    this.pairingService
+      .createPairing(payload)
+      .subscribe((res) => console.log('success', res));
   }
 }

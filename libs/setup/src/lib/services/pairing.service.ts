@@ -5,6 +5,7 @@ import {
   Pairing,
   CreatePairingRequest,
   EnvInterface,
+  PairingPayload,
 } from '@guitar/interfaces';
 import { PairingStore } from '../+state';
 
@@ -24,6 +25,12 @@ export class PairingService {
   getPairings(): Observable<Pairing[]> {
     return this.http.get<Pairing[]>(this.apiUrl).pipe(
       tap((pairings) => this.pairingStore.setPairings(pairings)) // Store in Elf
+    );
+  }
+
+  createPairing(payload: PairingPayload) {
+    return this.http.post<any>(this.apiUrl, payload).pipe(
+      tap((pairing) => this.pairingStore.addPairing(pairing)) // Add to store
     );
   }
 
