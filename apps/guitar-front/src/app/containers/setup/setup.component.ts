@@ -50,4 +50,8 @@ export class SetupComponent {
     this.ampUsageService.getAmpUsages().subscribe();
     this.pedalBoardService.getPedalBoards().subscribe();
   }
+
+  deletePairing(id: string) {
+    this.pairingService.deletePairing(id).subscribe();
+  }
 }

@@ -10,6 +10,7 @@ import { Pedal } from '@guitar/interfaces';
 export class PedalDisplayComponent {
   @Input() pedal!: Pedal;
   @Input() values: Record<string, number> = {};
+  @Input() isOn = false;
   @Input() canToggle = false;
   @Input() canEdit = false;
   @Input() formGrp!: FormGroup<{

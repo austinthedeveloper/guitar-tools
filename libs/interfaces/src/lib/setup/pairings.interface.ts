@@ -41,10 +41,12 @@ export interface Pairing extends BaseDocument {
   amp?: Amp;
   pedalboardId?: string;
   pedalboard?: PedalBoard;
-  controlValues?: {
-    name: string;
-    type: string;
-    value: number;
-  }[];
+  controlValues?: PairingControlValues[];
   createdById: string;
+}
+
+export interface PairingControlValues {
+  name: string;
+  type: string;
+  value: number;
 }

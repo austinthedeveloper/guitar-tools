@@ -9,6 +9,16 @@
     <h2>Pairings</h2>
 
     <div class="row">
+      <lib-edit-setup
+        *ngFor="let pairing of pairings$ | async"
+        [amps]="amps$ | async"
+        [pedals]="pedals$ | async"
+        [pedalboards]="pedalBoards$ | async"
+        [pairing]="pairing"
+        (deletePairing)="deletePairing($event)"
+      ></lib-edit-setup>
+    </div>
+    <div class="row">
       <lib-pairing-display
         class="align-items-center col-12 col-md-6 mb-3"
         *ngFor="let pairing of pairings$ | async"
