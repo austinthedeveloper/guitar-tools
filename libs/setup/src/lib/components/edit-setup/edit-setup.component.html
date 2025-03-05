@@ -78,10 +78,11 @@
         <div class="row">
           <lib-pedal-display
             class="align-items-center col-12 col-md-4 mb-3"
-            *ngFor="let pedal of pedalboard.pedals"
-            [pedal]="pedal.pedal"
-            [values]="pedal.knobValues"
-            [toggle]="true"
+            *ngFor="let pedal of form.controls.pedals.controls"
+            [pedal]="pedal.value.pedal.pedal"
+            [values]="pedal.value.knobsNew"
+            [canToggle]="true"
+            (toggle)="pedal.controls.on.patchValue($event)"
           ></lib-pedal-display>
         </div>
       </div>
@@ -95,3 +96,4 @@
     </form>
   </div>
 </div>
+<pre>{{ form.controls.pedals.value | json }}</pre>

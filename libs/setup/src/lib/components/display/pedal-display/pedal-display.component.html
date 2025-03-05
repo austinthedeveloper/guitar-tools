@@ -17,8 +17,8 @@
           ></lib-knob-display>
         </div>
       </div>
-      <div class="row" *ngIf="toggle">
-        <lib-pedal-toggle></lib-pedal-toggle>
+      <div class="row" *ngIf="canToggle">
+        <lib-pedal-toggle (toggle)="toggle.emit($event)"></lib-pedal-toggle>
       </div>
     </div>
   </div>

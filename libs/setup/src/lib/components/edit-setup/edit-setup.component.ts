@@ -1,7 +1,18 @@
 import { Component, inject, Input } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { Amp, AmpControl, Pedal, PedalBoard } from '@guitar/interfaces';
-import { ControlGroup } from '../../interfaces';
+import {
+  Amp,
+  AmpControl,
+  Pedal,
+  PedalBoard,
+  PedalBoardPedal,
+} from '@guitar/interfaces';
+
+import {
+  ControlGroup,
+  PedalControlGroupNew,
+  PedalKnob,
+} from '../../interfaces';
 
 @Component({
   selector: 'lib-edit-setup',
@@ -17,7 +28,7 @@ export class EditSetupComponent {
     name: ['', Validators.required],
     ampId: '',
     pedalboardId: '',
-    pedals: this.fb.array([]),
+    pedals: this.fb.array<FormGroup<PedalControlGroupNew>>([]),
     controlValues: this.fb.array<FormGroup<ControlGroup>>([]),
   });
   ampControls: AmpControl[] = [];
@@ -51,7 +62,30 @@ export class EditSetupComponent {
     this.pedalboard = this.pedalboards.find(
       (board) => board._id === pedalboardId
     );
-    console.log('pedalboard change', this.pedalboard);
+    this.form.controls.pedals.clear();
+    this.pedalboard.pedals.forEach((pedal, index) =>
+      this.addPedal(pedal, index)
+    );
+  }
+
+  private addPedal(pedal: PedalBoardPedal, index: number) {
+    const knobs = pedal.pedal.knobs.reduce((acc, item) => {
+      acc[item] = 0;
+      return acc;
+    }, {} as Record<string, number>);
+    const pedalForm = this.fb.group({
+      pedalId: [pedal.pedalId, Validators.required],
+      order: [index, Validators.required],
+      knobs: this.fb.array<FormGroup<PedalKnob>>([]),
+      on: false,
+      pedal: pedal,
+      knobsNew: this.fb.group(knobs),
+    });
+    pedal.pedal.knobs.forEach((knob) => {
+      const group = this.fb.group({ name: knob, value: [0] });
+      pedalForm.controls.knobs.push(group);
+    });
+    this.form.controls.pedals.push(pedalForm);
   }
   submit() {}
 }

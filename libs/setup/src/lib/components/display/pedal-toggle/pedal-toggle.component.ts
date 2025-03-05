@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'lib-pedal-toggle',
@@ -7,10 +8,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PedalToggleComponent {
   @Input() isOn = false;
+  @Input() formCtrl = new FormControl(false);
   @Output() toggle = new EventEmitter<boolean>();
 
   togglePedal() {
     this.isOn = !this.isOn;
+    this.formCtrl.patchValue(this.isOn);
     this.toggle.emit(this.isOn);
   }
 }
