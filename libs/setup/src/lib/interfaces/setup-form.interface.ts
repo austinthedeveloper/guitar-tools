@@ -17,10 +17,9 @@ export interface PedalControlGroup {
 export interface PedalControlGroupNew {
   pedalId: FormControl<string>;
   order: FormControl<number>;
-  knobs: FormArray<FormGroup<PedalKnob>>;
   on: FormControl<boolean>;
   pedal: FormControl<PedalBoardPedal>;
-  knobsNew: FormGroup<{
+  knobs: FormGroup<{
     [x: string]: FormControl<number>;
   }>;
 }

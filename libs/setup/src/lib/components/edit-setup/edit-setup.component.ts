@@ -76,15 +76,11 @@ export class EditSetupComponent {
     const pedalForm = this.fb.group({
       pedalId: [pedal.pedalId, Validators.required],
       order: [index, Validators.required],
-      knobs: this.fb.array<FormGroup<PedalKnob>>([]),
       on: false,
       pedal: pedal,
-      knobsNew: this.fb.group(knobs),
+      knobs: this.fb.group(knobs),
     });
-    pedal.pedal.knobs.forEach((knob) => {
-      const group = this.fb.group({ name: knob, value: [0] });
-      pedalForm.controls.knobs.push(group);
-    });
+
     this.form.controls.pedals.push(pedalForm);
   }
   submit() {}
