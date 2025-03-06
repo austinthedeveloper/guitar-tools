@@ -1,4 +1,3 @@
-export * from './amp-usage.interface';
 export * from './amp.interface';
 export * from './knob-type.interface';
 export * from './knob.interface';

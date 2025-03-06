@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import {
   AmpService,
   AmpStore,
-  AmpUsageService,
-  AmpUsageStore,
   PairingService,
   PairingStore,
   PedalBoardService,

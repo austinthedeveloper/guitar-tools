@@ -1,5 +1,4 @@
 import { BaseDocument } from '../base-document.interface';
-import { AmpUsage } from './amp-usage.interface';
 import { Amp } from './amp.interface';
 import { Pedal } from './pedal.interface';
 import { PedalBoard } from './pedalboard.interface';

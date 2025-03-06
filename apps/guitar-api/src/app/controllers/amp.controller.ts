@@ -36,33 +36,6 @@ export class AmpController {
     return this.ampService.findAll(req.user?._id, populateUser);
   }
 
-  @Get('/knobs')
-  async getKnobs() {
-    return this.ampService.getKnobs();
-  }
-  @Post('/use')
-  async useAmp(@Req() req: AuthRequest, @Body() ampUsageData: any) {
-    return this.ampService.createAmpUsage({
-      ...ampUsageData,
-      createdById: req.user?._id,
-    });
-  }
-
-  @Get('/use')
-  async getAmpUsages(
-    @Req() req: AuthRequest,
-    @Query('populateUser') populateUser: boolean
-  ) {
-    return this.ampService.findAllUsage(req.user?._id, populateUser);
-  }
-  @Get('/use/:id')
-  async getAmpUsage(
-    @Req() req: AuthRequest,
-    @Param('id', ParseObjectIdPipe) id: string
-  ) {
-    return this.ampService.useAmp(id);
-  }
-
   @Get(':id')
   async findOne(@Param('id', ParseObjectIdPipe) id: string) {
     return this.ampService.findOne(id);

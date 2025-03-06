@@ -6,15 +6,11 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { PedalUsage } from '../schemas';
 import { Pedal } from '../schemas/pedal.schema';
 
 @Injectable()
 export class PedalService {
-  constructor(
-    @InjectModel(Pedal.name) private pedalModel: Model<Pedal>,
-    @InjectModel(PedalUsage.name) private pedalUsageModel: Model<PedalUsage>
-  ) {}
+  constructor(@InjectModel(Pedal.name) private pedalModel: Model<Pedal>) {}
 
   async createPedal(createPedalDto: any, userId: string) {
     try {
@@ -64,32 +60,5 @@ export class PedalService {
   /** ✅ Delete a Pedal */
   async deletePedal(id: string): Promise<Pedal> {
     return this.pedalModel.findByIdAndDelete(id).exec();
-  }
-
-  async findAllPedalUsage(
-    userId: string,
-    populateUser = false
-  ): Promise<PedalUsage[]> {
-    let config = userId ? { createdById: userId } : {};
-    const query = this.pedalUsageModel.find(config);
-    if (populateUser) {
-      query.populate('createdBy', 'displayName email');
-    }
-
-    return query.exec();
-  }
-
-  async createPedalUsage(dto: any, createdById: string): Promise<PedalUsage> {
-    const pedal = await this.pedalModel.findById(dto.pedalId);
-    if (!pedal) throw new NotFoundException('Pedal not found');
-
-    const pedalUsage = new this.pedalUsageModel({
-      name: dto.name,
-      pedalId: dto.pedalId,
-      knobs: dto.knobs,
-      createdById,
-    });
-
-    return pedalUsage.save();
   }
 }

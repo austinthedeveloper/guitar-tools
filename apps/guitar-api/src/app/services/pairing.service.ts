@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Pairing } from '../schemas/pairing.schema';
-import { Amp, AmpUsage, PedalBoard } from '../schemas';
+import { Amp, PedalBoard } from '../schemas';
 import { AmpService } from './amp.service';
-import { AmpUsageService } from './amp-usage.service';
 import { PedalService } from './pedal.service';
 import { PedalboardService } from './pedalboard.service';
 
@@ -14,9 +13,7 @@ export class PairingService {
     @InjectModel(Pairing.name) private pairingModel: Model<Pairing>,
     @InjectModel(PedalBoard.name) private pedalBoardModel: Model<PedalBoard>,
     @InjectModel(Amp.name) private ampModel: Model<Amp>,
-    @InjectModel(AmpUsage.name) private ampUsageModel: Model<AmpUsage>,
     private ampService: AmpService,
-    private ampUsageService: AmpUsageService,
     private pedalService: PedalService,
     private pedalboardService: PedalboardService
   ) {}

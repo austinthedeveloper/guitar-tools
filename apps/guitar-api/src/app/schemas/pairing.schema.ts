@@ -3,7 +3,6 @@ import { Document, Types } from 'mongoose';
 import { Amp } from './amp.schema';
 import { PedalBoard } from './pedal-board.schema';
 import { User } from './user.schema';
-import { AmpUsage } from './amp-usage.schema';
 import { Pedal } from './pedal.schema';
 
 @Schema({ timestamps: true })

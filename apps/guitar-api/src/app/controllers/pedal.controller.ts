@@ -37,14 +37,14 @@ export class PedalController {
   }
 
   /** ✅ Get a single pedal */
-  @Get('single/:id')
+  @Get(':id')
   @UseGuards(JwtAuthGuard)
   async findOnePedal(@Param('id', ParseObjectIdPipe) id: string) {
     return this.pedalService.findOnePedal(id);
   }
 
   /** ✅ Update a pedal (knob names only) */
-  @Put('single/:id')
+  @Put(':id')
   @UseGuards(JwtAuthGuard)
   async updatePedal(
     @Param('id', ParseObjectIdPipe) id: string,
@@ -54,30 +54,9 @@ export class PedalController {
   }
 
   /** ✅ Delete a pedal */
-  @Delete('single/:id')
+  @Delete(':id')
   @UseGuards(JwtAuthGuard)
   async deletePedal(@Param('id', ParseObjectIdPipe) id: string) {
     return this.pedalService.deletePedal(id);
-  }
-
-  @Get('/pedal-usage')
-  @UseGuards(JwtAuthGuard)
-  async getPedalUsage(
-    @Req() req: AuthRequest,
-    @Query('populateUser') populateUser: boolean
-  ) {
-    return this.pedalService.findAllPedalUsage(req.user?._id, populateUser);
-  }
-
-  @Post('/pedal-usage')
-  @UseGuards(JwtAuthGuard)
-  async createPedalUsage(
-    @Req() req: AuthRequest,
-    @Body() createPedalUsageDto: any
-  ) {
-    return this.pedalService.createPedalUsage(
-      createPedalUsageDto,
-      req.user?._id
-    );
   }
 }

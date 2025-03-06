@@ -31,14 +31,14 @@ export class PedalService {
 
   // Update an existing pedal in the API and store
   updatePedal(id: string, pedal: Pedal): Observable<Pedal> {
-    return this.http.put<Pedal>(`${this.apiUrl}/single/${id}`, pedal).pipe(
+    return this.http.put<Pedal>(`${this.apiUrl}/${id}`, pedal).pipe(
       tap((updated) => this.pedalStore.updatePedal(updated)) // Update in store
     );
   }
 
   // Delete a pedal from the API and store
   deletePedal(pedalId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/single/${pedalId}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/${pedalId}`).pipe(
       tap(() => this.pedalStore.deletePedal(pedalId)) // Remove from store
     );
   }
