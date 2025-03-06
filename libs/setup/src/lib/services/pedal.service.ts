@@ -30,15 +30,15 @@ export class PedalService {
   }
 
   // Update an existing pedal in the API and store
-  updatePedal(pedal: Pedal): Observable<Pedal> {
-    return this.http.put<Pedal>(`${this.apiUrl}/${pedal._id}`, pedal).pipe(
+  updatePedal(id: string, pedal: Pedal): Observable<Pedal> {
+    return this.http.put<Pedal>(`${this.apiUrl}/single/${id}`, pedal).pipe(
       tap((updated) => this.pedalStore.updatePedal(updated)) // Update in store
     );
   }
 
   // Delete a pedal from the API and store
   deletePedal(pedalId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${pedalId}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/single/${pedalId}`).pipe(
       tap(() => this.pedalStore.deletePedal(pedalId)) // Remove from store
     );
   }

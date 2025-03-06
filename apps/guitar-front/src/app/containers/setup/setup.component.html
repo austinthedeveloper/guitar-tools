@@ -1,4 +1,9 @@
 <div class="container landing-container">
+  <lib-create-pedal
+    *ngFor="let pedal of pedals$ | async"
+    [pedal]="pedal"
+    (delete)="deletePedal($event)"
+  ></lib-create-pedal>
   <h1>Your Gear Setup</h1>
   <lib-edit-setup
     [amps]="amps$ | async"
@@ -58,3 +63,9 @@
 <lib-create-amp></lib-create-amp>
 <lib-create-pedal></lib-create-pedal>
 <lib-create-pedalboard [pedals]="pedals$ | async"></lib-create-pedalboard>
+<lib-create-pedalboard
+  [pedals]="pedals$ | async"
+  [pedalboard]="pedalBoard"
+  *ngFor="let pedalBoard of pedalBoards$ | async"
+  (delete)="deletePedalboard($event)"
+></lib-create-pedalboard>

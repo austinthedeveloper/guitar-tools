@@ -1,6 +1,13 @@
 <div class="container mt-4">
   <div class="card p-4">
-    <h2 class="text-center mb-3">Create a New Pedalboard</h2>
+    <div class="mb-3 d-flex">
+      <h2 class="flex-grow-1">Pedalboard</h2>
+      <div *ngIf="form.controls._id.value as id">
+        <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
+          Delete
+        </button>
+      </div>
+    </div>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="mb-3">
         <label for="name" class="form-label">Pedalboard Name</label>
@@ -71,7 +78,7 @@
         class="btn btn-success w-100"
         [disabled]="form.invalid"
       >
-        Create Pedalboard
+        Save Pedalboard
       </button>
     </form>
   </div>

@@ -1,4 +1,10 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   CreatePedalBoardRequest,
@@ -10,6 +16,7 @@ import {
 
 import { PedalControlGroup, PedalKnob } from '../../interfaces';
 import { PedalBoardService } from '../../services';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'lib-create-pedalboard',
@@ -24,6 +31,7 @@ export class CreatePedalboardComponent {
   });
   @Input() pedalboard!: PedalBoard;
   @Input() pedals: Pedal[] = [];
+  @Output() delete = new EventEmitter<string>();
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -109,13 +117,12 @@ export class CreatePedalboardComponent {
 
       const call = _id
         ? this.pedalBoardService.updatePedalBoard(_id, mappedData as PedalBoard)
-        : this.pedalBoardService.createPedalBoard(
-            mappedData as CreatePedalBoardRequest
-          );
+        : this.pedalBoardService
+            .createPedalBoard(mappedData as CreatePedalBoardRequest)
+            .pipe(tap(() => this.clearForm()));
 
       call.subscribe((res) => {
         console.log('Pedalboard Saved:', res);
-        this.clearForm();
       });
     }
   }

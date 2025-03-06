@@ -42,4 +42,10 @@ export class SetupComponent {
   deleteAmp(id: string) {
     this.ampService.deleteAmp(id).subscribe();
   }
+  deletePedal(id: string) {
+    this.pedalService.deletePedal(id).subscribe();
+  }
+  deletePedalboard(id: string) {
+    this.pedalBoardService.deletePedalBoard(id).subscribe();
+  }
 }
