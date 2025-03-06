@@ -37,6 +37,7 @@ export class EditSetupComponent {
   @Input() pedals: Pedal[] = [];
   @Input() pedalboards: PedalBoard[] = [];
   @Input() pairing!: Pairing;
+
   @Output() deletePairing = new EventEmitter<string>();
   private fb = inject(NonNullableFormBuilder);
   private pairingService = inject(PairingService);

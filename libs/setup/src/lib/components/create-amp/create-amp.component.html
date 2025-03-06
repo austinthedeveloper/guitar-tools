@@ -1,6 +1,13 @@
 <div class="container mt-4">
   <div class="card p-4">
-    <h2 class="text-center mb-3">Create a New Amp</h2>
+    <div class="mb-3 d-flex">
+      <h2 class="flex-grow-1">Amp</h2>
+      <div *ngIf="ampForm.controls._id.value as id">
+        <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
+          Delete
+        </button>
+      </div>
+    </div>
     <form [formGroup]="ampForm" (ngSubmit)="submit()">
       <div class="mb-3">
         <label for="name" class="form-label">Amp Name</label>
@@ -61,7 +68,7 @@
         class="btn btn-success w-100"
         [disabled]="ampForm.invalid"
       >
-        Create Amp
+        Save Amp
       </button>
     </form>
   </div>

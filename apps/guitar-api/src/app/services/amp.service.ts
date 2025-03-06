@@ -91,7 +91,13 @@ export class AmpService {
   }
 
   async update(id: string, ampData: Amp): Promise<Amp> {
-    return this.ampModel.findByIdAndUpdate(id, ampData, { new: true }).exec();
+    return this.ampModel
+      .findByIdAndUpdate(
+        id,
+        { ...ampData, knobs: ampData.knobs },
+        { new: true }
+      )
+      .exec();
   }
 
   async delete(id: string): Promise<Amp> {

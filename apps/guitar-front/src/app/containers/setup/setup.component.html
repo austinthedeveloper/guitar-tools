@@ -29,6 +29,12 @@
   <section>
     <h2>Your Amps</h2>
     <div class="row">
+      <lib-create-amp
+        *ngFor="let amp of amps$ | async"
+        [amp]="amp"
+      ></lib-create-amp>
+    </div>
+    <div class="row">
       <lib-amp-display
         class="align-items-center col-12 col-md-4 mb-3"
         *ngFor="let amp of amps$ | async"

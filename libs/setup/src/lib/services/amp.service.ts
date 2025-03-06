@@ -35,9 +35,9 @@ export class AmpService {
       .pipe(tap((amp) => this.ampStore.addAmp(amp)));
   }
 
-  updateAmp(amp: Amp): Observable<Amp> {
+  updateAmp(id: string, amp: Amp): Observable<Amp> {
     return this.http
-      .put<Amp>(`${this.apiUrl}/${amp._id}`, amp)
+      .put<Amp>(`${this.apiUrl}/${id}`, amp)
       .pipe(tap((updated) => this.ampStore.updateAmp(updated)));
   }
 
