@@ -35,3 +35,12 @@ export interface PedalKnob {
   name: FormControl<string>;
   value: FormControl<number>;
 }
+
+// Create Amp
+export interface AmpControlsGroup {
+  name: FormControl<string>;
+  value: FormControl<number>;
+  type: FormControl<string>;
+  order: FormControl<number>;
+  values: FormArray;
+}

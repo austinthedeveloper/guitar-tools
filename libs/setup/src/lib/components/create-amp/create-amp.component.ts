@@ -13,6 +13,7 @@ import {
 
 import { AMP_INPUTS, AMP_KNOBS } from '../../helpers';
 import { AmpService } from './../../services';
+import { AmpControlsGroup } from '../../interfaces';
 
 @Component({
   selector: 'lib-create-amp',
@@ -26,7 +27,7 @@ export class CreateAmpComponent {
   ampForm = this.fb.group({
     name: ['', Validators.required],
     brand: [''],
-    controls: this.fb.array([]),
+    controls: this.fb.array<FormGroup<AmpControlsGroup>>([]),
   });
   controlOptions = [...AMP_INPUTS, ...AMP_KNOBS];
   controlTypes = AmpInputControls;
@@ -38,12 +39,12 @@ export class CreateAmpComponent {
     this.addControl('Input 1', 'input');
   }
 
-  get controls(): FormArray {
+  get controls() {
     return this.ampForm.controls.controls;
   }
 
   getControl(i: number) {
-    return this.controls.controls[i] as FormGroup;
+    return this.controls.controls[i];
   }
 
   addControl(name = '', type = 'input') {
@@ -63,7 +64,7 @@ export class CreateAmpComponent {
     this.controls.removeAt(index);
   }
 
-  onControlChange(formGroup: FormGroup) {
+  onControlChange(formGroup: FormGroup<AmpControlsGroup>) {
     const name = formGroup.controls['name'].value;
     const type = this.controlOptions.find((option) => option.name === name);
     formGroup.controls['type'].patchValue(type.type);
