@@ -1,27 +1,20 @@
-import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Amp, CreateAmpRequest, EnvInterface } from '@guitar/interfaces';
 import { Observable, tap } from 'rxjs';
-import {
-  Amp,
-  CreateAmpRequest,
-  SaveAmpUsageRequest,
-  AmpUsage,
-  EnvInterface,
-} from '@guitar/interfaces';
-import { AmpStore, AmpUsageStore } from '../+state';
+
+import { AmpStore } from '../+state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AmpService {
   private apiUrl = `${this.env.api}/amps`;
-  private apiUsageUrl = `${this.env.api}/amp-usage`;
 
   constructor(
     private http: HttpClient,
     @Inject('environment') private env: EnvInterface,
-    private ampStore: AmpStore,
-    private ampUsageStore: AmpUsageStore
+    private ampStore: AmpStore
   ) {}
   getAmps(): Observable<Amp[]> {
     return this.http

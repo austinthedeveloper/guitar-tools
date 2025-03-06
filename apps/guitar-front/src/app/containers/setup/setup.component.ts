@@ -23,35 +23,23 @@ export class SetupComponent {
   pairings$ = this.pairingStore.pairings$;
   amps$ = this.ampStore.amps$;
   pedals$ = this.pedalStore.pedals$;
-  ampUsages$ = this.ampUsageStore.ampUsages$;
   pedalBoards$ = this.pedalBoardStore.pedalBoards$;
 
   constructor(
     private pedalService: PedalService,
     private ampService: AmpService,
-    private ampUsageService: AmpUsageService,
     private pairingService: PairingService,
     private pedalBoardService: PedalBoardService,
     private ampStore: AmpStore,
     private pedalStore: PedalStore,
     private pedalBoardStore: PedalBoardStore,
-    private pairingStore: PairingStore,
-    private ampUsageStore: AmpUsageStore
+    private pairingStore: PairingStore
   ) {}
-
-  ngOnInit(): void {
-    this.loadData();
-  }
-
-  private loadData() {
-    this.pairingService.getPairings().subscribe();
-    this.ampService.getAmps().subscribe();
-    this.pedalService.getPedals().subscribe();
-    this.ampUsageService.getAmpUsages().subscribe();
-    this.pedalBoardService.getPedalBoards().subscribe();
-  }
 
   deletePairing(id: string) {
     this.pairingService.deletePairing(id).subscribe();
+  }
+  deleteAmp(id: string) {
+    this.ampService.deleteAmp(id).subscribe();
   }
 }

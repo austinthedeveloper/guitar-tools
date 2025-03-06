@@ -8,6 +8,12 @@ import { MetronomeComponent } from './containers/metronome/metronome.component';
 import { AuthCallbackComponent, AuthGuard } from '@guitar/auth';
 import { SetupComponent } from './containers/setup/setup.component';
 import { LoginComponent } from './containers/login/login.component';
+import {
+  getAmpsResolver,
+  getPairingsResolver,
+  getPedalboardsResolver,
+  getPedalsResolver,
+} from '@guitar/setup';
 
 const routes: Routes = [
   {
@@ -26,7 +32,17 @@ const routes: Routes = [
     path: 'metronome',
     component: MetronomeComponent,
   },
-  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
+  {
+    path: 'setup',
+    component: SetupComponent,
+    canActivate: [AuthGuard],
+    resolve: [
+      getPedalsResolver,
+      getPedalboardsResolver,
+      getPairingsResolver,
+      getAmpsResolver,
+    ],
+  },
   { path: 'login', component: LoginComponent },
   { path: 'auth/callback', component: AuthCallbackComponent },
 ];
