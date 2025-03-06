@@ -37,12 +37,10 @@ export class PedalBoardService {
   }
 
   // Update an existing pedalboard in the API and store
-  updatePedalBoard(pedalBoard: PedalBoard): Observable<PedalBoard> {
-    return this.http
-      .put<PedalBoard>(`${this.apiUrl}/${pedalBoard._id}`, pedalBoard)
-      .pipe(
-        tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
-      );
+  updatePedalBoard(id: string, pedalBoard: PedalBoard): Observable<PedalBoard> {
+    return this.http.put<PedalBoard>(`${this.apiUrl}/${id}`, pedalBoard).pipe(
+      tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
+    );
   }
 
   // Delete a pedalboard from the API and store

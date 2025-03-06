@@ -128,7 +128,6 @@ export class CreateAmpComponent {
   private clearForm() {
     this.ampForm.reset();
     this.controls.clear();
-    this.addControl('Input 1', 'input');
   }
 
   private mapControls(controls: AmpControl[]) {

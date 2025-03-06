@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="card p-4">
     <h2 class="text-center mb-3">Create a New Pedalboard</h2>
-    <form [formGroup]="pedalboardForm" (ngSubmit)="submit()">
+    <form [formGroup]="form" (ngSubmit)="submit()">
       <div class="mb-3">
         <label for="name" class="form-label">Pedalboard Name</label>
         <input
@@ -69,7 +69,7 @@
       <button
         type="submit"
         class="btn btn-success w-100"
-        [disabled]="pedalboardForm.invalid"
+        [disabled]="form.invalid"
       >
         Create Pedalboard
       </button>
