@@ -49,7 +49,12 @@
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "standalone": false,
+      "skipImport": true
+    },
+     "@nx/angular:directive": {
+      "standalone": false
     },
     "@nx/angular": {
       "application": {
