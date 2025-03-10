@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
+  AiSettingsResponse,
+  AiSuggestionPayload,
   Amp,
   AmpControl,
   Pairing,
@@ -26,6 +28,7 @@ import {
   PedalFormGroup,
   PedalKnob,
 } from '../../interfaces';
+import { AiSuggestionsService } from '../../services';
 
 @Component({
   selector: 'lib-edit-setup',
@@ -41,6 +44,7 @@ export class EditSetupComponent {
   @Output() deletePairing = new EventEmitter<string>();
   private fb = inject(NonNullableFormBuilder);
   private pairingService = inject(PairingService);
+  private aiSuggestionsService = inject(AiSuggestionsService);
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -54,6 +58,10 @@ export class EditSetupComponent {
 
   get controlValues() {
     return this.form.controls.controlValues;
+  }
+
+  get pedalValues() {
+    return this.form.controls.pedals;
   }
 
   ngOnChanges({ pairing }: SimpleChanges) {
@@ -138,9 +146,63 @@ export class EditSetupComponent {
       ? this.pairingService.updatePairing(_id, payload)
       : this.pairingService.createPairing(payload);
 
-    call.subscribe((res) => {
-      console.log('success', res);
-      this.form.controls._id.patchValue(res._id);
+    call.subscribe((res) => this.form.controls._id.patchValue(res._id));
+  }
+
+  // AI
+  async fetchAiSettings() {
+    const ampId = this.form.controls.ampId.value;
+    const pedalboardId = this.form.controls.pedalboardId.value;
+
+    const selectedAmp = this.amps.find((amp) => amp._id === ampId);
+    const selectedPedalboard = this.pedalboards.find(
+      (pb) => pb._id === pedalboardId
+    );
+
+    const selectedPedals =
+      selectedPedalboard?.pedals.map(
+        (p) => `${p.pedal.name} (Type: ${p.pedal.type})`
+      ) || [];
+
+    if (!selectedAmp || !selectedPedalboard) return;
+
+    const requestBody: AiSuggestionPayload = {
+      amp: selectedAmp.name,
+      pedals: selectedPedals,
+      genre: 'Blues', // Optional: Add genre selection later
+    };
+
+    this.aiSuggestionsService
+      .fetchSettings(requestBody)
+      .subscribe((response) => {
+        this.applyAiSettings(response);
+      });
+  }
+
+  applyAiSettings(aiData: AiSettingsResponse) {
+    if (!aiData || !aiData.amp || !aiData.pedals) return;
+
+    const ampSettings = aiData.amp.settings;
+    const pedalSettings = aiData.pedals;
+
+    // Apply amp settings
+    this.controlValues.controls.forEach((control) => {
+      const newValue: number =
+        ampSettings[control.value.name.toLocaleLowerCase()];
+
+      if (!newValue) return;
+      control.controls.value.patchValue(newValue);
+    });
+
+    this.pedalValues.controls.forEach((control) => {
+      const newValues = pedalSettings.find(
+        (s: any) => s.name === control.value.pedal.pedal.name
+      );
+      //  Apply the settings if there is a match
+      if (newValues) {
+        const knobs = control.controls.knobs;
+        knobs.patchValue(newValues.settings);
+      }
     });
   }
 }

@@ -1,5 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AiService } from './ai.service';
+import { AiSuggestionPayload } from '../../models';
 
 @Controller('ai')
 export class AiController {
@@ -8,12 +9,7 @@ export class AiController {
   @Post('suggest-settings')
   async suggestSettings(
     @Body()
-    body: {
-      amp: string;
-      pedals: string[];
-      genre?: string;
-      referenceTone?: string;
-    }
+    body: AiSuggestionPayload
   ) {
     return this.aiService.getSuggestedSettings(
       body.amp,

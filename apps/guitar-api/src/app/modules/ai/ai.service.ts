@@ -43,14 +43,19 @@ export class AiService {
     ${genre ? `Make it suitable for ${genre} music.` : ''}
     ${referenceTone ? `Try to match the tone of ${referenceTone}.` : ''}
 
-    Respond ONLY with JSON in this structure. Some amps and pedals can have more or less knobs:
+    The number scale is 0-100
+
+    Respond ONLY with JSON in this structure. Some amps and pedals can have more or less knobs. If you can't match the pedal, treat the pedal as the defined type. Only include the pedal name in the return response, not the type. Suggested Pedals should only be populated if there are additional pedals needed for a sound:
     {
       "amp": {
         "name": "${amp}",
         "settings": { "knob": x... }
       },
       "pedals": [
-        { "name": "Pedal Name", "settings": { "knob1": X, "knob2": X, "knob3": X } }
+        { "name": "Pedal Name", "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
+      ],
+      "suggestedPedals": [
+        { "name": "Pedal Name", "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
       ],
       "notes": "Tone description here."
     }
