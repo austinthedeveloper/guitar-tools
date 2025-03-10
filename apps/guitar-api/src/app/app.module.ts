@@ -35,6 +35,7 @@ import {
   UserSchema,
 } from './schemas';
 import { JwtModule } from '@nestjs/jwt';
+import { AiModule } from './modules/ai/ai.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { JwtModule } from '@nestjs/jwt';
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '10h' },
     }),
+    AiModule,
   ],
   controllers: [
     AppController,
