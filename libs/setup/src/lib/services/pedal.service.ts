@@ -30,8 +30,8 @@ export class PedalService {
   }
 
   // Update an existing pedal in the API and store
-  updatePedal(pedal: Pedal): Observable<Pedal> {
-    return this.http.put<Pedal>(`${this.apiUrl}/${pedal._id}`, pedal).pipe(
+  updatePedal(id: string, pedal: Pedal): Observable<Pedal> {
+    return this.http.put<Pedal>(`${this.apiUrl}/${id}`, pedal).pipe(
       tap((updated) => this.pedalStore.updatePedal(updated)) // Update in store
     );
   }

@@ -5,6 +5,7 @@ import {
   Pairing,
   CreatePairingRequest,
   EnvInterface,
+  PairingPayload,
 } from '@guitar/interfaces';
 import { PairingStore } from '../+state';
 
@@ -27,6 +28,12 @@ export class PairingService {
     );
   }
 
+  createPairing(payload: PairingPayload) {
+    return this.http.post<Pairing>(this.apiUrl, payload).pipe(
+      tap((pairing) => this.pairingStore.addPairing(pairing)) // Add to store
+    );
+  }
+
   // Create a new pairing and add it to the store
   pairAmpWithPedalBoard(
     pairingData: CreatePairingRequest
@@ -37,12 +44,10 @@ export class PairingService {
   }
 
   // Update an existing pairing in the API and store
-  updatePairing(pairing: Pairing): Observable<Pairing> {
-    return this.http
-      .put<Pairing>(`${this.apiUrl}/${pairing._id}`, pairing)
-      .pipe(
-        tap((updated) => this.pairingStore.updatePairing(updated)) // Update in store
-      );
+  updatePairing(id: string, pairing: PairingPayload): Observable<Pairing> {
+    return this.http.put<Pairing>(`${this.apiUrl}/${id}`, pairing).pipe(
+      tap((updated) => this.pairingStore.updatePairing(updated)) // Update in store
+    );
   }
 
   // Delete a pairing from the API and store

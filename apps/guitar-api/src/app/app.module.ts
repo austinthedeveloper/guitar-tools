@@ -10,12 +10,10 @@ import {
   AmpController,
   PedalController,
   PairingController,
-  AmpUsageController,
   PedalboardController,
 } from './controllers';
 import {
   AmpService,
-  AmpUsageService,
   GoogleStrategy,
   JwtStrategy,
   PairingService,
@@ -25,8 +23,6 @@ import {
 import {
   Amp,
   AmpSchema,
-  AmpUsage,
-  AmpUsageSchema,
   Knob,
   KnobSchema,
   Pairing,
@@ -35,8 +31,6 @@ import {
   PedalBoard,
   PedalBoardSchema,
   PedalSchema,
-  PedalUsage,
-  PedalUsageSchema,
   User,
   UserSchema,
 } from './schemas';
@@ -51,16 +45,10 @@ import { JwtModule } from '@nestjs/jwt';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     MongooseModule.forFeature([{ name: Amp.name, schema: AmpSchema }]),
     MongooseModule.forFeature([{ name: Knob.name, schema: KnobSchema }]),
-    MongooseModule.forFeature([
-      { name: AmpUsage.name, schema: AmpUsageSchema },
-    ]),
     MongooseModule.forFeature([{ name: Amp.name, schema: AmpSchema }]),
     MongooseModule.forFeature([{ name: Pedal.name, schema: PedalSchema }]),
     MongooseModule.forFeature([
       { name: PedalBoard.name, schema: PedalBoardSchema },
-    ]),
-    MongooseModule.forFeature([
-      { name: PedalUsage.name, schema: PedalUsageSchema },
     ]),
     MongooseModule.forFeature([{ name: Pairing.name, schema: PairingSchema }]),
     JwtModule.register({
@@ -75,7 +63,6 @@ import { JwtModule } from '@nestjs/jwt';
     PedalController,
     PedalboardController,
     PairingController,
-    AmpUsageController,
   ],
   providers: [
     AppService,
@@ -84,7 +71,6 @@ import { JwtModule } from '@nestjs/jwt';
     PedalService,
     PedalboardService,
     PairingService,
-    AmpUsageService,
     GoogleStrategy,
     JwtStrategy,
   ],

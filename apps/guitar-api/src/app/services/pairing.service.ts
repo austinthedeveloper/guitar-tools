@@ -2,9 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Pairing } from '../schemas/pairing.schema';
-import { Amp, AmpUsage, PedalBoard } from '../schemas';
+import { Amp, PedalBoard } from '../schemas';
 import { AmpService } from './amp.service';
-import { AmpUsageService } from './amp-usage.service';
 import { PedalService } from './pedal.service';
 import { PedalboardService } from './pedalboard.service';
 
@@ -14,25 +13,26 @@ export class PairingService {
     @InjectModel(Pairing.name) private pairingModel: Model<Pairing>,
     @InjectModel(PedalBoard.name) private pedalBoardModel: Model<PedalBoard>,
     @InjectModel(Amp.name) private ampModel: Model<Amp>,
-    @InjectModel(AmpUsage.name) private ampUsageModel: Model<AmpUsage>,
     private ampService: AmpService,
-    private ampUsageService: AmpUsageService,
-    private pedalservice: PedalService,
+    private pedalService: PedalService,
     private pedalboardService: PedalboardService
   ) {}
 
   /** ✅ Create a pairing between an amp and a pedalboard */
-  async createPairing(
-    ampUsageId: string,
-    pedalBoardId: string,
-    createdById: string
-  ): Promise<Pairing> {
+  async createPairing(payload: Pairing, createdById: string): Promise<Pairing> {
     const pairing = await new this.pairingModel({
-      ampUsageId: new Types.ObjectId(ampUsageId),
-      pedalBoardId: new Types.ObjectId(pedalBoardId),
+      ...payload,
       createdById,
     }).save();
+
     return await this.populatedPairing(pairing);
+  }
+
+  async update(id: string, data: Pairing): Promise<Pairing> {
+    const updatedItem = await this.pairingModel
+      .findByIdAndUpdate(id, data, { new: true })
+      .exec();
+    return updatedItem ? this.populatedPairing(updatedItem) : null;
   }
 
   /** ✅ Get all pairings for a user */
@@ -55,25 +55,36 @@ export class PairingService {
       .findOne({ _id: pairingId })
       .populate('createdBy', 'displayName email')
       .exec();
-
     // ✅ Use Promise.all to resolve all async operations before returning the result
     return await this.populatedPairing(pairing);
   }
 
   async populatedPairing(pairing: Pairing): Promise<Pairing> {
-    const pedalBoard = pairing.pedalBoardId
-      ? await this.pedalboardService.getPedalBoardById(pairing.pedalBoardId)
+    const pedalboard = pairing.pedalboardId
+      ? await this.pedalboardService.getPedalBoardById(pairing.pedalboardId)
       : null;
-    const ampUsage = pairing.ampUsageId
-      ? await this.ampUsageService.getAmpUsageById(
-          pairing.ampUsageId.toString()
-        )
+    const amp = pairing.ampId
+      ? await this.ampService.findOne(pairing.ampId.toString())
       : null;
+    const pairingObject: Pairing = pairing.toObject();
+    const populatedPedals = await Promise.all(
+      pairingObject.pedals.map(async (pedal) => {
+        const pedalData = await this.pedalService.findOnePedal(
+          pedal.pedalId.toString()
+        );
 
+        return {
+          ...pedal, // ✅ Keep original pedal data
+          pedal: pedalData || null, // ✅ Attach populated pedal data
+          knobs: Object.fromEntries(pedal.knobs || new Map()), // ✅ Convert Map to Object
+        };
+      })
+    );
     return {
       ...pairing.toObject(),
-      pedalBoard,
-      ampUsage,
+      pedalboard,
+      amp,
+      pedals: populatedPedals,
     };
   }
 

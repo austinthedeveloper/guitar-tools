@@ -1,2 +1,17 @@
-<div class="knob mb-1" [knobRotate]="value"></div>
+<div class="mb-1">
+  <ng-container [ngSwitch]="type">
+    <div *ngSwitchCase="'input'" class="amp-input">
+      <div class="jack"></div>
+    </div>
+    <button
+      type="button"
+      *ngSwitchCase="'switch'"
+      class="amp-button"
+      [class.on]="value"
+    >
+      <div class="led"></div>
+    </button>
+    <div *ngSwitchDefault class="knob" [knobRotate]="value"></div>
+  </ng-container>
+</div>
 {{ name }}

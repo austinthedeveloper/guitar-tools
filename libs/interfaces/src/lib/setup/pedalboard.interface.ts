@@ -5,8 +5,8 @@ import { Pedal } from './pedal.interface';
 export interface PedalBoardPedal {
   pedalId: string;
   order: number;
-  knobValues: Record<string, number>;
-  pedal: Pedal;
+  knobValues: PedalboardKnobValues;
+  pedal?: Pedal;
   // Used in forms
   knobs?: {
     name: string;
@@ -26,3 +26,5 @@ export interface PedalBoard extends BaseDocument {
   pedals: PedalBoardPedal[];
   createdById: string;
 }
+
+export type PedalboardKnobValues = Record<string, number>;

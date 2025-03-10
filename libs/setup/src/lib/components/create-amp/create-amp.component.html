@@ -1,6 +1,13 @@
 <div class="container mt-4">
   <div class="card p-4">
-    <h2 class="text-center mb-3">Create a New Amp</h2>
+    <div class="mb-3 d-flex">
+      <h2 class="flex-grow-1">Amp</h2>
+      <div *ngIf="ampForm.controls._id.value as id">
+        <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
+          Delete
+        </button>
+      </div>
+    </div>
     <form [formGroup]="ampForm" (ngSubmit)="submit()">
       <div class="mb-3">
         <label for="name" class="form-label">Amp Name</label>
@@ -26,31 +33,38 @@
       <div formArrayName="controls">
         <div
           *ngFor="let control of controls.controls; let i = index"
-          class="mb-2"
-          [formGroup]="getControl(i)"
+          class="mb-2 d-flex flex-row align-items-end"
+          [formGroup]="control"
         >
-          <label class="form-label">Control Name</label>
-          <select
-            formControlName="name"
-            class="form-select"
-            (change)="onControlChange(getControl(i))"
-          >
-            <option value="">-- Select Control --</option>
-            <option
-              *ngFor="let controlOption of controlOptions"
-              [value]="controlOption.name"
+          <div class="d-flex flex-grow-1 flex-column pe-2">
+            <label class="form-label"
+              >Control Name - Type:
+              {{ control.controls.type.value || 'N/A' | titlecase }}</label
             >
-              {{ controlOption.name }}
-            </option>
-          </select>
+            <select
+              formControlName="name"
+              class="form-select"
+              (change)="onControlChange(control)"
+            >
+              <option value="">-- Select Control --</option>
+              <option
+                *ngFor="let controlOption of controlOptions"
+                [value]="controlOption.name"
+              >
+                {{ controlOption.name }}
+              </option>
+            </select>
+          </div>
 
-          <button
-            type="button"
-            class="btn btn-danger"
-            (click)="removeControl(i)"
-          >
-            Remove
-          </button>
+          <div>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="removeControl(i)"
+            >
+              Remove
+            </button>
+          </div>
         </div>
       </div>
       <button type="button" class="btn btn-primary mb-3" (click)="addControl()">
@@ -61,7 +75,7 @@
         class="btn btn-success w-100"
         [disabled]="ampForm.invalid"
       >
-        Create Amp
+        Save Amp
       </button>
     </form>
   </div>

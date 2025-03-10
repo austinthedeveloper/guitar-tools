@@ -1,9 +1,21 @@
-import { Component } from '@angular/core';
-import { FormArray, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { CreatePedalRequest, PedalType } from '@guitar/interfaces';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  FormArray,
+  FormControl,
+  NonNullableFormBuilder,
+  Validators,
+} from '@angular/forms';
+import { CreatePedalRequest, Pedal, PedalType } from '@guitar/interfaces';
 
 import { PedalService } from '../../services';
 import { PEDAL_KNOBS, PEDAL_TYPES } from '../../helpers';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'lib-create-pedal',
@@ -11,10 +23,13 @@ import { PEDAL_KNOBS, PEDAL_TYPES } from '../../helpers';
   styleUrl: './create-pedal.component.scss',
 })
 export class CreatePedalComponent {
-  pedalForm = this.fb.group({
+  @Input() pedal!: Pedal;
+  @Output() delete = new EventEmitter<string>();
+  form = this.fb.group({
+    _id: [''],
     name: ['', Validators.required],
     type: ['', Validators.required],
-    knobs: this.fb.array([]),
+    knobs: this.fb.array<FormControl<string>>([]),
   });
   typeOptions: PedalType[] = PEDAL_TYPES;
   pedalKnobs = PEDAL_KNOBS;
@@ -24,12 +39,29 @@ export class CreatePedalComponent {
     private pedalService: PedalService
   ) {}
 
-  get knobs(): FormArray {
-    return this.pedalForm.get('knobs') as FormArray;
+  ngOnChanges({ pedal }: SimpleChanges) {
+    if (pedal) {
+      this.setPedal();
+    }
   }
 
-  addKnob() {
-    this.knobs.push(this.fb.control('', Validators.required));
+  private setPedal() {
+    this.form.patchValue({
+      _id: this.pedal._id,
+      name: this.pedal.name,
+      type: this.pedal.type,
+    });
+    this.pedal.knobs.forEach((pedal) => {
+      this.addKnob(pedal);
+    });
+  }
+
+  get knobs() {
+    return this.form.controls.knobs;
+  }
+
+  addKnob(value?: string) {
+    this.knobs.push(this.fb.control(value || '', Validators.required));
   }
 
   removeKnob(index: number) {
@@ -37,13 +69,22 @@ export class CreatePedalComponent {
   }
 
   submit() {
-    if (this.pedalForm.valid) {
-      const pedalData = this.pedalForm.value as CreatePedalRequest;
-      this.pedalService.createPedal(pedalData).subscribe((res) => {
-        console.log('Pedal Created:', res);
-        this.pedalForm.reset();
-        this.knobs.clear();
-      });
-    }
+    if (this.form.invalid) return;
+    const { _id, ...pedalData } = this.form.value;
+
+    const call = _id
+      ? this.pedalService.updatePedal(_id, pedalData as Pedal)
+      : this.pedalService
+          .createPedal(pedalData as CreatePedalRequest)
+          .pipe(tap(() => this.clearForm()));
+
+    call.subscribe((res) => {
+      console.log('Pedal Created:', res);
+    });
+  }
+
+  private clearForm() {
+    this.form.reset();
+    this.knobs.clear();
   }
 }

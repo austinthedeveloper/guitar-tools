@@ -1,0 +1,49 @@
+$border-color: #444;
+$background-off: linear-gradient(to bottom, #555, #222);
+$background-on: linear-gradient(to bottom, #0f0, #060);
+$switch-color: #ccc;
+$switch-on-color: #fff;
+$text-color: white;
+$box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+$transition-speed: 0.3s;
+
+.pedal-toggle {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 3px solid $border-color;
+  border-radius: 50%;
+  background: $background-off;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $text-color;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background $transition-speed ease, transform 0.1s ease-in-out;
+  box-shadow: $box-shadow;
+
+  .switch {
+    width: 20px;
+    height: 20px;
+    background: $switch-color;
+    border-radius: 50%;
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &.on {
+    background: $background-on;
+    transform: scale(1.1);
+
+    .switch {
+      background: $switch-on-color;
+    }
+  }
+
+  span {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+}

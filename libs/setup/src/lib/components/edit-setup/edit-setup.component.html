@@ -1,0 +1,123 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <div class="mb-3 d-flex">
+      <h2 class="flex-grow-1">Setup</h2>
+      <div *ngIf="form.controls._id.value as id">
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="deletePairing.emit(id)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          class="form-control"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="ampId" class="form-label">Select an Amp</label>
+        <select
+          id="ampId"
+          formControlName="ampId"
+          class="form-select"
+          (change)="onAmpChange()"
+        >
+          <option *ngFor="let amp of amps" [value]="amp._id">
+            {{ amp.name }}
+          </option>
+        </select>
+      </div>
+      <!-- Edit Amp Values -->
+      <ng-container *ngIf="controlValues.controls.length">
+        <h3>Control Values</h3>
+        <div formArrayName="controlValues">
+          <div
+            class="mb-2 d-flex"
+            *ngFor="let group of controlValues.controls; let i = index"
+            [formGroup]="group"
+          >
+            <label class="form-label me-4"
+              >{{ group.controls.name.value }}
+              <p class="mb-0 small">
+                {{ group.controls.type.value | titlecase }}
+              </p></label
+            >
+            <ng-container [ngSwitch]="group.controls.type.value">
+              <div *ngSwitchCase="'input'">N/A</div>
+              <div *ngSwitchCase="'switch'">
+                <guitar-switch
+                  [formCtrl]="group.controls.value"
+                ></guitar-switch>
+              </div>
+
+              <guitar-slider
+                *ngSwitchDefault
+                class="d-flex flex-grow-1"
+                [formCtrl]="group.controls.value"
+              ></guitar-slider>
+            </ng-container>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            *ngFor="let group of controlValues.controls"
+            class="d-flex flex-column align-items-center col-12 col-md-2 mb-3"
+          >
+            <lib-knob-display
+              [type]="group.controls.type.value"
+              [name]="group.controls.name.value"
+              [value]="group.controls.value.value"
+            ></lib-knob-display>
+          </div>
+        </div>
+      </ng-container>
+      <!-- Pedalboard -->
+      <div class="mb-3">
+        <label for="pedalBoardId" class="form-label">Select Pedalboard</label>
+        <select
+          id="pedalBoardId"
+          formControlName="pedalboardId"
+          class="form-select"
+          (change)="onPedalboardChange()"
+        >
+          <option *ngFor="let board of pedalboards" [value]="board._id">
+            {{ board.name }}
+          </option>
+        </select>
+      </div>
+      <!-- Pedalboard display -->
+      <div class="mt-3" *ngIf="pedalboard">
+        <h6 class="text-success">Pedalboard: {{ pedalboard.name }}</h6>
+        <div class="row">
+          <lib-pedal-display
+            class="align-items-center col-12 col-md-4 mb-3"
+            *ngFor="let pedal of form.controls.pedals.controls"
+            [pedal]="pedal.value.pedal.pedal"
+            [values]="pedal.value.knobs"
+            [isOn]="pedal.value.on"
+            [canToggle]="true"
+            [canEdit]="true"
+            [formGrp]="pedal.controls.knobs"
+            (toggle)="pedal.controls.on.patchValue($event)"
+          ></lib-pedal-display>
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-success w-100"
+        [disabled]="form.invalid"
+      >
+        Save
+      </button>
+    </form>
+  </div>
+</div>

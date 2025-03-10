@@ -1,9 +1,22 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
-import { CreatePedalBoardRequest, Pedal } from '@guitar/interfaces';
+import {
+  CreatePedalBoardRequest,
+  Pedal,
+  PedalBoard,
+  PedalboardKnobValues,
+  PedalBoardPedal,
+} from '@guitar/interfaces';
 
 import { PedalControlGroup, PedalKnob } from '../../interfaces';
 import { PedalBoardService } from '../../services';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'lib-create-pedalboard',
@@ -11,35 +24,60 @@ import { PedalBoardService } from '../../services';
   styleUrl: './create-pedalboard.component.scss',
 })
 export class CreatePedalboardComponent {
-  pedalboardForm = this.fb.group({
+  form = this.fb.group({
+    _id: [''],
     name: ['', Validators.required],
     pedals: this.fb.array<FormGroup<PedalControlGroup>>([]),
   });
+  @Input() pedalboard!: PedalBoard;
   @Input() pedals: Pedal[] = [];
+  @Output() delete = new EventEmitter<string>();
 
   constructor(
     private fb: NonNullableFormBuilder,
     private pedalBoardService: PedalBoardService
   ) {}
+
+  ngOnChanges({ pedalboard }: SimpleChanges) {
+    if (pedalboard) {
+      this.setPedalBoard();
+    }
+  }
+
+  private setPedalBoard() {
+    this.clearForm();
+    this.form.patchValue({
+      _id: this.pedalboard._id,
+      name: this.pedalboard.name,
+    });
+    this.pedalboard.pedals.forEach((pedal) => this.addPedal(pedal));
+  }
+
   get pedalControls() {
-    return this.pedalboardForm.controls.pedals;
+    return this.form.controls.pedals;
   }
 
   getPedalGroup(index: number) {
     return this.pedalControls.at(index);
   }
 
-  addPedal() {
-    this.pedalControls.push(
-      this.fb.group({
-        pedalId: ['', Validators.required],
-        order: [this.pedalControls.length + 1, Validators.required],
-        knobs: this.fb.array<FormGroup<PedalKnob>>([]),
-      })
-    );
+  addPedal(value?: PedalBoardPedal) {
+    const group = this.fb.group({
+      pedalId: ['', Validators.required],
+      order: [this.pedalControls.length + 1, Validators.required],
+      knobs: this.fb.array<FormGroup<PedalKnob>>([]),
+    });
+    if (value) {
+      group.patchValue(value);
+      this.onPedalChange(group, value.knobValues);
+    }
+    this.pedalControls.push(group);
   }
 
-  onPedalChange(pedalGroup: FormGroup<PedalControlGroup>) {
+  onPedalChange(
+    pedalGroup: FormGroup<PedalControlGroup>,
+    knobValues?: PedalboardKnobValues
+  ) {
     const pedalId = pedalGroup.controls.pedalId.value;
     const selectedPedal = this.pedals.find((p) => p._id === pedalId);
     if (!selectedPedal) return;
@@ -51,7 +89,8 @@ export class CreatePedalboardComponent {
 
     // Add knobs dynamically
     selectedPedal.knobs.forEach((knob) => {
-      knobsArray.push(this.fb.group({ name: knob, value: [0] }));
+      const value = knobValues ? knobValues[knob] || 0 : 50;
+      knobsArray.push(this.fb.group({ name: knob, value: [value] }));
     });
   }
 
@@ -59,25 +98,37 @@ export class CreatePedalboardComponent {
     this.pedalControls.removeAt(index);
   }
   submit() {
-    if (this.pedalboardForm.valid) {
-      const pedalboardData = this.pedalboardForm
-        .value as CreatePedalBoardRequest;
+    if (this.form.valid) {
+      const { _id, ...pedalboardData } = this.form.value;
+      const mappedPedals: PedalBoardPedal[] = pedalboardData.pedals.map(
+        ({ knobs, ...pedal }, index) => {
+          const knobValues: PedalboardKnobValues = {};
+          knobs.forEach((knob) => {
+            knobValues[knob.name] = knob.value;
+          });
+          return {
+            ...pedal,
+            knobValues,
+          } as PedalBoardPedal;
+        }
+      );
 
-      // Format knobValues correctly
-      pedalboardData.pedals.forEach((pedal) => {
-        pedal.knobValues = {};
-        pedal.knobs.forEach((knob) => {
-          pedal.knobValues[knob.name] = knob.value;
-        });
-        delete pedal.knobs; // Remove knobs array before sending to API
+      const mappedData = { ...pedalboardData, pedals: mappedPedals };
+
+      const call = _id
+        ? this.pedalBoardService.updatePedalBoard(_id, mappedData as PedalBoard)
+        : this.pedalBoardService
+            .createPedalBoard(mappedData as CreatePedalBoardRequest)
+            .pipe(tap(() => this.clearForm()));
+
+      call.subscribe((res) => {
+        console.log('Pedalboard Saved:', res);
       });
-      this.pedalBoardService
-        .createPedalBoard(pedalboardData)
-        .subscribe((res) => {
-          console.log('Pedalboard Created:', res);
-          this.pedalboardForm.reset();
-          this.pedalControls.clear();
-        });
     }
+  }
+
+  private clearForm() {
+    this.form.reset();
+    this.pedalControls.clear();
   }
 }

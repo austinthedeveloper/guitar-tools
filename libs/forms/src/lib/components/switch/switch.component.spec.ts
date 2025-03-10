@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CreatePairingComponent } from './create-pairing.component';
+import { SwitchComponent } from './switch.component';
 
-describe('CreatePairingComponent', () => {
-  let component: CreatePairingComponent;
-  let fixture: ComponentFixture<CreatePairingComponent>;
+describe('SwitchComponent', () => {
+  let component: SwitchComponent;
+  let fixture: ComponentFixture<SwitchComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreatePairingComponent],
+      declarations: [SwitchComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreatePairingComponent);
+    fixture = TestBed.createComponent(SwitchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

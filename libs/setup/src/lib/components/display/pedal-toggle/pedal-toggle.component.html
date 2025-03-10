@@ -1,0 +1,9 @@
+<button
+  class="pedal-toggle"
+  type="button"
+  [class.on]="isOn"
+  (click)="togglePedal()"
+>
+  <div class="switch"></div>
+  <span>{{ isOn ? 'ON' : 'OFF' }}</span>
+</button>
