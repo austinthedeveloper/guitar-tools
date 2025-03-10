@@ -13,7 +13,7 @@ import {
   CreateAmpRequest,
 } from '@guitar/interfaces';
 
-import { AMP_INPUTS, AMP_KNOBS } from '../../helpers';
+import { AMP_BUTTONS, AMP_INPUTS, AMP_KNOBS } from '../../helpers';
 import { AmpService } from './../../services';
 import { AmpControlsGroup } from '../../interfaces';
 
@@ -34,7 +34,7 @@ export class CreateAmpComponent {
     brand: [''],
     controls: this.fb.array<FormGroup<AmpControlsGroup>>([]),
   });
-  controlOptions = [...AMP_INPUTS, ...AMP_KNOBS];
+  controlOptions = [...AMP_INPUTS, ...AMP_BUTTONS, ...AMP_KNOBS];
   controlTypes = AmpInputControls;
 
   constructor(

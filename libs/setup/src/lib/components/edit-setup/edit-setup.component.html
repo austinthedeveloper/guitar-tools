@@ -51,10 +51,20 @@
                 {{ group.controls.type.value | titlecase }}
               </p></label
             >
-            <guitar-slider
-              class="d-flex flex-grow-1"
-              [formCtrl]="group.controls.value"
-            ></guitar-slider>
+            <ng-container [ngSwitch]="group.controls.type.value">
+              <div *ngSwitchCase="'input'">N/A</div>
+              <div *ngSwitchCase="'switch'">
+                <guitar-switch
+                  [formCtrl]="group.controls.value"
+                ></guitar-switch>
+              </div>
+
+              <guitar-slider
+                *ngSwitchDefault
+                class="d-flex flex-grow-1"
+                [formCtrl]="group.controls.value"
+              ></guitar-slider>
+            </ng-container>
           </div>
         </div>
         <div class="row">
@@ -63,6 +73,7 @@
             class="d-flex flex-column align-items-center col-12 col-md-2 mb-3"
           >
             <lib-knob-display
+              [type]="group.controls.type.value"
               [name]="group.controls.name.value"
               [value]="group.controls.value.value"
             ></lib-knob-display>

@@ -53,7 +53,7 @@
       "standalone": false,
       "skipImport": true
     },
-     "@nx/angular:directive": {
+    "@nx/angular:directive": {
       "standalone": false
     },
     "@nx/angular": {

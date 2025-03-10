@@ -14,7 +14,6 @@ export const AMP_KNOBS: KnobType[] = [
   { name: 'Bright', type: 'knob' },
   { name: 'Depth', type: 'knob' },
   { name: 'Limiter', type: 'knob' },
-  { name: 'Overdrive', type: 'knob' },
   { name: 'Compression', type: 'knob' },
   { name: 'EQ Shift', type: 'knob' },
 ];
