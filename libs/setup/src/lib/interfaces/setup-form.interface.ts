@@ -21,6 +21,7 @@ export interface PedalControlGroup {
   pedalId: FormControl<string>;
   order: FormControl<number>;
   knobs: FormArray<FormGroup<PedalKnob>>;
+  type: FormControl<string>;
 }
 export interface PedalControlGroupNew {
   pedalId: FormControl<string>;

@@ -17,6 +17,7 @@ import {
 import { PedalControlGroup, PedalKnob } from '../../interfaces';
 import { PedalBoardService } from '../../services';
 import { tap } from 'rxjs';
+import { sortPedalsByType } from '../../helpers';
 
 @Component({
   selector: 'lib-create-pedalboard',
@@ -67,6 +68,7 @@ export class CreatePedalboardComponent {
       pedalId: ['', Validators.required],
       order: [this.pedalControls.length + 1, Validators.required],
       knobs: this.fb.array<FormGroup<PedalKnob>>([]),
+      type: '',
     });
     if (value) {
       group.patchValue(value);
@@ -83,6 +85,7 @@ export class CreatePedalboardComponent {
     const selectedPedal = this.pedals.find((p) => p._id === pedalId);
     if (!selectedPedal) return;
 
+    pedalGroup.controls.type.patchValue(selectedPedal.type);
     const knobsArray = pedalGroup.controls.knobs;
 
     // Clear old knobs if switching pedals
@@ -101,6 +104,7 @@ export class CreatePedalboardComponent {
   submit() {
     if (this.form.valid) {
       const { _id, ...pedalboardData } = this.form.value;
+
       const mappedPedals: PedalBoardPedal[] = pedalboardData.pedals.map(
         ({ knobs, ...pedal }, index) => {
           const knobValues: PedalboardKnobValues = {};
@@ -132,6 +136,10 @@ export class CreatePedalboardComponent {
     this.pedalBoardService
       .deletePedalBoard(id)
       .subscribe(() => this.delete.emit(id));
+  }
+
+  orderPedals() {
+    sortPedalsByType(this.form.controls.pedals);
   }
 
   private clearForm() {
