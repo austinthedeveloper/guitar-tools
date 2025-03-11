@@ -20,6 +20,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { AmpModalComponent } from './components/amp-modal/amp-modal.component';
 import { PedalModalComponent } from './components/pedal-modal/pedal-modal.component';
 import { PedalboardModalComponent } from './components/pedalboard-modal/pedalboard-modal.component';
+import { PedalsOnPipe } from './pipes/pedals-on/pedals-on.pipe';
 
 const components = [
   CreateAmpComponent,
@@ -41,7 +42,7 @@ const components = [
   PedalboardModalComponent,
 ];
 const directives = [KnobRotateDirective];
-const pipes = [PedalColorPipe];
+const pipes = [PedalColorPipe, PedalsOnPipe];
 @NgModule({
   imports: [
     CommonModule,

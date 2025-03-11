@@ -32,7 +32,7 @@
       <div class="row">
         <lib-pedal-display
           class="align-items-center col-12 col-md-4 mb-3"
-          *ngFor="let pedal of pairing.pedals"
+          *ngFor="let pedal of pairing.pedals | pedalsOn"
           [pedal]="pedal.pedal"
           [values]="pedal.knobs"
         ></lib-pedal-display>
