@@ -98,7 +98,7 @@ export class EditSetupComponent {
       // Set the values if Control Values exists (Edit)
       const value = controlValues
         ? controlValues.find((v) => v.name === control.name)?.value || 0
-        : 50;
+        : this.setDefaultAmpValue(control.type);
       this.controlValues.push(
         this.fb.group({
           name: control.name,
@@ -107,6 +107,11 @@ export class EditSetupComponent {
         })
       );
     });
+  }
+
+  private setDefaultAmpValue(type: string) {
+    if (type === 'knob') return 50;
+    return false;
   }
 
   onPedalboardChange() {

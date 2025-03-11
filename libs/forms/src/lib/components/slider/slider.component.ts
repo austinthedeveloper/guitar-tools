@@ -7,7 +7,7 @@ import { FormControl } from '@angular/forms';
   styleUrl: './slider.component.scss',
 })
 export class SliderComponent {
-  @Input() formCtrl = new FormControl(0);
+  @Input() formCtrl = new FormControl<any>(0);
   @Input() min = 0;
   @Input() max = 100;
   @Input() step = 1;

@@ -5,7 +5,7 @@ import { Pedal, PedalBoardPedal } from '@guitar/interfaces';
 export interface ControlGroup {
   name: FormControl<string>;
   type: FormControl<string>;
-  value: FormControl<number>;
+  value: FormControl<any>;
 }
 
 // Pedalboard
