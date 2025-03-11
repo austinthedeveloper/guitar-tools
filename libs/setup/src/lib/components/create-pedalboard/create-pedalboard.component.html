@@ -59,7 +59,7 @@
     Add Pedal
   </button>
   <div *ngIf="form.controls._id.value as id">
-    <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
+    <button type="button" class="btn btn-danger" (click)="deletePedalboard(id)">
       Delete
     </button>
   </div>

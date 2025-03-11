@@ -57,7 +57,7 @@
     Add Control
   </button>
   <ng-container *ngIf="ampForm.controls._id.value as id">
-    <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
+    <button type="button" class="btn btn-danger" (click)="deleteAmp(id)">
       Delete Amp
     </button>
   </ng-container>

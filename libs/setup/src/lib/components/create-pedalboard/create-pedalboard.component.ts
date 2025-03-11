@@ -31,6 +31,7 @@ export class CreatePedalboardComponent {
   });
   @Input() pedalboard!: PedalBoard;
   @Input() pedals: Pedal[] = [];
+  @Output() save = new EventEmitter();
   @Output() delete = new EventEmitter<string>();
 
   constructor(
@@ -122,9 +123,15 @@ export class CreatePedalboardComponent {
             .pipe(tap(() => this.clearForm()));
 
       call.subscribe((res) => {
+        this.save.emit();
         console.log('Pedalboard Saved:', res);
       });
     }
+  }
+  deletePedalboard(id: string) {
+    this.pedalBoardService
+      .deletePedalBoard(id)
+      .subscribe(() => this.delete.emit(id));
   }
 
   private clearForm() {

@@ -13,5 +13,7 @@
   <lib-create-pedalboard
     [pedalboard]="pedalboard"
     [pedals]="pedals$ | async"
+    (save)="close()"
+    (delete)="close()"
   ></lib-create-pedalboard>
 </div>

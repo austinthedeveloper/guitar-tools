@@ -85,6 +85,10 @@ export class CreatePedalComponent {
     });
   }
 
+  deletePedal(id: string) {
+    this.pedalService.deletePedal(id).subscribe(() => this.delete.emit(id));
+  }
+
   private clearForm() {
     this.form.reset();
     this.knobs.clear();

@@ -39,7 +39,7 @@
     Add Knob
   </button>
   <div *ngIf="form.controls._id.value as id">
-    <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
+    <button type="button" class="btn btn-danger" (click)="deletePedal(id)">
       Delete
     </button>
   </div>

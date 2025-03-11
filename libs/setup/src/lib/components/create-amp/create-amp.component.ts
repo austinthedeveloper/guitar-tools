@@ -125,6 +125,10 @@ export class CreateAmpComponent {
     }
   }
 
+  deleteAmp(id: string) {
+    this.ampService.deleteAmp(id).subscribe(() => this.delete.emit(id));
+  }
+
   private clearForm() {
     this.ampForm.reset();
     this.controls.clear();
