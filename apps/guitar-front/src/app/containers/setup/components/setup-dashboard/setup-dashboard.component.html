@@ -42,4 +42,21 @@
       ></lib-pedal-display>
     </div>
   </section>
+
+  <section>
+    <div>
+      <h2>Your Pedalboards</h2>
+      <button class="btn btn-primary" (click)="openPedalboardModal()">
+        Add Pedalboard
+      </button>
+    </div>
+    <div class="row">
+      <lib-pedalboard-display
+        class="align-items-center col-12 col-md-4 mb-3"
+        *ngFor="let pedalboard of pedalBoards$ | async"
+        (click)="openPedalboardModal(pedalboard)"
+        [pedalboard]="pedalboard"
+      ></lib-pedalboard-display>
+    </div>
+  </section>
 </div>

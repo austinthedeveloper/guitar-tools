@@ -1,11 +1,3 @@
-<div class="mb-3 d-flex">
-  <h2 class="flex-grow-1">Pedal</h2>
-  <div *ngIf="form.controls._id.value as id">
-    <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
-      Delete
-    </button>
-  </div>
-</div>
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div class="mb-3">
     <label for="name" class="form-label">Pedal Name</label>
@@ -46,7 +38,11 @@
   <button type="button" class="btn btn-primary mb-3" (click)="addKnob()">
     Add Knob
   </button>
-
+  <div *ngIf="form.controls._id.value as id">
+    <button type="button" class="btn btn-danger" (click)="delete.emit(id)">
+      Delete
+    </button>
+  </div>
   <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid">
     Save Pedal
   </button>

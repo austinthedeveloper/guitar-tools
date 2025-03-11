@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Amp, Pedal } from '@guitar/interfaces';
+import { Amp, Pedal, PedalBoard } from '@guitar/interfaces';
 import {
   PedalService,
   AmpService,
@@ -14,6 +14,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AmpModalComponent } from 'libs/setup/src/lib/components/amp-modal/amp-modal.component';
 import { PedalModalComponent } from 'libs/setup/src/lib/components/pedal-modal/pedal-modal.component';
+import { PedalboardModalComponent } from 'libs/setup/src/lib/components/pedalboard-modal/pedalboard-modal.component';
 
 @Component({
   selector: 'guitar-setup-dashboard',
@@ -68,5 +69,12 @@ export class SetupDashboardComponent {
       size: 'lg',
     });
     modalRef.componentInstance.pedal = pedal;
+  }
+  openPedalboardModal(pedalboard?: PedalBoard) {
+    const modalRef = this.modalService.open(PedalboardModalComponent, {
+      size: 'lg',
+    });
+    modalRef.componentInstance.pedalboard = pedalboard;
+    modalRef.componentInstance.pedals$ = this.pedals$;
   }
 }

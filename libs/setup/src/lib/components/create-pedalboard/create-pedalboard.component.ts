@@ -39,7 +39,7 @@ export class CreatePedalboardComponent {
   ) {}
 
   ngOnChanges({ pedalboard }: SimpleChanges) {
-    if (pedalboard) {
+    if (pedalboard && pedalboard.currentValue) {
       this.setPedalBoard();
     }
   }

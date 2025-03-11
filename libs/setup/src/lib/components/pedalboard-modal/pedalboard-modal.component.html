@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ pedalboard ? 'Edit' : 'Create' }} Pedalboard</h5>
+  <button
+    type="button"
+    (click)="close()"
+    class="btn-close"
+    data-bs-dismiss="modal"
+    aria-label="Close"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <lib-create-pedalboard
+    [pedalboard]="pedalboard"
+    [pedals]="pedals$ | async"
+  ></lib-create-pedalboard>
+</div>
