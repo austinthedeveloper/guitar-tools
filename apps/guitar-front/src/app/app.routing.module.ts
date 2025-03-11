@@ -47,6 +47,11 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'setup/pairing/new',
+    component: SetupPairingDetailComponent,
+    resolve: [getPedalboardsResolver, getAmpsResolver],
+  },  
+  {
     path: 'setup/pairing/:pairingId',
     component: SetupPairingDetailComponent,
     resolve: [getPairingResolver, getPedalboardsResolver, getAmpsResolver],

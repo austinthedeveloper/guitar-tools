@@ -1,9 +1,14 @@
-<div class="container landing-container">
+<div class="container landing-container p-2">
   <section>
-    <h2>Pairings</h2>
+    <div class="d-flex justify-content-between mb-2">
+      <h2>Pairings</h2>
+      <button class="btn btn-primary" (click)="onPairingNavigate('new')">
+        Add Pairing
+      </button>
+    </div>
     <div class="row">
       <lib-pairing-display
-        class="align-items-center col-12 col-md-6 mb-3"
+        class="align-items-center col-12 col-md-6 mb-3 pointer"
         *ngFor="let pairing of pairings$ | async"
         [pairing]="pairing"
         (click)="onPairingNavigate(pairing._id)"
@@ -11,14 +16,14 @@
     </div>
   </section>
   <section>
-    <div>
+    <div class="d-flex justify-content-between mb-2">
       <h2>Your Amps</h2>
       <button class="btn btn-primary" (click)="openAmpModal()">Add Amp</button>
     </div>
 
     <div class="row">
       <lib-amp-display
-        class="align-items-center col-12 col-md-4 mb-3"
+        class="align-items-center col-12 col-md-4 mb-3 pointer"
         *ngFor="let amp of amps$ | async"
         (click)="openAmpModal(amp)"
         [amp]="amp"
@@ -27,7 +32,7 @@
   </section>
 
   <section>
-    <div>
+    <div class="d-flex justify-content-between mb-2">
       <h2>Your Pedals</h2>
       <button class="btn btn-primary" (click)="openPedalModal()">
         Add Pedal
@@ -35,7 +40,7 @@
     </div>
     <div class="row">
       <lib-pedal-display
-        class="align-items-center col-12 col-md-4 mb-3"
+        class="align-items-center col-12 col-md-4 mb-3 pointer"
         *ngFor="let pedal of pedals$ | async"
         [pedal]="pedal"
         (click)="openPedalModal(pedal)"
@@ -44,7 +49,7 @@
   </section>
 
   <section>
-    <div>
+    <div class="d-flex justify-content-between mb-2">
       <h2>Your Pedalboards</h2>
       <button class="btn btn-primary" (click)="openPedalboardModal()">
         Add Pedalboard
@@ -52,7 +57,7 @@
     </div>
     <div class="row">
       <lib-pedalboard-display
-        class="align-items-center col-12 col-md-4 mb-3"
+        class="align-items-center col-12 col-md-4 mb-3 pointer"
         *ngFor="let pedalboard of pedalBoards$ | async"
         (click)="openPedalboardModal(pedalboard)"
         [pedalboard]="pedalboard"

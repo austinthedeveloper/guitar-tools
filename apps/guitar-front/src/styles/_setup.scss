@@ -45,6 +45,9 @@
     border-radius: 50%;
     box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.7);
   }
+  &.on .jack {
+    background: radial-gradient(circle, green, green);
+  }
 
   &:hover {
     border-color: #999;

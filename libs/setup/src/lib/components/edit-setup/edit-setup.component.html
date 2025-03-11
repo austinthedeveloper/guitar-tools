@@ -56,7 +56,11 @@
               </p></label
             >
             <ng-container [ngSwitch]="group.controls.type.value">
-              <div *ngSwitchCase="'input'">N/A</div>
+              <div *ngSwitchCase="'input'">
+                <guitar-switch
+                  [formCtrl]="group.controls.value"
+                ></guitar-switch>
+              </div>
               <div *ngSwitchCase="'switch'">
                 <guitar-switch
                   [formCtrl]="group.controls.value"

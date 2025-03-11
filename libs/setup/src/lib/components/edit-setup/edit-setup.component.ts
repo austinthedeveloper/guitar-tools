@@ -70,7 +70,7 @@ export class EditSetupComponent {
   }
 
   ngOnChanges({ pairing }: SimpleChanges) {
-    if (pairing) {
+    if (pairing && pairing.currentValue) {
       this.form.patchValue({
         _id: this.pairing._id,
         name: this.pairing.name,
