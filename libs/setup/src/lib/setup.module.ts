@@ -17,6 +17,8 @@ import { EditSetupComponent } from './components/edit-setup/edit-setup.component
 import { PedalToggleComponent } from './components/display/pedal-toggle/pedal-toggle.component';
 import { AiSettingsModalComponent } from './components/ai-settings-modal/ai-settings-modal.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AmpModalComponent } from './components/amp-modal/amp-modal.component';
+import { PedalModalComponent } from './components/pedal-modal/pedal-modal.component';
 
 const components = [
   CreateAmpComponent,
@@ -33,6 +35,8 @@ const components = [
   PedalToggleComponent,
   // Modals
   AiSettingsModalComponent,
+  AmpModalComponent,
+  PedalModalComponent,
 ];
 const directives = [KnobRotateDirective];
 const pipes = [PedalColorPipe];

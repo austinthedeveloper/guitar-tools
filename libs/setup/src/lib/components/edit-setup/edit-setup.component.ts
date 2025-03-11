@@ -172,34 +172,6 @@ export class EditSetupComponent {
   }
 
   // AI
-  async fetchAiSettings() {
-    const ampId = this.form.controls.ampId.value;
-    const pedalboardId = this.form.controls.pedalboardId.value;
-
-    const selectedAmp = this.amps.find((amp) => amp._id === ampId);
-    const selectedPedalboard = this.pedalboards.find(
-      (pb) => pb._id === pedalboardId
-    );
-
-    const selectedPedals =
-      selectedPedalboard?.pedals.map(
-        (p) => `${p.pedal.name} (Type: ${p.pedal.type})`
-      ) || [];
-
-    if (!selectedAmp || !selectedPedalboard) return;
-
-    const requestBody: AiSuggestionPayload = {
-      amp: selectedAmp.name,
-      pedals: selectedPedals,
-      genre: 'Blues', // Optional: Add genre selection later
-    };
-
-    this.aiSuggestionsService
-      .fetchSettings(requestBody)
-      .subscribe((response) => {
-        this.applyAiSettings(response);
-      });
-  }
 
   applyAiSettings(aiData: AiSettingsResponse) {
     if (!aiData || !aiData.amp || !aiData.pedals) return;

@@ -24,6 +24,7 @@ import { tap } from 'rxjs';
 })
 export class CreatePedalComponent {
   @Input() pedal!: Pedal;
+  @Output() save = new EventEmitter();
   @Output() delete = new EventEmitter<string>();
   form = this.fb.group({
     _id: [''],
@@ -40,7 +41,7 @@ export class CreatePedalComponent {
   ) {}
 
   ngOnChanges({ pedal }: SimpleChanges) {
-    if (pedal) {
+    if (pedal && pedal.currentValue) {
       this.setPedal();
     }
   }
@@ -80,6 +81,7 @@ export class CreatePedalComponent {
 
     call.subscribe((res) => {
       console.log('Pedal Created:', res);
+      this.save.emit();
     });
   }
 
