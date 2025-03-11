@@ -1,0 +1,34 @@
+<div class="container landing-container">
+  <section>
+    <h2>Pairings</h2>
+    <div class="row">
+      <lib-pairing-display
+        class="align-items-center col-12 col-md-6 mb-3"
+        *ngFor="let pairing of pairings$ | async"
+        [pairing]="pairing"
+        (click)="onPairingNavigate(pairing._id)"
+      ></lib-pairing-display>
+    </div>
+  </section>
+  <section>
+    <h2>Your Amps</h2>
+    <div class="row">
+      <lib-amp-display
+        class="align-items-center col-12 col-md-4 mb-3"
+        *ngFor="let amp of amps$ | async"
+        [amp]="amp"
+      ></lib-amp-display>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your Pedals</h2>
+    <div class="row">
+      <lib-pedal-display
+        class="align-items-center col-12 col-md-4 mb-3"
+        *ngFor="let pedal of pedals$ | async"
+        [pedal]="pedal"
+      ></lib-pedal-display>
+    </div>
+  </section>
+</div>

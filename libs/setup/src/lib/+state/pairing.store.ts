@@ -7,6 +7,8 @@ import {
   addEntities,
   updateEntities,
   deleteEntities,
+  selectEntity,
+  upsertEntities,
 } from '@ngneat/elf-entities';
 import { Pairing } from '@guitar/interfaces';
 
@@ -20,6 +22,9 @@ export class PairingStore {
   // Selectors
   pairings$ = this.store.pipe(selectAllEntities());
 
+  getPairing(id: string) {
+    return this.store.pipe(selectEntity(id));
+  }
   // Load all Pairings
   setPairings(pairings: Pairing[]) {
     this.store.update(setEntities(pairings));
@@ -33,6 +38,10 @@ export class PairingStore {
   // Update a Pairing
   updatePairing(pairing: Pairing) {
     this.store.update(updateEntities(pairing._id, pairing)); // 👈 Use `_id`
+  }
+
+  upsertPairing(pairing: Pairing) {
+    this.store.update(upsertEntities(pairing)); // 👈 Use `_id`
   }
 
   // Delete a Pairing
