@@ -15,6 +15,11 @@ import { KnobDisplayComponent } from './components/display/knob-display/knob-dis
 import { GuitarFormsModule } from '@guitar/forms';
 import { EditSetupComponent } from './components/edit-setup/edit-setup.component';
 import { PedalToggleComponent } from './components/display/pedal-toggle/pedal-toggle.component';
+import { AiSettingsModalComponent } from './components/ai-settings-modal/ai-settings-modal.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { AmpModalComponent } from './components/amp-modal/amp-modal.component';
+import { PedalModalComponent } from './components/pedal-modal/pedal-modal.component';
+import { PedalboardModalComponent } from './components/pedalboard-modal/pedalboard-modal.component';
 
 const components = [
   CreateAmpComponent,
@@ -29,11 +34,22 @@ const components = [
   PairingDisplayComponent,
   KnobDisplayComponent,
   PedalToggleComponent,
+  // Modals
+  AiSettingsModalComponent,
+  AmpModalComponent,
+  PedalModalComponent,
+  PedalboardModalComponent,
 ];
 const directives = [KnobRotateDirective];
 const pipes = [PedalColorPipe];
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, GuitarFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GuitarFormsModule,
+    NgbModalModule,
+  ],
   declarations: [...components, ...directives, ...pipes],
   exports: [...components, ...directives, ...pipes],
 })

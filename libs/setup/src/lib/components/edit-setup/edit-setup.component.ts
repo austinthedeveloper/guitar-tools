@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
+  AiSettingsResponse,
+  AiSuggestionPayload,
   Amp,
   AmpControl,
   Pairing,
@@ -26,6 +28,9 @@ import {
   PedalFormGroup,
   PedalKnob,
 } from '../../interfaces';
+import { AiSuggestionsService } from '../../services';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AiSettingsModalComponent } from '../ai-settings-modal/ai-settings-modal.component';
 
 @Component({
   selector: 'lib-edit-setup',
@@ -41,6 +46,8 @@ export class EditSetupComponent {
   @Output() deletePairing = new EventEmitter<string>();
   private fb = inject(NonNullableFormBuilder);
   private pairingService = inject(PairingService);
+  private aiSuggestionsService = inject(AiSuggestionsService);
+  private modalService = inject(NgbModal);
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -52,8 +59,14 @@ export class EditSetupComponent {
   ampControls: AmpControl[] = [];
   pedalboard!: PedalBoard;
 
+  genreOptions = ['Blues', 'Rock', 'Jazz', 'Metal', 'Funk'];
+
   get controlValues() {
     return this.form.controls.controlValues;
+  }
+
+  get pedalValues() {
+    return this.form.controls.pedals;
   }
 
   ngOnChanges({ pairing }: SimpleChanges) {
@@ -138,9 +151,52 @@ export class EditSetupComponent {
       ? this.pairingService.updatePairing(_id, payload)
       : this.pairingService.createPairing(payload);
 
-    call.subscribe((res) => {
-      console.log('success', res);
-      this.form.controls._id.patchValue(res._id);
+    call.subscribe((res) => this.form.controls._id.patchValue(res._id));
+  }
+
+  openAiModal() {
+    const modalRef = this.modalService.open(AiSettingsModalComponent, {
+      size: 'lg',
+    });
+    modalRef.componentInstance.amp = this.form.controls.ampId.value;
+    modalRef.componentInstance.pedals = this.pedals.map((p) => p.name);
+    modalRef.componentInstance.genreOptions = this.genreOptions;
+
+    modalRef.componentInstance.settingsApplied.subscribe(
+      (aiData: AiSettingsResponse) => {
+        console.log('applied', aiData);
+
+        this.applyAiSettings(aiData);
+      }
+    );
+  }
+
+  // AI
+
+  applyAiSettings(aiData: AiSettingsResponse) {
+    if (!aiData || !aiData.amp || !aiData.pedals) return;
+
+    const ampSettings = aiData.amp.settings;
+    const pedalSettings = aiData.pedals;
+
+    // Apply amp settings
+    this.controlValues.controls.forEach((control) => {
+      const newValue: number = ampSettings[control.value.name];
+      console.log('c valute', newValue, control.value.name);
+
+      if (!newValue) return;
+      control.controls.value.patchValue(newValue);
+    });
+
+    this.pedalValues.controls.forEach((control) => {
+      const newValues = pedalSettings.find(
+        (s: any) => s.name === control.value.pedal.pedal.name
+      );
+      //  Apply the settings if there is a match
+      if (newValues) {
+        const knobs = control.controls.knobs;
+        knobs.patchValue(newValues.settings);
+      }
     });
   }
 }

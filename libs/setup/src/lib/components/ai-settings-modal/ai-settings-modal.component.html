@@ -1,0 +1,92 @@
+<div class="modal-header">
+  <h5 class="modal-title">AI Tone Suggestions</h5>
+  <button
+    type="button"
+    (click)="activeModal.dismiss()"
+    class="btn-close"
+    data-bs-dismiss="modal"
+    aria-label="Close"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <select id="genre" class="form-control" formControlName="genre">
+        <option *ngFor="let option of genreOptions" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="referenceTone">Reference Tone (Optional)</label>
+      <input
+        type="text"
+        id="referenceTone"
+        class="form-control"
+        formControlName="referenceTone"
+      />
+    </div>
+    <button type="button" class="btn btn-primary" (click)="submit()">
+      Look Up
+    </button>
+  </form>
+
+  <div *ngIf="isLoading" class="mt-3">🎸 Loading AI suggestions...</div>
+  <div *ngIf="errorMessage" class="mt-3 text-danger">{{ errorMessage }}</div>
+
+  <div *ngIf="aiResponse">
+    <h6>🎵 Suggested Settings</h6>
+    <p>{{ aiResponse.notes }}</p>
+
+    <h6>🎛 Amp Settings</h6>
+    <ul>
+      <li *ngFor="let setting of aiResponse.amp.settings | keyvalue">
+        {{ setting.key }}: {{ setting.value }}
+      </li>
+    </ul>
+
+    <h6>🎚 Pedal Settings</h6>
+    <ul>
+      <li *ngFor="let pedal of aiResponse.pedals">
+        <strong>{{ pedal.name }}</strong>
+        <ul>
+          <li *ngFor="let setting of pedal.settings | keyvalue">
+            {{ setting.key }}: {{ setting.value }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h6>🎚 Suggested Pedals</h6>
+    <ul>
+      <li *ngFor="let pedal of aiResponse.suggestedPedals">
+        <strong>{{ pedal.name }}</strong>
+        <ul>
+          <li *ngFor="let setting of pedal.settings | keyvalue">
+            {{ setting.key }}: {{ setting.value }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="activeModal.dismiss()"
+  >
+    Cancel
+  </button>
+  <button
+    *ngIf="aiResponse"
+    type="button"
+    class="btn btn-primary"
+    (click)="applySettings()"
+  >
+    Apply Settings
+  </button>
+</div>

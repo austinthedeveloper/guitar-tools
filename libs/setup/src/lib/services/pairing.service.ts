@@ -27,6 +27,11 @@ export class PairingService {
       tap((pairings) => this.pairingStore.setPairings(pairings)) // Store in Elf
     );
   }
+  getPairing(id: string): Observable<Pairing> {
+    return this.http.get<Pairing>(`${this.apiUrl}/${id}`).pipe(
+      tap((pairings) => this.pairingStore.upsertPairing(pairings)) // Store in Elf
+    );
+  }
 
   createPairing(payload: PairingPayload) {
     return this.http.post<Pairing>(this.apiUrl, payload).pipe(

@@ -42,7 +42,7 @@ export class CreateAmpComponent {
     private ampService: AmpService
   ) {}
   ngOnChanges({ amp }: SimpleChanges) {
-    if (amp) {
+    if (amp && amp.currentValue) {
       this.clearForm();
       this.ampForm.patchValue({
         _id: this.amp._id,
@@ -112,7 +112,6 @@ export class CreateAmpComponent {
         brand: formData.brand,
         controls,
       };
-      this.save.emit(mappedData);
 
       const call = _id
         ? this.ampService.updateAmp(_id, mappedData as Amp)
@@ -120,9 +119,14 @@ export class CreateAmpComponent {
 
       call.subscribe((res) => {
         console.log('Amp Created:', res);
+        this.save.emit(mappedData);
         this.clearForm();
       });
     }
+  }
+
+  deleteAmp(id: string) {
+    this.ampService.deleteAmp(id).subscribe(() => this.delete.emit(id));
   }
 
   private clearForm() {

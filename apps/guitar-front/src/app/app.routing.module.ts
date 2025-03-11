@@ -10,10 +10,13 @@ import { SetupComponent } from './containers/setup/setup.component';
 import { LoginComponent } from './containers/login/login.component';
 import {
   getAmpsResolver,
+  getPairingResolver,
   getPairingsResolver,
   getPedalboardsResolver,
   getPedalsResolver,
 } from '@guitar/setup';
+import { SetupPairingDetailComponent } from './containers/setup/components/setup-pairing-detail/setup-pairing-detail.component';
+import { SetupDashboardComponent } from './containers/setup/components/setup-dashboard/setup-dashboard.component';
 
 const routes: Routes = [
   {
@@ -34,7 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'setup',
-    component: SetupComponent,
+    component: SetupDashboardComponent,
     canActivate: [AuthGuard],
     resolve: [
       getPedalsResolver,
@@ -42,6 +45,11 @@ const routes: Routes = [
       getPairingsResolver,
       getAmpsResolver,
     ],
+  },
+  {
+    path: 'setup/pairing/:pairingId',
+    component: SetupPairingDetailComponent,
+    resolve: [getPairingResolver, getPedalboardsResolver, getAmpsResolver],
   },
   { path: 'login', component: LoginComponent },
   { path: 'auth/callback', component: AuthCallbackComponent },
