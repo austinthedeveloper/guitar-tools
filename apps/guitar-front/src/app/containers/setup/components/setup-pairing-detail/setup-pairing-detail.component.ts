@@ -19,9 +19,7 @@ import { map, switchMap, tap } from 'rxjs';
 export class SetupPairingDetailComponent {
   params$ = this.route.params;
   pairing$ = this.params$.pipe(
-    tap((p) => console.log('f', p)),
     map((params) => params.pairingId),
-
     switchMap((id) => this.pairingStore.getPairing(id))
   );
   pairings$ = this.pairingStore.pairings$;

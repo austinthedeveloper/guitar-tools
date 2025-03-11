@@ -29,6 +29,8 @@ import {
   PedalKnob,
 } from '../../interfaces';
 import { AiSuggestionsService } from '../../services';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AiSettingsModalComponent } from '../ai-settings-modal/ai-settings-modal.component';
 
 @Component({
   selector: 'lib-edit-setup',
@@ -45,6 +47,7 @@ export class EditSetupComponent {
   private fb = inject(NonNullableFormBuilder);
   private pairingService = inject(PairingService);
   private aiSuggestionsService = inject(AiSuggestionsService);
+  private modalService = inject(NgbModal);
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -55,6 +58,8 @@ export class EditSetupComponent {
   });
   ampControls: AmpControl[] = [];
   pedalboard!: PedalBoard;
+
+  genreOptions = ['Blues', 'Rock', 'Jazz', 'Metal', 'Funk'];
 
   get controlValues() {
     return this.form.controls.controlValues;
@@ -149,6 +154,23 @@ export class EditSetupComponent {
     call.subscribe((res) => this.form.controls._id.patchValue(res._id));
   }
 
+  openAiModal() {
+    const modalRef = this.modalService.open(AiSettingsModalComponent, {
+      size: 'lg',
+    });
+    modalRef.componentInstance.amp = this.form.controls.ampId.value;
+    modalRef.componentInstance.pedals = this.pedals.map((p) => p.name);
+    modalRef.componentInstance.genreOptions = this.genreOptions;
+
+    modalRef.componentInstance.settingsApplied.subscribe(
+      (aiData: AiSettingsResponse) => {
+        console.log('applied', aiData);
+
+        this.applyAiSettings(aiData);
+      }
+    );
+  }
+
   // AI
   async fetchAiSettings() {
     const ampId = this.form.controls.ampId.value;
@@ -188,6 +210,7 @@ export class EditSetupComponent {
     // Apply amp settings
     this.controlValues.controls.forEach((control) => {
       const newValue: number = ampSettings[control.value.name];
+      console.log('c valute', newValue, control.value.name);
 
       if (!newValue) return;
       control.controls.value.patchValue(newValue);

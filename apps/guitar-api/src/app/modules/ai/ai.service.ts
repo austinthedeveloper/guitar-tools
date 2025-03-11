@@ -45,14 +45,18 @@ export class AiService {
 
     The number scale is 0-100
 
-    Respond ONLY with JSON in this structure. Some amps and pedals can have more or less knobs. If you can't match the pedal, treat the pedal as the defined type. Only include the pedal name in the return response, not the type. Suggested Pedals should only be populated if there are additional pedals needed for a sound:
+    Respond ONLY with JSON in this structure. Some amps and pedals can have more or less knobs.
+    If you can't match the pedal, treat the pedal as the defined type.
+    Only include the pedal name in the return response, not the type.
+    Suggested Pedals should only be populated if there are additional pedals needed for a sound
+    The on property should be true if the pedal is going to be used for this genre/reference tone.
     {
       "amp": {
         "name": "${amp}",
-        "settings": { "knob": x... }
+        "settings": { "Knob": x... }
       },
       "pedals": [
-        { "name": "Pedal Name", "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
+        { "name": "Pedal Name", on: boolean, type: FROM_PEDAL_TYPE, "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
       ],
       "suggestedPedals": [
         { "name": "Pedal Name", "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
