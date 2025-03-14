@@ -18,7 +18,11 @@ export class PedalDisplayComponent {
   }>;
   @Input() active!: string;
   @Input() showMenu = false;
-  @Output() menuClick = new EventEmitter<{ type: string; id: string }>();
+  @Output() menuClick = new EventEmitter<{
+    type: string;
+    id: string;
+    pedal: Pedal;
+  }>();
   @Output() toggle = new EventEmitter<boolean>();
   menu = [
     {
@@ -36,7 +40,7 @@ export class PedalDisplayComponent {
     this.active = this.active !== name ? name : undefined;
   }
 
-  onMenuClick(type: string, id: string) {
-    this.menuClick.emit({ type, id });
+  onMenuClick(type: string, id: string, pedal: Pedal) {
+    this.menuClick.emit({ type, id, pedal });
   }
 }

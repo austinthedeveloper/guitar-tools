@@ -16,7 +16,7 @@
             type="button"
             ngbDropdownItem
             *ngFor="let item of menu"
-            (click)="onMenuClick(item.value, pedal._id)"
+            (click)="onMenuClick(item.value, pedal._id, pedal)"
           >
             {{ item.name }}
           </button>

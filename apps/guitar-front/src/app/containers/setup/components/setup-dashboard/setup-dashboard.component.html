@@ -40,10 +40,11 @@
     </div>
     <div class="row">
       <lib-pedal-display
-        class="align-items-center col-12 col-md-4 mb-3 pointer"
+        class="align-items-center col-12 col-md-4 mb-3"
         *ngFor="let pedal of pedals$ | async"
         [pedal]="pedal"
-        (click)="openPedalModal(pedal)"
+        [showMenu]="true"
+        (menuClick)="onMenuClick($event)"
       ></lib-pedal-display>
     </div>
   </section>

@@ -30,7 +30,7 @@ import {
   PedalFormGroup,
   PedalKnob,
 } from '../../interfaces';
-import { AiSuggestionsService } from '../../services';
+import { AiSuggestionsService, SetupModalService } from '../../services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AiSettingsModalComponent } from '../ai-settings-modal/ai-settings-modal.component';
 import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs';
@@ -53,6 +53,7 @@ export class EditSetupComponent {
   private modalService = inject(NgbModal);
   private pedalBoardStore = inject(PedalBoardStore);
   private pedalBoardService = inject(PedalBoardService);
+  private setupModalService = inject(SetupModalService);
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -230,13 +231,23 @@ export class EditSetupComponent {
     });
   }
 
-  onMenuClick(action: { type: string; id: string }, pedalId: string) {
+  onMenuClick(
+    action: { type: string; id: string; pedal?: Pedal },
+    pedalId: string
+  ) {
     switch (action.type) {
       case 'remove':
         this.pedalBoardService
           .removeFromPedalboard(this.pedalboard._id, pedalId)
           .subscribe();
         break;
+      case 'edit':
+        this.openPedalModal(action.pedal);
+        break;
     }
+  }
+
+  private openPedalModal(pedal?: Pedal) {
+    this.setupModalService.openPedalModal(pedal);
   }
 }
