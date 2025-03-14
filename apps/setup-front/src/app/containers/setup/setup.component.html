@@ -1,0 +1,71 @@
+<div class="container landing-container">
+  <lib-create-pedal
+    *ngFor="let pedal of pedals$ | async"
+    [pedal]="pedal"
+    (delete)="deletePedal($event)"
+  ></lib-create-pedal>
+  <h1>Your Gear Setup</h1>
+  <lib-edit-setup
+    [amps]="amps$ | async"
+    [pedals]="pedals$ | async"
+    [pedalboards]="pedalBoards$ | async"
+  ></lib-edit-setup>
+  <section>
+    <h2>Pairings</h2>
+
+    <div class="row">
+      <lib-edit-setup
+        *ngFor="let pairing of pairings$ | async"
+        [amps]="amps$ | async"
+        [pedals]="pedals$ | async"
+        [pedalboards]="pedalBoards$ | async"
+        [pairing]="pairing"
+        (deletePairing)="deletePairing($event)"
+      ></lib-edit-setup>
+    </div>
+    <div class="row">
+      <lib-pairing-display
+        class="align-items-center col-12 col-md-6 mb-3"
+        *ngFor="let pairing of pairings$ | async"
+        [pairing]="pairing"
+      ></lib-pairing-display>
+    </div>
+  </section>
+  <section>
+    <h2>Your Amps</h2>
+    <div class="row">
+      <lib-create-amp
+        *ngFor="let amp of amps$ | async"
+        [amp]="amp"
+        (delete)="deleteAmp($event)"
+      ></lib-create-amp>
+    </div>
+    <div class="row">
+      <lib-amp-display
+        class="align-items-center col-12 col-md-4 mb-3"
+        *ngFor="let amp of amps$ | async"
+        [amp]="amp"
+      ></lib-amp-display>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your Pedals</h2>
+    <div class="row">
+      <lib-pedal-display
+        class="align-items-center col-12 col-md-4 mb-3"
+        *ngFor="let pedal of pedals$ | async"
+        [pedal]="pedal"
+      ></lib-pedal-display>
+    </div>
+  </section>
+</div>
+<lib-create-amp></lib-create-amp>
+<lib-create-pedal></lib-create-pedal>
+<lib-create-pedalboard [pedals]="pedals$ | async"></lib-create-pedalboard>
+<lib-create-pedalboard
+  [pedals]="pedals$ | async"
+  [pedalboard]="pedalBoard"
+  *ngFor="let pedalBoard of pedalBoards$ | async"
+  (delete)="deletePedalboard($event)"
+></lib-create-pedalboard>

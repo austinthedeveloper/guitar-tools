@@ -6,6 +6,7 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
+    "start:setup": "nx run setup-front:serve --port 4300",
     "start:e2e": "nx run guitar-front:e2e",
     "start:e2e:ui": "nx run guitar-front:e2e --ui",
     "start:drums": "nx serve drum-front",
@@ -101,11 +102,12 @@
     "@types/webmidi": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
-    "@typescript-eslint/utils": "^7.16.0",
+    "@typescript-eslint/utils": "^8.0.0",
+    "angular-eslint": "^18.3.0",
     "cypress": "^8.3.0",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-cypress": "2.15.1",
+    "eslint-plugin-cypress": "^3.5.0",
     "eslint-plugin-playwright": "^0.15.3",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
@@ -122,5 +124,6 @@
     "ts-node": "10.9.1",
     "typescript": "5.5.4",
     "typescript-eslint": "^8.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

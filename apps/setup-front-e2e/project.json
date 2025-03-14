@@ -1,0 +1,26 @@
+{
+  "name": "setup-front-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/setup-front-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["setup-front"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/setup-front-e2e/cypress.json",
+        "testingType": "e2e",
+        "devServerTarget": "setup-front:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "setup-front:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

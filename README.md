@@ -6,6 +6,7 @@ This project was generated using [Nx](https://nx.dev).
 
 - Use `yarn` for package management
 - There are package conflicts. Upgrading fully to NX works but breaks the API
+- Node Version: >= v20
 
 ## Demo Site
 
