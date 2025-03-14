@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="navbar-brand">Guitar Tools</div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-nav">
+      <a
+        class="nav-item nav-link"
+        [routerLink]="['']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <a
+        *ngIf="(loggedIn$ | async) === false"
+        class="nav-item nav-link"
+        [routerLink]="['login']"
+        routerLinkActive="active"
+        >Login</a
+      >
+      <a *ngIf="loggedIn$ | async" class="nav-item nav-link" (click)="logout()"
+        >Logout</a
+      >
+      <lib-profile-picture
+        *ngIf="loggedIn$ | async"
+        [user]="user$ | async"
+        [size]="30"
+      ></lib-profile-picture>
+    </div>
+  </div>
+</nav>

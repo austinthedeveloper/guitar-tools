@@ -21,11 +21,13 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { NavbarComponent } from './containers/navbar/navbar.component';
 const APP_CONTAINERS = [
   LoginComponent,
   SetupComponent,
   SetupDashboardComponent,
   SetupPairingDetailComponent,
+  NavbarComponent,
 ];
 
 @NgModule({
