@@ -1,6 +1,3 @@
-import { PedalBoardService } from './../../services/pedalboard.service';
-import { PedalBoardStore } from './../../+state/pedalboard.store';
-import { PairingService } from './../../services/pairing.service';
 import {
   Component,
   EventEmitter,
@@ -12,28 +9,26 @@ import {
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   AiSettingsResponse,
-  AiSuggestionPayload,
   Amp,
   AmpControl,
   Pairing,
-  PairingControlValues,
   PairingPayload,
   Pedal,
   PedalBoard,
   PedalBoardPedal,
   PedalEntry,
 } from '@guitar/interfaces';
+import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs';
 
 import {
   ControlGroup,
   PedalControlGroupNew,
   PedalFormGroup,
-  PedalKnob,
 } from '../../interfaces';
-import { AiSuggestionsService, SetupModalService } from '../../services';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AiSettingsModalComponent } from '../ai-settings-modal/ai-settings-modal.component';
-import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs';
+import { SetupModalService } from '../../services';
+import { PedalBoardStore } from './../../+state/pedalboard.store';
+import { PairingService } from './../../services/pairing.service';
+import { PedalBoardService } from './../../services/pedalboard.service';
 
 @Component({
   selector: 'lib-edit-setup',
@@ -45,15 +40,16 @@ export class EditSetupComponent {
   @Input() pedals: Pedal[] = [];
   @Input() pedalboards: PedalBoard[] = [];
   @Input() pairing!: Pairing;
+  @Input() canEdit = true;
 
   @Output() deletePairing = new EventEmitter<string>();
   private fb = inject(NonNullableFormBuilder);
   private pairingService = inject(PairingService);
-  private aiSuggestionsService = inject(AiSuggestionsService);
-  private modalService = inject(NgbModal);
   private pedalBoardStore = inject(PedalBoardStore);
   private pedalBoardService = inject(PedalBoardService);
   private setupModalService = inject(SetupModalService);
+
+  activeControl!: any;
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -188,19 +184,19 @@ export class EditSetupComponent {
   }
 
   openAiModal() {
-    const modalRef = this.modalService.open(AiSettingsModalComponent, {
-      size: 'lg',
-    });
-    modalRef.componentInstance.amp = this.form.controls.ampId.value;
-    modalRef.componentInstance.pedals = this.pedals.map((p) => p.name);
-    modalRef.componentInstance.genreOptions = this.genreOptions;
-    modalRef.componentInstance.pedalboardId = this.pedalboard._id;
-
-    modalRef.componentInstance.settingsApplied.subscribe(
-      (aiData: AiSettingsResponse) => {
-        this.applyAiSettings(aiData);
-      }
+    const amp = this.form.controls.ampId.value;
+    const pedals = this.pedals.map((p) => p.name);
+    const genreOptions = this.genreOptions;
+    const pedalboardId = this.pedalboard._id;
+    const instance = this.setupModalService.openAiModal(
+      amp,
+      pedals,
+      genreOptions,
+      pedalboardId
     );
+    instance.settingsApplied.subscribe((aiData: AiSettingsResponse) => {
+      this.applyAiSettings(aiData);
+    });
   }
 
   // AI
@@ -249,5 +245,20 @@ export class EditSetupComponent {
 
   private openPedalModal(pedal?: Pedal) {
     this.setupModalService.openPedalModal(pedal);
+  }
+
+  // Amp
+  onControlKnobClick(group: FormGroup<ControlGroup>) {
+    const name = group.controls.name.value;
+    const type = group.controls.type.value;
+    switch (type) {
+      case 'input':
+      case 'switch':
+        group.controls.value.patchValue(!group.controls.value.value);
+        break;
+      default:
+        this.activeControl = name;
+        break;
+    }
   }
 }

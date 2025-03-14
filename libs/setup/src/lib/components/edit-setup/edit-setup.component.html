@@ -43,7 +43,8 @@
       <!-- Edit Amp Values -->
       <ng-container *ngIf="controlValues.controls.length">
         <h3>Control Values</h3>
-        <div formArrayName="controlValues">
+        <!-- TODO: Hiding for now, address later -->
+        <div *ngIf="false" formArrayName="controlValues">
           <div
             class="mb-2 d-flex"
             *ngFor="let group of controlValues.controls; let i = index"
@@ -84,7 +85,15 @@
               [type]="group.controls.type.value"
               [name]="group.controls.name.value"
               [value]="group.controls.value.value"
+              (click)="onControlKnobClick(group)"
             ></lib-knob-display>
+            <div *ngIf="canEdit && activeControl === group.controls.name.value">
+              <guitar-slider
+                [step]="10"
+                [formCtrl]="group.controls.value"
+              ></guitar-slider>
+              {{ group.controls.value.value }}
+            </div>
           </div>
         </div>
       </ng-container>
