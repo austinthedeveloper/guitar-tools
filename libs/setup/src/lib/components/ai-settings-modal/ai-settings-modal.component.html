@@ -71,6 +71,13 @@
     <ul>
       <li *ngFor="let pedal of aiResponse.suggestedPedals">
         <strong>{{ pedal.name }}</strong>
+        <button
+          class="btn btn-info"
+          type="button"
+          (click)="addSuggestedPedal(pedal)"
+        >
+          Add Pedal
+        </button>
         <ul>
           <li *ngFor="let setting of pedal.settings | keyvalue">
             {{ setting.key }}: {{ setting.value }}

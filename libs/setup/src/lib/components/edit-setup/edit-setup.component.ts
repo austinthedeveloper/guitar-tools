@@ -166,6 +166,7 @@ export class EditSetupComponent {
     modalRef.componentInstance.amp = this.form.controls.ampId.value;
     modalRef.componentInstance.pedals = this.pedals.map((p) => p.name);
     modalRef.componentInstance.genreOptions = this.genreOptions;
+    modalRef.componentInstance.pedalboardId = this.pedalboard._id;
 
     modalRef.componentInstance.settingsApplied.subscribe(
       (aiData: AiSettingsResponse) => {

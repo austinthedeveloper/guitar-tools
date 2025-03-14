@@ -5,6 +5,8 @@ import { PedalBoard } from '../schemas/pedal-board.schema';
 import { Amp } from '../schemas/amp.schema';
 import { BaseService } from './base-entity.service';
 import { Pedal } from '../schemas';
+import { PedalService } from './pedal.service';
+import { AiPedalSettings } from '../models';
 
 @Injectable()
 export class PedalboardService extends BaseService<PedalBoard> {
@@ -12,7 +14,8 @@ export class PedalboardService extends BaseService<PedalBoard> {
     @InjectModel(PedalBoard.name)
     public readonly pedalBoardModel: Model<PedalBoard>,
     @InjectModel(Pedal.name) private pedalModel: Model<Pedal>,
-    @InjectModel(Amp.name) private readonly ampModel: Model<Amp>
+    @InjectModel(Amp.name) private readonly ampModel: Model<Amp>,
+    private pedalService: PedalService
   ) {
     super(pedalBoardModel);
   }
@@ -88,6 +91,63 @@ export class PedalboardService extends BaseService<PedalBoard> {
   }
   async getPedalBoardById(id: string): Promise<PedalBoard> {
     const pedalBoard = await this.pedalBoardModel.findById(id).exec();
+    return this.populateFields(pedalBoard);
+  }
+
+  async addPedalToPedalboard(
+    pairingId: string,
+    pedalData: AiPedalSettings,
+    userId: string
+  ) {
+    // Find existing pedal
+    let pedal: Pedal = await this.pedalService.findPedalByName(
+      userId,
+      pedalData.name
+    );
+
+    // Create pedal if not found
+    if (!pedal) {
+      const mappedPedal = {
+        name: pedalData.name,
+        type: '',
+        knobs: Object.keys(pedalData.settings),
+      } as Pedal;
+      pedal = await this.pedalService.createPedal(mappedPedal, userId);
+    }
+
+    // Add to pedalboard
+    return this.updatePedalboardWithPedal(
+      pairingId,
+      pedal._id as string,
+      pedalData.settings
+    );
+  }
+  async updatePedalboardWithPedal(
+    pairingId: string,
+    pedalId: string,
+    knobValues: any
+  ): Promise<PedalBoard> {
+    const pedalBoard = await this.pedalBoardModel.findById(pairingId);
+
+    if (!pedalBoard) {
+      throw new Error('Pedalboard not found');
+    }
+
+    // Determine the order for the new pedal
+    const maxOrder =
+      pedalBoard.pedals.length > 0
+        ? Math.max(...pedalBoard.pedals.map((p) => p.order))
+        : 0;
+
+    // Add the new pedal with an incremented order
+    pedalBoard.pedals.push({
+      pedalId: new Types.ObjectId(pedalId),
+      order: maxOrder + 1,
+      knobValues, // Default empty knob values, user can edit later
+    });
+
+    await pedalBoard.save();
+
     return this.populateFields(pedalBoard);
   }
 }

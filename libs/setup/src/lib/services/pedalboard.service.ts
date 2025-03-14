@@ -5,6 +5,7 @@ import {
   PedalBoard,
   CreatePedalBoardRequest,
   EnvInterface,
+  AiPedalSettings,
 } from '@guitar/interfaces';
 import { PedalBoardStore } from '../+state';
 
@@ -48,5 +49,15 @@ export class PedalBoardService {
     return this.http.delete<void>(`${this.apiUrl}/${pedalBoardId}`).pipe(
       tap(() => this.pedalBoardStore.deletePedalBoard(pedalBoardId)) // Remove from store
     );
+  }
+  addToPedalboard(
+    pedalboardId: string,
+    pedal: AiPedalSettings
+  ): Observable<PedalBoard> {
+    return this.http
+      .post<PedalBoard>(`${this.apiUrl}/${pedalboardId}/add-pedal`, pedal)
+      .pipe(
+        tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
+      );
   }
 }

@@ -18,6 +18,7 @@ export const PEDAL_TYPES: PedalType[] = [
   { name: 'Reverb', color: '#9c27b0', order: 14 },
 ];
 
+export const PEDAL_TYPE_COLOR_DEFAULT = '#2196f3';
 // Extract just the names for dropdowns
 export const PEDAL_TYPE_NAMES = PEDAL_TYPES.map((p) => p.name);
 
