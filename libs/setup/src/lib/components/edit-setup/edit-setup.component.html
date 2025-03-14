@@ -115,6 +115,8 @@
             [canToggle]="true"
             [canEdit]="true"
             [formGrp]="pedal.controls.knobs"
+            [showMenu]="true"
+            (menuClick)="onMenuClick($event, pedal.value._id)"
             (toggle)="pedal.controls.on.patchValue($event)"
           ></lib-pedal-display>
         </div>

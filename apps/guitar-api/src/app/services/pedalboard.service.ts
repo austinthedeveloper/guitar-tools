@@ -28,6 +28,7 @@ export class PedalboardService extends BaseService<PedalBoard> {
           : null;
 
         return {
+          _id: entry._id,
           pedalId: entry.pedalId, // Keep original ID
           order: entry.order,
           knobValues: entry.knobValues,
@@ -149,5 +150,15 @@ export class PedalboardService extends BaseService<PedalBoard> {
     await pedalBoard.save();
 
     return this.populateFields(pedalBoard);
+  }
+
+  async deletePedalFromBoard(pedalboardId: string, pedalId: string) {
+    await this.pedalBoardModel
+      .updateOne(
+        { _id: new Types.ObjectId(pedalboardId) },
+        { $pull: { pedals: { _id: new Types.ObjectId(pedalId) } } }
+      )
+      .exec();
+    return this.getPedalBoardById(pedalboardId);
   }
 }

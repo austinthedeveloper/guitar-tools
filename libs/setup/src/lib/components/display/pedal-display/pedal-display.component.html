@@ -1,6 +1,28 @@
 <div class="card mb-3" [style.background-color]="pedal.type | pedalColor">
   <div class="card-body">
-    <h5 class="card-title">{{ pedal.name | titlecase }}</h5>
+    <div class="pedal-card-header">
+      <h5 class="card-title">{{ pedal.name | titlecase }}</h5>
+      <div ngbDropdown class="d-inline-block" *ngIf="showMenu">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Pedal Menu"
+          class="pointer"
+          fontIcon="more_vert"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        ></mat-icon>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button
+            type="button"
+            ngbDropdownItem
+            *ngFor="let item of menu"
+            (click)="onMenuClick(item.value, pedal._id)"
+          >
+            {{ item.name }}
+          </button>
+        </div>
+      </div>
+    </div>
     <h6 class="card-subtitle text-muted">
       Pedal Type: {{ pedal.type | titlecase }}
     </h6>

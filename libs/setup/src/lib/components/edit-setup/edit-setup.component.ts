@@ -1,3 +1,4 @@
+import { PedalBoardService } from './../../services/pedalboard.service';
 import { PedalBoardStore } from './../../+state/pedalboard.store';
 import { PairingService } from './../../services/pairing.service';
 import {
@@ -51,6 +52,7 @@ export class EditSetupComponent {
   private aiSuggestionsService = inject(AiSuggestionsService);
   private modalService = inject(NgbModal);
   private pedalBoardStore = inject(PedalBoardStore);
+  private pedalBoardService = inject(PedalBoardService);
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -70,6 +72,7 @@ export class EditSetupComponent {
       this.setPedalboard(pedals, board._id, board);
     })
   );
+  private sub = this.pedalboard$.subscribe();
 
   genreOptions = ['Blues', 'Rock', 'Jazz', 'Metal', 'Funk'];
 
@@ -96,6 +99,10 @@ export class EditSetupComponent {
         this.onPedalboardChange();
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   onAmpChange() {
@@ -127,10 +134,8 @@ export class EditSetupComponent {
   }
 
   onPedalboardChange() {
-    const pedals = this.pairing?.pedals;
     const pedalboardId = this.form.controls.pedalboardId.value;
     this._pedalboardId.next(pedalboardId);
-    this.setPedalboard(pedals, pedalboardId);
   }
 
   private setPedalboard(
@@ -158,6 +163,7 @@ export class EditSetupComponent {
         return acc;
       }, {} as Record<string, number>);
     const pedalForm = this.fb.group({
+      _id: pedal._id,
       pedalId: [pedal.pedalId, Validators.required],
       order: [index, Validators.required],
       on: value ? value.on : false,
@@ -191,8 +197,6 @@ export class EditSetupComponent {
 
     modalRef.componentInstance.settingsApplied.subscribe(
       (aiData: AiSettingsResponse) => {
-        console.log('applied', aiData);
-
         this.applyAiSettings(aiData);
       }
     );
@@ -224,5 +228,15 @@ export class EditSetupComponent {
         knobs.patchValue(newValues.settings);
       }
     });
+  }
+
+  onMenuClick(action: { type: string; id: string }, pedalId: string) {
+    switch (action.type) {
+      case 'remove':
+        this.pedalBoardService
+          .removeFromPedalboard(this.pedalboard._id, pedalId)
+          .subscribe();
+        break;
+    }
   }
 }

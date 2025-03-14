@@ -24,6 +24,7 @@ export interface PedalControlGroup {
   type: FormControl<string>;
 }
 export interface PedalControlGroupNew {
+  _id: FormControl<string>;
   pedalId: FormControl<string>;
   order: FormControl<number>;
   on: FormControl<boolean>;

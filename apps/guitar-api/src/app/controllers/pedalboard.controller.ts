@@ -66,4 +66,13 @@ export class PedalboardController extends BaseController<PedalBoard> {
       req.user._id
     );
   }
+  @Post(':id/remove-pedal')
+  @UseGuards(JwtAuthGuard)
+  async removePedal(
+    @Req() req: AuthRequest,
+    @Body() { pedalId }: { pedalId: string },
+    @Param('id') id: string
+  ) {
+    return this.pedalboardService.deletePedalFromBoard(id, pedalId);
+  }
 }

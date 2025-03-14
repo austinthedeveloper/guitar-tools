@@ -60,4 +60,16 @@ export class PedalBoardService {
         tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
       );
   }
+  removeFromPedalboard(
+    pedalboardId: string,
+    pedalId: string
+  ): Observable<PedalBoard> {
+    return this.http
+      .post<PedalBoard>(`${this.apiUrl}/${pedalboardId}/remove-pedal`, {
+        pedalId,
+      })
+      .pipe(
+        tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
+      );
+  }
 }
