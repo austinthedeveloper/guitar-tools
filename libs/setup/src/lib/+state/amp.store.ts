@@ -7,6 +7,7 @@ import {
   addEntities,
   updateEntities,
   deleteEntities,
+  selectEntity,
 } from '@ngneat/elf-entities';
 import { Amp } from '@guitar/interfaces';
 
@@ -20,6 +21,9 @@ export class AmpStore {
   // Selectors
   amps$ = this.store.pipe(selectAllEntities());
 
+  getOne(id: string) {
+    return this.store.pipe(selectEntity(id));
+  }
   // Load all Amps
   setAmps(amps: Amp[]) {
     this.store.update(setEntities(amps));

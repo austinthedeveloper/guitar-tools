@@ -1,3 +1,4 @@
+import { PedalBoardStore } from './../../+state/pedalboard.store';
 import { PairingService } from './../../services/pairing.service';
 import {
   Component,
@@ -31,6 +32,7 @@ import {
 import { AiSuggestionsService } from '../../services';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AiSettingsModalComponent } from '../ai-settings-modal/ai-settings-modal.component';
+import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'lib-edit-setup',
@@ -48,6 +50,7 @@ export class EditSetupComponent {
   private pairingService = inject(PairingService);
   private aiSuggestionsService = inject(AiSuggestionsService);
   private modalService = inject(NgbModal);
+  private pedalBoardStore = inject(PedalBoardStore);
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -58,6 +61,15 @@ export class EditSetupComponent {
   });
   ampControls: AmpControl[] = [];
   pedalboard!: PedalBoard;
+  private _pedalboardId = new BehaviorSubject<string | null>(null);
+  pedalboard$: Observable<PedalBoard> = this._pedalboardId.pipe(
+    switchMap((id) => this.pedalBoardStore.getOne(id)),
+    filter((item) => !!item),
+    tap((board) => {
+      const pedals = this.pairing?.pedals || [];
+      this.setPedalboard(pedals, board._id, board);
+    })
+  );
 
   genreOptions = ['Blues', 'Rock', 'Jazz', 'Metal', 'Funk'];
 
@@ -117,9 +129,18 @@ export class EditSetupComponent {
   onPedalboardChange() {
     const pedals = this.pairing?.pedals;
     const pedalboardId = this.form.controls.pedalboardId.value;
-    this.pedalboard = this.pedalboards.find(
-      (board) => board._id === pedalboardId
-    );
+    this._pedalboardId.next(pedalboardId);
+    this.setPedalboard(pedals, pedalboardId);
+  }
+
+  private setPedalboard(
+    pedals: PedalEntry[],
+    pedalboardId: string,
+    pedalboard?: PedalBoard
+  ) {
+    this.pedalboard =
+      pedalboard ||
+      this.pedalboards.find((board) => board._id === pedalboardId);
     this.form.controls.pedals.clear();
     this.pedalboard.pedals.forEach((pedal, index) => {
       const matched = pedals

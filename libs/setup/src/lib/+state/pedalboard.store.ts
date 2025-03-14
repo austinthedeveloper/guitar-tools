@@ -7,6 +7,7 @@ import {
   addEntities,
   updateEntities,
   deleteEntities,
+  selectEntity,
 } from '@ngneat/elf-entities';
 import { PedalBoard } from '@guitar/interfaces';
 
@@ -19,6 +20,9 @@ export class PedalBoardStore {
 
   // Selectors
   pedalBoards$ = this.store.pipe(selectAllEntities());
+  getOne(id: string) {
+    return this.store.pipe(selectEntity(id));
+  }
 
   // Load all PedalBoards
   setPedalBoards(pedalBoards: PedalBoard[]) {
