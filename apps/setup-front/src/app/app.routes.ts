@@ -12,7 +12,18 @@ import { SetupDashboardComponent } from './containers/setup/components/setup-das
 import { SetupPairingDetailComponent } from './containers/setup/components/setup-pairing-detail/setup-pairing-detail.component';
 
 export const appRoutes: Route[] = [
-  { path: '', component: LoginComponent },
+  {
+    path: '',
+    component: SetupDashboardComponent,
+    canActivate: [AuthGuard],
+    resolve: [
+      getPedalsResolver,
+      getPedalboardsResolver,
+      getPairingsResolver,
+      getAmpsResolver,
+    ],
+  },
+  { path: 'login', component: LoginComponent },
   {
     path: 'setup',
     component: SetupDashboardComponent,
