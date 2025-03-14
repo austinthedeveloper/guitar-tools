@@ -1,7 +1,18 @@
-.pedal-card-header {
+.pedal-card {
   display: flex;
-  .card-title {
+  text-align: center;
+
+  .pedal-card-header {
     display: flex;
-    flex: 1;
+    justify-content: space-between;
+    width: 100%;
+    .card-title {
+      display: flex;
+      flex: 1;
+    }
+  }
+
+  .row {
+    justify-content: center;
   }
 }

@@ -1,4 +1,8 @@
-<div class="card mb-3" [style.background-color]="pedal.type | pedalColor">
+<div
+  class="pedal-card card mb-3"
+  [style.background-color]="pedal.type | pedalColor"
+  [style.color]="pedal.type | pedalColor | getTextColor"
+>
   <div class="card-body">
     <div class="pedal-card-header">
       <h5 class="card-title">{{ pedal.name | titlecase }}</h5>
@@ -23,11 +27,9 @@
         </div>
       </div>
     </div>
-    <h6 class="card-subtitle text-muted">
-      Pedal Type: {{ pedal.type | titlecase }}
-    </h6>
+    <h6 class="card-subtitle">Pedal Type: {{ pedal.type | titlecase }}</h6>
 
-    <div>
+    <div class="mt-2">
       <div class="row" *ngIf="pedal.knobs.length">
         <div
           *ngFor="let knob of pedal.knobs"
@@ -46,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="canToggle">
+      <div class="d-flex justify-content-center" *ngIf="canToggle">
         <lib-pedal-toggle
           [isOn]="isOn"
           (toggle)="toggle.emit($event)"

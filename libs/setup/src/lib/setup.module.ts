@@ -22,6 +22,7 @@ import { PedalModalComponent } from './components/pedal-modal/pedal-modal.compon
 import { PedalboardModalComponent } from './components/pedalboard-modal/pedalboard-modal.component';
 import { PedalsOnPipe } from './pipes/pedals-on/pedals-on.pipe';
 import { MatIconModule } from '@angular/material/icon';
+import { GetTextColorPipe } from './pipes/get-text-color/get-text-color.pipe';
 
 const components = [
   CreateAmpComponent,
@@ -43,7 +44,7 @@ const components = [
   PedalboardModalComponent,
 ];
 const directives = [KnobRotateDirective];
-const pipes = [PedalColorPipe, PedalsOnPipe];
+const pipes = [PedalColorPipe, PedalsOnPipe, GetTextColorPipe];
 @NgModule({
   imports: [
     CommonModule,
@@ -54,7 +55,7 @@ const pipes = [PedalColorPipe, PedalsOnPipe];
     NgbDropdownModule,
     MatIconModule,
   ],
-  declarations: [...components, ...directives, ...pipes],
+  declarations: [...components, ...directives, ...pipes, GetTextColorPipe],
   exports: [...components, ...directives, ...pipes],
 })
 export class SetupModule {}
