@@ -27,9 +27,13 @@ export class PedalboardService extends BaseService<PedalBoard> {
           ? await this.pedalModel.findById(entry.pedalId).exec()
           : null;
 
+        if (!pedal) {
+          return null; // ✅ Skip null pedals
+        }
+
         return {
           _id: entry._id,
-          pedalId: entry.pedalId, // Keep original ID
+          pedalId: entry.pedalId,
           order: entry.order,
           knobValues: entry.knobValues,
           pedal: pedal.toObject(), // ✅ Attach populated pedal data
@@ -37,9 +41,27 @@ export class PedalboardService extends BaseService<PedalBoard> {
       })
     );
 
+    // ✅ Filter out null values (deleted pedals)
+    const filteredPedals = populatedPedals.filter((pedal) => pedal !== null);
+
+    // ✅ Remove orphaned pedals **directly in MongoDB** (Avoids `VersionError`)
+    await this.pedalBoardModel
+      .findOneAndUpdate(
+        { _id: pedalBoard._id },
+        {
+          $pull: {
+            pedals: {
+              pedalId: { $nin: populatedPedals.map((p) => p?.pedalId) },
+            },
+          },
+        }, // Remove pedals not in populated list
+        { new: true }
+      )
+      .exec();
+
     return {
       ...pedalBoard.toObject(),
-      pedals: populatedPedals,
+      pedals: filteredPedals,
     };
   }
 
