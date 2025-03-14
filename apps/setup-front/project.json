@@ -67,7 +67,7 @@
       },
       "defaultConfiguration": "development",
       "options": {
-        "proxyConfig": "apps/guitar-front/proxy.conf.json"
+        "proxyConfig": "apps/setup-front/proxy.conf.json"
       }
     },
     "extract-i18n": {
