@@ -9,13 +9,8 @@ export class AiController {
   @Post('suggest-settings')
   async suggestSettings(
     @Body()
-    body: AiSuggestionPayload
+    payload: AiSuggestionPayload
   ) {
-    return this.aiService.getSuggestedSettings(
-      body.amp,
-      body.pedals,
-      body.genre,
-      body.referenceTone
-    );
+    return this.aiService.getSuggestedSettings(payload);
   }
 }

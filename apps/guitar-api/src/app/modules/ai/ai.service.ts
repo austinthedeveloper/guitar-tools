@@ -1,3 +1,4 @@
+import { AiSuggestionPayload } from '@guitar/interfaces';
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
 
@@ -11,13 +12,8 @@ export class AiService {
     });
   }
 
-  async getSuggestedSettings(
-    amp: string,
-    pedals: string[],
-    genre?: string,
-    referenceTone?: string
-  ) {
-    const prompt = this.generatePrompt(amp, pedals, genre, referenceTone);
+  async getSuggestedSettings(payload: AiSuggestionPayload) {
+    const prompt = this.generatePrompt(payload);
 
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4', // or 'gpt-3.5-turbo' for faster response
@@ -29,15 +25,18 @@ export class AiService {
     return result ? JSON.parse(result) : {};
   }
 
-  private generatePrompt(
-    amp: string,
-    pedals: string[],
-    genre?: string,
-    referenceTone?: string
-  ) {
+  private generatePrompt({
+    amp,
+    pedals,
+    genre,
+    referenceTone,
+    pickup,
+  }: AiSuggestionPayload) {
+    // const mappedPedals = pedals.map(pedal => pedal.)
     return `I have a guitar setup with the following gear:
     - Amp: ${amp}
     - Pedals: ${pedals.join(', ')}
+    - Guitar Pickup: ${pickup}
 
     Can you suggest amp and pedal settings in JSON format for a great tone?
     ${genre ? `Make it suitable for ${genre} music.` : ''}

@@ -187,7 +187,6 @@ export class EditSetupComponent {
     // Apply amp settings
     this.controlValues.controls.forEach((control) => {
       const newValue: number = ampSettings[control.value.name];
-      console.log('c valute', newValue, control.value.name);
 
       if (!newValue) return;
       control.controls.value.patchValue(newValue);

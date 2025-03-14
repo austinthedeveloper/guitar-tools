@@ -12,6 +12,14 @@
 <div class="modal-body">
   <form [formGroup]="form">
     <div class="form-group">
+      <label for="pickup">Guitar Pickup</label>
+      <select id="pickup" class="form-control" formControlName="pickup">
+        <option *ngFor="let option of pickups" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
       <label for="genre">Genre</label>
       <select id="genre" class="form-control" formControlName="genre">
         <option *ngFor="let option of genreOptions" [value]="option">

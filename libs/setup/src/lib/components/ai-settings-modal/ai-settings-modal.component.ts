@@ -21,6 +21,7 @@ export class AiSettingsModalComponent {
   @Input() amp!: string;
   @Input() pedals!: string[];
   @Input() genreOptions: string[] = [];
+  @Input() pickups: string[] = ['Single Coil', 'Humbucker'];
 
   @Output() settingsApplied = new EventEmitter<AiSettingsResponse>();
 
@@ -32,6 +33,7 @@ export class AiSettingsModalComponent {
 
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder) {
     this.form = this.fb.group({
+      pickup: ['Single Coil', Validators.required],
       genre: ['Blues', Validators.required],
       referenceTone: [''],
     });
@@ -46,6 +48,7 @@ export class AiSettingsModalComponent {
       amp: this.amp,
       pedals: this.pedals,
       genre: this.form.value.genre,
+      pickup: this.form.value.pickup,
       referenceTone: this.form.value.referenceTone || undefined,
     };
 
