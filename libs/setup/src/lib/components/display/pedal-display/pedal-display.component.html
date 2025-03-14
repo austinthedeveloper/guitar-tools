@@ -1,6 +1,12 @@
 <div
   class="pedal-card card mb-3"
-  [style.background-color]="pedal.type | pedalColor"
+  [style.background]="
+    'linear-gradient(135deg, ' +
+    (pedal.type | pedalColor) +
+    ' 40%, ' +
+    (pedal.type | pedalColor | darkenColor) +
+    ' 100%)'
+  "
   [style.color]="pedal.type | pedalColor | getTextColor"
 >
   <div class="card-body">
