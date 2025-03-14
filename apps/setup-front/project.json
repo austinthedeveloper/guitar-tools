@@ -22,7 +22,7 @@
             "input": "apps/setup-front/public"
           }
         ],
-        "styles": ["apps/setup-front/src/styles.scss"],
+        "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css","apps/setup-front/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
