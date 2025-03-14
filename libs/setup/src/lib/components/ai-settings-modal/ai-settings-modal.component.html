@@ -2,7 +2,7 @@
   <h5 class="modal-title">AI Tone Suggestions</h5>
   <button
     type="button"
-    (click)="activeModal.dismiss()"
+    (click)="activeModal.close()"
     class="btn-close"
     data-bs-dismiss="modal"
     aria-label="Close"
@@ -37,7 +37,12 @@
         formControlName="referenceTone"
       />
     </div>
-    <button type="button" class="btn btn-primary" (click)="submit()">
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="isLoading"
+      (click)="submit()"
+    >
       Look Up
     </button>
   </form>

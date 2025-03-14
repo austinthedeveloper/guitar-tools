@@ -48,6 +48,8 @@ export class AiService {
     If you can't match the pedal, treat the pedal as the defined type.
     Suggested Pedals should only be populated if there are additional pedals needed for a sound
     The on property should be true if the pedal is going to be used for this genre/reference tone.
+    ### **Amp Knob Type Clarification**
+    By default, all Knobs are 0-100 values. Types like "Input X" and "Overdrive" are boolean
     ### **Suggested Pedal Type Clarification**
     Each pedal should include a "type" field that describes its category.
     Common types include:

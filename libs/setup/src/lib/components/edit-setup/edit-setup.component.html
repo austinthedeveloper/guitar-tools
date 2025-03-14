@@ -3,7 +3,12 @@
     <div class="mb-3 d-flex">
       <h2 class="flex-grow-1">Setup</h2>
       <div *ngIf="form.controls._id.value as id">
-        <button type="button" (click)="openAiModal()" class="btn btn-primary">
+        <button
+          *ngIf="pedalboard"
+          type="button"
+          (click)="openAiModal()"
+          class="btn btn-primary"
+        >
           🎸 Suggest Settings (AI)
         </button>
         <button

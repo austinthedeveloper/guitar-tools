@@ -71,8 +71,6 @@ export class EditSetupComponent {
   );
   private sub = this.pedalboard$.subscribe();
 
-  genreOptions = ['Blues', 'Rock', 'Jazz', 'Metal', 'Funk'];
-
   get controlValues() {
     return this.form.controls.controlValues;
   }
@@ -184,17 +182,33 @@ export class EditSetupComponent {
   }
 
   openAiModal() {
+    // Build the amp string
     const amp = this.form.controls.ampId.value;
-    const pedals = this.pedals.map((p) => p.name);
-    const genreOptions = this.genreOptions;
-    const pedalboardId = this.pedalboard._id;
+    const selectedAmp = this.amps.find((a) => a._id === amp);
+    let ampBuilt = '';
+    if (selectedAmp) {
+      const ampKnobs = this.controlValues.value.map((v) => v.name);
+      ampBuilt = `${selectedAmp.name || 'N/A'} (Brand: ${
+        selectedAmp.brand || 'N/A'
+      }, Knobs: ${ampKnobs.join(',')})`;
+    }
+    // Build the pedalboard string
+    const pedals = this.pedalValues.value.map((p) => {
+      const knobs = Object.keys(p.pedal.knobValues);
+      const type = p.pedal.pedal.type;
+      const built = `${p.pedal.pedal.name} (Type: ${type}, Knobs: ${knobs.join(
+        ','
+      )})`;
+      return built;
+    });
+    const pedalboardId = this.pedalboard?._id;
     const instance = this.setupModalService.openAiModal(
-      amp,
+      ampBuilt,
       pedals,
-      genreOptions,
       pedalboardId
     );
-    instance.settingsApplied.subscribe((aiData: AiSettingsResponse) => {
+    instance.result.then((aiData: AiSettingsResponse) => {
+      if (!aiData) return;
       this.applyAiSettings(aiData);
     });
   }

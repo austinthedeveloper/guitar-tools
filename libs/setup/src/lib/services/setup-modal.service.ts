@@ -17,6 +17,7 @@ export class SetupModalService {
       size: 'lg',
     });
     modalRef.componentInstance.amp = amp;
+    return modalRef;
   }
 
   openPedalModal(pedal?: Pedal) {
@@ -24,6 +25,7 @@ export class SetupModalService {
       size: 'lg',
     });
     modalRef.componentInstance.pedal = pedal;
+    return modalRef;
   }
 
   openPedalboardModal(pedalboard?: PedalBoard, pedals$?: any) {
@@ -32,22 +34,17 @@ export class SetupModalService {
     });
     modalRef.componentInstance.pedalboard = pedalboard;
     modalRef.componentInstance.pedals$ = pedals$;
+    return modalRef;
   }
 
-  openAiModal(
-    amp: string,
-    pedals: string[],
-    genreOptions: string[],
-    pedalboardId: string
-  ) {
+  openAiModal(amp: string, pedals: string[], pedalboardId: string) {
     const modalRef = this.modalService.open(AiSettingsModalComponent, {
       size: 'lg',
     });
     const instance: AiSettingsModalComponent = modalRef.componentInstance;
     instance.amp = amp;
     instance.pedals = pedals;
-    instance.genreOptions = genreOptions;
     instance.pedalboardId = pedalboardId;
-    return instance;
+    return modalRef;
   }
 }

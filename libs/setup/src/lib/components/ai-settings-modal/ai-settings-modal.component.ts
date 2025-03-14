@@ -26,13 +26,13 @@ export class AiSettingsModalComponent {
   @Input() amp!: string;
   @Input() pedalboardId!: string;
   @Input() pedals!: string[];
-  @Input() genreOptions: string[] = [];
+  @Input() genreOptions: string[] = ['Blues', 'Rock', 'Jazz', 'Metal', 'Funk'];
   @Input() pickups: string[] = ['Single Coil', 'Humbucker'];
 
   @Output() settingsApplied = new EventEmitter<AiSettingsResponse>();
 
   form: FormGroup;
-  aiResponse: AiSettingsResponse | null = dummyAI;
+  aiResponse: AiSettingsResponse | null;
   isLoading = false;
   errorMessage = '';
   private aiSuggestionsService = inject(AiSuggestionsService);
@@ -74,7 +74,7 @@ export class AiSettingsModalComponent {
   applySettings() {
     if (!this.aiResponse) return;
     this.settingsApplied.emit(this.aiResponse);
-    this.activeModal.close();
+    this.activeModal.close(this.aiResponse);
   }
 
   addSuggestedPedal(pedal: AiPedalSettings) {
