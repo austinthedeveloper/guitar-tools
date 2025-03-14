@@ -1,0 +1,19 @@
+@import 'bootstrap/scss/bootstrap';
+@import 'styles/setup';
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: $font-family-base;
+}
+
+pre {
+  text-align: left !important;
+}
+
+.pointer {
+  cursor: pointer;
+}

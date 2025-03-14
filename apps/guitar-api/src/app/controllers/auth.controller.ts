@@ -24,10 +24,10 @@ export class AuthController {
   async googleAuthRedirect(@Req() req: AuthRequest, @Res() res: Response) {
     const user = req.user; // User object from Google
     const payload = { sub: user._id, email: user.email };
-    const accessToken = this.jwtService.sign(payload, { expiresIn: '1h' });
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '10h' });
 
     // Redirect to frontend with token
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4200';
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:4300';
     return res.redirect(`${frontendUrl}/auth/callback?token=${accessToken}`);
   }
   @Get('profile')

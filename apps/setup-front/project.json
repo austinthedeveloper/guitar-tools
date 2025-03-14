@@ -1,32 +1,28 @@
 {
-  "name": "guitar-front",
+  "name": "setup-front",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/guitar-front/src",
-  "prefix": "guitar",
+  "prefix": "setup",
+  "sourceRoot": "apps/setup-front/src",
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/guitar-front",
-        "index": "apps/guitar-front/src/index.html",
-        "main": "apps/guitar-front/src/main.ts",
-        "polyfills": "apps/guitar-front/src/polyfills.ts",
-        "tsConfig": "apps/guitar-front/tsconfig.app.json",
+        "outputPath": "dist/apps/setup-front",
+        "index": "apps/setup-front/src/index.html",
+        "browser": "apps/setup-front/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/setup-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/guitar-front/src/favicon.ico",
-          "apps/guitar-front/src/assets"
+          {
+            "glob": "**/*",
+            "input": "apps/setup-front/public"
+          }
         ],
-        "styles": [
-          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-          "apps/guitar-front/src/styles.scss"
-        ],
-        "stylePreprocessorOptions": {
-          "includePaths": ["./node_modules", "./libs"]
-        },
+        "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css","apps/setup-front/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -35,7 +31,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "5mb"
+              "maximumError": "1mb"
             },
             {
               "type": "anyComponentStyle",
@@ -52,12 +48,9 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         }
       },
       "defaultConfiguration": "production"
@@ -66,18 +59,21 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "guitar-front:build:production"
+          "buildTarget": "setup-front:build:production"
         },
         "development": {
-          "buildTarget": "guitar-front:build:development"
+          "buildTarget": "setup-front:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/setup-front/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "guitar-front:build"
+        "buildTarget": "setup-front:build"
       }
     },
     "lint": {
@@ -85,16 +81,18 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/guitar-front"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/guitar-front/jest.config.ts"
+        "jestConfig": "apps/setup-front/jest.config.ts"
       }
     },
-    "e2e": {
-      "executor": "@nx/playwright:playwright",
-      "outputs": ["{workspaceRoot}/dist/.playwright/apps/guitar-front"],
+    "serve-static": {
+      "executor": "@nx/web:file-server",
       "options": {
-        "config": "apps/guitar-front/playwright.config.ts"
+        "buildTarget": "setup-front:build",
+        "port": 4300,
+        "staticFilePath": "dist/apps/setup-front/browser",
+        "spa": true
       }
     }
   }
