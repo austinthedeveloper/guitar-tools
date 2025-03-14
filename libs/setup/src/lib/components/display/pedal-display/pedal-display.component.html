@@ -1,11 +1,41 @@
-<div class="card mb-3" [style.background-color]="pedal.type | pedalColor">
+<div
+  class="pedal-card card mb-3"
+  [style.background]="
+    'linear-gradient(135deg, ' +
+    (pedal.type | pedalColor) +
+    ' 40%, ' +
+    (pedal.type | pedalColor | darkenColor) +
+    ' 100%)'
+  "
+  [style.color]="pedal.type | pedalColor | getTextColor"
+>
   <div class="card-body">
-    <h5 class="card-title">{{ pedal.name | titlecase }}</h5>
-    <h6 class="card-subtitle text-muted">
-      Pedal Type: {{ pedal.type | titlecase }}
-    </h6>
+    <div class="pedal-card-header">
+      <h5 class="card-title">{{ pedal.name | titlecase }}</h5>
+      <div ngbDropdown class="d-inline-block" *ngIf="showMenu">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Pedal Menu"
+          class="pointer"
+          fontIcon="more_vert"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        ></mat-icon>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button
+            type="button"
+            ngbDropdownItem
+            *ngFor="let item of menu"
+            (click)="onMenuClick(item.value, pedal._id, pedal)"
+          >
+            {{ item.name }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <h6 class="card-subtitle">Type: {{ pedal.type | titlecase }}</h6>
 
-    <div>
+    <div class="mt-2">
       <div class="row" *ngIf="pedal.knobs.length">
         <div
           *ngFor="let knob of pedal.knobs"
@@ -24,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="canToggle">
+      <div class="d-flex justify-content-center" *ngIf="canToggle">
         <lib-pedal-toggle
           [isOn]="isOn"
           (toggle)="toggle.emit($event)"

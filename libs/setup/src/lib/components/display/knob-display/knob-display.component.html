@@ -1,6 +1,6 @@
 <div class="mb-1">
   <ng-container [ngSwitch]="type">
-    <div *ngSwitchCase="'input'" class="amp-input">
+    <div *ngSwitchCase="'input'" class="amp-input" [class.on]="!!value">
       <div class="jack"></div>
     </div>
     <button

@@ -10,7 +10,12 @@
     />
   </div>
 
-  <h3>Pedals</h3>
+  <div class="d-flex justify-content-between mb-2">
+    <h3>Pedals</h3>
+    <button class="btn btn-primary" type="button" (click)="orderPedals()">
+      Order Pedals By Type
+    </button>
+  </div>
   <div formArrayName="pedals">
     <div
       class="mb-2 row"
@@ -25,7 +30,7 @@
           required
         >
           <option *ngFor="let p of pedals" [value]="p._id">
-            {{ p.name }}
+            {{ p.name }} - {{ p.type }}
           </option>
         </select>
         <div

@@ -3,7 +3,12 @@
     <div class="mb-3 d-flex">
       <h2 class="flex-grow-1">Setup</h2>
       <div *ngIf="form.controls._id.value as id">
-        <button type="button" (click)="openAiModal()" class="btn btn-primary">
+        <button
+          *ngIf="pedalboard"
+          type="button"
+          (click)="openAiModal()"
+          class="btn btn-primary"
+        >
           🎸 Suggest Settings (AI)
         </button>
         <button
@@ -43,7 +48,8 @@
       <!-- Edit Amp Values -->
       <ng-container *ngIf="controlValues.controls.length">
         <h3>Control Values</h3>
-        <div formArrayName="controlValues">
+        <!-- TODO: Hiding for now, address later -->
+        <div *ngIf="false" formArrayName="controlValues">
           <div
             class="mb-2 d-flex"
             *ngFor="let group of controlValues.controls; let i = index"
@@ -56,7 +62,11 @@
               </p></label
             >
             <ng-container [ngSwitch]="group.controls.type.value">
-              <div *ngSwitchCase="'input'">N/A</div>
+              <div *ngSwitchCase="'input'">
+                <guitar-switch
+                  [formCtrl]="group.controls.value"
+                ></guitar-switch>
+              </div>
               <div *ngSwitchCase="'switch'">
                 <guitar-switch
                   [formCtrl]="group.controls.value"
@@ -80,7 +90,15 @@
               [type]="group.controls.type.value"
               [name]="group.controls.name.value"
               [value]="group.controls.value.value"
+              (click)="onControlKnobClick(group)"
             ></lib-knob-display>
+            <div *ngIf="canEdit && activeControl === group.controls.name.value">
+              <guitar-slider
+                [step]="10"
+                [formCtrl]="group.controls.value"
+              ></guitar-slider>
+              {{ group.controls.value.value }}
+            </div>
           </div>
         </div>
       </ng-container>
@@ -111,6 +129,8 @@
             [canToggle]="true"
             [canEdit]="true"
             [formGrp]="pedal.controls.knobs"
+            [showMenu]="true"
+            (menuClick)="onMenuClick($event, pedal.value._id)"
             (toggle)="pedal.controls.on.patchValue($event)"
           ></lib-pedal-display>
         </div>

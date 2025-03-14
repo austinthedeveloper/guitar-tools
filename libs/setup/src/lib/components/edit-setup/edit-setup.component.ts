@@ -1,4 +1,3 @@
-import { PairingService } from './../../services/pairing.service';
 import {
   Component,
   EventEmitter,
@@ -10,27 +9,26 @@ import {
 import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   AiSettingsResponse,
-  AiSuggestionPayload,
   Amp,
   AmpControl,
   Pairing,
-  PairingControlValues,
   PairingPayload,
   Pedal,
   PedalBoard,
   PedalBoardPedal,
   PedalEntry,
 } from '@guitar/interfaces';
+import { BehaviorSubject, filter, Observable, switchMap, tap } from 'rxjs';
 
 import {
   ControlGroup,
   PedalControlGroupNew,
   PedalFormGroup,
-  PedalKnob,
 } from '../../interfaces';
-import { AiSuggestionsService } from '../../services';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AiSettingsModalComponent } from '../ai-settings-modal/ai-settings-modal.component';
+import { SetupModalService } from '../../services';
+import { PedalBoardStore } from './../../+state/pedalboard.store';
+import { PairingService } from './../../services/pairing.service';
+import { PedalBoardService } from './../../services/pedalboard.service';
 
 @Component({
   selector: 'lib-edit-setup',
@@ -42,12 +40,16 @@ export class EditSetupComponent {
   @Input() pedals: Pedal[] = [];
   @Input() pedalboards: PedalBoard[] = [];
   @Input() pairing!: Pairing;
+  @Input() canEdit = true;
 
   @Output() deletePairing = new EventEmitter<string>();
   private fb = inject(NonNullableFormBuilder);
   private pairingService = inject(PairingService);
-  private aiSuggestionsService = inject(AiSuggestionsService);
-  private modalService = inject(NgbModal);
+  private pedalBoardStore = inject(PedalBoardStore);
+  private pedalBoardService = inject(PedalBoardService);
+  private setupModalService = inject(SetupModalService);
+
+  activeControl!: any;
   form: FormGroup<PedalFormGroup> = this.fb.group({
     _id: [''],
     name: ['', Validators.required],
@@ -58,8 +60,16 @@ export class EditSetupComponent {
   });
   ampControls: AmpControl[] = [];
   pedalboard!: PedalBoard;
-
-  genreOptions = ['Blues', 'Rock', 'Jazz', 'Metal', 'Funk'];
+  private _pedalboardId = new BehaviorSubject<string | null>(null);
+  pedalboard$: Observable<PedalBoard> = this._pedalboardId.pipe(
+    switchMap((id) => this.pedalBoardStore.getOne(id)),
+    filter((item) => !!item),
+    tap((board) => {
+      const pedals = this.pairing?.pedals || [];
+      this.setPedalboard(pedals, board._id, board);
+    })
+  );
+  private sub = this.pedalboard$.subscribe();
 
   get controlValues() {
     return this.form.controls.controlValues;
@@ -70,7 +80,7 @@ export class EditSetupComponent {
   }
 
   ngOnChanges({ pairing }: SimpleChanges) {
-    if (pairing) {
+    if (pairing && pairing.currentValue) {
       this.form.patchValue({
         _id: this.pairing._id,
         name: this.pairing.name,
@@ -86,6 +96,10 @@ export class EditSetupComponent {
     }
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
+
   onAmpChange() {
     const selectedAmpId = this.form.controls.ampId.value;
     const selectedAmp = this.amps.find((amp) => amp._id === selectedAmpId);
@@ -98,7 +112,7 @@ export class EditSetupComponent {
       // Set the values if Control Values exists (Edit)
       const value = controlValues
         ? controlValues.find((v) => v.name === control.name)?.value || 0
-        : 50;
+        : this.setDefaultAmpValue(control.type);
       this.controlValues.push(
         this.fb.group({
           name: control.name,
@@ -109,12 +123,24 @@ export class EditSetupComponent {
     });
   }
 
+  private setDefaultAmpValue(type: string) {
+    if (type === 'knob') return 50;
+    return false;
+  }
+
   onPedalboardChange() {
-    const pedals = this.pairing?.pedals;
     const pedalboardId = this.form.controls.pedalboardId.value;
-    this.pedalboard = this.pedalboards.find(
-      (board) => board._id === pedalboardId
-    );
+    this._pedalboardId.next(pedalboardId);
+  }
+
+  private setPedalboard(
+    pedals: PedalEntry[],
+    pedalboardId: string,
+    pedalboard?: PedalBoard
+  ) {
+    this.pedalboard =
+      pedalboard ||
+      this.pedalboards.find((board) => board._id === pedalboardId);
     this.form.controls.pedals.clear();
     this.pedalboard.pedals.forEach((pedal, index) => {
       const matched = pedals
@@ -132,6 +158,7 @@ export class EditSetupComponent {
         return acc;
       }, {} as Record<string, number>);
     const pedalForm = this.fb.group({
+      _id: pedal._id,
       pedalId: [pedal.pedalId, Validators.required],
       order: [index, Validators.required],
       on: value ? value.on : false,
@@ -155,20 +182,35 @@ export class EditSetupComponent {
   }
 
   openAiModal() {
-    const modalRef = this.modalService.open(AiSettingsModalComponent, {
-      size: 'lg',
+    // Build the amp string
+    const amp = this.form.controls.ampId.value;
+    const selectedAmp = this.amps.find((a) => a._id === amp);
+    let ampBuilt = '';
+    if (selectedAmp) {
+      const ampKnobs = this.controlValues.value.map((v) => v.name);
+      ampBuilt = `${selectedAmp.name || 'N/A'} (Brand: ${
+        selectedAmp.brand || 'N/A'
+      }, Knobs: ${ampKnobs.join(',')})`;
+    }
+    // Build the pedalboard string
+    const pedals = this.pedalValues.value.map((p) => {
+      const knobs = Object.keys(p.pedal.knobValues);
+      const type = p.pedal.pedal.type;
+      const built = `${p.pedal.pedal.name} (Type: ${type}, Knobs: ${knobs.join(
+        ','
+      )})`;
+      return built;
     });
-    modalRef.componentInstance.amp = this.form.controls.ampId.value;
-    modalRef.componentInstance.pedals = this.pedals.map((p) => p.name);
-    modalRef.componentInstance.genreOptions = this.genreOptions;
-
-    modalRef.componentInstance.settingsApplied.subscribe(
-      (aiData: AiSettingsResponse) => {
-        console.log('applied', aiData);
-
-        this.applyAiSettings(aiData);
-      }
+    const pedalboardId = this.pedalboard?._id;
+    const instance = this.setupModalService.openAiModal(
+      ampBuilt,
+      pedals,
+      pedalboardId
     );
+    instance.result.then((aiData: AiSettingsResponse) => {
+      if (!aiData) return;
+      this.applyAiSettings(aiData);
+    });
   }
 
   // AI
@@ -182,7 +224,6 @@ export class EditSetupComponent {
     // Apply amp settings
     this.controlValues.controls.forEach((control) => {
       const newValue: number = ampSettings[control.value.name];
-      console.log('c valute', newValue, control.value.name);
 
       if (!newValue) return;
       control.controls.value.patchValue(newValue);
@@ -198,5 +239,40 @@ export class EditSetupComponent {
         knobs.patchValue(newValues.settings);
       }
     });
+  }
+
+  onMenuClick(
+    action: { type: string; id: string; pedal?: Pedal },
+    pedalId: string
+  ) {
+    switch (action.type) {
+      case 'remove':
+        this.pedalBoardService
+          .removeFromPedalboard(this.pedalboard._id, pedalId)
+          .subscribe();
+        break;
+      case 'edit':
+        this.openPedalModal(action.pedal);
+        break;
+    }
+  }
+
+  private openPedalModal(pedal?: Pedal) {
+    this.setupModalService.openPedalModal(pedal);
+  }
+
+  // Amp
+  onControlKnobClick(group: FormGroup<ControlGroup>) {
+    const name = group.controls.name.value;
+    const type = group.controls.type.value;
+    switch (type) {
+      case 'input':
+      case 'switch':
+        group.controls.value.patchValue(!group.controls.value.value);
+        break;
+      default:
+        this.activeControl = name;
+        break;
+    }
   }
 }

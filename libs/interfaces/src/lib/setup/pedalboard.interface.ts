@@ -3,6 +3,7 @@ import { Pedal } from './pedal.interface';
 
 /** ✅ Pedal Configuration Inside a Pedal Board */
 export interface PedalBoardPedal {
+  _id: string;
   pedalId: string;
   order: number;
   knobValues: PedalboardKnobValues;

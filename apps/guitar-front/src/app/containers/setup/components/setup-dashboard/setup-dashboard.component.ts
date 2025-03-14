@@ -1,20 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Amp, Pedal, PedalBoard } from '@guitar/interfaces';
 import {
-  PedalService,
   AmpService,
-  PairingService,
-  PedalBoardService,
   AmpStore,
-  PedalStore,
-  PedalBoardStore,
+  PairingService,
   PairingStore,
+  PedalBoardService,
+  PedalBoardStore,
+  PedalService,
+  PedalStore,
+  SetupModalService,
 } from '@guitar/setup';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AmpModalComponent } from 'libs/setup/src/lib/components/amp-modal/amp-modal.component';
-import { PedalModalComponent } from 'libs/setup/src/lib/components/pedal-modal/pedal-modal.component';
-import { PedalboardModalComponent } from 'libs/setup/src/lib/components/pedalboard-modal/pedalboard-modal.component';
 
 @Component({
   selector: 'guitar-setup-dashboard',
@@ -28,7 +25,6 @@ export class SetupDashboardComponent {
   amps$ = this.ampStore.amps$;
   pedals$ = this.pedalStore.pedals$;
   pedalBoards$ = this.pedalBoardStore.pedalBoards$;
-  private modalService = inject(NgbModal);
   constructor(
     private pedalService: PedalService,
     private ampService: AmpService,
@@ -38,6 +34,7 @@ export class SetupDashboardComponent {
     private pedalStore: PedalStore,
     private pedalBoardStore: PedalBoardStore,
     private pairingStore: PairingStore,
+    private modalService: SetupModalService,
     private router: Router
   ) {}
 
@@ -59,22 +56,23 @@ export class SetupDashboardComponent {
   }
 
   openAmpModal(amp?: Amp) {
-    const modalRef = this.modalService.open(AmpModalComponent, {
-      size: 'lg',
-    });
-    modalRef.componentInstance.amp = amp;
+    this.modalService.openAmpModal(amp);
   }
   openPedalModal(pedal?: Pedal) {
-    const modalRef = this.modalService.open(PedalModalComponent, {
-      size: 'lg',
-    });
-    modalRef.componentInstance.pedal = pedal;
+    this.modalService.openPedalModal(pedal);
   }
   openPedalboardModal(pedalboard?: PedalBoard) {
-    const modalRef = this.modalService.open(PedalboardModalComponent, {
-      size: 'lg',
-    });
-    modalRef.componentInstance.pedalboard = pedalboard;
-    modalRef.componentInstance.pedals$ = this.pedals$;
+    this.modalService.openPedalboardModal(pedalboard, this.pedals$);
+  }
+
+  onMenuClick(action: { type: string; id: string; pedal?: Pedal }) {
+    switch (action.type) {
+      case 'remove':
+        this.pedalService.deletePedal(action.id).subscribe();
+        break;
+      case 'edit':
+        this.openPedalModal(action.pedal);
+        break;
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { AiSuggestionPayload } from '@guitar/interfaces';
 import { Injectable } from '@nestjs/common';
 import OpenAI from 'openai';
 
@@ -11,13 +12,8 @@ export class AiService {
     });
   }
 
-  async getSuggestedSettings(
-    amp: string,
-    pedals: string[],
-    genre?: string,
-    referenceTone?: string
-  ) {
-    const prompt = this.generatePrompt(amp, pedals, genre, referenceTone);
+  async getSuggestedSettings(payload: AiSuggestionPayload) {
+    const prompt = this.generatePrompt(payload);
 
     const response = await this.openai.chat.completions.create({
       model: 'gpt-4', // or 'gpt-3.5-turbo' for faster response
@@ -29,15 +25,18 @@ export class AiService {
     return result ? JSON.parse(result) : {};
   }
 
-  private generatePrompt(
-    amp: string,
-    pedals: string[],
-    genre?: string,
-    referenceTone?: string
-  ) {
+  private generatePrompt({
+    amp,
+    pedals,
+    genre,
+    referenceTone,
+    pickup,
+  }: AiSuggestionPayload) {
+    // const mappedPedals = pedals.map(pedal => pedal.)
     return `I have a guitar setup with the following gear:
     - Amp: ${amp}
     - Pedals: ${pedals.join(', ')}
+    - Guitar Pickup: ${pickup}
 
     Can you suggest amp and pedal settings in JSON format for a great tone?
     ${genre ? `Make it suitable for ${genre} music.` : ''}
@@ -47,9 +46,22 @@ export class AiService {
 
     Respond ONLY with JSON in this structure. Some amps and pedals can have more or less knobs.
     If you can't match the pedal, treat the pedal as the defined type.
-    Only include the pedal name in the return response, not the type.
     Suggested Pedals should only be populated if there are additional pedals needed for a sound
     The on property should be true if the pedal is going to be used for this genre/reference tone.
+    ### **Amp Knob Type Clarification**
+    By default, all Knobs are 0-100 values. Types like "Input X" and "Overdrive" are boolean
+    ### **Suggested Pedal Type Clarification**
+    Each pedal should include a "type" field that describes its category.
+    Common types include:
+    - **Overdrive**
+    - **Distortion**
+    - **Fuzz**
+    - **Reverb**
+    - **Delay**
+    - **Equalizer**
+    - **Modulation Effects** (e.g., Chorus, Flanger, Phaser)
+    - **Compressor**
+    - **Tremolo**
     {
       "amp": {
         "name": "${amp}",
@@ -59,7 +71,7 @@ export class AiService {
         { "name": "Pedal Name", on: boolean, type: FROM_PEDAL_TYPE, "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
       ],
       "suggestedPedals": [
-        { "name": "Pedal Name", "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
+        { "name": "Pedal Name", "type":"Pedal Type" "settings": { "Knob1": X, "Knob2": X, "Knob3": X } }
       ],
       "notes": "Tone description here."
     }

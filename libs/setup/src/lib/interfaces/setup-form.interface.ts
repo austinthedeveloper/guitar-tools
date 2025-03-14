@@ -5,7 +5,7 @@ import { Pedal, PedalBoardPedal } from '@guitar/interfaces';
 export interface ControlGroup {
   name: FormControl<string>;
   type: FormControl<string>;
-  value: FormControl<number>;
+  value: FormControl<any>;
 }
 
 // Pedalboard
@@ -21,8 +21,10 @@ export interface PedalControlGroup {
   pedalId: FormControl<string>;
   order: FormControl<number>;
   knobs: FormArray<FormGroup<PedalKnob>>;
+  type: FormControl<string>;
 }
 export interface PedalControlGroupNew {
+  _id: FormControl<string>;
   pedalId: FormControl<string>;
   order: FormControl<number>;
   on: FormControl<boolean>;

@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 
 import { JwtAuthGuard } from '../guards';
-import { AuthRequest } from '../models';
+import { AiPedalSettings, AuthRequest } from '../models';
 import { PedalboardService } from '../services';
 import { PedalBoard } from '../schemas';
 import { BaseController } from './base.controller';
@@ -51,5 +51,28 @@ export class PedalboardController extends BaseController<PedalBoard> {
     @Query('populateUser') populateUser: boolean
   ) {
     return this.pedalboardService.getPedalBoards(req.user?._id, populateUser);
+  }
+
+  @Post(':id/add-pedal')
+  @UseGuards(JwtAuthGuard)
+  async addPedal(
+    @Req() req: AuthRequest,
+    @Body() pedalData: AiPedalSettings,
+    @Param('id') id: string
+  ) {
+    return this.pedalboardService.addPedalToPedalboard(
+      id,
+      pedalData,
+      req.user._id
+    );
+  }
+  @Post(':id/remove-pedal')
+  @UseGuards(JwtAuthGuard)
+  async removePedal(
+    @Req() req: AuthRequest,
+    @Body() { pedalId }: { pedalId: string },
+    @Param('id') id: string
+  ) {
+    return this.pedalboardService.deletePedalFromBoard(id, pedalId);
   }
 }

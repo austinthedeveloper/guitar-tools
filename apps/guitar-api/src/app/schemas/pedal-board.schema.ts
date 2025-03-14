@@ -18,6 +18,7 @@ export class PedalBoard extends Document {
     ],
   })
   pedals: {
+    _id?: Types.ObjectId;
     pedalId: Types.ObjectId;
     order: number;
     knobValues: Map<string, number>;

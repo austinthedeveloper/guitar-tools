@@ -16,10 +16,14 @@ import { GuitarFormsModule } from '@guitar/forms';
 import { EditSetupComponent } from './components/edit-setup/edit-setup.component';
 import { PedalToggleComponent } from './components/display/pedal-toggle/pedal-toggle.component';
 import { AiSettingsModalComponent } from './components/ai-settings-modal/ai-settings-modal.component';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { AmpModalComponent } from './components/amp-modal/amp-modal.component';
 import { PedalModalComponent } from './components/pedal-modal/pedal-modal.component';
 import { PedalboardModalComponent } from './components/pedalboard-modal/pedalboard-modal.component';
+import { PedalsOnPipe } from './pipes/pedals-on/pedals-on.pipe';
+import { MatIconModule } from '@angular/material/icon';
+import { GetTextColorPipe } from './pipes/get-text-color/get-text-color.pipe';
+import { DarkenColorPipe } from './pipes/darken-color/darken-color.pipe';
 
 const components = [
   CreateAmpComponent,
@@ -41,7 +45,7 @@ const components = [
   PedalboardModalComponent,
 ];
 const directives = [KnobRotateDirective];
-const pipes = [PedalColorPipe];
+const pipes = [PedalColorPipe, PedalsOnPipe, GetTextColorPipe, DarkenColorPipe];
 @NgModule({
   imports: [
     CommonModule,
@@ -49,6 +53,8 @@ const pipes = [PedalColorPipe];
     ReactiveFormsModule,
     GuitarFormsModule,
     NgbModalModule,
+    NgbDropdownModule,
+    MatIconModule,
   ],
   declarations: [...components, ...directives, ...pipes],
   exports: [...components, ...directives, ...pipes],

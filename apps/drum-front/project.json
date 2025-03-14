@@ -4,6 +4,7 @@
   "projectType": "application",
   "sourceRoot": "apps/drum-front/src",
   "prefix": "guitar",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -24,10 +25,7 @@
           "apps/drum-front/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": [
-            "./node_modules",
-            "./libs"
-          ]
+          "includePaths": ["./node_modules", "./libs"]
         },
         "scripts": []
       },
@@ -95,6 +93,5 @@
         "jestConfig": "apps/drum-front/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

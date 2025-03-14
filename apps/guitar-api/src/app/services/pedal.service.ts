@@ -12,7 +12,7 @@ import { Pedal } from '../schemas/pedal.schema';
 export class PedalService {
   constructor(@InjectModel(Pedal.name) private pedalModel: Model<Pedal>) {}
 
-  async createPedal(createPedalDto: any, userId: string) {
+  async createPedal(createPedalDto: Pedal, userId: string) {
     try {
       const pedal = new this.pedalModel({
         ...createPedalDto,
@@ -48,6 +48,18 @@ export class PedalService {
     }
 
     return query.exec();
+  }
+
+  async findPedalByName(
+    userId: string,
+    pedalName: string
+  ): Promise<Pedal | null> {
+    return this.pedalModel
+      .findOne({
+        name: pedalName,
+        createdById: userId,
+      })
+      .exec();
   }
 
   /** ✅ Update a Pedal (only updates knob names, not values) */

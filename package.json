@@ -35,7 +35,7 @@
     "@nestjs/mongoose": "^11.0.1",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^10.0.2",
-    "@nestjs/swagger": "^10.x.x",
+    "@nestjs/swagger": "^11.x.x",
     "@ng-bootstrap/ng-bootstrap": "^17.x.x",
     "@ng-web-apis/audio": "^3.0.6",
     "@ng-web-apis/common": "^3.0.6",
@@ -72,6 +72,8 @@
     "@angular/cli": "^18.2.9",
     "@angular/compiler-cli": "^18.2.9",
     "@angular/language-service": "^18.2.9",
+    "@eslint/eslintrc": "^2.1.1",
+    "@eslint/js": "~8.57.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
     "@nx/cypress": "19.8.9",
@@ -118,6 +120,7 @@
     "prettier": "2.7.1",
     "ts-jest": "29.1.1",
     "ts-node": "10.9.1",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "typescript-eslint": "^8.0.0"
   }
 }
