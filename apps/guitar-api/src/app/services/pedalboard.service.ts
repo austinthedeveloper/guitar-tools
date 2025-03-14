@@ -109,7 +109,7 @@ export class PedalboardService extends BaseService<PedalBoard> {
     if (!pedal) {
       const mappedPedal = {
         name: pedalData.name,
-        type: '',
+        type: pedalData.type,
         knobs: Object.keys(pedalData.settings),
       } as Pedal;
       pedal = await this.pedalService.createPedal(mappedPedal, userId);

@@ -8,5 +8,6 @@ export interface AiSuggestionPayload {
 }
 export interface AiPedalSettings {
   name: string;
+  type?: string;
   settings: Record<string, number>; // Pedals can have different knob names
 }
