@@ -38,7 +38,7 @@ export class SetupComponent {
     this.pairingService.delete(id).subscribe();
   }
   deleteAmp(id: string) {
-    this.ampService.deleteAmp(id).subscribe();
+    this.ampService.delete(id).subscribe();
   }
   deletePedal(id: string) {
     this.pedalService.deletePedal(id).subscribe();

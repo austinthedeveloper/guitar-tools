@@ -6,5 +6,5 @@ import { Observable } from 'rxjs';
 
 export const getAmpsResolver: ResolveFn<Observable<Amp[]>> = () => {
   const service = inject(AmpService);
-  return service.getAmps();
+  return service.getAll();
 };
