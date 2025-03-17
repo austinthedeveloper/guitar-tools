@@ -39,7 +39,7 @@ export class SetupDashboardComponent {
   ) {}
 
   deletePairing(id: string) {
-    this.pairingService.deletePairing(id).subscribe();
+    this.pairingService.delete(id).subscribe();
   }
   deleteAmp(id: string) {
     this.ampService.deleteAmp(id).subscribe();

@@ -175,8 +175,8 @@ export class EditSetupComponent {
       pedals: formValue.pedals.map(({ pedal, ...rest }) => rest as PedalEntry),
     };
     const call = _id
-      ? this.pairingService.updatePairing(_id, payload)
-      : this.pairingService.createPairing(payload);
+      ? this.pairingService.update(_id, payload)
+      : this.pairingService.create(payload);
 
     call.subscribe((res) => this.form.controls._id.patchValue(res._id));
   }
