@@ -21,10 +21,10 @@ import {
 export class SetupDashboardComponent {
   disabled!: boolean;
 
-  pairings$ = this.pairingStore.pairings$;
-  amps$ = this.ampStore.amps$;
-  pedals$ = this.pedalStore.pedals$;
-  pedalBoards$ = this.pedalBoardStore.pedalBoards$;
+  pairings$ = this.pairingStore.items$;
+  amps$ = this.ampStore.items$;
+  pedals$ = this.pedalStore.items$;
+  pedalBoards$ = this.pedalBoardStore.items$;
   constructor(
     private pedalService: PedalService,
     private ampService: AmpService,

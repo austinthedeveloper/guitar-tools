@@ -18,28 +18,28 @@ export class PedalService {
 
   getPedals(): Observable<Pedal[]> {
     return this.http.get<Pedal[]>(this.apiUrl).pipe(
-      tap((pedals) => this.pedalStore.setPedals(pedals)) // Store the pedals
+      tap((pedals) => this.pedalStore.setMany(pedals)) // Store the pedals
     );
   }
 
   // Create a new pedal and add it to the store
   createPedal(pedalData: CreatePedalRequest): Observable<Pedal> {
     return this.http.post<Pedal>(this.apiUrl, pedalData).pipe(
-      tap((pedal) => this.pedalStore.addPedal(pedal)) // Add to store
+      tap((pedal) => this.pedalStore.addOne(pedal)) // Add to store
     );
   }
 
   // Update an existing pedal in the API and store
   updatePedal(id: string, pedal: Pedal): Observable<Pedal> {
     return this.http.put<Pedal>(`${this.apiUrl}/${id}`, pedal).pipe(
-      tap((updated) => this.pedalStore.updatePedal(updated)) // Update in store
+      tap((updated) => this.pedalStore.updateOne(updated)) // Update in store
     );
   }
 
   // Delete a pedal from the API and store
   deletePedal(pedalId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${pedalId}`).pipe(
-      tap(() => this.pedalStore.deletePedal(pedalId)) // Remove from store
+      tap(() => this.pedalStore.deleteOne(pedalId)) // Remove from store
     );
   }
 }

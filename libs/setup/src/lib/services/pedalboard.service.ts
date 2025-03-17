@@ -24,7 +24,7 @@ export class PedalBoardService {
   // Get all pedalboards and store them
   getPedalBoards(): Observable<PedalBoard[]> {
     return this.http.get<PedalBoard[]>(`${this.apiUrl}`).pipe(
-      tap((pedalBoards) => this.pedalBoardStore.setPedalBoards(pedalBoards)) // Store the pedalboards
+      tap((pedalBoards) => this.pedalBoardStore.setMany(pedalBoards)) // Store the pedalboards
     );
   }
 
@@ -33,21 +33,21 @@ export class PedalBoardService {
     pedalBoardData: CreatePedalBoardRequest
   ): Observable<PedalBoard> {
     return this.http.post<PedalBoard>(this.apiUrl, pedalBoardData).pipe(
-      tap((pedalBoard) => this.pedalBoardStore.addPedalBoard(pedalBoard)) // Add to store
+      tap((pedalBoard) => this.pedalBoardStore.addOne(pedalBoard)) // Add to store
     );
   }
 
   // Update an existing pedalboard in the API and store
   updatePedalBoard(id: string, pedalBoard: PedalBoard): Observable<PedalBoard> {
     return this.http.put<PedalBoard>(`${this.apiUrl}/${id}`, pedalBoard).pipe(
-      tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
+      tap((updated) => this.pedalBoardStore.updateOne(updated)) // Update in store
     );
   }
 
   // Delete a pedalboard from the API and store
   deletePedalBoard(pedalBoardId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${pedalBoardId}`).pipe(
-      tap(() => this.pedalBoardStore.deletePedalBoard(pedalBoardId)) // Remove from store
+      tap(() => this.pedalBoardStore.deleteOne(pedalBoardId)) // Remove from store
     );
   }
   addToPedalboard(
@@ -57,7 +57,7 @@ export class PedalBoardService {
     return this.http
       .post<PedalBoard>(`${this.apiUrl}/${pedalboardId}/add-pedal`, pedal)
       .pipe(
-        tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
+        tap((updated) => this.pedalBoardStore.updateOne(updated)) // Update in store
       );
   }
   removeFromPedalboard(
@@ -69,7 +69,7 @@ export class PedalBoardService {
         pedalId,
       })
       .pipe(
-        tap((updated) => this.pedalBoardStore.updatePedalBoard(updated)) // Update in store
+        tap((updated) => this.pedalBoardStore.updateOne(updated)) // Update in store
       );
   }
 }

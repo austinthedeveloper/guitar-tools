@@ -19,24 +19,24 @@ export class AmpService {
   getAmps(): Observable<Amp[]> {
     return this.http
       .get<Amp[]>(this.apiUrl)
-      .pipe(tap((amps) => this.ampStore.setAmps(amps)));
+      .pipe(tap((amps) => this.ampStore.setMany(amps)));
   }
 
   createAmp(ampData: CreateAmpRequest): Observable<Amp> {
     return this.http
       .post<Amp>(this.apiUrl, ampData)
-      .pipe(tap((amp) => this.ampStore.addAmp(amp)));
+      .pipe(tap((amp) => this.ampStore.addOne(amp)));
   }
 
   updateAmp(id: string, amp: Amp): Observable<Amp> {
     return this.http
       .put<Amp>(`${this.apiUrl}/${id}`, amp)
-      .pipe(tap((updated) => this.ampStore.updateAmp(updated)));
+      .pipe(tap((updated) => this.ampStore.updateOne(updated)));
   }
 
   deleteAmp(ampId: string): Observable<void> {
     return this.http
       .delete<void>(`${this.apiUrl}/${ampId}`)
-      .pipe(tap(() => this.ampStore.deleteAmp(ampId)));
+      .pipe(tap(() => this.ampStore.deleteOne(ampId)));
   }
 }

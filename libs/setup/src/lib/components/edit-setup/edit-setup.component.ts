@@ -62,7 +62,7 @@ export class EditSetupComponent {
   pedalboard!: PedalBoard;
   private _pedalboardId = new BehaviorSubject<string | null>(null);
   pedalboard$: Observable<PedalBoard> = this._pedalboardId.pipe(
-    switchMap((id) => this.pedalBoardStore.getOne(id)),
+    switchMap((id) => this.pedalBoardStore.getOne$(id)),
     filter((item) => !!item),
     tap((board) => {
       const pedals = this.pairing?.pedals || [];
