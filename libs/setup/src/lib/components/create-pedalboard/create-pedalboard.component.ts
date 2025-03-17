@@ -121,9 +121,9 @@ export class CreatePedalboardComponent {
       const mappedData = { ...pedalboardData, pedals: mappedPedals };
 
       const call = _id
-        ? this.pedalBoardService.updatePedalBoard(_id, mappedData as PedalBoard)
+        ? this.pedalBoardService.update(_id, mappedData as PedalBoard)
         : this.pedalBoardService
-            .createPedalBoard(mappedData as CreatePedalBoardRequest)
+            .create(mappedData as CreatePedalBoardRequest)
             .pipe(tap(() => this.clearForm()));
 
       call.subscribe((res) => {
@@ -133,9 +133,7 @@ export class CreatePedalboardComponent {
     }
   }
   deletePedalboard(id: string) {
-    this.pedalBoardService
-      .deletePedalBoard(id)
-      .subscribe(() => this.delete.emit(id));
+    this.pedalBoardService.delete(id).subscribe(() => this.delete.emit(id));
   }
 
   orderPedals() {

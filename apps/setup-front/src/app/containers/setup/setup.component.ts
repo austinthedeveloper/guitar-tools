@@ -41,9 +41,9 @@ export class SetupComponent {
     this.ampService.delete(id).subscribe();
   }
   deletePedal(id: string) {
-    this.pedalService.deletePedal(id).subscribe();
+    this.pedalService.delete(id).subscribe();
   }
   deletePedalboard(id: string) {
-    this.pedalBoardService.deletePedalBoard(id).subscribe();
+    this.pedalBoardService.delete(id).subscribe();
   }
 }

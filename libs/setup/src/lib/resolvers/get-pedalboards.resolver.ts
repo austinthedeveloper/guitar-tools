@@ -8,5 +8,5 @@ export const getPedalboardsResolver: ResolveFn<
   Observable<PedalBoard[]>
 > = () => {
   const service = inject(PedalBoardService);
-  return service.getPedalBoards();
+  return service.getAll();
 };

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Amp, CreateAmpRequest, EnvInterface } from '@guitar/interfaces';
-import { Observable, tap } from 'rxjs';
 
 import { AmpStore } from '../+state';
 import { BaseService } from './base-entity.service';

@@ -6,5 +6,5 @@ import { Observable } from 'rxjs';
 
 export const getPedalsResolver: ResolveFn<Observable<Pedal[]>> = () => {
   const service = inject(PedalService);
-  return service.getPedals();
+  return service.getAll();
 };
