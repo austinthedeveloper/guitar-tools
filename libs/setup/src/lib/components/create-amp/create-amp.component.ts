@@ -114,8 +114,8 @@ export class CreateAmpComponent {
       };
 
       const call = _id
-        ? this.ampService.updateAmp(_id, mappedData as Amp)
-        : this.ampService.createAmp(mappedData);
+        ? this.ampService.update(_id, mappedData as Amp)
+        : this.ampService.create(mappedData);
 
       call.subscribe((res) => {
         console.log('Amp Created:', res);
@@ -126,7 +126,7 @@ export class CreateAmpComponent {
   }
 
   deleteAmp(id: string) {
-    this.ampService.deleteAmp(id).subscribe(() => this.delete.emit(id));
+    this.ampService.delete(id).subscribe(() => this.delete.emit(id));
   }
 
   private clearForm() {

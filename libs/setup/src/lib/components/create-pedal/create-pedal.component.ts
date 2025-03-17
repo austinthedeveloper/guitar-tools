@@ -74,9 +74,9 @@ export class CreatePedalComponent {
     const { _id, ...pedalData } = this.form.value;
 
     const call = _id
-      ? this.pedalService.updatePedal(_id, pedalData as Pedal)
+      ? this.pedalService.update(_id, pedalData as Pedal)
       : this.pedalService
-          .createPedal(pedalData as CreatePedalRequest)
+          .create(pedalData as CreatePedalRequest)
           .pipe(tap(() => this.clearForm()));
 
     call.subscribe((res) => {
@@ -86,7 +86,7 @@ export class CreatePedalComponent {
   }
 
   deletePedal(id: string) {
-    this.pedalService.deletePedal(id).subscribe(() => this.delete.emit(id));
+    this.pedalService.delete(id).subscribe(() => this.delete.emit(id));
   }
 
   private clearForm() {

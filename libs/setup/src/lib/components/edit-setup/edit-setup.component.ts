@@ -62,7 +62,7 @@ export class EditSetupComponent {
   pedalboard!: PedalBoard;
   private _pedalboardId = new BehaviorSubject<string | null>(null);
   pedalboard$: Observable<PedalBoard> = this._pedalboardId.pipe(
-    switchMap((id) => this.pedalBoardStore.getOne(id)),
+    switchMap((id) => this.pedalBoardStore.getOne$(id)),
     filter((item) => !!item),
     tap((board) => {
       const pedals = this.pairing?.pedals || [];
@@ -175,8 +175,8 @@ export class EditSetupComponent {
       pedals: formValue.pedals.map(({ pedal, ...rest }) => rest as PedalEntry),
     };
     const call = _id
-      ? this.pairingService.updatePairing(_id, payload)
-      : this.pairingService.createPairing(payload);
+      ? this.pairingService.update(_id, payload)
+      : this.pairingService.create(payload);
 
     call.subscribe((res) => this.form.controls._id.patchValue(res._id));
   }

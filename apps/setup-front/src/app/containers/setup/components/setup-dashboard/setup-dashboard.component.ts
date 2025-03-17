@@ -21,10 +21,10 @@ import {
 export class SetupDashboardComponent {
   disabled!: boolean;
 
-  pairings$ = this.pairingStore.pairings$;
-  amps$ = this.ampStore.amps$;
-  pedals$ = this.pedalStore.pedals$;
-  pedalBoards$ = this.pedalBoardStore.pedalBoards$;
+  pairings$ = this.pairingStore.items$;
+  amps$ = this.ampStore.items$;
+  pedals$ = this.pedalStore.items$;
+  pedalBoards$ = this.pedalBoardStore.items$;
   constructor(
     private pedalService: PedalService,
     private ampService: AmpService,
@@ -39,16 +39,16 @@ export class SetupDashboardComponent {
   ) {}
 
   deletePairing(id: string) {
-    this.pairingService.deletePairing(id).subscribe();
+    this.pairingService.delete(id).subscribe();
   }
   deleteAmp(id: string) {
-    this.ampService.deleteAmp(id).subscribe();
+    this.ampService.delete(id).subscribe();
   }
   deletePedal(id: string) {
-    this.pedalService.deletePedal(id).subscribe();
+    this.pedalService.delete(id).subscribe();
   }
   deletePedalboard(id: string) {
-    this.pedalBoardService.deletePedalBoard(id).subscribe();
+    this.pedalBoardService.delete(id).subscribe();
   }
 
   onPairingNavigate(id: string) {
@@ -68,7 +68,7 @@ export class SetupDashboardComponent {
   onMenuClick(action: { type: string; id: string; pedal?: Pedal }) {
     switch (action.type) {
       case 'remove':
-        this.pedalService.deletePedal(action.id).subscribe();
+        this.pedalService.delete(action.id).subscribe();
         break;
       case 'edit':
         this.openPedalModal(action.pedal);

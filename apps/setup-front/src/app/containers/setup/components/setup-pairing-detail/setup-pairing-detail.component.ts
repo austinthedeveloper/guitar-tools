@@ -20,12 +20,12 @@ export class SetupPairingDetailComponent {
   params$ = this.route.params;
   pairing$ = this.params$.pipe(
     map((params) => params['pairingId']),
-    switchMap((id) => this.pairingStore.getPairing(id))
+    switchMap((id) => this.pairingStore.getOne$(id))
   );
-  pairings$ = this.pairingStore.pairings$;
-  amps$ = this.ampStore.amps$;
-  pedalBoards$ = this.pedalBoardStore.pedalBoards$;
-  pedals$ = this.pedalStore.pedals$;
+  pairings$ = this.pairingStore.items$;
+  amps$ = this.ampStore.items$;
+  pedalBoards$ = this.pedalBoardStore.items$;
+  pedals$ = this.pedalStore.items$;
 
   constructor(
     private ampService: AmpService,
