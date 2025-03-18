@@ -20,7 +20,14 @@
       },
       "configurations": {
         "development": {},
-        "production": {}
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/guitar-api/src/main.ts",
+              "with": "apps/guitar-api/src/main.azure.ts"
+            }
+          ]
+        }
       }
     },
     "serve": {
