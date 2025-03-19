@@ -4,7 +4,8 @@ This project was generated using [Nx](https://nx.dev).
 
 ## Note
 
-- Use `yarn` for package management
+- Use `npm` for package management
+- `npm install`
 - There are package conflicts. Upgrading fully to NX works but breaks the API
 - Node Version: >= v20
 
