@@ -1,27 +1,45 @@
 import { Context, HttpRequest } from '@azure/functions';
-import { AzureHttpAdapter } from '@nestjs/azure-func-http';
-import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-export async function createApp(): Promise<INestApplication> {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const config = new DocumentBuilder()
-    .setTitle('Guitar API')
-    .setDescription('API for managing amps, pedals, and pedal boards')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express from 'express';
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
+let cachedHandler: (context: Context, req: HttpRequest) => Promise<void>;
 
+async function createApp(): Promise<
+  (context: Context, req: HttpRequest) => Promise<void>
+> {
+  const expressApp = express();
+  const app = await NestFactory.create(
+    AppModule,
+    new ExpressAdapter(expressApp)
+  );
+
+  app.setGlobalPrefix('api'); // API prefix
   await app.init();
-  return app;
+
+  return async (context: Context, req: HttpRequest) => {
+    const rawRes = {
+      status: (statusCode: number) => ({
+        json: (body: unknown) => {
+          context.res = { status: statusCode, body };
+          context.done();
+        },
+        send: (body: unknown) => {
+          context.res = { status: statusCode, body };
+          context.done();
+        },
+      }),
+    };
+
+    expressApp(req as any, rawRes as any);
+  };
 }
 
-export function startAzure(context: Context, req: HttpRequest): void {
-  AzureHttpAdapter.handle(createApp, context, req);
+// Azure Function Entry Point
+export default async function (context: Context, req: HttpRequest) {
+  if (!cachedHandler) {
+    cachedHandler = await createApp();
+  }
+  return cachedHandler(context, req);
 }
