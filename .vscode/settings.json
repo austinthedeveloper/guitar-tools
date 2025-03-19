@@ -1,5 +1,5 @@
 {
-    "azureFunctions.deploySubpath": "dist/apps/guitar-api",
+    "azureFunctions.deploySubpath": ".",
     "azureFunctions.projectLanguage": "TypeScript",
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",

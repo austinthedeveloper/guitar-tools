@@ -11,3 +11,5 @@ node_modules/
 tests/
 src/
 .angular/
+apps/
+libs/
