@@ -9,13 +9,11 @@
         class="list-group"
         (cdkDropListDropped)="drop($event, guess.value)"
       >
-        <div
-          class="list-group-item list-group-item-action"
-          *ngFor="let item of guess.value"
-          cdkDrag
-        >
+        @for (item of guess.value; track item) {
+        <div class="list-group-item list-group-item-action" cdkDrag>
           {{ item }}
         </div>
+        }
       </div>
     </div>
     <div class="col">

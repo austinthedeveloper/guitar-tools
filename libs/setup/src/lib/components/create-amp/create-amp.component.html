@@ -21,11 +21,8 @@
 
   <h3>Controls</h3>
   <div formArrayName="controls">
-    <div
-      *ngFor="let control of controls.controls; let i = index"
-      class="mb-2 d-flex flex-row align-items-end"
-      [formGroup]="control"
-    >
+    @for (control of controls.controls; track control; let i = $index) {
+    <div class="mb-2 d-flex flex-row align-items-end" [formGroup]="control">
       <div class="d-flex flex-grow-1 flex-column pe-2">
         <label class="form-label"
           >Control Name - Type:
@@ -37,12 +34,11 @@
           (change)="onControlChange(control)"
         >
           <option value="">-- Select Control --</option>
-          <option
-            *ngFor="let controlOption of controlOptions"
-            [value]="controlOption.name"
-          >
+          @for (controlOption of controlOptions; track controlOption) {
+          <option [value]="controlOption.name">
             {{ controlOption.name }}
           </option>
+          }
         </select>
       </div>
 
@@ -52,15 +48,18 @@
         </button>
       </div>
     </div>
+    }
   </div>
   <button type="button" class="btn btn-primary mb-3" (click)="addControl()">
     Add Control
   </button>
-  <ng-container *ngIf="ampForm.controls._id.value as id">
-    <button type="button" class="btn btn-danger" (click)="deleteAmp(id)">
-      Delete Amp
-    </button>
-  </ng-container>
+  @if (ampForm.controls._id.value; as id) {
+
+  <button type="button" class="btn btn-danger" (click)="deleteAmp(id)">
+    Delete Amp
+  </button>
+
+  }
 
   <button
     type="submit"

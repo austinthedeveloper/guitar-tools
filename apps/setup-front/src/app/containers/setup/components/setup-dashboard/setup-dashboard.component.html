@@ -7,12 +7,13 @@
       </button>
     </div>
     <div class="row">
+      @for (pairing of pairings$ | async; track pairing) {
       <lib-pairing-display
         class="align-items-center col-12 col-md-6 mb-3 pointer"
-        *ngFor="let pairing of pairings$ | async"
         [pairing]="pairing"
         (click)="onPairingNavigate(pairing._id)"
       ></lib-pairing-display>
+      }
     </div>
   </section>
   <section>
@@ -22,12 +23,13 @@
     </div>
 
     <div class="row">
+      @for (amp of amps$ | async; track amp) {
       <lib-amp-display
         class="align-items-center col-12 col-md-4 mb-3 pointer"
-        *ngFor="let amp of amps$ | async"
         (click)="openAmpModal(amp)"
         [amp]="amp"
       ></lib-amp-display>
+      }
     </div>
   </section>
 
@@ -39,13 +41,14 @@
       </button>
     </div>
     <div class="row">
+      @for (pedal of pedals$ | async; track pedal) {
       <lib-pedal-display
         class="align-items-center col-12 col-md-4 mb-3"
-        *ngFor="let pedal of pedals$ | async"
         [pedal]="pedal"
         [showMenu]="true"
         (menuClick)="onMenuClick($event)"
       ></lib-pedal-display>
+      }
     </div>
   </section>
 
@@ -57,12 +60,13 @@
       </button>
     </div>
     <div class="row">
+      @for (pedalboard of pedalBoards$ | async; track pedalboard) {
       <lib-pedalboard-display
         class="align-items-center col-12 col-md-4 mb-3 pointer"
-        *ngFor="let pedalboard of pedalBoards$ | async"
         (click)="openPedalboardModal(pedalboard)"
         [pedalboard]="pedalboard"
       ></lib-pedalboard-display>
+      }
     </div>
   </section>
 </div>

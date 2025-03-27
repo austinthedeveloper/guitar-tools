@@ -10,9 +10,9 @@
       <mat-select-trigger>
         {{ activeQuizzes.value?.length || 0 }} Types
       </mat-select-trigger>
-      <mat-option *ngFor="let item of quizItems" [value]="item.value">{{
-        item.key
-      }}</mat-option>
+      @for (item of quizItems; track item) {
+      <mat-option [value]="item.value">{{ item.key }}</mat-option>
+      }
     </mat-select>
   </mat-form-field>
   <button
@@ -34,95 +34,107 @@
     [incorrect]="incorrect.value"
   ></guitar-quiz-totals>
   <guitar-card [header]="activeType.value">
-    <ng-container [ngSwitch]="activeValue.value">
-      <ng-container *ngSwitchCase="'sorting'">
-        <guitar-mode-ordering-quiz
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-mode-ordering-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'relativeMinor'">
-        <guitar-relative-minor-quiz
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-relative-minor-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'relativeMajor'">
-        <guitar-relative-major-quiz
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-relative-major-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'modeName'">
-        <guitar-mode-name-quiz
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-mode-name-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'mode'">
-        <guitar-mode-quiz
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-mode-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'chord'">
-        <guitar-chord-quiz
-          [chords]="chords"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-chord-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'triads'">
-        <guitar-chord-quiz
-          [chords]="triads"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-chord-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'triadsMinor'">
-        <guitar-chord-quiz
-          [chords]="triadsMinor"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-chord-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'triadsAugmented'">
-        <guitar-chord-quiz
-          [chords]="triadsAugmented"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-chord-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'triadsDiminished'">
-        <guitar-chord-quiz
-          [chords]="triadsDiminished"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-chord-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'specificTriads'">
-        <guitar-specific-note
-          [chords]="triads"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-specific-note>
-      </ng-container>
-      <ng-container *ngSwitchCase="'scale'">
-        <guitar-scale-quiz
-          [tuning]="tuning$ | async"
-          [tuningChart]="tuningChart$ | async"
-          [frets]="frets$ | async"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-scale-quiz>
-      </ng-container>
-      <ng-container *ngSwitchCase="'triadsNoteOrder'">
-        <guitar-triad-note-order
-          [chords]="triads"
-          (correct)="onCorrect()"
-          (incorrect)="onIncorrect()"
-        ></guitar-triad-note-order>
-      </ng-container>
-    </ng-container>
+    @switch (activeValue.value) { @case ('sorting') {
+
+    <guitar-mode-ordering-quiz
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-mode-ordering-quiz>
+
+    } @case ('relativeMinor') {
+
+    <guitar-relative-minor-quiz
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-relative-minor-quiz>
+
+    } @case ('relativeMajor') {
+
+    <guitar-relative-major-quiz
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-relative-major-quiz>
+
+    } @case ('modeName') {
+
+    <guitar-mode-name-quiz
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-mode-name-quiz>
+
+    } @case ('mode') {
+
+    <guitar-mode-quiz
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-mode-quiz>
+
+    } @case ('chord') {
+
+    <guitar-chord-quiz
+      [chords]="chords"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-chord-quiz>
+
+    } @case ('triads') {
+
+    <guitar-chord-quiz
+      [chords]="triads"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-chord-quiz>
+
+    } @case ('triadsMinor') {
+
+    <guitar-chord-quiz
+      [chords]="triadsMinor"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-chord-quiz>
+
+    } @case ('triadsAugmented') {
+
+    <guitar-chord-quiz
+      [chords]="triadsAugmented"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-chord-quiz>
+
+    } @case ('triadsDiminished') {
+
+    <guitar-chord-quiz
+      [chords]="triadsDiminished"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-chord-quiz>
+
+    } @case ('specificTriads') {
+
+    <guitar-specific-note
+      [chords]="triads"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-specific-note>
+
+    } @case ('scale') {
+
+    <guitar-scale-quiz
+      [tuning]="tuning$ | async"
+      [tuningChart]="tuningChart$ | async"
+      [frets]="frets$ | async"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-scale-quiz>
+
+    } @case ('triadsNoteOrder') {
+
+    <guitar-triad-note-order
+      [chords]="triads"
+      (correct)="onCorrect()"
+      (incorrect)="onIncorrect()"
+    ></guitar-triad-note-order>
+
+    } }
   </guitar-card>
 </div>

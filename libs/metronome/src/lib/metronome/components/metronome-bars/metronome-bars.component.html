@@ -1,8 +1,9 @@
 <div class="metronome-visual">
+  @for (item of bars; track item) {
   <div
     class="bar"
-    *ngFor="let item of bars"
     [ngClass]="{ active: item === activeBar }"
     [attr.id]="'bar-' + item"
   ></div>
+  }
 </div>

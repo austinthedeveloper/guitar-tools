@@ -12,7 +12,8 @@
   <div class="card-body">
     <div class="pedal-card-header">
       <h5 class="card-title">{{ pedal.name | titlecase }}</h5>
-      <div ngbDropdown class="d-inline-block" *ngIf="showMenu">
+      @if (showMenu) {
+      <div ngbDropdown class="d-inline-block">
         <mat-icon
           aria-hidden="false"
           aria-label="Pedal Menu"
@@ -22,44 +23,50 @@
           ngbDropdownToggle
         ></mat-icon>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          @for (item of menu; track item) {
           <button
             type="button"
             ngbDropdownItem
-            *ngFor="let item of menu"
             (click)="onMenuClick(item.value, pedal._id, pedal)"
           >
             {{ item.name }}
           </button>
+          }
         </div>
       </div>
+      }
     </div>
     <h6 class="card-subtitle">Type: {{ pedal.type | titlecase }}</h6>
 
     <div class="mt-2">
-      <div class="row" *ngIf="pedal.knobs.length">
-        <div
-          *ngFor="let knob of pedal.knobs"
-          class="d-flex flex-column align-items-center col-12 col-md-4 mb-3"
-        >
+      @if (pedal.knobs.length) {
+      <div class="row">
+        @for (knob of pedal.knobs; track knob) {
+        <div class="d-flex flex-column align-items-center col-12 col-md-4 mb-3">
           <lib-knob-display
             [name]="knob"
             [value]="values[knob] || 0"
             (click)="onKnobClick(knob)"
           ></lib-knob-display>
-          <div *ngIf="canEdit && active === knob && formGrp">
+          @if (canEdit && active === knob && formGrp) {
+          <div>
             <guitar-slider
               [step]="10"
               [formCtrl]="formGrp.controls[knob]"
             ></guitar-slider>
           </div>
+          }
         </div>
+        }
       </div>
-      <div class="d-flex justify-content-center" *ngIf="canToggle">
+      } @if (canToggle) {
+      <div class="d-flex justify-content-center">
         <lib-pedal-toggle
           [isOn]="isOn"
           (toggle)="toggle.emit($event)"
         ></lib-pedal-toggle>
       </div>
+      }
     </div>
   </div>
 </div>

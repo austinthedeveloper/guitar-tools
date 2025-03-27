@@ -1,11 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="submitAnswer()">
   <div class="row">
     <div class="col">
-      <guitar-chord
-        *ngIf="chord"
-        [presses]="chord.presses"
-        [disabled]="true"
-      ></guitar-chord>
+      @if (chord) {
+      <guitar-chord [presses]="chord.presses" [disabled]="true"></guitar-chord>
+      }
     </div>
     <div class="col">
       <label for="chordSelector" class="form-label">Select a Chord</label>

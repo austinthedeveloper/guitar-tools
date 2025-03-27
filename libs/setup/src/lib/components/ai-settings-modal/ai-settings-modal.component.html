@@ -14,17 +14,21 @@
     <div class="form-group">
       <label for="pickup">Guitar Pickup</label>
       <select id="pickup" class="form-control" formControlName="pickup">
-        <option *ngFor="let option of pickups" [value]="option">
+        @for (option of pickups; track option) {
+        <option [value]="option">
           {{ option }}
         </option>
+        }
       </select>
     </div>
     <div class="form-group">
       <label for="genre">Genre</label>
       <select id="genre" class="form-control" formControlName="genre">
-        <option *ngFor="let option of genreOptions" [value]="option">
+        @for (option of genreOptions; track option) {
+        <option [value]="option">
           {{ option }}
         </option>
+        }
       </select>
     </div>
 
@@ -47,34 +51,39 @@
     </button>
   </form>
 
-  <div *ngIf="isLoading" class="mt-3">🎸 Loading AI suggestions...</div>
-  <div *ngIf="errorMessage" class="mt-3 text-danger">{{ errorMessage }}</div>
-
-  <div *ngIf="aiResponse">
+  @if (isLoading) {
+  <div class="mt-3">🎸 Loading AI suggestions...</div>
+  } @if (errorMessage) {
+  <div class="mt-3 text-danger">{{ errorMessage }}</div>
+  } @if (aiResponse) {
+  <div>
     <h6>🎵 Suggested Settings</h6>
     <p>{{ aiResponse.notes }}</p>
 
     <h6>🎛 Amp Settings</h6>
     <ul>
-      <li *ngFor="let setting of aiResponse.amp.settings | keyvalue">
-        {{ setting.key }}: {{ setting.value }}
-      </li>
+      @for (setting of aiResponse.amp.settings | keyvalue; track setting) {
+      <li>{{ setting.key }}: {{ setting.value }}</li>
+      }
     </ul>
 
     <h6>🎚 Pedal Settings</h6>
     <ul>
-      <li *ngFor="let pedal of aiResponse.pedals">
+      @for (pedal of aiResponse.pedals; track pedal) {
+      <li>
         <strong>{{ pedal.name }}</strong>
         <ul>
-          <li *ngFor="let setting of pedal.settings | keyvalue">
-            {{ setting.key }}: {{ setting.value }}
-          </li>
+          @for (setting of pedal.settings | keyvalue; track setting) {
+          <li>{{ setting.key }}: {{ setting.value }}</li>
+          }
         </ul>
       </li>
+      }
     </ul>
     <h6>🎚 Suggested Pedals</h6>
     <ul>
-      <li *ngFor="let pedal of aiResponse.suggestedPedals">
+      @for (pedal of aiResponse.suggestedPedals; track pedal) {
+      <li>
         <strong>{{ pedal.name }}</strong>
         <button
           class="btn btn-info"
@@ -84,13 +93,15 @@
           Add Pedal
         </button>
         <ul>
-          <li *ngFor="let setting of pedal.settings | keyvalue">
-            {{ setting.key }}: {{ setting.value }}
-          </li>
+          @for (setting of pedal.settings | keyvalue; track setting) {
+          <li>{{ setting.key }}: {{ setting.value }}</li>
+          }
         </ul>
       </li>
+      }
     </ul>
   </div>
+  }
 </div>
 
 <div class="modal-footer">
@@ -101,12 +112,9 @@
   >
     Cancel
   </button>
-  <button
-    *ngIf="aiResponse"
-    type="button"
-    class="btn btn-primary"
-    (click)="applySettings()"
-  >
+  @if (aiResponse) {
+  <button type="button" class="btn btn-primary" (click)="applySettings()">
     Apply Settings
   </button>
+  }
 </div>

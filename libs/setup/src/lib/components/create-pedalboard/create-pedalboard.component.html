@@ -17,11 +17,8 @@
     </button>
   </div>
   <div formArrayName="pedals">
-    <div
-      class="mb-2 row"
-      *ngFor="let pedal of pedalControls.controls; let i = index"
-      [formGroup]="pedal"
-    >
+    @for (pedal of pedalControls.controls; track pedal; let i = $index) {
+    <div class="mb-2 row" [formGroup]="pedal">
       <div>
         <select
           formControlName="pedalId"
@@ -29,14 +26,13 @@
           (change)="onPedalChange(pedal)"
           required
         >
-          <option *ngFor="let p of pedals" [value]="p._id">
-            {{ p.name }} - {{ p.type }}
-          </option>
+          @for (p of pedals; track p) {
+          <option [value]="p._id">{{ p.name }} - {{ p.type }}</option>
+          }
         </select>
-        <div
-          formArrayName="knobs"
-          *ngIf="pedal.controls.knobs.controls.length"
-        ></div>
+        @if (pedal.controls.knobs.controls.length) {
+        <div formArrayName="knobs"></div>
+        }
 
         <button type="button" class="btn btn-danger" (click)="removePedal(i)">
           Remove
@@ -44,11 +40,8 @@
       </div>
 
       <div>
-        <div
-          class="mb-2 d-flex"
-          *ngFor="let knobControl of pedal.controls.knobs.controls"
-          [formGroup]="knobControl"
-        >
+        @for (knobControl of pedal.controls.knobs.controls; track knobControl) {
+        <div class="mb-2 d-flex" [formGroup]="knobControl">
           <label class="form-label me-4">
             {{ knobControl.controls.name.value }}
           </label>
@@ -57,17 +50,21 @@
             [formCtrl]="knobControl.controls.value"
           ></guitar-slider>
         </div>
+        }
       </div>
     </div>
+    }
   </div>
   <button type="button" class="btn btn-primary mb-3" (click)="addPedal()">
     Add Pedal
   </button>
-  <div *ngIf="form.controls._id.value as id">
+  @if (form.controls._id.value; as id) {
+  <div>
     <button type="button" class="btn btn-danger" (click)="deletePedalboard(id)">
       Delete
     </button>
   </div>
+  }
   <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid">
     Save Pedalboard
   </button>

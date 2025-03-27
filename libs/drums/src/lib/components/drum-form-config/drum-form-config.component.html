@@ -1,5 +1,7 @@
-<div class="form-config-container" *ngIf="config$ | async">
-  <form *ngIf="form" class="container">
+@if (config$ | async) {
+<div class="form-config-container">
+  @if (form) {
+  <form class="container">
     <div class="row">
       <div class="col-6 mb-3">
         <div class="form-floating">
@@ -14,7 +16,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-2 mb-3" *ngFor="let ctrl of configArray">
+      @for (ctrl of configArray; track ctrl) {
+      <div class="col-2 mb-3">
         <div class="form-floating">
           <input
             type="number"
@@ -25,6 +28,9 @@
           <label for="{{ ctrl }}">{{ ctrl }}</label>
         </div>
       </div>
+      }
     </div>
   </form>
+  }
 </div>
+}

@@ -20,21 +20,21 @@
         [routerLinkActiveOptions]="{ exact: true }"
         >Home</a
       >
+      @if ((loggedIn$ | async) === false) {
       <a
-        *ngIf="(loggedIn$ | async) === false"
         class="nav-item nav-link"
         [routerLink]="['login']"
         routerLinkActive="active"
         >Login</a
       >
-      <a *ngIf="loggedIn$ | async" class="nav-item nav-link" (click)="logout()"
-        >Logout</a
-      >
+      } @if (loggedIn$ | async) {
+      <a class="nav-item nav-link" (click)="logout()">Logout</a>
+      } @if (loggedIn$ | async) {
       <lib-profile-picture
-        *ngIf="loggedIn$ | async"
         [user]="user$ | async"
         [size]="30"
       ></lib-profile-picture>
+      }
     </div>
   </div>
 </nav>
