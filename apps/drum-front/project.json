@@ -7,13 +7,18 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/apps/drum-front",
+        "outputPath": {
+          "base": "dist/apps/drum-front"
+        },
         "index": "apps/drum-front/src/index.html",
-        "main": "apps/drum-front/src/main.ts",
-        "polyfills": "apps/drum-front/src/polyfills.ts",
+        "polyfills": [
+          "apps/drum-front/src/polyfills.ts"
+        ],
         "tsConfig": "apps/drum-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -25,9 +30,13 @@
           "apps/drum-front/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["./node_modules", "./libs"]
+          "includePaths": [
+            "./node_modules",
+            "./libs"
+          ]
         },
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/drum-front/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -52,9 +61,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -63,7 +70,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "options": {
         "port": 4201
       },
@@ -79,7 +86,7 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "drum-front:build"
       }
@@ -89,7 +96,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/drum-front"],
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/drum-front"
+      ],
       "options": {
         "jestConfig": "apps/drum-front/jest.config.ts"
       }
