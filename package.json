@@ -39,7 +39,7 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.x.x",
-    "@ng-bootstrap/ng-bootstrap": "^17.x.x",
+    "@ng-bootstrap/ng-bootstrap": "^18.x.x",
     "@ng-web-apis/audio": "^3.0.6",
     "@ng-web-apis/common": "^3.0.6",
     "@ng-web-apis/midi": "^3.0.6",
