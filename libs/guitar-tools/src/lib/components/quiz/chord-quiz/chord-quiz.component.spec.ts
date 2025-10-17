@@ -8,7 +8,7 @@ describe('ChordQuizComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChordQuizComponent ]
+      imports: [ChordQuizComponent],
     })
     .compileComponents();
   });

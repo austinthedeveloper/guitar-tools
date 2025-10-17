@@ -1,21 +1,31 @@
+import { CommonModule } from '@angular/common';
 import {
-  Component,
-  OnInit,
   ChangeDetectionStrategy,
+  Component,
   Input,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { ChordInterface, PressInterface } from '@guitar/interfaces';
 import { isEqual, orderBy, random, uniq } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
+import { GuitarFormsModule } from '@guitar/forms';
+import { ChordComponent } from '../../chord/chord.component';
+import { NumberProperPipe } from '../../../pipes/number-proper.pipe';
 
 @Component({
-    selector: 'guitar-specific-note',
-    templateUrl: './specific-note.component.html',
-    styleUrls: ['./specific-note.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-specific-note',
+  templateUrl: './specific-note.component.html',
+  styleUrls: ['./specific-note.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    GuitarFormsModule,
+    ChordComponent,
+    NumberProperPipe,
+  ],
 })
 export class SpecificNoteComponent extends ChordQuizBaseComponent {
   @Input() chords: ChordInterface[] = [];

@@ -11,7 +11,7 @@ describe('RelativeMinorQuizComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RelativeMinorQuizComponent ]
+      imports: [RelativeMinorQuizComponent]
     })
     .compileComponents();
   }));

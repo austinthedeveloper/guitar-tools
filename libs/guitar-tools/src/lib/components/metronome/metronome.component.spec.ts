@@ -11,7 +11,7 @@ describe('MetronomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MetronomeComponent ]
+      imports: [MetronomeComponent]
     })
     .compileComponents();
   }));

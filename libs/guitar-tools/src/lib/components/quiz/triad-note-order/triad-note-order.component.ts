@@ -1,23 +1,26 @@
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   Input,
   SimpleChanges,
 } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuningHelper } from '@guitar/helpers';
 import { ChordInterface, PressInterface } from '@guitar/interfaces';
 import { isEqual, random, reverse, shuffle } from 'lodash-es';
 
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
+import { ChordComponent } from '../../chord/chord.component';
 
 @Component({
-    selector: 'guitar-triad-note-order',
-    templateUrl: './triad-note-order.component.html',
-    styleUrls: ['./triad-note-order.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-triad-note-order',
+  templateUrl: './triad-note-order.component.html',
+  styleUrls: ['./triad-note-order.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, DragDropModule, ChordComponent],
 })
 export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
   @Input() chords: ChordInterface[] = [];

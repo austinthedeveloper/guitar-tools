@@ -1,14 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ChordInterface } from '@guitar/interfaces';
 import { uniq } from 'lodash-es';
+import { GuitarFormsModule } from '@guitar/forms';
 
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
+import { ChordComponent } from '../../chord/chord.component';
 
 @Component({
-    selector: 'guitar-chord-quiz',
-    templateUrl: './chord-quiz.component.html',
-    styleUrls: ['./chord-quiz.component.css'],
-    standalone: false
+  selector: 'guitar-chord-quiz',
+  templateUrl: './chord-quiz.component.html',
+  styleUrls: ['./chord-quiz.component.css'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, GuitarFormsModule, ChordComponent],
 })
 export class ChordQuizComponent
   extends ChordQuizBaseComponent

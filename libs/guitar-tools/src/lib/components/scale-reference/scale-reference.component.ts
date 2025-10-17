@@ -1,16 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FretboardComponent } from '../fretboard/fretboard.component';
 
 @Component({
-    selector: 'guitar-scale-reference',
-    templateUrl: './scale-reference.component.html',
-    styleUrls: ['./scale-reference.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-scale-reference',
+  templateUrl: './scale-reference.component.html',
+  styleUrls: ['./scale-reference.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FretboardComponent],
 })
 export class ScaleReferenceComponent {
   @Input() tuning: string;

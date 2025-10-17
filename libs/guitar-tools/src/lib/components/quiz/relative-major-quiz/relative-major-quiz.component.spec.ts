@@ -8,7 +8,7 @@ describe('RelativeMajorQuizComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RelativeMajorQuizComponent ]
+      imports: [RelativeMajorQuizComponent],
     })
     .compileComponents();
   });

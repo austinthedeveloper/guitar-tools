@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,13 +12,24 @@ import { UntypedFormControl } from '@angular/forms';
 import { TuningHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { minBy, orderBy } from 'lodash-es';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { ActivePressesPipe } from '../../pipes/active-presses.pipe';
+import { IncludesStringPipe } from '../../pipes/includes-string.pipe';
+import { StringTypePipe } from '../../pipes/string-type.pipe';
 @Component({
-    selector: 'guitar-chord',
-    templateUrl: './chord.component.html',
-    styleUrls: ['./chord.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-chord',
+  templateUrl: './chord.component.html',
+  styleUrls: ['./chord.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatTooltipModule,
+    IncludesStringPipe,
+    StringTypePipe,
+    ActivePressesPipe,
+  ],
 })
 export class ChordComponent implements OnChanges {
   @Input() strings = '6';

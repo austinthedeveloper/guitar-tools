@@ -11,7 +11,7 @@ describe('ChartTabComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartTabComponent ]
+      imports: [ChartTabComponent]
     })
     .compileComponents();
   }));

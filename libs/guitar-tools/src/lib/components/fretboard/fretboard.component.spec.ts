@@ -11,7 +11,7 @@ describe('FretboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FretboardComponent ]
+      imports: [FretboardComponent]
     })
     .compileComponents();
   }));

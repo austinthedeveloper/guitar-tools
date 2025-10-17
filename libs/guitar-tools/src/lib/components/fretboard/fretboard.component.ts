@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,13 +11,18 @@ import {
 import { FretDotsHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { orderBy } from 'lodash-es';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { FretDotPipe } from '../../pipes/fret-dot.pipe';
+import { StringTypePipe } from '../../pipes/string-type.pipe';
 
 @Component({
-    selector: 'guitar-fretboard',
-    templateUrl: './fretboard.component.html',
-    styleUrls: ['./fretboard.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-fretboard',
+  templateUrl: './fretboard.component.html',
+  styleUrls: ['./fretboard.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, MatTooltipModule, StringTypePipe, FretDotPipe],
 })
 export class FretboardComponent implements OnChanges {
   @Input() strings = '6';

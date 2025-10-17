@@ -1,22 +1,29 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  Validators,
+} from '@angular/forms';
 import { TABS_DATA, TABS_DATA_DEMO } from '@guitar/data';
 import { ChartTabNote } from '@guitar/interfaces';
+
+import { TabStringTypePipe } from '../../pipes/tab-string-type.pipe';
 @Component({
-    selector: 'guitar-chart-tab',
-    templateUrl: './chart-tab.component.html',
-    styleUrls: ['./chart-tab.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-chart-tab',
+  templateUrl: './chart-tab.component.html',
+  styleUrls: ['./chart-tab.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, TabStringTypePipe],
 })
 export class ChartTabComponent implements OnChanges {
   @Input() strings = '6';

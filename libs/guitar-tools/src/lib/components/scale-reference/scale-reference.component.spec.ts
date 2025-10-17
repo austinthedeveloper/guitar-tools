@@ -8,7 +8,7 @@ describe('ScaleReferenceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ScaleReferenceComponent],
+      imports: [ScaleReferenceComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ScaleReferenceComponent);

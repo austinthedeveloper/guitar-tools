@@ -1,15 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { relativeMinorArray, relativeMinorValues } from '@guitar/helpers';
 import { random } from 'lodash-es';
+import { GuitarFormsModule } from '@guitar/forms';
 
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-    selector: 'guitar-relative-minor-quiz',
-    templateUrl: './relative-minor-quiz.component.html',
-    styleUrls: ['./relative-minor-quiz.component.css'],
-    standalone: false
+  selector: 'guitar-relative-minor-quiz',
+  templateUrl: './relative-minor-quiz.component.html',
+  styleUrls: ['./relative-minor-quiz.component.css'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, GuitarFormsModule],
 })
 export class RelativeMinorQuizComponent extends ChordQuizBaseComponent {
   minorForm = this.fb.control('', Validators.required);
