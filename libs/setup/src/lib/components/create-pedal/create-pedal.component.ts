@@ -18,9 +18,10 @@ import { PEDAL_KNOBS, PEDAL_TYPES } from '../../helpers';
 import { tap } from 'rxjs';
 
 @Component({
-  selector: 'lib-create-pedal',
-  templateUrl: './create-pedal.component.html',
-  styleUrl: './create-pedal.component.scss',
+    selector: 'lib-create-pedal',
+    templateUrl: './create-pedal.component.html',
+    styleUrl: './create-pedal.component.scss',
+    standalone: false
 })
 export class CreatePedalComponent {
   @Input() pedal!: Pedal;

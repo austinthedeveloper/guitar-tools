@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'lib-pedal-toggle',
-  templateUrl: './pedal-toggle.component.html',
-  styleUrl: './pedal-toggle.component.scss',
+    selector: 'lib-pedal-toggle',
+    templateUrl: './pedal-toggle.component.html',
+    styleUrl: './pedal-toggle.component.scss',
+    standalone: false
 })
 export class PedalToggleComponent {
   @Input() isOn = false;

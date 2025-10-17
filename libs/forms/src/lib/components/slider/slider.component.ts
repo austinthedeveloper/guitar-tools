@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'guitar-slider',
-  templateUrl: './slider.component.html',
-  styleUrl: './slider.component.scss',
+    selector: 'guitar-slider',
+    templateUrl: './slider.component.html',
+    styleUrl: './slider.component.scss',
+    standalone: false
 })
 export class SliderComponent {
   @Input() formCtrl = new FormControl<any>(0);

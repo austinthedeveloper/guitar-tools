@@ -4,9 +4,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'lib-pedalboard-modal',
-  templateUrl: './pedalboard-modal.component.html',
-  styleUrl: './pedalboard-modal.component.scss',
+    selector: 'lib-pedalboard-modal',
+    templateUrl: './pedalboard-modal.component.html',
+    styleUrl: './pedalboard-modal.component.scss',
+    standalone: false
 })
 export class PedalboardModalComponent {
   @Input() pedalboard!: PedalBoard;

@@ -12,9 +12,10 @@ import { DrumUserOptions } from '../../interfaces';
 import { DrumKeyService } from '../../services';
 
 @Component({
-  selector: 'guitar-drum-form-config',
-  templateUrl: './drum-form-config.component.html',
-  styleUrls: ['./drum-form-config.component.css'],
+    selector: 'guitar-drum-form-config',
+    templateUrl: './drum-form-config.component.html',
+    styleUrls: ['./drum-form-config.component.css'],
+    standalone: false
 })
 export class DrumFormConfigComponent implements OnDestroy {
   form: UntypedFormGroup;

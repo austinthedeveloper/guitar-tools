@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Input, SimpleChanges } from '@angular/core';
 
 @Directive({
-  selector: '[knobRotate]',
+    selector: '[knobRotate]',
+    standalone: false
 })
 export class KnobRotateDirective {
   @Input() knobRotate: number = 0; // Accepts a number between 0-100

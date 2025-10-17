@@ -7,13 +7,18 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular/build:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "outputPath": "dist/apps/guitar-front",
+        "outputPath": {
+          "base": "dist/apps/guitar-front"
+        },
         "index": "apps/guitar-front/src/index.html",
-        "main": "apps/guitar-front/src/main.ts",
-        "polyfills": "apps/guitar-front/src/polyfills.ts",
+        "polyfills": [
+          "apps/guitar-front/src/polyfills.ts"
+        ],
         "tsConfig": "apps/guitar-front/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -25,9 +30,13 @@
           "apps/guitar-front/src/styles.scss"
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["./node_modules", "./libs"]
+          "includePaths": [
+            "./node_modules",
+            "./libs"
+          ]
         },
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/guitar-front/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -52,9 +61,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -63,7 +70,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "guitar-front:build:production"
@@ -76,7 +83,7 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "guitar-front:build"
       }
@@ -86,14 +93,18 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/apps/guitar-front"],
+      "outputs": [
+        "{workspaceRoot}/coverage/apps/guitar-front"
+      ],
       "options": {
         "jestConfig": "apps/guitar-front/jest.config.ts"
       }
     },
     "e2e": {
       "executor": "@nx/playwright:playwright",
-      "outputs": ["{workspaceRoot}/dist/.playwright/apps/guitar-front"],
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/apps/guitar-front"
+      ],
       "options": {
         "config": "apps/guitar-front/playwright.config.ts"
       }

@@ -5,9 +5,10 @@ import { uniq } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-  selector: 'guitar-chord-quiz',
-  templateUrl: './chord-quiz.component.html',
-  styleUrls: ['./chord-quiz.component.css'],
+    selector: 'guitar-chord-quiz',
+    templateUrl: './chord-quiz.component.html',
+    styleUrls: ['./chord-quiz.component.css'],
+    standalone: false
 })
 export class ChordQuizComponent
   extends ChordQuizBaseComponent

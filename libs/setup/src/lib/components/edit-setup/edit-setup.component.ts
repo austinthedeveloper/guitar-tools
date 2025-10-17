@@ -31,9 +31,10 @@ import { PairingService } from './../../services/pairing.service';
 import { PedalBoardService } from './../../services/pedalboard.service';
 
 @Component({
-  selector: 'lib-edit-setup',
-  templateUrl: './edit-setup.component.html',
-  styleUrl: './edit-setup.component.scss',
+    selector: 'lib-edit-setup',
+    templateUrl: './edit-setup.component.html',
+    styleUrl: './edit-setup.component.scss',
+    standalone: false
 })
 export class EditSetupComponent {
   @Input() amps: Amp[] = [];

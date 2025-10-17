@@ -20,9 +20,10 @@ import { tap } from 'rxjs';
 import { sortPedalsByType } from '../../helpers';
 
 @Component({
-  selector: 'lib-create-pedalboard',
-  templateUrl: './create-pedalboard.component.html',
-  styleUrl: './create-pedalboard.component.scss',
+    selector: 'lib-create-pedalboard',
+    templateUrl: './create-pedalboard.component.html',
+    styleUrl: './create-pedalboard.component.scss',
+    standalone: false
 })
 export class CreatePedalboardComponent {
   form = this.fb.group({

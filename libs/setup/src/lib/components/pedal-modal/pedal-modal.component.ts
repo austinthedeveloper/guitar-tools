@@ -3,9 +3,10 @@ import { Pedal } from '@guitar/interfaces';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'lib-pedal-modal',
-  templateUrl: './pedal-modal.component.html',
-  styleUrl: './pedal-modal.component.scss',
+    selector: 'lib-pedal-modal',
+    templateUrl: './pedal-modal.component.html',
+    styleUrl: './pedal-modal.component.scss',
+    standalone: false
 })
 export class PedalModalComponent {
   @Input() pedal!: Pedal;

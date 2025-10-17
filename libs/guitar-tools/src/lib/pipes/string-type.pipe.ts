@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PressInterface } from '@guitar/interfaces';
 
 @Pipe({
-  name: 'stringType',
+    name: 'stringType',
+    standalone: false
 })
 export class StringTypePipe implements PipeTransform {
   transform(value: PressInterface[], fret: number, string: number): string {

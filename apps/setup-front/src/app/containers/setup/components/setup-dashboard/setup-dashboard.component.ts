@@ -14,9 +14,10 @@ import {
 } from '@guitar/setup';
 
 @Component({
-  selector: 'guitar-setup-dashboard',
-  templateUrl: './setup-dashboard.component.html',
-  styleUrl: './setup-dashboard.component.scss',
+    selector: 'guitar-setup-dashboard',
+    templateUrl: './setup-dashboard.component.html',
+    styleUrl: './setup-dashboard.component.scss',
+    standalone: false
 })
 export class SetupDashboardComponent {
   disabled!: boolean;

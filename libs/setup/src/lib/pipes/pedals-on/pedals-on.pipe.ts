@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PedalEntry } from '@guitar/interfaces';
 
 @Pipe({
-  name: 'pedalsOn',
+    name: 'pedalsOn',
+    standalone: false
 })
 export class PedalsOnPipe implements PipeTransform {
   transform(value: PedalEntry[]): PedalEntry[] {

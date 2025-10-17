@@ -12,9 +12,10 @@ import {
 import { map, switchMap, tap } from 'rxjs';
 
 @Component({
-  selector: 'guitar-setup-pairing-detail',
-  templateUrl: './setup-pairing-detail.component.html',
-  styleUrl: './setup-pairing-detail.component.scss',
+    selector: 'guitar-setup-pairing-detail',
+    templateUrl: './setup-pairing-detail.component.html',
+    styleUrl: './setup-pairing-detail.component.scss',
+    standalone: false
 })
 export class SetupPairingDetailComponent {
   params$ = this.route.params;

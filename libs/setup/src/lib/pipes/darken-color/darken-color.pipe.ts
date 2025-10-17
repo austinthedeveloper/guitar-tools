@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'darkenColor',
-  pure: true,
+    name: 'darkenColor',
+    pure: true,
+    standalone: false
 })
 export class DarkenColorPipe implements PipeTransform {
   transform(hex: string, amount: number = 20): string {

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PEDAL_TYPE_COLOR_DEFAULT, PEDAL_TYPES } from '../../helpers';
 
 @Pipe({
-  name: 'pedalColor',
+    name: 'pedalColor',
+    standalone: false
 })
 export class PedalColorPipe implements PipeTransform {
   transform(value: string): string {
