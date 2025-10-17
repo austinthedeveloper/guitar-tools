@@ -1,10 +1,11 @@
 <div class="list-group small">
+  @for (item of options; track item) {
   <div
     class="list-group-item list-group-item-action"
-    *ngFor="let item of options"
     [ngClass]="activeV(item)"
     (click)="itemClicked(item)"
   >
     {{ item.value }}
   </div>
+  }
 </div>

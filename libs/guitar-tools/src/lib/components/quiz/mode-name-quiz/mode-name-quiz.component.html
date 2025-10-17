@@ -1,11 +1,13 @@
 <form [formGroup]="form">
   <div class="row">
-    <div class="col" *ngIf="modeForm.value as modeFormValues">
+    @if (modeForm.value; as modeFormValues) {
+    <div class="col">
       <p>
         What is the {{ modeFormValues.mode }} in the
         {{ modeFormValues.scale }} scale?
       </p>
     </div>
+    }
     <div class="col">
       <label for="frets" class="form-label">Mode</label>
 

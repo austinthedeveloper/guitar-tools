@@ -1,27 +1,32 @@
 <div class="chart-tab fretboard-container container">
   <div class="row">
     <div class="chart-row tuning-fret">
-      <div class="fret" *ngFor="let tune of tuningBuilt">{{ tune.key }}</div>
+      @for (tune of tuningBuilt; track tune) {
+      <div class="fret">{{ tune.key }}</div>
+      }
     </div>
   </div>
   <div class="row chart-row-container">
+    @for (column of built; track column; let fret = $index) {
     <div
       class="col chart-row"
-      *ngFor="let column of built; let fret = index"
       [ngStyle]="{ width: colWidth }"
-      [ngClass]="fret | fretDot: dots"
+      [ngClass]="fret | fretDot : dots"
     >
-      <div class="row fret" *ngFor="let string of column">
+      @for (string of column; track string) {
+      <div class="row fret">
         <div class="col p-0 text-center">
           <div
             class="chord-press"
-            [ngClass]="tabs | stringType: fret:6 - +string"
+            [ngClass]="tabs | stringType : fret : 6 - +string"
             [matTooltip]="tuningChart[+string].scale[fret]"
             [matTooltipDisabled]="!showNote"
             (click)="toggleActive(fret, 6 - +string)"
           ></div>
         </div>
       </div>
+      }
     </div>
+    }
   </div>
 </div>

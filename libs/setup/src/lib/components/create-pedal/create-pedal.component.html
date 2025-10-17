@@ -12,37 +12,45 @@
   <div class="mb-3">
     <label for="type" class="form-label">Pedal Type</label>
     <select id="type" formControlName="type" class="form-select" required>
-      <option *ngFor="let option of typeOptions" [value]="option.name">
+      @for (option of typeOptions; track option) {
+      <option [value]="option.name">
         {{ option.name }}
       </option>
+      }
     </select>
   </div>
 
   <h3>Knobs</h3>
   <div formArrayName="knobs">
-    <div *ngFor="let knobControl of knobs.controls; let i = index" class="mb-2">
+    @for (knobControl of knobs.controls; track knobControl; let i = $index) {
+    <div class="mb-2">
       <label class="form-label">Knob Name</label>
       <select [formControlName]="i" class="form-select">
         <option value="">-- Select Knob --</option>
-        <option *ngFor="let knob of pedalKnobs" [value]="knob.name">
+        @for (knob of pedalKnobs; track knob) {
+        <option [value]="knob.name">
           {{ knob.name }}
         </option>
+        }
       </select>
 
       <button type="button" class="btn btn-danger" (click)="removeKnob(i)">
         Remove
       </button>
     </div>
+    }
   </div>
 
   <button type="button" class="btn btn-primary mb-3" (click)="addKnob()">
     Add Knob
   </button>
-  <div *ngIf="form.controls._id.value as id">
+  @if (form.controls._id.value; as id) {
+  <div>
     <button type="button" class="btn btn-danger" (click)="deletePedal(id)">
       Delete
     </button>
   </div>
+  }
   <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid">
     Save Pedal
   </button>

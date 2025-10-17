@@ -22,9 +22,9 @@
       placeholder="Select a Chord"
       id="chordSelector"
     >
-      <option *ngFor="let chord of chords" [value]="chord.id">
-        Chord {{ chord.fullName }}
-      </option>
+      @for (chord of chords; track chord) {
+      <option [value]="chord.id">Chord {{ chord.fullName }}</option>
+      }
     </select>
     <guitar-chord
       [tuning]="(tuning$ | async)!"

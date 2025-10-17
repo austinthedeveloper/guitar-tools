@@ -3,9 +3,11 @@
     <div class="col">
       <label for="frets" class="form-label">Tuning</label>
       <select class="form-select" formControlName="tuning">
-        <option *ngFor="let item of tuning" [value]="item.value">
+        @for (item of tuning; track item) {
+        <option [value]="item.value">
           {{ item.key }}
         </option>
+        }
       </select>
     </div>
     <div class="col">

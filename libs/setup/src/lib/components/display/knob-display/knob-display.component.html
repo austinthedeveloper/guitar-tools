@@ -1,17 +1,14 @@
 <div class="mb-1">
-  <ng-container [ngSwitch]="type">
-    <div *ngSwitchCase="'input'" class="amp-input" [class.on]="!!value">
-      <div class="jack"></div>
-    </div>
-    <button
-      type="button"
-      *ngSwitchCase="'switch'"
-      class="amp-button"
-      [class.on]="value"
-    >
-      <div class="led"></div>
-    </button>
-    <div *ngSwitchDefault class="knob" [knobRotate]="value"></div>
-  </ng-container>
+  @switch (type) { @case ('input') {
+  <div class="amp-input" [class.on]="!!value">
+    <div class="jack"></div>
+  </div>
+  } @case ('switch') {
+  <button type="button" class="amp-button" [class.on]="value">
+    <div class="led"></div>
+  </button>
+  } @default {
+  <div class="knob" [knobRotate]="value"></div>
+  } }
 </div>
 {{ name }}
