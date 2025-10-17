@@ -39,7 +39,7 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.x.x",
-    "@ng-bootstrap/ng-bootstrap": "^18.x.x",
+    "@ng-bootstrap/ng-bootstrap": "^19.x.x",
     "@ng-web-apis/audio": "^3.0.6",
     "@ng-web-apis/common": "^3.0.6",
     "@ng-web-apis/midi": "^3.0.6",
@@ -64,7 +64,7 @@
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
     "uuid": "^8.3.2",
-    "zone.js": "~0.14.4"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/core": "20.3.6",
@@ -93,7 +93,7 @@
     "@nx/webpack": "21.6.5",
     "@nx/workspace": "21.6.5",
     "@playwright/test": "^1.36.0",
-    "@schematics/angular": "^18.2.9",
+    "@schematics/angular": "^20.3.6",
     "@swc-node/register": "1.9.2",
     "@swc/core": "1.5.7",
     "@swc/helpers": "0.5.15",
@@ -106,7 +106,7 @@
     "@typescript-eslint/eslint-plugin": "8.46.1",
     "@typescript-eslint/parser": "8.46.1",
     "@typescript-eslint/utils": "8.46.1",
-    "angular-eslint": "^18.3.0",
+    "angular-eslint": "^20.4.0",
     "cypress": "^8.3.0",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "10.1.8",
@@ -116,7 +116,7 @@
     "jest-environment-jsdom": "29.7.0",
     "jest-environment-node": "^29.4.1",
     "jest-preset-angular": "14.6.1",
-    "ng-packagr": "18.2.1",
+    "ng-packagr": "20.3.0",
     "nx": "21.6.5",
     "postcss": "^8.3.9",
     "postcss-import": "^14.0.2",
@@ -125,7 +125,7 @@
     "prettier": "2.7.1",
     "ts-jest": "29.4.5",
     "ts-node": "10.9.1",
-    "typescript": "5.5.4",
+    "typescript": "^5.8.2",
     "typescript-eslint": "8.46.1"
   }
 }
