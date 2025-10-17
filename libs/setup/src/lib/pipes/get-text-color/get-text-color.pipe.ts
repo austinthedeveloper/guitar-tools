@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'getTextColor',
-  pure: true, // Ensures it updates only when needed
+    name: 'getTextColor',
+    pure: true,
+    standalone: false
 })
 export class GetTextColorPipe implements PipeTransform {
   transform(bgColor: string): string {

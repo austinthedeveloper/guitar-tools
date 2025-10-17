@@ -11,9 +11,10 @@ import {
 } from '@guitar/setup';
 
 @Component({
-  selector: 'guitar-setup',
-  templateUrl: './setup.component.html',
-  styleUrl: './setup.component.scss',
+    selector: 'guitar-setup',
+    templateUrl: './setup.component.html',
+    styleUrl: './setup.component.scss',
+    standalone: false
 })
 export class SetupComponent {
   disabled!: boolean;

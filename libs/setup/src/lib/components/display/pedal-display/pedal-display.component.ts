@@ -3,9 +3,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Pedal } from '@guitar/interfaces';
 
 @Component({
-  selector: 'lib-pedal-display',
-  templateUrl: './pedal-display.component.html',
-  styleUrls: ['./pedal-display.component.scss'],
+    selector: 'lib-pedal-display',
+    templateUrl: './pedal-display.component.html',
+    styleUrls: ['./pedal-display.component.scss'],
+    standalone: false
 })
 export class PedalDisplayComponent {
   @Input() pedal!: Pedal;

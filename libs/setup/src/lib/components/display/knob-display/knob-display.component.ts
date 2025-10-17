@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'lib-knob-display',
-  templateUrl: './knob-display.component.html',
-  styleUrl: './knob-display.component.scss',
+    selector: 'lib-knob-display',
+    templateUrl: './knob-display.component.html',
+    styleUrl: './knob-display.component.scss',
+    standalone: false
 })
 export class KnobDisplayComponent {
   @Input() type: string = 'knob';

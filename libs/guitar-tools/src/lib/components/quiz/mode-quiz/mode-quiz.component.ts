@@ -7,9 +7,10 @@ import { random } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-  selector: 'guitar-mode-quiz',
-  templateUrl: './mode-quiz.component.html',
-  styleUrls: ['./mode-quiz.component.css'],
+    selector: 'guitar-mode-quiz',
+    templateUrl: './mode-quiz.component.html',
+    styleUrls: ['./mode-quiz.component.css'],
+    standalone: false
 })
 export class ModeQuizComponent extends ChordQuizBaseComponent {
   modeForm = this.fb.group({

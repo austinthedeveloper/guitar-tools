@@ -12,9 +12,10 @@ import { UserOptions, UserOptionsInterface } from '@guitar/interfaces';
 import { filter } from 'rxjs/operators';
 
 @Component({
-  selector: 'guitar-user-options',
-  templateUrl: './user-options.component.html',
-  styleUrls: ['./user-options.component.css'],
+    selector: 'guitar-user-options',
+    templateUrl: './user-options.component.html',
+    styleUrls: ['./user-options.component.css'],
+    standalone: false
 })
 export class UserOptionsComponent implements OnChanges, OnDestroy {
   @Input() options: UserOptionsInterface | null = new UserOptions();

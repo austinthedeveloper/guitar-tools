@@ -18,9 +18,10 @@ import { AiSuggestionsService, PedalBoardService } from '../../services';
 import { dummyAI } from '@guitar/data';
 
 @Component({
-  selector: 'lib-ai-settings-modal',
-  templateUrl: './ai-settings-modal.component.html',
-  styleUrl: './ai-settings-modal.component.scss',
+    selector: 'lib-ai-settings-modal',
+    templateUrl: './ai-settings-modal.component.html',
+    styleUrl: './ai-settings-modal.component.scss',
+    standalone: false
 })
 export class AiSettingsModalComponent {
   @Input() amp!: string;

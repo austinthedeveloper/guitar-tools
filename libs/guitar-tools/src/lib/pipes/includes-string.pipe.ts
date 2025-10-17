@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { PressInterface } from '@guitar/interfaces';
 
 @Pipe({
-  name: 'includesString',
+    name: 'includesString',
+    standalone: false
 })
 export class IncludesStringPipe implements PipeTransform {
   transform(value: PressInterface[], fret: number, string: number): boolean {

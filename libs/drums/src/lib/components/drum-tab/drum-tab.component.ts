@@ -8,9 +8,10 @@ import {
 import { DrumKeyPress, DrumType } from '../../interfaces';
 
 @Component({
-  selector: 'guitar-drum-tab',
-  templateUrl: './drum-tab.component.html',
-  styleUrls: ['./drum-tab.component.scss'],
+    selector: 'guitar-drum-tab',
+    templateUrl: './drum-tab.component.html',
+    styleUrls: ['./drum-tab.component.scss'],
+    standalone: false
 })
 export class DrumTabComponent implements OnChanges {
   @Input() inputs: DrumKeyPress[][] = [];

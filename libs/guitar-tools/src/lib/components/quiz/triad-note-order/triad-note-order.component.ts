@@ -13,10 +13,11 @@ import { isEqual, random, reverse, shuffle } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-  selector: 'guitar-triad-note-order',
-  templateUrl: './triad-note-order.component.html',
-  styleUrls: ['./triad-note-order.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'guitar-triad-note-order',
+    templateUrl: './triad-note-order.component.html',
+    styleUrls: ['./triad-note-order.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
   @Input() chords: ChordInterface[] = [];

@@ -3,9 +3,10 @@ import { AuthService } from '@guitar/auth';
 import { filter, Subscription, tap } from 'rxjs';
 
 @Component({
-  selector: 'setup-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+    selector: 'setup-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.scss'],
+    standalone: false
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);

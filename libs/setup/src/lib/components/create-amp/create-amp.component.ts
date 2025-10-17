@@ -18,9 +18,10 @@ import { AmpService } from './../../services';
 import { AmpControlsGroup } from '../../interfaces';
 
 @Component({
-  selector: 'lib-create-amp',
-  templateUrl: './create-amp.component.html',
-  styleUrl: './create-amp.component.scss',
+    selector: 'lib-create-amp',
+    templateUrl: './create-amp.component.html',
+    styleUrl: './create-amp.component.scss',
+    standalone: false
 })
 export class CreateAmpComponent {
   @Input() disabled!: boolean;
