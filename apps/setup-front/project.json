@@ -22,7 +22,10 @@
             "input": "apps/setup-front/public"
           }
         ],
-        "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css","apps/setup-front/src/styles.scss"],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/setup-front/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -68,7 +71,8 @@
       "defaultConfiguration": "development",
       "options": {
         "proxyConfig": "apps/setup-front/proxy.conf.json"
-      }
+      },
+      "continuous": true
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
