@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   CHORDS_MOCK_SORTED,
@@ -11,12 +12,45 @@ import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService, QuizTotalsService } from '@guitar/store';
 import { random } from 'lodash-es';
 import { Observable } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import {
+  ChordQuizComponent,
+  ModeNameQuizComponent,
+  ModeOrderingQuizComponent,
+  ModeQuizComponent,
+  QuizTotalsComponent,
+  RelativeMajorQuizComponent,
+  RelativeMinorQuizComponent,
+  ScaleQuizComponent,
+  SpecificNoteComponent,
+  TriadNoteOrderComponent,
+} from '@guitar/guitar-tools/components';
+import { GuitarCardComponent } from '../../components/guitar-card/guitar-card.component';
 
 @Component({
-    selector: 'guitar-quiz',
-    templateUrl: './quiz.component.html',
-    styleUrls: ['./quiz.component.css'],
-    standalone: false
+  selector: 'guitar-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    GuitarCardComponent,
+    QuizTotalsComponent,
+    ModeOrderingQuizComponent,
+    RelativeMinorQuizComponent,
+    RelativeMajorQuizComponent,
+    ModeNameQuizComponent,
+    ModeQuizComponent,
+    ChordQuizComponent,
+    SpecificNoteComponent,
+    ScaleQuizComponent,
+    TriadNoteOrderComponent,
+  ],
 })
 export class QuizComponent implements OnInit {
   chords: ChordInterface[] = CHORDS_MOCK_SORTED;
