@@ -1,36 +1,49 @@
-<div class="container">
-  <div>
-    <h2>Scales</h2>
-    <guitar-scale-reference
-      [tuning]="tuning$ | async"
-      [tuningChart]="tuningChart$ | async"
-      [frets]="frets$ | async"
-      [showNote]="true"
-    ></guitar-scale-reference>
-  </div>
-  <div>
-    <h2>Tab Example</h2>
-    <guitar-chart-tab></guitar-chart-tab>
-  </div>
+<section class="page home-page">
+  <header class="page-header">
+    <div class="page-header__meta">
+      <span class="page-header__eyebrow">Practice Hub</span>
+      <h1 class="page-header__title">Home</h1>
+      <p class="page-header__subtitle">
+        Explore interactive scale, tab, and chord references to guide your next session.
+      </p>
+    </div>
+  </header>
 
-  <div>
-    <h2>Chord Example</h2>
-    <label for="chordSelector" class="form-label">Select a Chord</label>
-    <select
-      class="form-select mb-2"
-      [formControl]="formId"
-      placeholder="Select a Chord"
-      id="chordSelector"
-    >
-      @for (chord of chords; track chord) {
-      <option [value]="chord.id">Chord {{ chord.fullName }}</option>
-      }
-    </select>
-    <guitar-chord
-      [tuning]="(tuning$ | async)!"
-      [showNote]="true"
-      [presses]="formPress.value"
-      (pressesChanged)="onPressChange($event)"
-    ></guitar-chord>
+  <div class="page-body home-page__grid">
+    <section class="home-page__panel">
+      <h2 class="page-section-title">Scales</h2>
+      <guitar-scale-reference
+        [tuning]="tuning$ | async"
+        [tuningChart]="tuningChart$ | async"
+        [frets]="frets$ | async"
+        [showNote]="true"
+      ></guitar-scale-reference>
+    </section>
+
+    <section class="home-page__panel">
+      <h2 class="page-section-title">Tab Example</h2>
+      <guitar-chart-tab></guitar-chart-tab>
+    </section>
+
+    <section class="home-page__panel">
+      <h2 class="page-section-title">Chord Example</h2>
+      <label for="chordSelector" class="form-label">Select a Chord</label>
+      <select
+        class="form-select mb-2"
+        [formControl]="formId"
+        placeholder="Select a Chord"
+        id="chordSelector"
+      >
+        @for (chord of chords; track chord) {
+        <option [value]="chord.id">Chord {{ chord.fullName }}</option>
+        }
+      </select>
+      <guitar-chord
+        [tuning]="(tuning$ | async)!"
+        [showNote]="true"
+        [presses]="formPress.value"
+        (pressesChanged)="onPressChange($event)"
+      ></guitar-chord>
+    </section>
   </div>
-</div>
+</section>

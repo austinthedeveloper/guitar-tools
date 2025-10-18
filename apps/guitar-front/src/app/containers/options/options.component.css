@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.options-page__panel {
+  padding: clamp(1.25rem, 3vw, 1.9rem);
+  border-radius: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(248, 250, 252, 0.9);
+  box-shadow: 0 18px 35px -28px rgba(15, 23, 42, 0.45);
+}

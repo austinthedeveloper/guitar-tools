@@ -1,140 +1,164 @@
-<div class="container">
-  <h2>Quiz</h2>
-  <mat-form-field class="w-50 me-3">
-    <mat-label>Quiz Types</mat-label>
-    <mat-select
-      [formControl]="activeQuizzes"
-      (selectionChange)="randomizeQuiz()"
-      multiple
-    >
-      <mat-select-trigger>
-        {{ activeQuizzes.value?.length || 0 }} Types
-      </mat-select-trigger>
-      @for (item of quizItems; track item) {
-      <mat-option [value]="item.value">{{ item.key }}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
-  <button
-    type="button"
-    class="btn btn-secondary clear-button"
-    (click)="onClear()"
-  >
-    Clear
-  </button>
-  <button
-    type="button"
-    class="btn btn-secondary reset-button"
-    (click)="onReset()"
-  >
-    Reset
-  </button>
-  <guitar-quiz-totals
-    [correct]="correct.value"
-    [incorrect]="incorrect.value"
-  ></guitar-quiz-totals>
-  <guitar-card [header]="activeType.value">
-    @switch (activeValue.value) { @case ('sorting') {
+<section class="page quiz-page">
+  <header class="page-header">
+    <div class="page-header__meta">
+      <span class="page-header__eyebrow">Practice Suite</span>
+      <h1 class="page-header__title">Quiz</h1>
+      <p class="page-header__subtitle">
+        Rotate through quick drills to sharpen your fretboard recall. Pick the quiz types you want and let the app mix up
+        the challenges.
+      </p>
+    </div>
+  </header>
 
-    <guitar-mode-ordering-quiz
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-mode-ordering-quiz>
+  <div class="page-body quiz-page__body">
+    <div class="page-toolbar quiz-page__toolbar">
+      <mat-form-field
+        appearance="outline"
+        color="primary"
+        class="page-toolbar__field quiz-page__select"
+      >
+        <mat-label>Quiz Types</mat-label>
+        <mat-select
+          [formControl]="activeQuizzes"
+          (selectionChange)="randomizeQuiz()"
+          multiple
+        >
+          <mat-select-trigger>
+            {{ activeQuizzes.value?.length || 0 }} Types
+          </mat-select-trigger>
+          @for (item of quizItems; track item) {
+          <mat-option [value]="item.value">{{ item.key }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-    } @case ('relativeMinor') {
+      <div class="quiz-page__toolbar-actions">
+        <button
+          type="button"
+          class="pill-button pill-button--ghost"
+          (click)="onClear()"
+        >
+          Clear
+        </button>
+        <button
+          type="button"
+          class="pill-button pill-button--primary"
+          (click)="onReset()"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
 
-    <guitar-relative-minor-quiz
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-relative-minor-quiz>
+    <guitar-quiz-totals
+      class="quiz-page__totals"
+      [correct]="correct.value"
+      [incorrect]="incorrect.value"
+    ></guitar-quiz-totals>
 
-    } @case ('relativeMajor') {
+    <guitar-card class="quiz-page__card" [header]="activeType.value">
+      @switch (activeValue.value) { @case ('sorting') {
 
-    <guitar-relative-major-quiz
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-relative-major-quiz>
+      <guitar-mode-ordering-quiz
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-mode-ordering-quiz>
 
-    } @case ('modeName') {
+      } @case ('relativeMinor') {
 
-    <guitar-mode-name-quiz
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-mode-name-quiz>
+      <guitar-relative-minor-quiz
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-relative-minor-quiz>
 
-    } @case ('mode') {
+      } @case ('relativeMajor') {
 
-    <guitar-mode-quiz
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-mode-quiz>
+      <guitar-relative-major-quiz
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-relative-major-quiz>
 
-    } @case ('chord') {
+      } @case ('modeName') {
 
-    <guitar-chord-quiz
-      [chords]="chords"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-chord-quiz>
+      <guitar-mode-name-quiz
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-mode-name-quiz>
 
-    } @case ('triads') {
+      } @case ('mode') {
 
-    <guitar-chord-quiz
-      [chords]="triads"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-chord-quiz>
+      <guitar-mode-quiz
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-mode-quiz>
 
-    } @case ('triadsMinor') {
+      } @case ('chord') {
 
-    <guitar-chord-quiz
-      [chords]="triadsMinor"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-chord-quiz>
+      <guitar-chord-quiz
+        [chords]="chords"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-chord-quiz>
 
-    } @case ('triadsAugmented') {
+      } @case ('triads') {
 
-    <guitar-chord-quiz
-      [chords]="triadsAugmented"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-chord-quiz>
+      <guitar-chord-quiz
+        [chords]="triads"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-chord-quiz>
 
-    } @case ('triadsDiminished') {
+      } @case ('triadsMinor') {
 
-    <guitar-chord-quiz
-      [chords]="triadsDiminished"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-chord-quiz>
+      <guitar-chord-quiz
+        [chords]="triadsMinor"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-chord-quiz>
 
-    } @case ('specificTriads') {
+      } @case ('triadsAugmented') {
 
-    <guitar-specific-note
-      [chords]="triads"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-specific-note>
+      <guitar-chord-quiz
+        [chords]="triadsAugmented"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-chord-quiz>
 
-    } @case ('scale') {
+      } @case ('triadsDiminished') {
 
-    <guitar-scale-quiz
-      [tuning]="tuning$ | async"
-      [tuningChart]="tuningChart$ | async"
-      [frets]="frets$ | async"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-scale-quiz>
+      <guitar-chord-quiz
+        [chords]="triadsDiminished"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-chord-quiz>
 
-    } @case ('triadsNoteOrder') {
+      } @case ('specificTriads') {
 
-    <guitar-triad-note-order
-      [chords]="triads"
-      (correct)="onCorrect()"
-      (incorrect)="onIncorrect()"
-    ></guitar-triad-note-order>
+      <guitar-specific-note
+        [chords]="triads"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-specific-note>
 
-    } }
-  </guitar-card>
-</div>
+      } @case ('scale') {
+
+      <guitar-scale-quiz
+        [tuning]="tuning$ | async"
+        [tuningChart]="tuningChart$ | async"
+        [frets]="frets$ | async"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-scale-quiz>
+
+      } @case ('triadsNoteOrder') {
+
+      <guitar-triad-note-order
+        [chords]="triads"
+        (correct)="onCorrect()"
+        (incorrect)="onIncorrect()"
+      ></guitar-triad-note-order>
+
+      } }
+    </guitar-card>
+  </div>
+</section>
