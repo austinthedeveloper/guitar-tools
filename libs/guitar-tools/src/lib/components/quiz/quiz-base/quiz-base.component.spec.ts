@@ -1,11 +1,6 @@
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ChordQuizBaseComponent } from './quiz-base.component';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('ChordQuizBaseComponent', () => {
   let component: ChordQuizBaseComponent;
@@ -13,9 +8,7 @@ describe('ChordQuizBaseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [ChordQuizBaseComponent],
-      providers: [FormBuilder],
+      imports: [ReactiveFormsModule, ChordQuizBaseComponent],
     }).compileComponents();
   });
 

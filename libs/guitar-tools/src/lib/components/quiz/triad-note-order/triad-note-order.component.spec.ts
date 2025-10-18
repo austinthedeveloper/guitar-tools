@@ -8,7 +8,7 @@ describe('TriadNoteOrderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TriadNoteOrderComponent],
+      imports: [TriadNoteOrderComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TriadNoteOrderComponent);

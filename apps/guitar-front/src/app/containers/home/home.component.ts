@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -10,12 +11,25 @@ import { ChordInterface, UserOptionsInterface } from '@guitar/interfaces';
 import { OptionsService } from '@guitar/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  ChartTabComponent,
+  ChordComponent,
+  ScaleReferenceComponent,
+} from '@guitar/guitar-tools/components';
 
 @Component({
-    selector: 'guitar-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css'],
-    standalone: false
+  selector: 'guitar-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ChartTabComponent,
+    ChordComponent,
+    ScaleReferenceComponent,
+  ],
 })
 export class HomeComponent {
   presses: any[] = [];

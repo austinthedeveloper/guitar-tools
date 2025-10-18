@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -7,15 +8,16 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { UserOptions, UserOptionsInterface } from '@guitar/interfaces';
 import { filter } from 'rxjs/operators';
 
 @Component({
-    selector: 'guitar-user-options',
-    templateUrl: './user-options.component.html',
-    styleUrls: ['./user-options.component.css'],
-    standalone: false
+  selector: 'guitar-user-options',
+  templateUrl: './user-options.component.html',
+  styleUrls: ['./user-options.component.css'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class UserOptionsComponent implements OnChanges, OnDestroy {
   @Input() options: UserOptionsInterface | null = new UserOptions();

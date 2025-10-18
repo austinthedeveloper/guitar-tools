@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -5,18 +6,20 @@ import {
   Input,
   SimpleChanges,
 } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { PressInterface, TuningChart } from '@guitar/interfaces';
 import { random } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
+import { FretboardComponent } from '../../fretboard/fretboard.component';
 
 @Component({
-    selector: 'guitar-scale-quiz',
-    templateUrl: './scale-quiz.component.html',
-    styleUrls: ['./scale-quiz.component.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'guitar-scale-quiz',
+  templateUrl: './scale-quiz.component.html',
+  styleUrls: ['./scale-quiz.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FretboardComponent],
 })
 export class ScaleQuizComponent
   extends ChordQuizBaseComponent

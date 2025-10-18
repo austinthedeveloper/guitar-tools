@@ -8,7 +8,7 @@ describe('SpecificNoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpecificNoteComponent ]
+      imports: [SpecificNoteComponent],
     })
     .compileComponents();
   });

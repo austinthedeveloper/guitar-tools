@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {ChartTabNote} from '@guitar/interfaces'
 @Pipe({
-    name: 'tabStringType',
-    standalone: false
+  name: 'tabStringType',
+  standalone: true,
 })
 export class TabStringTypePipe implements PipeTransform {
   transform(value: ChartTabNote[], order: number, string: number): any {

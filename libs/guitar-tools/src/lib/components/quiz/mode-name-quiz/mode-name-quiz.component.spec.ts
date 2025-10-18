@@ -8,7 +8,7 @@ describe('ModeNameQuizComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModeNameQuizComponent ]
+      imports: [ModeNameQuizComponent],
     })
     .compileComponents();
   });

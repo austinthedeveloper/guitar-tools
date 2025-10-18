@@ -11,7 +11,7 @@ describe('FretboardQuizComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FretboardQuizComponent ]
+      imports: [FretboardQuizComponent]
     })
     .compileComponents();
   }));

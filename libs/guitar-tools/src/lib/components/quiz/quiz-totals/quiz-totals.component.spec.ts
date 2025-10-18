@@ -11,7 +11,7 @@ describe('QuizTotalsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuizTotalsComponent ]
+      imports: [QuizTotalsComponent]
     })
     .compileComponents();
   }));

@@ -1,16 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { SCALE, TuningHelper } from '@guitar/helpers';
 import { ModesEnum, MODES_ARRAY } from '@guitar/interfaces';
 import { random } from 'lodash-es';
+import { GuitarFormsModule } from '@guitar/forms';
 
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 
 @Component({
-    selector: 'guitar-mode-name-quiz',
-    templateUrl: './mode-name-quiz.component.html',
-    styleUrls: ['./mode-name-quiz.component.css'],
-    standalone: false
+  selector: 'guitar-mode-name-quiz',
+  templateUrl: './mode-name-quiz.component.html',
+  styleUrls: ['./mode-name-quiz.component.css'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, GuitarFormsModule],
 })
 export class ModeNameQuizComponent extends ChordQuizBaseComponent {
   modeForm = this.fb.group({
