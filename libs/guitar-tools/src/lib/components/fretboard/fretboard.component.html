@@ -1,14 +1,5 @@
 <div class="fretboard" [class.fretboard--disabled]="disabled">
   <div class="fretboard__strings">
-    <div class="fretboard__markers" [style.--fret-count]="colCount">
-      @for (fret of fretPositions; track fret) {
-        @let markerClass = fret | fretDot : dots;
-        @if (markerClass) {
-          <div class="fretboard__marker" [ngClass]="markerClass"></div>
-        }
-      }
-    </div>
-
     @for (stringIndex of stringOrder; track stringIndex) {
       <div class="fretboard__string-row">
         <div class="fretboard__string-label">
@@ -38,6 +29,13 @@
           }
         </div>
       </div>
+    }
+  </div>
+
+  <div class="fretboard__markers" [style.--fret-count]="colCount">
+    @for (fret of fretPositions; track fret) {
+      @let markerClass = fret | fretDot : dots;
+      <div class="fretboard__marker" [ngClass]="markerClass"></div>
     }
   </div>
 </div>
