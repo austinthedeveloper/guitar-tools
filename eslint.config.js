@@ -25,7 +25,7 @@ module.exports = [
           ],
         },
       ],
-      'no-inferrable-types': false,
+      'no-inferrable-types': 0,
     },
   },
   ...compat.config({ extends: ['plugin:@nx/typescript'] }).map((config) => ({
@@ -33,8 +33,6 @@ module.exports = [
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
       ...config.rules,
-      '@typescript-eslint/no-extra-semi': 'error',
-      'no-extra-semi': 'off',
     },
   })),
   ...compat.config({ extends: ['plugin:@nx/javascript'] }).map((config) => ({
@@ -42,8 +40,6 @@ module.exports = [
     files: ['**/*.js', '**/*.jsx'],
     rules: {
       ...config.rules,
-      '@typescript-eslint/no-extra-semi': 'error',
-      'no-extra-semi': 'off',
     },
   })),
 ];
