@@ -49,8 +49,38 @@
                 cell.order !== 0 &&
                 cell.order % beatsPerBar === 0
               "
+              [class.traditional-tab__cell--editing]="
+                isEditingCell(row.stringIndex, cell.order)
+              "
             >
-              @if (cell.value) {
+              @if (editable) {
+                @if (isEditingCell(row.stringIndex, cell.order)) {
+                  <input
+                    #cellInput
+                    type="text"
+                    class="traditional-tab__cell-input"
+                    [value]="activeValue"
+                    (input)="onCellValueChange($event.target.value)"
+                    (blur)="onCellInputBlur()"
+                    (keydown)="onCellInputKeydown($event)"
+                  />
+                } @else {
+                  <button
+                    type="button"
+                    class="traditional-tab__cell-button"
+                    [class.traditional-tab__cell-button--empty]="!cell.value"
+                    (click)="startEdit(row.stringIndex, cell.order, cell.value)"
+                  >
+                    @if (cell.value) {
+                      <span class="traditional-tab__cell-value">
+                        {{ cell.value }}
+                      </span>
+                    } @else {
+                      <span class="traditional-tab__cell-placeholder">+</span>
+                    }
+                  </button>
+                }
+              } @else if (cell.value) {
                 <span class="traditional-tab__cell-value">
                   {{ cell.value }}
                 </span>
