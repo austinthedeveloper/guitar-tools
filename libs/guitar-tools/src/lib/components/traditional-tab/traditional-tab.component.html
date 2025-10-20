@@ -1,0 +1,64 @@
+<div class="traditional-tab">
+  @if (hasHeaderMeta) {
+    <div class="traditional-tab__meta">
+      @if (chords?.length) {
+        <div class="traditional-tab__meta-row">
+          <span class="traditional-tab__meta-label">Chords:</span>
+          <div class="traditional-tab__meta-values">
+            @for (chord of chords; track chord; let last = $last) {
+              <span class="traditional-tab__meta-token">{{ chord }}</span>
+              @if (!last) {
+                <span class="traditional-tab__meta-divider">|</span>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      @if (shapes?.length) {
+        <div class="traditional-tab__meta-row">
+          <span class="traditional-tab__meta-label">Shapes:</span>
+          <div class="traditional-tab__meta-values">
+            @for (shape of shapes; track shape; let last = $last) {
+              <span class="traditional-tab__meta-token">{{ shape }}</span>
+              @if (!last) {
+                <span class="traditional-tab__meta-divider">|</span>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="traditional-tab__grid">
+    @for (row of rows; track row) {
+      <div class="traditional-tab__row">
+        <span class="traditional-tab__row-label">{{ row.label }}</span>
+
+        <div
+          class="traditional-tab__row-track"
+          [style.gridTemplateColumns]="gridTemplateColumns"
+        >
+          @for (cell of row.cells; track cell.order) {
+            <div
+              class="traditional-tab__cell"
+              [class.traditional-tab__cell--filled]="!!cell.value"
+              [class.traditional-tab__cell--bar]="
+                beatsPerBar > 0 &&
+                cell.order !== 0 &&
+                cell.order % beatsPerBar === 0
+              "
+            >
+              @if (cell.value) {
+                <span class="traditional-tab__cell-value">
+                  {{ cell.value }}
+                </span>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>

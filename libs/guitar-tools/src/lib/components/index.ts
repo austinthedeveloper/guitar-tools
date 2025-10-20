@@ -4,4 +4,5 @@ export * from './chord/chord.component';
 export * from './fretboard/fretboard.component';
 export * from './metronome/metronome.component';
 export * from './scale-reference/scale-reference.component';
+export * from './traditional-tab/traditional-tab.component';
 export * from './quiz';
