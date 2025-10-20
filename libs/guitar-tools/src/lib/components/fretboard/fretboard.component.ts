@@ -30,7 +30,6 @@ export class FretboardComponent implements OnChanges {
   @Input() dots: number[] = FretDotsHelper.dots;
   @Input() tabs: PressInterface[] = [];
   @Output() tabChange: EventEmitter<PressInterface[]> = new EventEmitter();
-  built: any[] = [];
   @Input() disabled!: boolean;
   @Input() showNote!: boolean;
   @Output() stringPressed = new EventEmitter();
@@ -39,6 +38,8 @@ export class FretboardComponent implements OnChanges {
   @Input() tuning = 'standard';
   @Input() tuningChart: TuningChart[] = [];
   tuningBuilt: TuningChart[] = [];
+  stringOrder: number[] = [];
+  fretPositions: number[] = [];
 
   constructor() {
     this.mapStuff();
@@ -54,15 +55,12 @@ export class FretboardComponent implements OnChanges {
   }
 
   private mapStuff() {
-    const builtStrings = Array(+this.strings)
-      .fill(0)
-      .map((x, i) => i)
-      .reverse();
-    this.built = Array(this.colCount).fill(builtStrings);
-  }
-
-  get colWidth(): string {
-    return `${(100 / this.colCount).toString()}%`;
+    const totalStrings = Math.max(+this.strings, 1);
+    this.stringOrder = Array.from({ length: totalStrings }, (_, index) => index);
+    this.fretPositions = Array.from(
+      { length: this.colCount },
+      (_, index) => index
+    );
   }
 
   toggleActive(fret: number, str: number): void {
@@ -103,5 +101,12 @@ export class FretboardComponent implements OnChanges {
   private onPressChange() {
     const ordered = orderBy(this.tabs, ['fret', 'string']);
     this.tabsChanged.emit(ordered);
+  }
+
+  getNoteLabel(stringIndex: number, fret: number): string | undefined {
+    return (
+      this.tuningBuilt[stringIndex]?.scale[fret] ??
+      this.tuningChart[this.tuningChart.length - stringIndex - 1]?.scale[fret]
+    );
   }
 }
