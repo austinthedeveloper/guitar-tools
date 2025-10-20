@@ -32,62 +32,66 @@
   }
 
   <div class="traditional-tab__grid">
-    @for (row of rows; track row) {
-      <div class="traditional-tab__row">
-        <span class="traditional-tab__row-label">{{ row.label }}</span>
+    @for (group of rowGroups; track group.startOrder) {
+      <div class="traditional-tab__line">
+        @for (row of group.rows; track row.stringIndex) {
+          <div class="traditional-tab__row">
+            <span class="traditional-tab__row-label">{{ row.label }}</span>
 
-        <div
-          class="traditional-tab__row-track"
-          [style.gridTemplateColumns]="gridTemplateColumns"
-        >
-          @for (cell of row.cells; track cell.order) {
             <div
-              class="traditional-tab__cell"
-              [class.traditional-tab__cell--filled]="!!cell.value"
-              [class.traditional-tab__cell--bar]="
-                beatsPerBar > 0 &&
-                cell.order !== 0 &&
-                cell.order % beatsPerBar === 0
-              "
-              [class.traditional-tab__cell--editing]="
-                isEditingCell(row.stringIndex, cell.order)
-              "
+              class="traditional-tab__row-track"
+              [style.gridTemplateColumns]="group.gridTemplateColumns"
             >
-              @if (editable) {
-                @if (isEditingCell(row.stringIndex, cell.order)) {
-                  <input
-                    #cellInput
-                    type="text"
-                    class="traditional-tab__cell-input"
-                    [value]="activeValue"
-                    (input)="onCellValueChange($event.target.value)"
-                    (blur)="onCellInputBlur()"
-                    (keydown)="onCellInputKeydown($event)"
-                  />
-                } @else {
-                  <button
-                    type="button"
-                    class="traditional-tab__cell-button"
-                    [class.traditional-tab__cell-button--empty]="!cell.value"
-                    (click)="startEdit(row.stringIndex, cell.order, cell.value)"
-                  >
-                    @if (cell.value) {
-                      <span class="traditional-tab__cell-value">
-                        {{ cell.value }}
-                      </span>
+              @for (cell of row.cells; track cell.order) {
+                <div
+                  class="traditional-tab__cell"
+                  [class.traditional-tab__cell--filled]="!!cell.value"
+                  [class.traditional-tab__cell--bar]="
+                    beatsPerBar > 0 &&
+                    cell.order !== 0 &&
+                    cell.order % beatsPerBar === 0
+                  "
+                  [class.traditional-tab__cell--editing]="
+                    isEditingCell(row.stringIndex, cell.order)
+                  "
+                >
+                  @if (editable) {
+                    @if (isEditingCell(row.stringIndex, cell.order)) {
+                      <input
+                        #cellInput
+                        type="text"
+                        class="traditional-tab__cell-input"
+                        [value]="activeValue"
+                        (input)="onCellValueChange($event.target.value)"
+                        (blur)="onCellInputBlur()"
+                        (keydown)="onCellInputKeydown($event)"
+                      />
                     } @else {
-                      <span class="traditional-tab__cell-placeholder">+</span>
+                      <button
+                        type="button"
+                        class="traditional-tab__cell-button"
+                        [class.traditional-tab__cell-button--empty]="!cell.value"
+                        (click)="startEdit(row.stringIndex, cell.order, cell.value)"
+                      >
+                        @if (cell.value) {
+                          <span class="traditional-tab__cell-value">
+                            {{ cell.value }}
+                          </span>
+                        } @else {
+                          <span class="traditional-tab__cell-placeholder">+</span>
+                        }
+                      </button>
                     }
-                  </button>
-                }
-              } @else if (cell.value) {
-                <span class="traditional-tab__cell-value">
-                  {{ cell.value }}
-                </span>
+                  } @else if (cell.value) {
+                    <span class="traditional-tab__cell-value">
+                      {{ cell.value }}
+                    </span>
+                  }
+                </div>
               }
             </div>
-          }
-        </div>
+          </div>
+        }
       </div>
     }
   </div>

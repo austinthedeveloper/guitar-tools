@@ -53,6 +53,13 @@
 .traditional-tab__grid {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+}
+
+.traditional-tab__line {
+  display: flex;
+  flex-direction: column;
+  // gap: 1rem;
 }
 
 .traditional-tab__row {

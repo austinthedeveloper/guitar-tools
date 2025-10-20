@@ -31,6 +31,13 @@ interface ActiveCell {
   order: number;
 }
 
+interface TraditionalTabGroup {
+  startOrder: number;
+  columnCount: number;
+  gridTemplateColumns: string;
+  rows: TraditionalTabRow[];
+}
+
 @Component({
   selector: 'guitar-traditional-tab',
   standalone: true,
@@ -52,9 +59,7 @@ export class TraditionalTabComponent implements OnInit, OnChanges {
     ElementRef<HTMLInputElement>
   >;
 
-  rows: TraditionalTabRow[] = [];
-  columnIndexes: number[] = [];
-  gridTemplateColumns = '';
+  rowGroups: TraditionalTabGroup[] = [];
   activeCell: ActiveCell | null = null;
   activeValue = '';
 
@@ -151,24 +156,43 @@ export class TraditionalTabComponent implements OnInit, OnChanges {
 
   private buildRows(): void {
     const stringCount = this.coercePositiveInteger(this.strings, 6);
-    const columnCount = this.coercePositiveInteger(this.columns, 16);
-
-    this.columnIndexes = Array.from(
-      { length: columnCount },
-      (_, order) => order
+    const columnsPerLine = this.coercePositiveInteger(this.columns, 16);
+    const highestOrder = this.getHighestTabOrder(this.tabs);
+    const filledColumns = highestOrder >= 0 ? highestOrder + 1 : 0;
+    const baseColumnCount = Math.max(columnsPerLine, filledColumns);
+    let groupCount = Math.max(
+      1,
+      Math.ceil(baseColumnCount / columnsPerLine)
     );
-    this.gridTemplateColumns = `repeat(${columnCount}, minmax(1.75rem, 1fr))`;
+
+    if (this.editable) {
+      const currentCapacity = groupCount * columnsPerLine;
+      if (filledColumns >= currentCapacity && filledColumns > 0) {
+        groupCount += 1;
+      }
+    }
 
     const labels = this.buildStringLabels(stringCount);
 
-    this.rows = labels.map((label, stringIndex) => ({
-      label,
-      stringIndex,
-      cells: this.columnIndexes.map((order) => ({
-        order,
-        value: this.lookupTabValue(stringIndex, order),
-      })),
-    }));
+    this.rowGroups = Array.from({ length: groupCount }, (_, groupIndex) => {
+      const startOrder = groupIndex * columnsPerLine;
+      const columnCount = columnsPerLine;
+      const gridTemplateColumns = `repeat(${columnCount}, minmax(1.75rem, 1fr))`;
+
+      const rows = labels.map((label, stringIndex) => ({
+        label,
+        stringIndex,
+        cells: Array.from({ length: columnCount }, (_, offset) => {
+          const order = startOrder + offset;
+          return {
+            order,
+            value: this.lookupTabValue(stringIndex, order),
+          };
+        }),
+      }));
+
+      return { startOrder, columnCount, gridTemplateColumns, rows };
+    });
   }
 
   private lookupTabValue(stringIndex: number, order: number): string | null {
@@ -261,6 +285,16 @@ export class TraditionalTabComponent implements OnInit, OnChanges {
     this.tabs = nextTabs;
     this.buildRows();
     this.tabsChange.emit(nextTabs);
+  }
+
+  private getHighestTabOrder(tabs: ChartTabNote[]): number {
+    if (!Array.isArray(tabs) || !tabs.length) {
+      return -1;
+    }
+    return tabs
+      .map((tab) => Number.parseInt(tab.order, 10))
+      .filter((value) => Number.isFinite(value))
+      .reduce((max, value) => Math.max(max, value), -1);
   }
 }
 
