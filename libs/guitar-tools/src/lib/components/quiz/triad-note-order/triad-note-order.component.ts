@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  SimpleChanges,
+  SimpleChanges, OnChanges,
 } from '@angular/core';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuningHelper } from '@guitar/helpers';
@@ -22,7 +22,7 @@ import { ChordComponent } from '../../chord/chord.component';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, DragDropModule, ChordComponent],
 })
-export class TriadNoteOrderComponent extends ChordQuizBaseComponent {
+export class TriadNoteOrderComponent extends ChordQuizBaseComponent implements OnChanges {
   @Input() chords: ChordInterface[] = [];
   noteForm = this.fb.group({
     chord: this.fb.control(null, Validators.required),

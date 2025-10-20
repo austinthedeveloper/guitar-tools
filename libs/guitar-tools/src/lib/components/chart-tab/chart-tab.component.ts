@@ -13,7 +13,7 @@ import {
   UntypedFormBuilder,
   Validators,
 } from '@angular/forms';
-import { TABS_DATA, TABS_DATA_DEMO } from '@guitar/data';
+import { TABS_DATA_DEMO } from '@guitar/data';
 import { ChartTabNote } from '@guitar/interfaces';
 
 import { TabStringTypePipe } from '../../pipes/tab-string-type.pipe';

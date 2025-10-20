@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'guitar-tools',
   preset: '../../jest.preset.js',
