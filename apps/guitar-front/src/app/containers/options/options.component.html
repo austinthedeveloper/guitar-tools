@@ -1,10 +1,21 @@
-<div class="container">
-  <div>
-    <h2>User Options</h2>
-    <guitar-user-options
-      [options]="options$ | async"
-      (optionChanged)="optionChanged($event)"
-      class="d-block my-2"
-    ></guitar-user-options>
+<section class="page options-page">
+  <header class="page-header">
+    <div class="page-header__meta">
+      <span class="page-header__eyebrow">Preferences</span>
+      <h1 class="page-header__title">User Options</h1>
+      <p class="page-header__subtitle">
+        Tailor tunings, note visibility, and other defaults so every drill fits your workflow.
+      </p>
+    </div>
+  </header>
+
+  <div class="page-body">
+    <div class="options-page__panel">
+      <guitar-user-options
+        [options]="options$ | async"
+        (optionChanged)="optionChanged($event)"
+        class="d-block my-2"
+      ></guitar-user-options>
+    </div>
   </div>
-</div>
+</section>

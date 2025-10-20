@@ -1,11 +1,14 @@
-<div class="container text-white my-2">
-  <div class="row">
-    <div class="quiz-count-correct col bg-success py-2">
-      Correct: {{ correct }}
-    </div>
-    <div class="quiz-count-incorrect col bg-danger py-2">
-      Incorrect: {{ incorrect }}
-    </div>
-    <div class="quiz-count-total col bg-primary py-2">Total: {{ total }}</div>
+<div class="quiz-totals">
+  <div class="quiz-totals__item quiz-totals__item--correct quiz-count-correct">
+    <span class="quiz-totals__label">Correct</span>
+    <span class="quiz-totals__value">{{ correct }}</span>
+  </div>
+  <div class="quiz-totals__item quiz-totals__item--incorrect quiz-count-incorrect">
+    <span class="quiz-totals__label">Incorrect</span>
+    <span class="quiz-totals__value">{{ incorrect }}</span>
+  </div>
+  <div class="quiz-totals__item quiz-totals__item--total quiz-count-total">
+    <span class="quiz-totals__label">Total</span>
+    <span class="quiz-totals__value">{{ total }}</span>
   </div>
 </div>
