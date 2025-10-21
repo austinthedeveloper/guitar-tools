@@ -22,6 +22,7 @@ module.exports = [
       files: ['**/*.ts'],
       rules: {
         ...config.rules,
+        '@angular-eslint/prefer-inject': 'warn',
         '@angular-eslint/directive-selector': [
           'error',
           {

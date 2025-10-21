@@ -4,7 +4,9 @@ import { AuthService } from '@guitar/auth';
 import { AppComponent } from './app.component';
 
 class AuthServiceStub {
-  handleAuthCallback(): void {}
+  handleAuthCallback(): void {
+    console.log('callback');
+  }
 }
 
 describe('AppComponent', () => {

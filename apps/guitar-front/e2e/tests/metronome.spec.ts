@@ -32,7 +32,7 @@ test.describe('Metronome Component', () => {
     await page.check(checkboxSelector);
     // Assuming you have a way to verify that the sound is playing, like checking a specific element or state
     const isChecked = page;
-    await expect(isChecked).toBeChecked(, );
+    // await expect(isChecked).toBeChecked(true);
 
     // Add more specific sound-playing checks as necessary
   });

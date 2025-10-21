@@ -1,16 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MetronomeComponent as LibMetronomeComponent } from '@guitar/metronome';
 
 @Component({
-  selector: 'app-metronome',
+  selector: 'guitar-metronome',
   templateUrl: './metronome.component.html',
   styleUrls: ['./metronome.component.scss'],
   standalone: true,
   imports: [CommonModule, LibMetronomeComponent],
 })
-export class MetronomeComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class MetronomeComponent {}

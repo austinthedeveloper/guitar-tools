@@ -2,7 +2,6 @@ const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
 const nxEslintPlugin = require('@nx/eslint-plugin');
 const unusedImports = require('eslint-plugin-unused-imports');
-// import unusedImports from 'eslint-plugin-unused-imports';
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
