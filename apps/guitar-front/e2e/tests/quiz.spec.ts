@@ -19,13 +19,13 @@ test('Quiz Selector', async ({ page }) => {
   const selectorHelper = new QuizSelectorHelper(page);
   await selectorHelper.clearForm();
   const item = await selectorHelper.selectItem('Sorting Modes');
-  expect(await page.locator('.cdk-overlay-pane')).toBeVisible();
+  await expect(page.locator('.cdk-overlay-pane')).toBeVisible();
   const checkbox = item.locator('mat-pseudo-checkbox');
   expect(await item.innerText()).toContain('Sorting Modes');
-  expect(await checkbox).toHaveAttribute('ng-reflect-state', 'unchecked');
+  await expect(await checkbox).toHaveAttribute('ng-reflect-state', 'unchecked');
 
   await item.click();
-  expect(await checkbox).toHaveAttribute('ng-reflect-state', 'checked');
+  await expect(await checkbox).toHaveAttribute('ng-reflect-state', 'checked');
 });
 test('Quiz Selector Checking Selected Items', async ({ page }) => {
   await NavigationHelper.navigateQuiz(page);
@@ -79,7 +79,7 @@ tests.forEach((t) => {
     const item = await selectorHelper.selectItem(t.value);
     await item.click();
     await selectorHelper.backdropClick();
-    let initialCorrectCount = parseInt(await QuizCountHelper.getCorrect(page));
+    const initialCorrectCount = parseInt(await QuizCountHelper.getCorrect(page));
 
     expect(initialCorrectCount).toBe(0);
 
@@ -91,9 +91,9 @@ tests.forEach((t) => {
     for (let index = 0; index < elementsCount; index++) {
       await items.nth(index).click();
       // await selectorHelper.backdropClick();
-      expect(await page.locator('.cdk-overlay-backdrop')).not.toBeVisible();
+      await expect(page.locator('.cdk-overlay-backdrop')).toBeHidden();
 
-      let currentCorrectCount = parseInt(
+      const currentCorrectCount = parseInt(
         await QuizCountHelper.getCorrect(page)
       );
 
@@ -119,7 +119,7 @@ test(`Quiz: Scale`, async ({ page }) => {
   await selectorHelper.backdropClick();
 
   // Initial count of correct answers should be 0
-  let initialCorrectCount = parseInt(await QuizCountHelper.getCorrect(page));
+  const initialCorrectCount = parseInt(await QuizCountHelper.getCorrect(page));
   expect(initialCorrectCount).toBe(0);
 
   // Select dropdowns (first is 'Key', second is 'Scale')
@@ -145,7 +145,7 @@ test(`Quiz: Scale`, async ({ page }) => {
       await selectorHelper.getSubmitbutton().click();
 
       // Check if the answer is correct
-      let currentCorrectCount = parseInt(
+      const currentCorrectCount = parseInt(
         await QuizCountHelper.getCorrect(page)
       );
 
@@ -186,7 +186,7 @@ test(`Quiz: Sorting Modes`, async ({ page }) => {
   ];
 
   // Select the drag-and-drop list items (Material CDK drag items)
-  const listItems = await page.locator('.list-group-item');
+  const listItems = page.locator('.list-group-item');
 
   const steps = 10; // Number of steps for the drag
 
@@ -287,7 +287,7 @@ test(`Quiz: Major Triads - Randomized`, async ({ page }) => {
   }
 
   // Select the drag-and-drop list items (Material CDK drag items)
-  const listItems = await page.locator('.list-group-item');
+  const listItems = page.locator('.list-group-item');
 
   // Height of each item (assuming it's 42px as per previous examples)
   const itemHeight = 42;
@@ -369,7 +369,7 @@ test(`Quiz: Major Triads - Try All Orders`, async ({ page }) => {
   const majorKey = majorKeyMatch[1];
 
   // Select the drag-and-drop list items (Material CDK drag items)
-  const listItems = await page.locator('.list-group-item');
+  const listItems = page.locator('.list-group-item');
   const initialOrder = await listItems.allTextContents(); // Get the initial randomized order
 
   // Possible permutations of the three triad notes
@@ -385,9 +385,9 @@ test(`Quiz: Major Triads - Try All Orders`, async ({ page }) => {
   let foundCorrectAnswer = false;
   let previousOrder = [...initialOrder]; // Track the order to avoid submitting the same arrangement
 
-  for (let perm of permutations) {
+  for (const perm of permutations) {
     // Rearrange the notes according to the current permutation
-    let reorderedNotes = perm.map((index) => previousOrder[index]);
+    const reorderedNotes = perm.map((index) => previousOrder[index]);
 
     // Only proceed with drag-and-drop if the new order is different from the previous order
     if (JSON.stringify(reorderedNotes) !== JSON.stringify(previousOrder)) {

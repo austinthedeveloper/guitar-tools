@@ -11,7 +11,7 @@ test(`Change Chart-Row Count`, async ({ page }) => {
 
   // Step 2: Navigate to /options and target the input with id="frets"
   await NavigationHelper.clickOptions(page);
-  const fretsInput = await page.locator('#frets');
+  const fretsInput = page.locator('#frets');
 
   // Clear the input and set it to '10'
   await fretsInput.click();
