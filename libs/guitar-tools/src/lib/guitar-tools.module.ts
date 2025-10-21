@@ -6,6 +6,7 @@ import { ChordComponent } from './components/chord/chord.component';
 import { FretboardComponent } from './components/fretboard/fretboard.component';
 import { MetronomeComponent } from './components/metronome/metronome.component';
 import { GUITAR_QUIZ_COMPONENTS } from './components/quiz';
+import { TraditionalTabComponent } from './components/traditional-tab/traditional-tab.component';
 import { ScaleReferenceComponent } from './components/scale-reference/scale-reference.component';
 import { GUITAR_TOOLS_PIPES } from './pipes';
 
@@ -16,6 +17,7 @@ import { GUITAR_TOOLS_PIPES } from './pipes';
     ChordComponent,
     FretboardComponent,
     MetronomeComponent,
+    TraditionalTabComponent,
     ScaleReferenceComponent,
     ...GUITAR_QUIZ_COMPONENTS,
     ...GUITAR_TOOLS_PIPES,
@@ -26,6 +28,7 @@ import { GUITAR_TOOLS_PIPES } from './pipes';
     ChordComponent,
     FretboardComponent,
     MetronomeComponent,
+    TraditionalTabComponent,
     ...GUITAR_QUIZ_COMPONENTS,
     ScaleReferenceComponent,
   ],

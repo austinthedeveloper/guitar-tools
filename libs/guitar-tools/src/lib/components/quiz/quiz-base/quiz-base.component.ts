@@ -17,7 +17,7 @@ import { DateTime } from 'luxon';
   standalone: true,
 })
 export class ChordQuizBaseComponent {
-  @Input() hideTotals: boolean = true;
+  @Input() hideTotals = true;
   callback: Function = (guess: any, answer: any) => guess === answer;
   @Output() formReady: EventEmitter<any> = new EventEmitter();
   @Output() correct: EventEmitter<any> = new EventEmitter();
@@ -96,8 +96,8 @@ export class ChordQuizBaseComponent {
 
   calculateDuration() {
     const { startTime, endTime } = this.form.value;
-    var eventStartTime = DateTime.fromISO(startTime);
-    var eventEndTime = DateTime.fromISO(endTime);
+    const eventStartTime = DateTime.fromISO(startTime);
+    const eventEndTime = DateTime.fromISO(endTime);
     return eventEndTime.diff(eventStartTime).milliseconds / 1000;
   }
 

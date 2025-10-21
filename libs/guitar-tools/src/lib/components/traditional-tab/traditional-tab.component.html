@@ -1,0 +1,98 @@
+<div class="traditional-tab">
+  @if (hasHeaderMeta) {
+    <div class="traditional-tab__meta">
+      @if (chords?.length) {
+        <div class="traditional-tab__meta-row">
+          <span class="traditional-tab__meta-label">Chords:</span>
+          <div class="traditional-tab__meta-values">
+            @for (chord of chords; track chord; let last = $last) {
+              <span class="traditional-tab__meta-token">{{ chord }}</span>
+              @if (!last) {
+                <span class="traditional-tab__meta-divider">|</span>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      @if (shapes?.length) {
+        <div class="traditional-tab__meta-row">
+          <span class="traditional-tab__meta-label">Shapes:</span>
+          <div class="traditional-tab__meta-values">
+            @for (shape of shapes; track shape; let last = $last) {
+              <span class="traditional-tab__meta-token">{{ shape }}</span>
+              @if (!last) {
+                <span class="traditional-tab__meta-divider">|</span>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="traditional-tab__grid">
+    @for (group of rowGroups; track group.startOrder) {
+      <div class="traditional-tab__line">
+        @for (row of group.rows; track row.stringIndex) {
+          <div class="traditional-tab__row">
+            <span class="traditional-tab__row-label">{{ row.label }}</span>
+
+            <div
+              class="traditional-tab__row-track"
+              [style.gridTemplateColumns]="group.gridTemplateColumns"
+            >
+              @for (cell of row.cells; track cell.order) {
+                <div
+                  class="traditional-tab__cell"
+                  [class.traditional-tab__cell--filled]="!!cell.value"
+                  [class.traditional-tab__cell--bar]="
+                    beatsPerBar > 0 &&
+                    cell.order !== 0 &&
+                    cell.order % beatsPerBar === 0
+                  "
+                  [class.traditional-tab__cell--editing]="
+                    isEditingCell(row.stringIndex, cell.order)
+                  "
+                >
+                  @if (editable) {
+                    @if (isEditingCell(row.stringIndex, cell.order)) {
+                      <input
+                        #cellInput
+                        type="text"
+                        class="traditional-tab__cell-input"
+                        [value]="activeValue"
+                        (input)="onCellValueChange($event.target.value)"
+                        (blur)="onCellInputBlur()"
+                        (keydown)="onCellInputKeydown($event)"
+                      />
+                    } @else {
+                      <button
+                        type="button"
+                        class="traditional-tab__cell-button"
+                        [class.traditional-tab__cell-button--empty]="!cell.value"
+                        (click)="startEdit(row.stringIndex, cell.order, cell.value)"
+                      >
+                        @if (cell.value) {
+                          <span class="traditional-tab__cell-value">
+                            {{ cell.value }}
+                          </span>
+                        } @else {
+                          <span class="traditional-tab__cell-placeholder">+</span>
+                        }
+                      </button>
+                    }
+                  } @else if (cell.value) {
+                    <span class="traditional-tab__cell-value">
+                      {{ cell.value }}
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

@@ -1,38 +1,63 @@
-<div class="chord-chart chord-vertical">
-  @if (built[0]; as fret) {
-  <div class="chord-fret fret-zero">
-    <span class="chort-fret-number">0</span>
-    @for (string of fret; track string) {
-    <div class="chord-string" (click)="toggleActive(0, 6 - +string)">
-      <div
-        class="chord-press"
-        [matTooltip]="tuningChart[+string].scale[0]"
-        [matTooltipDisabled]="!showNote"
-        [ngClass]="{ active: presses | includesString : 0 : 6 - +string }"
-      ></div>
-    </div>
+<div class="chord-diagram" [class.chord-diagram--disabled]="disabled">
+  <div class="chord-diagram__body">
+    @if (built[0]; as fret) {
+      <div class="chord-diagram__row chord-diagram__row--zero">
+        <span class="chord-diagram__fret-label">0</span>
+        <div
+          class="chord-diagram__row-grid"
+          [style.gridTemplateColumns]="stringTrackTemplate"
+        >
+          @for (string of fret; track string) {
+            @let stringIndex = 6 - +string;
+            <div
+              class="chord-diagram__cell"
+              (click)="toggleActive(0, stringIndex)"
+              [matTooltip]="tuningChart[+string].scale[0]"
+              [matTooltipDisabled]="!showNote"
+            >
+              <span
+                class="chord-diagram__marker chord-diagram__marker--open"
+                [class.chord-diagram__marker--active]="
+                  presses | includesString : 0 : stringIndex
+                "
+              ></span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @for (fret of built; track fret; let i = $index) {
+      <div class="chord-diagram__row">
+        <span class="chord-diagram__fret-label">{{ startFret + i }}</span>
+        <div
+          class="chord-diagram__row-grid"
+          [style.gridTemplateColumns]="stringTrackTemplate"
+        >
+          @for (string of fret; track string) {
+            @let stringIndex = 6 - +string;
+            @let type = presses | stringType : startFret + i : stringIndex;
+            <div
+              class="chord-diagram__cell"
+              (click)="toggleActive(startFret + i, stringIndex)"
+              [matTooltip]="tuningChart[+string].scale[startFret + i]"
+              [matTooltipDisabled]="!showNote"
+            >
+              <span
+                class="chord-diagram__marker"
+                [class.chord-diagram__marker--pressed]="type === 'pressed'"
+                [class.chord-diagram__marker--muted]="type === 'muted'"
+              ></span>
+            </div>
+          }
+        </div>
+      </div>
     }
   </div>
-  } @for (fret of built; track fret; let i = $index) {
-  <div class="chord-fret">
-    <span class="chort-fret-number">{{ startFret + i }}</span>
-    @for (string of fret; track string) {
-    <div
-      class="chord-string"
-      (click)="toggleActive(startFret + i, 6 - +string)"
-      [matTooltip]="tuningChart[+string].scale[startFret + i]"
-      [matTooltipDisabled]="!showNote"
-    >
-      <div
-        class="chord-press"
-        [ngClass]="presses | stringType : startFret + i : 6 - +string"
-      ></div>
+
+  @if (showActivePresses) {
+    <div class="chord-diagram__active">
+      {{ presses | activePresses : tuningChart : removeDuplicate | json }}
     </div>
-    }
-  </div>
-  } @if (showActivePresses) {
-  <div class="active-presses">
-    {{ presses | activePresses : tuningChart : removeDuplicate | json }}
-  </div>
   }
 </div>

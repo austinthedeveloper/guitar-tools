@@ -1,32 +1,41 @@
-<div class="chart-tab fretboard-container container">
-  <div class="row">
-    <div class="chart-row tuning-fret">
-      @for (tune of tuningBuilt; track tune) {
-      <div class="fret">{{ tune.key }}</div>
-      }
-    </div>
-  </div>
-  <div class="row chart-row-container">
-    @for (column of built; track column; let fret = $index) {
-    <div
-      class="col chart-row"
-      [ngStyle]="{ width: colWidth }"
-      [ngClass]="fret | fretDot : dots"
-    >
-      @for (string of column; track string) {
-      <div class="row fret">
-        <div class="col p-0 text-center">
-          <div
-            class="chord-press"
-            [ngClass]="tabs | stringType : fret : 6 - +string"
-            [matTooltip]="tuningChart[+string].scale[fret]"
-            [matTooltipDisabled]="!showNote"
-            (click)="toggleActive(fret, 6 - +string)"
-          ></div>
+<div class="fretboard" [class.fretboard--disabled]="disabled">
+  <div class="fretboard__strings">
+    @for (stringIndex of stringOrder; track stringIndex) {
+      <div class="fretboard__string-row">
+        <div class="fretboard__string-label">
+          {{ tuningBuilt[stringIndex]?.key ?? '' }}
+        </div>
+
+        <div class="fretboard__string-track" [style.--fret-count]="colCount">
+          @for (fret of fretPositions; track fret) {
+            @let noteClass = tabs | stringType : fret : stringIndex + 1;
+
+            <div
+              class="fretboard__fret"
+              [class.fretboard__fret--nut]="fret === 0"
+            >
+              <div class="fretboard__position">
+                <button
+                  type="button"
+                  class="fretboard__note"
+                  [ngClass]="noteClass"
+                  [class.fretboard__note--disabled]="disabled"
+                  [matTooltip]="getNoteLabel(stringIndex, fret)"
+                  [matTooltipDisabled]="!showNote"
+                  (click)="toggleActive(fret, stringIndex + 1)"
+                ></button>
+              </div>
+            </div>
+          }
         </div>
       </div>
-      }
-    </div>
+    }
+  </div>
+
+  <div class="fretboard__markers" [style.--fret-count]="colCount">
+    @for (fret of fretPositions; track fret) {
+      @let markerClass = fret | fretDot : dots;
+      <div class="fretboard__marker" [ngClass]="markerClass"></div>
     }
   </div>
 </div>

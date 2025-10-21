@@ -1,27 +1,64 @@
+$app-card-border-radius: 1.45rem;
+$app-card-border-color: rgba(148, 163, 184, 0.2);
+$app-card-surface: rgba(255, 255, 255, 0.94);
+$app-card-shadow: 0 30px 60px -40px rgba(15, 23, 42, 0.55),
+  inset 0 1px 0 rgba(255, 255, 255, 0.85);
+$app-card-header-gradient: linear-gradient(135deg, #2563eb, #38bdf8);
+$app-card-footer-background: rgba(148, 163, 184, 0.15);
+
+@mixin card-surface {
+  border-radius: $app-card-border-radius;
+  border: 1px solid $app-card-border-color;
+  background: $app-card-surface;
+  box-shadow: $app-card-shadow;
+  overflow: hidden;
+}
+
+@mixin card-header {
+  padding: 1rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #f8fafc;
+  background: $app-card-header-gradient;
+}
+
+@mixin card-body {
+  padding: clamp(1.25rem, 4vw, 2rem);
+}
+
+@mixin card-footer {
+  height: 0.5rem;
+  background: $app-card-footer-background;
+}
+
+.app-card,
 .guitar-card {
-  background-color: $white;
+  @include card-surface;
+}
 
-  padding-bottom: 20px;
-  .guitar-card-header {
-    padding: 10px 15px;
-    font-size: 25px;
+.app-card__header,
+.guitar-card-header {
+  @include card-header;
+}
 
-    background-color: $primary;
-    color: $white;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-  }
-  .guitar-card-footer {
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    border: 1px solid $border-color;
-    border-top: 0;
-    padding-bottom: 20px;
-  }
-  .guitar-card-body {
-    display: block;
-    border: 1px solid $border-color;
-    padding: 20px;
-    border-bottom: 0;
-  }
+.app-card__header > :where(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.app-card__header .page-section-title {
+  margin: 0;
+  color: inherit;
+}
+
+.app-card__body,
+.guitar-card-body {
+  @include card-body;
+}
+
+.app-card__footer,
+.guitar-card-footer {
+  @include card-footer;
 }

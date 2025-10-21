@@ -16,6 +16,7 @@ import {
   ChartTabComponent,
   ChordComponent,
   ScaleReferenceComponent,
+  TraditionalTabComponent,
 } from '@guitar/guitar-tools/components';
 
 @Component({
@@ -29,6 +30,7 @@ import {
     ChartTabComponent,
     ChordComponent,
     ScaleReferenceComponent,
+    TraditionalTabComponent,
   ],
 })
 export class HomeComponent {
@@ -42,6 +44,8 @@ export class HomeComponent {
   tuning$ = this.userOptions.tuning$;
   tuningChart$ = this.userOptions.tuningChart$;
   frets$ = this.userOptions.frets$;
+  traditionalTabChords = ['Em7', 'Cadd9', 'G', 'D/F#'];
+  traditionalTabShapes = ['[020003]', '[x32033]', '[320003]', '[200232]'];
 
   exampleScaleForm = this.fb.group({
     key: ['A', Validators.required],

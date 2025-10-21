@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from '@guitar/auth';
 import { NavbarComponent } from './containers/navbar/navbar.component';
@@ -10,7 +10,7 @@ import { NavbarComponent } from './containers/navbar/navbar.component';
   standalone: true,
   imports: [NavbarComponent, RouterOutlet],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {

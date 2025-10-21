@@ -1,0 +1,169 @@
+.chord-diagram {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  padding: 1rem;
+  border-radius: 0.875rem;
+  background: linear-gradient(180deg, #1f2431 0%, #161b26 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: #d4daea;
+  font-family: 'Fira Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
+    monospace;
+}
+
+.chord-diagram--disabled {
+  // opacity: 0.65;
+}
+
+.chord-diagram__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.chord-diagram__row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.chord-diagram__fret-label {
+  width: 2.5rem;
+  text-align: right;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(212, 218, 234, 0.7);
+}
+
+.chord-diagram__row-grid {
+  position: relative;
+  flex: 1 1 auto;
+  display: grid;
+  align-items: center;
+  gap: 0;
+  min-height: 2.5rem;
+}
+
+.chord-diagram__row-grid::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: 1px solid rgba(212, 218, 234, 0.22);
+  pointer-events: none;
+}
+
+.chord-diagram__row-grid::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-right: 1px solid rgba(212, 218, 234, 0.18);
+  pointer-events: none;
+}
+
+.chord-diagram__row--zero .chord-diagram__row-grid::before {
+  top: auto;
+  bottom: -0.2rem;
+  border-top: none;
+  border-bottom: 3px solid rgba(212, 218, 234, 0.45);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.chord-diagram__cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  border-left: 1px solid rgba(212, 218, 234, 0.18);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.chord-diagram__cell:first-child {
+  border-left: none;
+}
+
+.chord-diagram__cell:hover .chord-diagram__marker {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(113, 173, 255, 0.2);
+}
+
+.chord-diagram--disabled .chord-diagram__cell {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.chord-diagram--disabled .chord-diagram__cell:hover .chord-diagram__marker {
+  transform: none;
+  box-shadow: none;
+}
+
+.chord-diagram__marker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 218, 234, 0.32);
+  background: rgba(63, 76, 107, 0.35);
+  color: #f6f8ff;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.chord-diagram__marker--open {
+  background: transparent;
+  border-style: dashed;
+  border-color: rgba(212, 218, 234, 0.45);
+}
+
+.chord-diagram__marker--active,
+.chord-diagram__marker--pressed {
+  border-style: solid;
+  border-color: rgba(113, 173, 255, 0.85);
+  background: linear-gradient(135deg, #71adff 0%, #4f87f3 100%);
+  box-shadow: 0 8px 18px rgba(79, 135, 243, 0.28);
+}
+
+.chord-diagram__marker--muted {
+  background: transparent;
+  border-color: rgba(255, 129, 129, 0.75);
+}
+
+.chord-diagram__marker--muted::before,
+.chord-diagram__marker--muted::after {
+  content: '';
+  position: absolute;
+  width: 0.95rem;
+  height: 0.12rem;
+  border-radius: 999px;
+  background: rgba(255, 129, 129, 0.9);
+}
+
+.chord-diagram__marker--muted::before {
+  transform: rotate(45deg);
+}
+
+.chord-diagram__marker--muted::after {
+  transform: rotate(-45deg);
+}
+
+.chord-diagram__active {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(12, 18, 30, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(231, 236, 255, 0.85);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  word-break: break-all;
+}

@@ -3,11 +3,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  SimpleChanges,
+  SimpleChanges, OnChanges,
 } from '@angular/core';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { ChordInterface, PressInterface } from '@guitar/interfaces';
-import { isEqual, orderBy, random, uniq } from 'lodash-es';
+import { orderBy, random, uniq } from 'lodash-es';
 import { ChordQuizBaseComponent } from '../quiz-base/quiz-base.component';
 import { GuitarFormsModule } from '@guitar/forms';
 import { ChordComponent } from '../../chord/chord.component';
@@ -27,7 +27,7 @@ import { NumberProperPipe } from '../../../pipes/number-proper.pipe';
     NumberProperPipe,
   ],
 })
-export class SpecificNoteComponent extends ChordQuizBaseComponent {
+export class SpecificNoteComponent extends ChordQuizBaseComponent implements OnChanges {
   @Input() chords: ChordInterface[] = [];
   positionForm = this.fb.group({
     fret: this.fb.control('', Validators.required),

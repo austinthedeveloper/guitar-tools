@@ -20,7 +20,7 @@ import { StringTypePipe } from '../../pipes/string-type.pipe';
 @Component({
   selector: 'guitar-chord',
   templateUrl: './chord.component.html',
-  styleUrls: ['./chord.component.css'],
+  styleUrls: ['./chord.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -131,5 +131,11 @@ export class ChordComponent implements OnChanges {
 
   get startFret(): number {
     return +(this.form.value as string);
+  }
+
+  get stringTrackTemplate(): string {
+    const value = Number(this.strings);
+    const count = Number.isFinite(value) && value > 0 ? value : 1;
+    return `repeat(${count}, minmax(0, 1fr))`;
   }
 }

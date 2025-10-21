@@ -10,41 +10,66 @@
     </div>
   </header>
 
-  <div class="page-body">
-    <section class="home-page__panel">
-      <h2 class="page-section-title">Scales</h2>
-      <guitar-scale-reference
-        [tuning]="tuning$ | async"
-        [tuningChart]="tuningChart$ | async"
-        [frets]="frets$ | async"
-        [showNote]="true"
-      ></guitar-scale-reference>
+  <div class="page-body home-page__grid">
+    <section class="home-page__panel app-card">
+      <div class="app-card__header">
+        <h2 class="page-section-title">Scales</h2>
+      </div>
+      <div class="app-card__body home-page__panel-body">
+        <guitar-scale-reference
+          [tuning]="tuning$ | async"
+          [tuningChart]="tuningChart$ | async"
+          [frets]="frets$ | async"
+          [showNote]="true"
+        ></guitar-scale-reference>
+      </div>
     </section>
 
-    <section class="home-page__panel">
-      <h2 class="page-section-title">Tab Example</h2>
-      <guitar-chart-tab></guitar-chart-tab>
+    <section class="home-page__panel app-card">
+      <div class="app-card__header">
+        <h2 class="page-section-title">Tab Example</h2>
+      </div>
+      <div class="app-card__body home-page__panel-body">
+        <guitar-chart-tab></guitar-chart-tab>
+      </div>
     </section>
 
-    <section class="home-page__panel">
-      <h2 class="page-section-title">Chord Example</h2>
-      <label for="chordSelector" class="form-label">Select a Chord</label>
-      <select
-        class="form-select mb-2"
-        [formControl]="formId"
-        placeholder="Select a Chord"
-        id="chordSelector"
-      >
-        @for (chord of chords; track chord) {
-        <option [value]="chord.id">Chord {{ chord.fullName }}</option>
-        }
-      </select>
-      <guitar-chord
-        [tuning]="(tuning$ | async)!"
-        [showNote]="true"
-        [presses]="formPress.value"
-        (pressesChanged)="onPressChange($event)"
-      ></guitar-chord>
+    <section class="home-page__panel app-card">
+      <div class="app-card__header">
+        <h2 class="page-section-title">Tab (Traditional)</h2>
+      </div>
+      <div class="app-card__body home-page__panel-body">
+        <guitar-traditional-tab
+          [chords]="traditionalTabChords"
+          [shapes]="traditionalTabShapes"
+          [editable]="true"
+        ></guitar-traditional-tab>
+      </div>
+    </section>
+
+    <section class="home-page__panel app-card">
+      <div class="app-card__header">
+        <h2 class="page-section-title">Chord Example</h2>
+      </div>
+      <div class="app-card__body home-page__panel-body">
+        <label for="chordSelector" class="form-label">Select a Chord</label>
+        <select
+          class="form-select mb-2"
+          [formControl]="formId"
+          placeholder="Select a Chord"
+          id="chordSelector"
+        >
+          @for (chord of chords; track chord) {
+          <option [value]="chord.id">Chord {{ chord.fullName }}</option>
+          }
+        </select>
+        <guitar-chord
+          [tuning]="(tuning$ | async)!"
+          [showNote]="true"
+          [presses]="formPress.value"
+          (pressesChanged)="onPressChange($event)"
+        ></guitar-chord>
+      </div>
     </section>
   </div>
 </section>

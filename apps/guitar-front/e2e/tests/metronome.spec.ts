@@ -13,7 +13,7 @@ test.describe('Metronome Component', () => {
     const thumbSelector = '.bpm-text-value';
 
     // Move the slider to its maximum value (255)
-    const slider = await page.locator(sliderSelector);
+    const slider = page.locator(sliderSelector);
 
     // Interact with the slider by clicking at the maximum point
     const boundingBox = await slider.boundingBox();
@@ -23,16 +23,16 @@ test.describe('Metronome Component', () => {
     }
 
     // Verify the slider value is 255 (this assumes there's a way to read the value from the page)
-    const value = await page.locator(thumbSelector);
-    expect(value).toContainText('255');
+    const value = page.locator(thumbSelector);
+    await expect(value).toContainText('255');
   });
 
   test('should play sound when checkbox is checked', async ({ page }) => {
     const checkboxSelector = 'input[type="checkbox"]'; // Adjust if needed
     await page.check(checkboxSelector);
     // Assuming you have a way to verify that the sound is playing, like checking a specific element or state
-    const isChecked = await page.isChecked(checkboxSelector);
-    expect(isChecked).toBeTruthy();
+    const isChecked = page;
+    await expect(isChecked).toBeChecked(, );
 
     // Add more specific sound-playing checks as necessary
   });
@@ -41,16 +41,16 @@ test.describe('Metronome Component', () => {
     await page.getByRole('button', { name: 'Start' }).click();
     // Verify the metronome starts, perhaps by checking for some visual or audio indication
     // Example: A class or element change, or listening for a timer state change
-    const isPlaying = await page.locator('.metronome-playing').isVisible(); // Assuming there's a visual indicator
-    expect(isPlaying).toBeTruthy();
+    const isPlaying = page.locator('.metronome-playing'); // Assuming there's a visual indicator
+    await expect(isPlaying).toBeVisible();
   });
 
   test('should stop the metronome when Stop is clicked', async ({ page }) => {
     await page.getByRole('button', { name: 'Stop' }).click();
 
     // Verify the metronome stops
-    const isStopped = await page.locator('.metronome-stopped').isVisible(); // Adjust according to your stop logic
-    expect(isStopped).toBeTruthy();
+    const isStopped = page.locator('.metronome-stopped'); // Adjust according to your stop logic
+    await expect(isStopped).toBeVisible();
   });
 });
 
@@ -66,8 +66,8 @@ test.describe('Metronome Component - Note Values', () => {
     await page.selectOption('select.form-select', 'quarters'); // Select quarters
 
     // Verify the selection
-    const selectedValue = await page.locator('select.form-select').inputValue();
-    expect(selectedValue).toBe('quarters');
+    const selectedValue = page.locator('select.form-select');
+    await expect(selectedValue).toHaveValue('quarters');
   });
 
   test('should select eighths from the note value dropdown', async ({
@@ -76,8 +76,8 @@ test.describe('Metronome Component - Note Values', () => {
     await page.selectOption('select.form-select', 'eighths'); // Select eighths
 
     // Verify the selection
-    const selectedValue = await page.locator('select.form-select').inputValue();
-    expect(selectedValue).toBe('eighths');
+    const selectedValue = page.locator('select.form-select');
+    await expect(selectedValue).toHaveValue('eighths');
   });
 
   test('should select sixteenths from the note value dropdown', async ({
@@ -86,8 +86,8 @@ test.describe('Metronome Component - Note Values', () => {
     await page.selectOption('select.form-select', 'sixteenths'); // Select sixteenths
 
     // Verify the selection
-    const selectedValue = await page.locator('select.form-select').inputValue();
-    expect(selectedValue).toBe('sixteenths');
+    const selectedValue = page.locator('select.form-select');
+    await expect(selectedValue).toHaveValue('sixteenths');
   });
 
   test('should trigger sound when checkbox is checked and Start is clicked', async ({

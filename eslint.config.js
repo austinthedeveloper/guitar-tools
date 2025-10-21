@@ -1,6 +1,8 @@
 const { FlatCompat } = require('@eslint/eslintrc');
 const js = require('@eslint/js');
 const nxEslintPlugin = require('@nx/eslint-plugin');
+const unusedImports = require('eslint-plugin-unused-imports');
+// import unusedImports from 'eslint-plugin-unused-imports';
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -8,7 +10,7 @@ const compat = new FlatCompat({
 });
 
 module.exports = [
-  { plugins: { '@nx': nxEslintPlugin } },
+  { plugins: { '@nx': nxEslintPlugin, 'unused-imports': unusedImports } },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     rules: {
@@ -25,7 +27,18 @@ module.exports = [
           ],
         },
       ],
-      'no-inferrable-types': false,
+      'no-inferrable-types': 0,
+      'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+        },
+      ],
     },
   },
   ...compat.config({ extends: ['plugin:@nx/typescript'] }).map((config) => ({
@@ -33,8 +46,6 @@ module.exports = [
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
       ...config.rules,
-      '@typescript-eslint/no-extra-semi': 'error',
-      'no-extra-semi': 'off',
     },
   })),
   ...compat.config({ extends: ['plugin:@nx/javascript'] }).map((config) => ({
@@ -42,8 +53,6 @@ module.exports = [
     files: ['**/*.js', '**/*.jsx'],
     rules: {
       ...config.rules,
-      '@typescript-eslint/no-extra-semi': 'error',
-      'no-extra-semi': 'off',
     },
   })),
 ];
