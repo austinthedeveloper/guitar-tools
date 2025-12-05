@@ -4,3 +4,4 @@ export * from './relative-major.class';
 export * from './relative-minor.class';
 export * from './scale.class';
 export * from './tuning.class';
+export * from './note-order.util';
