@@ -1,5 +1,5 @@
-import { sortBy } from 'lodash-es';
 import { Key, Note } from '@tonaljs/tonal';
+import { sortPitchClasses } from './note-order.util';
 
 /**
  * Complete set of minor tonics supported in the UI.
@@ -7,7 +7,7 @@ import { Key, Note } from '@tonaljs/tonal';
 const MINOR_KEYS = ['Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G'];
 
 export const relativeMajor = buildRelativeMajorMap();
-export const relativeMajorValues = sortBy(Object.values(relativeMajor), (value) => value);
+export const relativeMajorValues = sortPitchClasses(Object.values(relativeMajor));
 export const relativeMajorArray = Object.entries(relativeMajor);
 
 /**

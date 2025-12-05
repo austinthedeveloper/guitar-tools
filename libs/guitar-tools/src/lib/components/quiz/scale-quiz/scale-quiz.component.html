@@ -1,6 +1,6 @@
 <form class="container mb-1" [formGroup]="answerForm">
   <div class="row">
-    <div class="col">
+    <div class="col-12 col-md-4">
       <label for="frets" class="form-label">Key</label>
       <select class="form-select" formControlName="key">
         @for (item of scaleOptions; track item) {
@@ -10,7 +10,7 @@
         }
       </select>
     </div>
-    <div class="col">
+    <div class="col-12 col-md-4">
       <label for="frets" class="form-label">Scale</label>
       <select class="form-select" formControlName="scale">
         @for (item of scaleTypeOptions; track item) {
@@ -20,7 +20,7 @@
         }
       </select>
     </div>
-    <div class="col">
+    <div class="col-12 col-md-4">
       <button
         class="btn btn-primary"
         [disabled]="answerForm.invalid"

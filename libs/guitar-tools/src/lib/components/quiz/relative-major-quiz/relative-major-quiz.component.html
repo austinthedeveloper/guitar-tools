@@ -1,9 +1,9 @@
 <form [formGroup]="form">
   <div class="row">
-    <div class="col">
+    <div class="col-12 col-md-6">
       <p>What is the relative major of {{ majorForm.value }}?</p>
     </div>
-    <div class="col">
+    <div class="col-12 col-md-6">
       <label for="frets" class="form-label">Mode</label>
       <guitar-list-group-select
         [items]="majorValues"

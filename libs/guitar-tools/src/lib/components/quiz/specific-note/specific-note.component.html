@@ -1,7 +1,7 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div class="row">
     @if (positionForm.value; as formValue) {
-    <div class="col">
+    <div class="col-12 col-md-6">
       What Triads are played on the {{ formValue.fret | numberProper }} Fret,
       {{ formValue.string | numberProper }} string ({{ answer.value.length }}
       Items)? @if (positionForm) {
@@ -14,7 +14,7 @@
     </div>
     }
 
-    <div class="col">
+    <div class="col-12 col-md-6">
       <guitar-list-group-select
         [items]="options"
         [values]="answer.value"
