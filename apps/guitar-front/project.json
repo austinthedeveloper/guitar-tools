@@ -23,6 +23,7 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/guitar-front/src/favicon.ico",
+          "apps/guitar-front/src/staticwebapp.config.json",
           "apps/guitar-front/src/assets"
         ],
         "styles": [
