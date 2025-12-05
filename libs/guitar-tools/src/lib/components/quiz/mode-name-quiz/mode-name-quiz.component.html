@@ -1,14 +1,14 @@
 <form [formGroup]="form">
   <div class="row">
     @if (modeForm.value; as modeFormValues) {
-    <div class="col">
+    <div class="col-12 col-md-6">
       <p>
         What is the {{ modeFormValues.mode }} in the
         {{ modeFormValues.scale }} scale?
       </p>
     </div>
     }
-    <div class="col">
+    <div class="col-12 col-md-6">
       <label for="frets" class="form-label">Mode</label>
 
       <guitar-list-group-select
