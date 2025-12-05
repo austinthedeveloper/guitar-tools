@@ -1,17 +1,15 @@
 name: Azure Static Web Apps CI/CD
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
-    types: [opened, synchronize, reopened, closed]
+    types: [closed]
     branches:
       - master
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    # Only deploy when the PR was merged into master
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
@@ -40,7 +38,6 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "dist/apps/guitar-front/browser" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
